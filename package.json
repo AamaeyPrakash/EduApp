@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "appwrite": "^15.0.0",
     "axios": "^1.7.5",
     "node-summarizer": "^1.0.7",
     "openai": "^4.56.0",
