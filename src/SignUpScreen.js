@@ -11,7 +11,7 @@ const SignUpScreen = () => {
 
     const handleSignUp = async() => {
         try {
-            const user = await account.create("unique()", name, email, password, grade)
+            const user = await account.create("unique()", email, password)
             const userInfo = {
                 userId: user.$id,
                 name: name,
@@ -21,6 +21,8 @@ const SignUpScreen = () => {
             await databases.createDocument(
                 database1Id,
                 UserAccountsId, 
+                user.$id,
+                userInfo
             );
         } catch (error) {
             console.error('Error', error);
