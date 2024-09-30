@@ -5,13 +5,12 @@ import OpenAI from "openai";
 // const API_URL = 
 
 
-const generateGPTQuestion = async(topic) =>{
+const checkAnswer = async(question,answer,topic) =>{
   
-    const prompt =` Generate an easy question ${topic} for math problems`
     const messages= [
     {
       role:"user",
-      content:`Generate an easy question ${topic} for math problems`
+      content:`You are an expert in math and give answers with easy explanation Question:${question} Answer:${answer}.Is this correct?If not generate the right answer`
     },
     ];
     try{
@@ -41,4 +40,4 @@ const generateGPTQuestion = async(topic) =>{
     }
 
 };
-export default generateGPTQuestion
+export default checkAnswer
