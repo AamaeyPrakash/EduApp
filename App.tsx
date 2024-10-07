@@ -1,14 +1,13 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
-import SignUpScreen from './src/SignUpScreen'
-import PromptScreen from './src/PromptScreen'
+import SignUpScreen from './src/screens/SignUpScreen'
+import PromptScreen from './src/screens/PromptScreen'
 import Question from './src/Question'
+import AppNavigator from './src/navigation/AppNavigator'
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      <PromptScreen />
-    </View>
+    <SignUpScreen/>
   )
 }
 

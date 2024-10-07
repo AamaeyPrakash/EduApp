@@ -1,7 +1,7 @@
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
-import generateGPTQuestion from './gptService'
-import checkAnswer from './checkAnswer';
+import generateGPTQuestion from '../gptService'
+import checkAnswer from '../checkAnswer';
 
 const PromptScreen = () => {
     const [prompt, setPrompt] = useState('');
