@@ -12,7 +12,7 @@ const educationBoardData = [
     { label: 'A Levels or AS', value: '6' },
 ];
 
-const SignUpScreen = () => {
+const SignUpScreen = ({navigation}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
@@ -80,6 +80,22 @@ const SignUpScreen = () => {
                 style={styles.input}
                 placeholderTextColor="#666"
             />
+            <Dropdown
+                style={styles.dropdown}
+                placeholderStyle={styles.placeholderStyle}
+                inputSearchStyle={styles.inputSearchStyle}
+                itemTextStyle={styles.itemTextStyle}
+                containerStyle={styles.dropdownContainer}
+                selectedTextStyle={styles.dropdownText}
+                data={educationBoardData}
+                search
+                labelField="label"
+                valueField="value"
+                placeholder='Education Board'
+                searchPlaceholder="Search..."
+                value={educationBoard}
+                onChange={item => setEducationBoard(item.value)}
+            />
             <TextInput
                 placeholder='Grade'
                 value={grade}
@@ -95,24 +111,13 @@ const SignUpScreen = () => {
                 style={styles.input}
                 placeholderTextColor="#666"
             />
-            <Dropdown
-                style={styles.dropdown}
-                placeholderStyle={styles.placeholderStyle}
-                inputSearchStyle={styles.inputSearchStyle}
-                itemTextStyle={styles.itemTextStyle}
-                containerStyle={styles.dropdownContainer}
-                data={educationBoardData}
-                search
-                labelField="label"
-                valueField="value"
-                placeholder='Education Board'
-                searchPlaceholder="Search..."
-                value={educationBoard}
-                onChange={item => setEducationBoard(item.value)}
-            />
             {error ? <Text style={styles.error}>{error}</Text> : null}
             <TouchableOpacity style={styles.button} onPress={handleSignUp}>
                 <Text style={styles.buttonText}>Create Account</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+                <Text style={styles.linkText}>Already have an account? Sign Up</Text>
             </TouchableOpacity>
         </View>
     );
@@ -136,31 +141,42 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 1.41,
         elevation: 2,
+        color:'#666'
     },
     dropdown: {
         backgroundColor: '#FFF',
         padding: 14,
         borderRadius: 8,
         marginVertical: 8,
-        borderColor: '#ccc',
-        borderWidth: 1,
-        color:'black'
+        fontSize: 16,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.2,
+        shadowRadius: 1.41,
+        elevation: 2,
+        color:'black',
+        zIndex:999
     },
     placeholderStyle: {
         fontSize: 16,
-        color: 'black',
+        color: '#666',
     },
     inputSearchStyle: {
         fontSize: 16,
+        color:'#666'
     },
     itemTextStyle: {
         fontSize: 16,
-        color: 'black', 
+        color: '#666', 
     },
     dropdownContainer: {
         backgroundColor: '#FFF',
         borderRadius: 8,
         elevation: 2,
+        color:'#666'
+    },
+    dropdownText: {
+        color:'#666',
     },
     error: {
         color: 'red',
@@ -178,6 +194,13 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontSize: 16,
         fontWeight: 'bold',
+    },
+    linkText: {
+        color: '#4CAF50',
+        fontSize: 14,
+        textAlign: 'center',
+        marginTop: 20,
+        textDecorationLine: 'underline',
     },
 });
 

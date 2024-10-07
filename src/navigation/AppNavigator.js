@@ -3,17 +3,19 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import SignUpScreen from '../screens/SignUpScreen';
 import SignInScreen from '../screens/SignInScreen'; 
+import PromptScreen from '../screens/PromptScreen';
 
-const stack = createStackNavigator();
+const Stack = createStackNavigator();
 
 const AppNavigator = () => {
 
     return(
         <NavigationContainer>
-            <stack.Navigator initialRouteName='SignUp'>
-                <stack.Screen name="SignIn" component={ SignInScreen } />
-                <stack.Screen name="SignUp" component={ SignUpScreen } />
-            </stack.Navigator>
+            <Stack.Navigator initialRouteName='SignUp'>
+                <Stack.Screen name="SignUp" component={ SignUpScreen } />
+                <Stack.Screen name="SignIn" component={ SignInScreen } />
+                <Stack.Screen name="Prompt" component={ PromptScreen } />
+            </Stack.Navigator>
         </NavigationContainer>
     );
 };

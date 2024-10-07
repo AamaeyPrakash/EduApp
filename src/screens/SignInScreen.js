@@ -1,6 +1,6 @@
-import { View, Text, TextInput, Button } from 'react-native'
-import React, { useState } from 'react'
-import {account, databases, database1Id, UserAccountsId} from '../../constants'
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Alert } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import {account} from '../../constants'
 
 const SignInScreen = ({ navigation }) => {
     const [email, setEmail] = useState('');
@@ -11,7 +11,7 @@ const SignInScreen = ({ navigation }) => {
             try {
                 const session = await account.getSession('current');
                 if (session) {
-                    navigation.navigate('Home'); 
+                    navigation.navigate('Prompt'); 
                 }
             } catch (error) {
                 Alert.alert('Error', error.message);
@@ -23,7 +23,7 @@ const SignInScreen = ({ navigation }) => {
     const handleSignIn = async () => {
         try {
             await account.createEmailPasswordSession(email, password);
-            navigation.navigate(/*Destination*/);
+            navigation.navigate();
         } catch (error) {
             Alert.alert('Error', error.message);
         }
@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         shadowRadius: 1.41,
         elevation: 2,
+        color:'black'
     },
     button: {
         backgroundColor: '#4CAF50',
