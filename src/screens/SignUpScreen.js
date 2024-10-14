@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
     button: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#3B82F6',
         padding: 15,
         borderRadius: 8,
         alignItems: 'center',
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     linkText: {
-        color: '#4CAF50',
+        color: '#3B82F6',
         fontSize: 14,
         textAlign: 'center',
         marginTop: 20,

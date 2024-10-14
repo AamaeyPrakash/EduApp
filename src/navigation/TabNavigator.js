@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import SignUpScreen from '../screens/SignUpScreen';
 import SignInScreen from '../screens/SignInScreen';
 import PromptScreen from '../screens/PromptScreen';
+import TopicScreen from '../TopicCard';
 
 
 const Tab = createBottomTabNavigator();
@@ -14,6 +15,7 @@ const TabNavigator = () => {
         <Tab.Screen name="SignUp" component={SignUpScreen} />
         <Tab.Screen name="SignIn" component={SignInScreen} />
         <Tab.Screen name="Prompt" component={PromptScreen} />
+        <Tab.Screen name="Topic" component={TopicScreen} />
       </Tab.Navigator>
     </NavigationContainer>
       
