@@ -12,10 +12,11 @@ const TabNavigator = () => {
   return(
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="SignUp" component={SignUpScreen} />
-        <Tab.Screen name="SignIn" component={SignInScreen} />
+        {/* <Tab.Screen name="SignUp" component={SignUpScreen} />
+        <Tab.Screen name="SignIn" component={SignInScreen} /> */}
         <Tab.Screen name="Prompt" component={PromptScreen} />
         <Tab.Screen name="Topic" component={TopicScreen} />
+        <Tab.Screen name="Profile" component={ProfileScreen} />
       </Tab.Navigator>
     </NavigationContainer>
       

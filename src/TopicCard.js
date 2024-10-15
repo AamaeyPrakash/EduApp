@@ -13,7 +13,7 @@ const TopicScreen = () => {
               <TouchableOpacity style={styles.buttonSecondary}>
                 <Text style={styles.buttonSecondaryText}>Revisions</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.buttonPrimary}>
+              <TouchableOpacity style={styles.buttonPrimary} onPress={() => navigation.navigate('QuizScreen')}>
                 <Text style={styles.buttonPrimaryText}>Quiz</Text>
               </TouchableOpacity>
             </View>
