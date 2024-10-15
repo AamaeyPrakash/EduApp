@@ -1,19 +1,19 @@
 import { View, Text, TouchableOpacity, ScrollView, SafeAreaView, StyleSheet, Button } from 'react-native';
 import IBMathTopicData from './mathTopics/IBMathTopicData.json';
 
-const TopicScreen = () => {
+const TopicScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.content}>
         {IBMathTopicData.map((subject, index) => (
           <View key={index} style={styles.card}>  
-            <Text style={styles.cardTitle}>{subject.topic} - {subject.name}</Text>
-            <Text style={styles.cardTopic}>{subject.subtopics[0]}</Text>
+            <Text style={styles.cardTitle}>{subject.topicNumber} - {subject.topic}</Text>
+            <Text style={styles.cardTopic}>{subject.level}</Text>
             <View style={styles.buttonContainer}>
               <TouchableOpacity style={styles.buttonSecondary}>
                 <Text style={styles.buttonSecondaryText}>Revisions</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.buttonPrimary} onPress={() => navigation.navigate('QuizScreen')}>
+              <TouchableOpacity style={styles.buttonPrimary} onPress={() => navigation.navigate('QuizScreen', { topicData: subject })}>
                 <Text style={styles.buttonPrimaryText}>Quiz</Text>
               </TouchableOpacity>
             </View>

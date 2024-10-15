@@ -1,58 +1,36 @@
 [
-    {
-      "topic": "Topic 1",
-      "name": "Number and Algebra",
-      "subtopics": [
-        "Arithmetic sequences and series",
-        "Geometric sequences and series",
-        "Laws of exponents",
-        "Logarithmic laws",
-        "Simple proof by contradiction"
-      ]
-    },
-    {
-      "topic": "Topic 2",
-      "name": "Functions",
-      "subtopics": [
-        "Concept of function",
-        "Domain and range",
-        "Inverse and composite functions",
-        "Transformations of graphs",
-        "Quadratic functions and equations"
-      ]
-    },
-    {
-      "topic": "Topic 3",
-      "name": "Geometry and Trigonometry",
-      "subtopics": [
-        "Pythagorean theorem",
-        "Sine and cosine rules",
-        "Trigonometric identities",
-        "Radian measure",
-        "3D geometry"
-      ]
-    },
-    {
-      "topic": "Topic 4",
-      "name": "Statistics and Probability",
-      "subtopics": [
-        "Descriptive statistics",
-        "Probability rules",
-        "Normal distribution",
-        "Binomial distribution",
-        "Statistical tests"
-      ]
-    },
-    {
-      "topic": "Topic 5",
-      "name": "Calculus",
-      "subtopics": [
-        "Limits and continuity",
-        "Differentiation",
-        "Applications of derivatives",
-        "Integration",
-        "Definite and indefinite integrals"
-      ]
-    }
-  ]
-  
+  {
+    "topicNumber": "Topic 1",
+    "topic": "Topic Name",
+    "level": "SL + HL",
+    "questions": [
+      {
+        "subtopic": "Subtopic",
+        "question": "Question1",
+        "answer": "Answer1"
+      },
+      {
+        "subtopic": "Subtopic",
+        "question": "Question2",
+        "answer": "Answer2"
+      }
+    ]
+  },
+  {
+    "topicNumber": "Topic 2",
+    "topic": "Topic Name",
+    "level": "SL + HL",
+    "questions": [
+      {
+        "subtopic": "Subtopic",
+        "question": "Question1",
+        "answer": "Answer1"
+      },
+      {
+        "subtopic": "Subtopic",
+        "question": "Question2",
+        "answer": "Answer2"
+      }
+    ]
+  }
+]
