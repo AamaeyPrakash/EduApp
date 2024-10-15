@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, ScrollView, SafeAreaView, StyleSheet, Button } from 'react-native';
 import IBMathTopicData from './mathTopics/IBMathTopicData.json';
 
-const TopicScreen = ({navigation}) => {
+const TopicCardAA = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.content}>
@@ -27,7 +27,7 @@ const TopicScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
+    backgroundColor: '#F0F4F8',
   },
   content: {
     flex: 1,
@@ -93,4 +93,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TopicScreen;
+export default TopicCardAA;

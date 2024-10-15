@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         paddingHorizontal: 24,
-        backgroundColor: '#F5F5F5',
+        backgroundColor: '#F0F4F8',
     },
     input: {
         backgroundColor: '#FFF',

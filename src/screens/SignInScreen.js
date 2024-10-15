@@ -11,7 +11,7 @@ const SignInScreen = ({ navigation }) => {
             try {
                 const session = await account.getSession('current');
                 if (session) {
-                    navigation.navigate('Prompt'); 
+                    navigation.navigate('ProfileScreen'); 
                 }
             } catch (error) {
                 Alert.alert('Error', error.message);
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         paddingHorizontal: 24,
-        backgroundColor: '#F5F5F5',
+        backgroundColor: '#F0F4F8',
     },
     input: {
         backgroundColor: '#FFF',
