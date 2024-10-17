@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native';
+import CalcQues from '../assets/CalculatorIcon.png';
+import NonCalcQues from '../assets/NonCalculatorIcon.png';
 
 const MathQuizScreen = ({ route }) => {
   const { topicData } = route.params;
   const [showAnswers, setShowAnswers] = useState(topicData.questions.map(() => false));
+  const [showWorking, setShowWorking ] = useState(topicData.questions.map(()=>false));
 
   const handleShowAnswer = (index) => {
     setShowAnswers((prev) => {
@@ -12,6 +15,13 @@ const MathQuizScreen = ({ route }) => {
       return newShowAnswers;
     });
   };
+  const handleShowWorking = (index) =>{
+    setShowWorking((prev) => {
+      const newShowWorking = [...prev];
+      newShowWorking[index] = true;
+      return newShowWorking;
+    });
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -19,7 +29,13 @@ const MathQuizScreen = ({ route }) => {
         <Text style={styles.topicText}>{topicData.topic}</Text>
         {topicData.questions.map((question, index) => (
           <View key={index} style={styles.card}>
-            <Text style={styles.subtopicText}>Concept: {question.subtopic}</Text>
+            <View style={styles.QuesDetailContainer}>
+              <Image
+                source={question.calculator === "yes" ? CalcQues : NonCalcQues}
+                style={styles.CalcIcon}
+              />
+              <Text style={styles.subtopicText}>Concept: {question.subtopic}</Text>
+            </View>
             <Text style={styles.questionText}>{question.question}</Text>
             {showAnswers[index] ? (
               <Text style={styles.answerText}>{question.answer}</Text>
@@ -31,6 +47,16 @@ const MathQuizScreen = ({ route }) => {
                 <Text style={[styles.buttonText, styles.primaryButtonText]}>
                   Show Answer
                 </Text>
+              </TouchableOpacity>
+            )}
+            {showWorking [index]? (
+              <View style={styles.workingContainer}>
+                <Text style={styles.workingText}>Working:</Text>
+                <Text style={styles.answerText}>{question.working}</Text>
+              </View>
+            ):(
+              <TouchableOpacity style={[styles.primaryButton, styles.button]} onPress={() => handleShowWorking(index)}>
+                <Text style={[styles.buttonText, styles.primaryButtonText]}>Show Working</Text>
               </TouchableOpacity>
             )}
           </View>
@@ -68,12 +94,6 @@ const styles = StyleSheet.create({
     elevation: 5,
     alignItems: 'center',
   },
-  subtopicText: {
-    fontSize: 14,
-    fontWeight: '400',
-    color: '#86868B',
-    marginBottom: 16,
-  },
   questionText: {
     fontSize: 18,
     fontWeight: '600',
@@ -93,11 +113,43 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop:5,  
   },
   buttonText: {
     fontSize: 16,
     fontWeight: '600',
     color: '#FFFFFF',
+  },
+  workingText:{
+    fontSize: 18,
+    fontWeight: '500',
+    textAlign: 'center',
+    color: '#1F2937',
+  },
+  workingContainer:{
+    backgroundColor: '#F3F4F6',
+    borderRadius: 10,
+    padding: 15,
+    marginTop: 10,
+    width: '100%',
+    alignItems: 'flex-start',
+  },
+  subtopicText: {
+    fontSize: 14,
+    fontWeight: '400',
+    color: '#86868B',
+    marginBottom: 16,
+    marginTop:5
+  },
+  QuesDetailContainer: {
+    flexDirection: 'row', 
+    alignItems: 'top', 
+    marginBottom: 16, 
+  },
+  CalcIcon: {
+    width: 30,
+    height: 30,
+    marginRight: 15,
   },
 });
 

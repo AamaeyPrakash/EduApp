@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Alert, Button } from 'react-native'
 import React, {useEffect} from 'react'
 import {account} from '../../constants'
 
@@ -17,11 +17,22 @@ const ProfileScreen = ({navigation}) => {
         }
     };
     checkActiveSession();
-}, []);
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await account.deleteSession('current');
+      Alert.alert("Logged out successfully");
+      navigation.navigate('SignIn'); 
+    } catch (error) {
+      console.error("Logout failed", error);
+      Alert.alert("Error logging out, please try again.");
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Text>Hi</Text>
+          <Button title="Logout" onPress={handleLogout} />
     </View>
   )
 }

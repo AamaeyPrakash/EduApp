@@ -7,12 +7,16 @@
         {
           "subtopic": "Subtopic",
           "question": "1",
-          "answer": "2"
+          "answer": "2",
+          "working": "Working",
+          "calculator":"yes"
         },
         {
           "subtopic": "Subtopic",
           "question": "2",
-          "answer": "1"
+          "answer": "1",
+          "working": "Working",
+          "calculator":"no"
         }
       ]
     },
@@ -24,12 +28,16 @@
         {
           "subtopic": "Subtopic",
           "question": "1",
-          "answer": "2"
+          "answer": "2",
+          "working": "Working",
+          "calculator":"yes"
         },
         {
           "subtopic": "Subtopic",
           "question": "2",
-          "answer": "1"
+          "answer": "1",
+          "working": "Working",
+          "calculator":"no"
         }
       ]
     }

@@ -1,11 +1,11 @@
 import { View, Text, TouchableOpacity, ScrollView, SafeAreaView, StyleSheet, Button } from 'react-native';
-import IBMathTopicData from './mathTopics/IBMathTopicData.json';
+import IBMathAATopicData from './mathTopics/IBMathAATopicData.json';
 
 const TopicCardAA = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.content}>
-        {IBMathTopicData.map((subject, index) => (
+        {IBMathAATopicData.map((subject, index) => (
           <View key={index} style={styles.card}>  
             <Text style={styles.cardTitle}>{subject.topicNumber} - {subject.topic}</Text>
             <Text style={styles.cardTopic}>{subject.level}</Text>
