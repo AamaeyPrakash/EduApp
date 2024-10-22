@@ -23,7 +23,7 @@ const SignInScreen = ({ navigation }) => {
     const handleSignIn = async () => {
         try {
             await account.createEmailPasswordSession(email, password);
-            navigation.navigate();
+            navigation.navigate("HomeScreen");
         } catch (error) {
             Alert.alert('Error', error.message);
         }

@@ -9,6 +9,7 @@ const ProfileScreen = ({navigation}) => {
     const checkActiveSession = async () => {
         try {
             const session = await account.getSession('current');
+            console.log(session)
             if (!session) {
               navigation.navigate('SignUp');
             }
@@ -23,6 +24,7 @@ const ProfileScreen = ({navigation}) => {
     try {
       await account.deleteSession('current');
       Alert.alert("Logged out successfully");
+      // checkActiveSession();
       navigation.navigate('SignIn'); 
     } catch (error) {
       console.error("Logout failed", error);

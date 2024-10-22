@@ -20,6 +20,7 @@ const TabNavigator = () => {
         <Tab.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
         <Tab.Screen name="PromptScreen" component={PromptScreen} options={{ headerShown: false }}/>
         <Tab.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false }}/>
+        <Tab.Screen name="Sign In" component={SignInScreen}/>
     </Tab.Navigator>
   );
 };
