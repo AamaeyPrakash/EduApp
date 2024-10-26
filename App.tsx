@@ -8,5 +8,4 @@ const App = () => {
     <AppNavigator/>
   )
 }
-
 export default App
