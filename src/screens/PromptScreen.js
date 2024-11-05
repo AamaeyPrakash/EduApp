@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     },
     sendButton: {
         marginLeft: 10,
-        backgroundColor: '#007BFF',
+        backgroundColor: '#3B82F6',
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 20,
