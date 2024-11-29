@@ -3,16 +3,20 @@ import {Image} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+
 import SignUpScreen from '../screens/SignUpScreen';
 import SignInScreen from '../screens/SignInScreen';
 import PromptScreen from '../screens/PromptScreen';
-import TopicCardAA from '../TopicCardAA';
 import MathQuizScreen from '../screens/MathQuizScreen';
-import TopicCardAI from '../TopicCardAI';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import TopicCardAA from '../TopicCardAA';
+import TopicCardAI from '../TopicCardAI';
+
 import homeIcon from '../assets/homeIcon.png'
 import askIcon from '../assets/askIcon.png'
+import profileIcon from '../assets/profileIcon.png'
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -48,7 +52,7 @@ const TabNavigator = () => {
           ...extraTabOptions,
         }}
       />
-            <Tab.Screen
+      <Tab.Screen
         name="AskGPT"
         component={PromptScreen}
         options={{
@@ -69,7 +73,27 @@ const TabNavigator = () => {
           ...extraTabOptions,
         }}
       />
-      <Tab.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false }}/>
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon(props) {
+            return (
+              <Image
+                source={profileIcon}
+                style={{
+                  tintColor: props.color,
+                  width: props.size,
+                  height: props.size,
+                }}
+                {...props}
+              />
+            );
+          },
+          ...extraTabOptions,
+        }}
+      />
       <Tab.Screen name="Sign In" component={SignInScreen}/>
     </Tab.Navigator>
   );
