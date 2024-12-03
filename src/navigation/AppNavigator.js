@@ -111,17 +111,17 @@ const AppNavigator = () => {
         <Stack.Screen 
           name="Math AA" 
           component={TopicCardAA}
-          options={{ headerShown: false }}
+          // options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Math AI"
           component={TopicCardAI}
-          options={{ headerShown: false }}
+          // options={{ headerShown: false }}
         />
         <Stack.Screen 
           name="QuizScreen" 
           component={MathQuizScreen} 
-          options={{ headerShown: false }}
+          // options={{ headerShown: false }}
         />
         <Stack.Screen
           name="SignUp"

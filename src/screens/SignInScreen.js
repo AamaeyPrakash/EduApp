@@ -11,7 +11,7 @@ const SignInScreen = ({ navigation }) => {
             try {
                 const session = await account.getSession('current');
                 if (session) {
-                    navigation.navigate('ProfileScreen'); 
+                    navigation.navigate('Profile'); 
                 }
             } catch (error) {
                 Alert.alert('Error', error.message);
@@ -23,7 +23,7 @@ const SignInScreen = ({ navigation }) => {
     const handleSignIn = async () => {
         try {
             await account.createEmailPasswordSession(email, password);
-            navigation.navigate("HomeScreen");
+            navigation.navigate("Home");
         } catch (error) {
             Alert.alert('Error', error.message);
         }

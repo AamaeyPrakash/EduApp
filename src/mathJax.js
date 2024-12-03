@@ -12,7 +12,7 @@ class MathView extends Component {
       <View style={{flex:1}}>
         <MathJax
           mathJaxOptions={mmlOptions}
-          html={'<math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><mn>2</mn><mfrac bevelled="true"><mn>4</mn><mn>7</mn></mfrac></msqrt><mo>+</mo><mfrac><mn>5</mn><mn>8</mn></mfrac></math> this is just a string'}
+          html={'Test <math xmlns="http://www.w3.org/1998/Math/MathML"><msqrt><mn>2</mn><mfrac bevelled="true"><mn>4</mn><mn>7</mn></mfrac></msqrt><mo>+</mo><mfrac><mn>5</mn><mn>8</mn></mfrac></math> this is just a string'}
         />
       </View>
     );
