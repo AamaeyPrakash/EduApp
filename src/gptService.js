@@ -7,7 +7,7 @@ import OpenAI from "openai";
 
 const generateGPTQuestion = async(topic) =>{
   
-    const prompt =` Generate an easy question ${topic} for math problems`
+    // const prompt =` Generate an easy question ${topic} for math problems`
     const messages= [
     {
       role:"user",

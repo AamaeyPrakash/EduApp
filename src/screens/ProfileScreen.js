@@ -19,17 +19,24 @@ const ProfileScreen = ({ navigation }) => {
       try {
         const currentUser = await account.get();
         console.log('Fetched Current User:', currentUser);
-        const result = await databases.listDocuments(database1Id, UserAccountsId);
-        console.log('Fetched Documents:', result.documents);
+        //const result = await databases.listDocuments(database1Id, UserAccountsId);
+        const userDocs = await databases.getDocument(
+          database1Id,
+          UserAccountsId,
+          currentUser.$id
+        )
+        console.log('Fetched Documents:', userDocs);
+        setUserInfo(userDocs);
+        /*
         for (let i = 0; i < result.documents.length; i++) {
           const doc = result.documents[i];
-          // console.log(Checking Document: ${doc.userId} vs Current User: ${currentUser.$id});
+          // console.log(Document: ${doc.userId}, Current User: ${currentUser.$id});
           if (doc.userId === currentUser.$id) {
-            // console.log('Matching User Found:', doc);
             setUserInfo(doc);
             break;
           }
         }
+          */
       } catch (error) {
         console.error('Error fetching user data:', error);
       }

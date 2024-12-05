@@ -14,7 +14,7 @@ const SignInScreen = ({ navigation }) => {
                     navigation.navigate('Profile'); 
                 }
             } catch (error) {
-                Alert.alert('Error', error.message);
+                console.log('Error', error.message);
             }
         };
         checkActiveSession();
