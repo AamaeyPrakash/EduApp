@@ -78,22 +78,23 @@ const ProfileScreen = ({ navigation }) => {
         <Text style={styles.nameText}>{userInfo.name}</Text>
         <Text style={styles.emailText}>{userInfo.email}</Text>
         <View style={styles.infoContainer}>
-          <View style={styles.infoBox}>
+          {/* <View style={styles.infoBox}>
             <Text style={styles.infoLabel}>Age</Text>
             <Text style={styles.infoValue}>{userInfo.age}</Text>
-          </View>
+          </View> */}
           <View style={styles.infoBox}>
             <Text style={styles.infoLabel}>Grade</Text>
             <Text style={styles.infoValue}>{userInfo.grade}</Text>
           </View>
-        </View>
-        <View style={styles.infoContainer}>
           <View style={styles.infoBox}>
             <Text style={styles.infoLabel}>Board</Text>
             <Text style={styles.infoValue}>
               {educationBoardData.find((board) => board.value === boardNumber)?.label || 'Unknown'}
             </Text>
           </View>
+        </View>
+        <View style={styles.infoContainer}>
+
           <View style={styles.infoBox}>
             <Text style={styles.infoLabel}>School</Text>
             <Text style={styles.infoValue}>{userInfo.school}</Text>

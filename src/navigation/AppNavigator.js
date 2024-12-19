@@ -23,9 +23,10 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 const extraTabOptions = {
   tabBarLabelStyle: { fontFamily: 'exo' },
-  tabBarStyle: { borderTopRightRadius: 12, borderTopLeftRadius: 12 },
+  tabBarStyle: { borderTopRightRadius: 12, borderTopLeftRadius: 12, paddingVertical:3 },
   tabBarActiveTintColor:'#1C4E80',
   tabBarInactiveTintColor: '#364356',
+  tabBarLabelStyle:{paddingBottom:3},
 };
 
 

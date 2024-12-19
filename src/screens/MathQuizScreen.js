@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, Image, TextInput } from 'react-native';
 import CalcQues from '../assets/CalculatorIcon.png';
 import NonCalcQues from '../assets/NonCalculatorIcon.png';
 
@@ -7,6 +7,8 @@ const MathQuizScreen = ({ route }) => {
   const { topicData } = route.params;
   const [showAnswers, setShowAnswers] = useState(topicData.questions.map(() => false));
   const [showWorking, setShowWorking ] = useState(topicData.questions.map(()=>false));
+  // const [userAnswer, setUserAnswer ] = useState(topicData.questions.map(()=>''));
+  // const [answerFeedback, setAnswerFeedback] = useState(topicData.questions.map(()=>null));
 
   const handleShowAnswer = (index) => {
     setShowAnswers((prev) => {
@@ -15,6 +17,20 @@ const MathQuizScreen = ({ route }) => {
       return newShowAnswers;
     });
   };
+
+  // const handleInputChange = (text, index) =>{
+  //   const newAnswer = [...userAnswer]
+  //   newAnswer[index] = text
+  //   setUserAnswer(newAnswer);
+  // }
+
+  // const handleCheckAnswer = (index) => {
+  //   const isCorrect = userAnswer[index].trim().toLowerCase() === topicData.questions[index].answer.trim().toLowerCase();
+  //   const newFeedback = [...answerFeedback];
+  //   newFeedback[index] = isCorrect ? 'Correct!' : 'Incorrect';
+  //   setAnswerFeedback(newFeedback);
+  // };
+
   const handleShowWorking = (index) =>{
     setShowWorking((prev) => {
       const newShowWorking = [...prev];
@@ -49,6 +65,26 @@ const MathQuizScreen = ({ route }) => {
                 </Text>
               </TouchableOpacity>
             )}
+            {/* Check Answer */}
+            {/* <TextInput
+              style={styles.input}
+              placeholder="Enter your answer"
+              value={userAnswer[index]}
+              onChangeText={(text) => handleInputChange(text, index)}
+            />
+            {answerFeedback[index] !== null && (
+              <Text style={answerFeedback[index] === 'Correct!' ? styles.correctText : styles.incorrectText}>
+                {answerFeedback[index]}
+              </Text>
+            )}
+            <TouchableOpacity
+              style={[styles.button, styles.primaryButton]}
+              onPress={()=>handleCheckAnswer(index)}
+            >
+              <Text style={[styles.buttonText, styles.primaryButtonText]}>
+                Check Answer
+              </Text>
+            </TouchableOpacity> */}
             {showWorking [index]? (
               <View style={styles.workingContainer}>
                 <Text style={styles.workingText}>Working:</Text>
@@ -106,6 +142,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#86868B',
   },
+  input: {
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    borderRadius: 10,
+    padding: 10,
+    width: '100%',
+    marginBottom: 10,
+    fontSize: 16,
+    color: '#1D1D1F',
+    backgroundColor: '#F3F4F6',
+  },
   button: {
     backgroundColor: '#007AFF',
     borderRadius: 15,
@@ -119,6 +166,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#FFFFFF',
+  },
+  correctText: {
+    fontSize: 16,
+    color: 'green',
+    fontWeight: '600',
+    marginTop: 10,
+  },
+  incorrectText: {
+    fontSize: 16,
+    color: 'red',
+    fontWeight: '600',
+    marginTop: 10,
   },
   workingText:{
     fontSize: 18,

@@ -11,7 +11,7 @@ const generateGPTQuestion = async(topic) =>{
     const messages= [
     {
       role:"user",
-      content:`Generate an easy question ${topic} for math problems`
+      content:`${topic}. Consider that I am a IB Mathematics student when generating questions.`
     },
     ];
     try{
