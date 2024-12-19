@@ -1,44 +1,16 @@
 [
-    {
-      "topicNumber": "Topic 1",
-      "topic": "Topic Name",
-      "level": "SL + HL",
-      "questions": [
-        {
-          "subtopic": "Subtopic",
-          "question": "1",
-          "answer": "2",
-          "working": "Working",
-          "calculator":"yes"
-        },
-        {
-          "subtopic": "Subtopic",
-          "question": "2",
-          "answer": "1",
-          "working": "Working",
-          "calculator":"no"
-        }
-      ]
-    },
-    {
-      "topicNumber": "Topic 2",
-      "topic": "Topic Name",
-      "level": "SL + HL",
-      "questions": [
-        {
-          "subtopic": "Subtopic",
-          "question": "1",
-          "answer": "2",
-          "working": "Working",
-          "calculator":"yes"
-        },
-        {
-          "subtopic": "Subtopic",
-          "question": "2",
-          "answer": "1",
-          "working": "Working",
-          "calculator":"no"
-        }
-      ]
-    }
-  ]
+  {
+    "topicNumber": "Topic 1",
+    "topic": "Numbers and Algebra",
+    "level": "SL + HL",
+    "questions": [
+      {
+        "subtopic": "Permutations and Combinations",
+        "question": "A menu at a restaurant offers five starters, eight main courses, and six desserts.\nFind the number of different choices of meal you can make if you would like:\n\n(a) a starter, a main course, and a dessert\n(b) a main course and either a starter or a dessert\n(c) any two different courses.",
+        "answer": "5",
+        "working": "a) The total number of choices is simply the product of the number of starters, main courses, and desserts:\n5 * 8 * 6 = 240.\n\nb) For this, you choose either a starter or a dessert with a main course:\n8 * (5 + 6) = 8 * 11 = 88.\n\nc) To choose any two different courses (starter + main course, starter + dessert, or main course + dessert):\n(5 * 8) + (5 * 6) + (8 * 6) = 40 + 30 + 48 = 118.",
+        "calculator":"yes"
+      }
+    ]
+  }
+]
