@@ -1,15 +1,78 @@
 [
   {
     "topicNumber": "Topic 1",
-    "topic": "Numbers and Algebra",
+    "topic": "Number and Algebra",
     "level": "SL + HL",
     "questions": [
       {
-        "subtopic": "Permutations and Combinations",
-        "question": "A menu at a restaurant offers five starters, eight main courses, and six desserts.\nFind the number of different choices of meal you can make if you would like:\n\n(a) a starter, a main course, and a dessert\n(b) a main course and either a starter or a dessert\n(c) any two different courses.",
-        "answer": "5",
-        "working": "a) The total number of choices is simply the product of the number of starters, main courses, and desserts:\n5 * 8 * 6 = 240.\n\nb) For this, you choose either a starter or a dessert with a main course:\n8 * (5 + 6) = 8 * 11 = 88.\n\nc) To choose any two different courses (starter + main course, starter + dessert, or main course + dessert):\n(5 * 8) + (5 * 6) + (8 * 6) = 40 + 30 + 48 = 118.",
-        "calculator":"yes"
+        "subtopic": "Volume Calculations",
+        "question": "The volume of a hemisphere, V, is given by the formula:\n\nV = √((4 * S³) / (243 * π))\n\nwhere S is the total surface area.\n\nThe total surface area of a given hemisphere is 350 cm².\n\na) Calculate the volume of this hemisphere in cm³.\n\nGive your answer correct to one decimal place.",
+        "answer": "474 cm³",
+        "working": "Substitute S = 350 into the formula:\n\nV = √((4 * 350^3) / (243 * π))\n\nSimplify the calculation:\n4 * 350^3 = 171500000\n243 * π ≈ 763.407\n\nDivide:\n171500000 / 763.407 ≈ 224710.76\n\nTake the square root:\n√224710.76 ≈ 473.973\n\nRound to one decimal place:\nV ≈ 474 cm³.",
+        "calculator": "yes"
+      },
+      {
+        "subtopic": "Geometric Sequences and Series",
+        "question": "The sum of the first n terms of a geometric sequence is given by:\n\nSₙ = ∑ (2/3) * (7/8)^r, where r = 1 to n.\n\na) Find the first term of the sequence, u₁.\n\nb) Find S∞.\n\nc) Find the least value of n such that S∞ - Sₙ < 0.001.",
+        "answer": "a) 0.583\nb) 4.67\nc) n = 64",
+        "working": "a) The first term of the sequence is calculated as:\nu₁ = (2/3) * (7/8) = 14/24 = 7/12 ≈ 0.583.\n\nb) To find S∞:\nS∞ = u₁ / (1 - r), where r = 7/8.\nS∞ = (7/12) / (1 - 7/8) = (7/12) / (1/8) = (7/12) * 8 = 14/3 ≈ 4.67.\n\nc) To find the least value of n such that S∞ - Sₙ < 0.001:\nS∞ - Sₙ = S∞ - [(7/12) * (1 - (7/8)^n) / (1 - 7/8)] < 0.001.\nUsing a table or logarithms, we calculate:\nFor n = 63, S∞ - Sₙ ≈ 0.00104.\nFor n = 64, S∞ - Sₙ ≈ 0.000906.\nThus, the least value of n is n = 64.",
+        "calculator": "yes"
+      },
+      {
+        "subtopic": "Compound Interest",
+        "question": "Imon invested 25,000 Singapore dollars (SGD) in a fixed deposit account with a nominal annual interest rate of 3.6%, compounded monthly.\n\na) Calculate the value of Imon’s investment after 5 years.\n\nb) At the end of the 5 years, Imon withdrew x SGD from the fixed deposit account and reinvested this into a super-savings account with a nominal annual interest rate of 5.7%, compounded half-yearly. The value of the super-savings account increased to 20,000 SGD after 18 months. Find the value of x.",
+        "answer": "a) 29,922 SGD\nb) x = 18,383 SGD",
+        "working": "a) Use the compound interest formula:\nFV = P(1 + r/n)^(nt), where P = 25,000, r = 0.036, n = 12 (monthly), and t = 5.\nSubstitute values:\nFV = 25,000(1 + 0.036/12)^(12 * 5).\nSimplify:\nFV ≈ 25,000(1.003)^60 ≈ 25,000(1.19625) ≈ 29,922 SGD.\n\nb) Use the compound interest formula again:\nFV = PV(1 + r/n)^(nt), where FV = 20,000, r = 0.057, n = 2 (half-yearly), and t = 1.5.\nSubstitute values:\n20,000 = PV(1 + 0.057/2)^(2 * 1.5).\nSimplify:\n20,000 = PV(1.0285)^3.\n20,000 = PV(1.08768).\nPV = 20,000 / 1.08768 ≈ 18,383 SGD.\n\nThus, x = 18,383 SGD.",
+        "calculator": "yes"
+      }
+    ]
+  },
+  {
+    "topicNumber": "Topic 2",
+    "topic": "Functions",
+    "level": "SL + HL",
+    "questions": [
+      {
+        "subtopic": "Differentiation and Functions",
+        "question": "Let y = (ln x) / (x⁴) for x > 0.\n\nConsider the function defined by f(x) = (ln x) / (x⁴) for x > 0 and its graph y = f(x).\n\na) Show that dy/dx = (1 - 4ln x) / (x⁵).\n\nb) The graph of f has a horizontal tangent at point P. Find the coordinates of P.\n\nc) Given that f''(x) = (20 ln x - 9) / (x⁶), show that P is a local maximum point.\n\nd) Solve f(x) > 0 for x > 0.",
+        "answer": "a) dy/dx = (1 - 4ln x) / (x⁵)\nb) P = (e^(1/4), 1/(4e))\nc) P is a local maximum as f''(x) < 0\nd) x > 1",
+        "working": "a) Use the quotient rule to differentiate y = (ln x) / (x⁴):\n\ndy/dx = [x⁴ * (1/x) - ln x * 4x³] / (x⁴)²\n= [x³ * (1 - 4ln x)] / x⁸\n= (1 - 4ln x) / x⁵.\n\nb) Horizontal tangent implies dy/dx = 0:\n(1 - 4ln x) / x⁵ = 0\n1 - 4ln x = 0\nln x = 1/4\nx = e^(1/4).\nSubstitute x = e^(1/4) into y = (ln x) / (x⁴):\ny = (1/4) / (e^(4 * 1/4)) = 1 / (4e).\nCoordinates of P: (e^(1/4), 1/(4e)).\n\nc) Given f''(x) = (20 ln x - 9) / (x⁶), substitute x = e^(1/4):\nf''(e^(1/4)) = (20(1/4) - 9) / (e^(6 * 1/4))\n= (5 - 9) / (e^(3/2))\n= -4 / (e^(3/2)), which is negative.\nThus, P is a local maximum.\n\nd) Solve f(x) > 0:\nf(x) = (ln x) / (x⁴) > 0\nln x > 0\nx > 1.",
+        "calculator": "no"
+      }
+    ]
+  },
+  {
+    "topicNumber": "Topic 3",
+    "topic": "Geometry and Trigonometry",
+    "level": "SL + HL",
+    "questions": [
+      {
+        "subtopic": "Triangles and Trigonometry",
+        "question": "The lengths of two of the sides in a triangle are 4 cm and 5 cm. Let θ be the angle between the two given sides. The triangle has an area of (5√15) / 2 cm².\n\na) Show that sin θ = √15 / 4.\n\nb) Find the two possible values for the length of the third side.",
+        "answer": "a) sin θ = √15 / 4\nb) The two possible values for the third side are √31 and √51.",
+        "working": "a) The formula for the area of a triangle is:\nArea = (1/2) * ab * sin θ.\nSubstitute the values:\n(5√15) / 2 = (1/2) * 4 * 5 * sin θ.\nSimplify:\n(5√15) / 2 = 10 * sin θ.\nDivide both sides by 10:\nsin θ = √15 / 4.\n\nb) Let the third side be x. Use the cosine rule:\nx² = a² + b² - 2ab * cos θ.\nSubstitute a = 4, b = 5, and cos θ:\ncos θ = ±√(1 - sin² θ) = ±√(1 - (15/16)) = ±1/4.\n\nCase 1: cos θ = 1/4:\nx² = 4² + 5² - 2 * 4 * 5 * (1/4).\nx² = 16 + 25 - 10 = 31.\nx = √31.\n\nCase 2: cos θ = -1/4:\nx² = 4² + 5² - 2 * 4 * 5 * (-1/4).\nx² = 16 + 25 + 10 = 51.\nx = √51.\n\nThe two possible values for the third side are √31 and √51.",
+        "calculator": "yes"
+      },
+      {
+        "subtopic": "Trigonometric Identities and Equations",
+        "question": "a) Show that sin 2x + cos 2x - 1 = 2 sin x (cos x - sin x).\n\nb) Hence or otherwise, solve sin 2x + cos 2x - 1 + cos x - sin x = 0 for 0 < x < 2π.",
+        "answer": "a) sin 2x + cos 2x - 1 = 2 sin x (cos x - sin x)\nb) x = 7π/6, 11π/6, π/4, 5π/4",
+        "working": "a) Use double angle formula for sin 2x:\nLHS = sin 2x + cos 2x - 1.\nSubstitute sin 2x = 2 sin x cos x:\nLHS = 2 sin x cos x + cos x - 1.\nFactorize:\nLHS = 2 sin x (cos x - sin x).\nThus, LHS = RHS.\n\nb) Solve sin 2x + cos 2x - 1 + cos x - sin x = 0:\nSubstitute sin 2x + cos 2x - 1 = 2 sin x (cos x - sin x):\n2 sin x (cos x - sin x) + cos x - sin x = 0.\nFactorize:\n(cos x - sin x)(2 sin x + 1) = 0.\nCase 1: cos x - sin x = 0:\ncos x = sin x.\nThis implies tan x = 1.\nSolutions: x = π/4, 5π/4.\n\nCase 2: 2 sin x + 1 = 0:\nsin x = -1/2.\nSolutions: x = 7π/6, 11π/6.\n\nThus, the solutions are x = 7π/6, 11π/6, π/4, 5π/4.",
+        "calculator": "no"
+      }
+    ]
+  },
+  {
+    "topicNumber": "Topic 5",
+    "topic": "Calculus",
+    "level": "SL + HL",
+    "questions": [
+      {
+        "subtopic": "Implicit Differentiation",
+        "question": "The curve C is defined by the equation xy - ln y = 1, y > 0.\n\na) Find dy/dx in terms of x and y.\n\nb) Determine the equation of the tangent to C at the point (2/e, e).",
+        "answer": "a) dy/dx = y² / (1 - xy)\nb) Equation of the tangent: y = -7.39x + 8.15 or equivalent.",
+        "working": "a) Differentiate the equation implicitly with respect to x:\nDifferentiating xy:\ny + x(dy/dx).\nDifferentiating -ln y:\n-(1/y)(dy/dx).\nDifferentiating 1 gives 0.\nSubstitute into the equation:\ny + x(dy/dx) - (1/y)(dy/dx) = 0.\nFactorize for dy/dx:\n(dy/dx)(x - 1/y) = -y.\nRearrange for dy/dx:\ndy/dx = y² / (1 - xy).\n\nb) Use the point (2/e, e) to calculate the gradient of the tangent:\nSubstitute x = 2/e and y = e into dy/dx:\ndy/dx = e² / (1 - (2/e) * e).\nSimplify:\ndy/dx = e² / (1 - 2).\nGradient of the tangent, m_T = -e².\nEquation of the tangent:\ny - e = -e²(x - (2/e)).\nSimplify:\ny = -e²x + 2e + e.\nEquation: -e²x - y + 3e = 0 or equivalent.\nApproximation: y = -7.39x + 8.15.",
+        "calculator": "yes"
       }
     ]
   }
