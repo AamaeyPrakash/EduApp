@@ -17,6 +17,8 @@ import homeIcon from '../assets/homeIcon.png'
 import askIcon from '../assets/askIcon.png'
 import profileIcon from '../assets/profileIcon.png'
 import { account } from '../../constants';
+import TopicCardCBSE12 from '../TopicCardCBSE12';
+import QuizScreenCB12 from '../screens/QuizScreenCB12';
 
 
 const Tab = createBottomTabNavigator();
@@ -131,12 +133,22 @@ const AppNavigator = ({user}) => {
         >
           {props => <TopicCardAI {...props}  user={user} />}
         </Stack.Screen>
+        <Stack.Screen
+          name="CBSE 12"
+        >
+          {props => <TopicCardCBSE12 {...props} user={user} />}
+        </Stack.Screen>
         <Stack.Screen 
           name="QuizScreen" 
           // component={MathQuizScreen} 
           // options={{ headerShown: false }}
         >
           {props => <MathQuizScreen {...props}  user={user} />}
+        </Stack.Screen>
+        <Stack.Screen
+          name="CBQuizScreen"
+        >
+          {props => <QuizScreenCB12 {...props} user={user}/>}
         </Stack.Screen>
       </Stack.Navigator>
   );

@@ -7,8 +7,6 @@ const MathQuizScreen = ({ route }) => {
   const { topicData } = route.params;
   const [showAnswers, setShowAnswers] = useState(topicData.questions.map(() => false));
   const [showWorking, setShowWorking ] = useState(topicData.questions.map(()=>false));
-  // const [userAnswer, setUserAnswer ] = useState(topicData.questions.map(()=>''));
-  // const [answerFeedback, setAnswerFeedback] = useState(topicData.questions.map(()=>null));
 
   const handleShowAnswer = (index) => {
     setShowAnswers((prev) => {
@@ -17,19 +15,6 @@ const MathQuizScreen = ({ route }) => {
       return newShowAnswers;
     });
   };
-
-  // const handleInputChange = (text, index) =>{
-  //   const newAnswer = [...userAnswer]
-  //   newAnswer[index] = text
-  //   setUserAnswer(newAnswer);
-  // }
-
-  // const handleCheckAnswer = (index) => {
-  //   const isCorrect = userAnswer[index].trim().toLowerCase() === topicData.questions[index].answer.trim().toLowerCase();
-  //   const newFeedback = [...answerFeedback];
-  //   newFeedback[index] = isCorrect ? 'Correct!' : 'Incorrect';
-  //   setAnswerFeedback(newFeedback);
-  // };
 
   const handleShowWorking = (index) =>{
     setShowWorking((prev) => {
@@ -65,26 +50,6 @@ const MathQuizScreen = ({ route }) => {
                 </Text>
               </TouchableOpacity>
             )}
-            {/* Check Answer */}
-            {/* <TextInput
-              style={styles.input}
-              placeholder="Enter your answer"
-              value={userAnswer[index]}
-              onChangeText={(text) => handleInputChange(text, index)}
-            />
-            {answerFeedback[index] !== null && (
-              <Text style={answerFeedback[index] === 'Correct!' ? styles.correctText : styles.incorrectText}>
-                {answerFeedback[index]}
-              </Text>
-            )}
-            <TouchableOpacity
-              style={[styles.button, styles.primaryButton]}
-              onPress={()=>handleCheckAnswer(index)}
-            >
-              <Text style={[styles.buttonText, styles.primaryButtonText]}>
-                Check Answer
-              </Text>
-            </TouchableOpacity> */}
             {showWorking [index]? (
               <View style={styles.workingContainer}>
                 <Text style={styles.workingText}>Working:</Text>
@@ -108,6 +73,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F7',
   },
   scrollContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 20,
   },
@@ -116,19 +83,22 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#007AFF',
     marginBottom: 20,
+    textAlign: 'center',
   },
   card: {
     backgroundColor: '#FFFFFF',
     borderRadius: 20,
     padding: 20,
     width: '90%',
-    marginBottom: 20,
+    maxWidth: 400,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 5,
     alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
   },
   questionText: {
     fontSize: 18,
@@ -141,17 +111,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     color: '#86868B',
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#E5E7EB',
-    borderRadius: 10,
-    padding: 10,
-    width: '100%',
-    marginBottom: 10,
-    fontSize: 16,
-    color: '#1D1D1F',
-    backgroundColor: '#F3F4F6',
   },
   button: {
     backgroundColor: '#007AFF',
@@ -167,18 +126,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#FFFFFF',
   },
-  correctText: {
-    fontSize: 16,
-    color: 'green',
-    fontWeight: '600',
-    marginTop: 10,
-  },
-  incorrectText: {
-    fontSize: 16,
-    color: 'red',
-    fontWeight: '600',
-    marginTop: 10,
-  },
   workingText:{
     fontSize: 18,
     fontWeight: '500',
@@ -193,6 +140,7 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'flex-start',
   },
+  
   subtopicText: {
     fontSize: 14,
     fontWeight: '400',

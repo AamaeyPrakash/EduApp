@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 
 const HomeScreen = ({ navigation }) => {
-
   return (
     <SafeAreaView style={[styles.container]}>
       <View style={styles.content}>
@@ -25,6 +24,13 @@ const HomeScreen = ({ navigation }) => {
           >
             <Text style={styles.cardTitle}>Mathematics AI</Text>
             <Text style={styles.cardSubtitle}>Applications and Interpretation</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.card}
+            onPress={() => navigation.navigate('CBSE 12')}
+          >
+            <Text style={styles.cardTitle}>Grade 12 CBSE</Text>
+            <Text style={styles.cardSubtitle}>Notes, Guides & More</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -61,6 +67,7 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
   },
   card: {
@@ -68,6 +75,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 24,
     width: '48%',
+    height: '10%',
     aspectRatio: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -76,6 +84,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 5,
+    marginBottom: 16,
   },
   cardTitle: {
     fontSize: 18,
