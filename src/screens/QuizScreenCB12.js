@@ -1,40 +1,56 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import MathView from 'react-native-math-view';
-import CBSEMath12 from '../mathTopics/CBSEMath12.json';
+import CBSEMath12 from '../mathTopics/CBSEMath12c.json';
 
 const MathText = ({ content }) => {
-    // Split content by LaTeX delimiters
-    const parts = content.split(/(\$\$.*?\$\$|\$.*?\$)/g);
+    // Split content by LaTeX delimiters while preserving delimiters
+    const parts = content.split(/(\$\$.*?\$\$|\$.*?\$)/gs);
     
+    // Process parts to handle line breaks while preserving inline elements
+    const processedContent = parts.reduce((acc, part, index) => {
+        if (part.startsWith('$$') && part.endsWith('$$')) {
+            // Display block math
+            const math = part.slice(2, -2);
+            acc.push(
+                <MathView
+                    key={index}
+                    math={math}
+                    style={styles.blockMath}
+                />
+            );
+        } else if (part.startsWith('$') && part.endsWith('$')) {
+            // Display inline math - preserve exact LaTeX
+            const math = part.slice(1, -1).trim();
+            acc.push(
+                <MathView
+                    key={index}
+                    math={math}
+                    style={styles.inlineMath}
+                />
+            );
+        } else if (part) {
+            // Handle regular text with line breaks
+            const lines = part.split('\n');
+            lines.forEach((line, lineIndex) => {
+                if (lineIndex > 0) {
+                    acc.push(<View key={`br-${index}-${lineIndex}`} style={styles.lineBreak} />);
+                }
+                if (line) {
+                    acc.push(
+                        <Text key={`${index}-${lineIndex}`} style={styles.regularText}>
+                            {line}
+                        </Text>
+                    );
+                }
+            });
+        }
+        return acc;
+    }, []);
+
     return (
         <View style={styles.mathTextContainer}>
-            {parts.map((part, index) => {
-                if (part.startsWith('$$') && part.endsWith('$$')) {
-                    // Display block math
-                    const math = part.slice(2, -2);
-                    return (
-                        <MathView
-                            key={index}
-                            math={math}
-                            style={styles.blockMath}
-                        />
-                    );
-                } else if (part.startsWith('$') && part.endsWith('$')) {
-                    // Display inline math
-                    const math = part.slice(1, -1);
-                    return (
-                        <MathView
-                            key={index}
-                            math={math}
-                            style={styles.inlineMath}
-                        />
-                    );
-                } else {
-                    // Display regular text
-                    return <Text key={index} style={styles.regularText}>{part}</Text>;
-                }
-            })}
+            {processedContent}
         </View>
     );
 };
@@ -70,7 +86,10 @@ const QuizScreenCB12 = ({ route }) => {
                     <Text style={styles.questionText}>Concept: {question.Title}</Text>
                     <MathText content={question.Example} />
                     {showSolutions[index] && (
-                        <MathText content={question.Solution} />
+                        <View style={styles.solutionContainer}>
+                            <Text style={styles.solutionLabel}>Solution:</Text>
+                            <MathText content={question.Solution} />
+                        </View>
                     )}
                     <TouchableOpacity onPress={() => toggleSolution(index)} style={styles.button}>
                         <Text style={styles.buttonText}>{showSolutions[index] ? "Hide Solution" : "Show Solution"}</Text>
@@ -107,7 +126,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 8,
         elevation: 5,
-        alignItems: 'center',
     },
     questionText: {
         fontSize: 14,
@@ -119,18 +137,43 @@ const styles = StyleSheet.create({
     mathTextContainer: {
         width: '100%',
         marginVertical: 8,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignItems: 'center',
     },
     regularText: {
-        fontSize: 16,
+        fontSize: 14,
         color: '#333333',
-        lineHeight: 24,
+        lineHeight: 22,
+    },
+    lineBreak: {
+        width: '100%',
+        height: 0,
     },
     inlineMath: {
-        marginHorizontal: 4,
+        height: 16,
+        transform: [{ scale: 0.80 }],
+        alignSelf: 'center',
     },
     blockMath: {
         alignSelf: 'center',
         marginVertical: 8,
+        height: 18,
+        transform: [{ scale: 0.5 }],
+        width: '100%',
+    },
+    solutionContainer: {
+        width: '100%',
+        marginVertical: 10,
+        padding: 12,
+        backgroundColor: '#F5F5F7',
+        borderRadius: 10,
+    },
+    solutionLabel: {
+        fontSize: 14,
+        fontWeight: '500',
+        color: '#666666',
+        marginBottom: 8,
     },
     button: {
         backgroundColor: '#007AFF',
@@ -151,7 +194,7 @@ const styles = StyleSheet.create({
         color: '#FF3B30',
         textAlign: 'center',
         marginTop: 20,
-    }
+    },
 });
 
 export default QuizScreenCB12;

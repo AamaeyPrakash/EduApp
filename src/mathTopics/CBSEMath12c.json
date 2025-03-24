@@ -1,0 +1,335 @@
+[
+    {
+      "Title": "Probability",
+      "Subtitle": "",
+      "Example": "Consider the experiment of rolling a die. Let A be the event 'getting a prime number' and B be the event 'getting an odd number'. Write the sets representing the events: (i) A or B, (ii) A and B, (iii) A but not B, (iv) not A.",
+      "Solution": "Here, $S = \\{1, 2, 3, 4, 5, 6\\}$, $A = \\{2, 3, 5\\}$, and $B = \\{1, 3, 5\\}$.\n\n(i) $A \\cup B = \\{1, 2, 3, 5\\}$.\n(ii) $A \\cap B = \\{3, 5\\}$.\n(iii) $A - B = \\{2\\}$.\n(iv) $A' = \\{1, 4, 6\\}$.",
+      "Final_answer": "",
+      "chapter": "Probability"
+    },
+    {
+      "Title": "Probability",
+      "Subtitle": "",
+      "Example": "A coin is tossed three times. Consider the events: A: 'No head appears', B: 'Exactly one head appears', and C: 'At least two heads appear'. Do they form a set of mutually exclusive and exhaustive events?",
+      "Solution": "The sample space is $S = \\{HHH, HHT, HTH, THH, HTT, THT, TTH, TTT\\}$.\n\nLet $A = \\{TTT\\}$, $B = \\{HTT, THT, TTH\\}$, and $C = \\{HHT, HTH, THH, HHH\\}$.\n\nSince $A \\cup B \\cup C = S$ and the events are pairwise disjoint, they are mutually exclusive and exhaustive.",
+      "Final_answer": "",
+      "chapter": "Probability"
+    },
+    {
+      "Title": "Probability",
+      "Subtitle": "",
+      "Example": "Let the sample space be $S = {ω_1, ω_2, ω_3, ω_4, ω_5, ω_6}$. Which of the following assignments of probabilities are valid?\n\n(a) 1/6, 1/6, 1/6, 1/6, 1/6, 1/6\n(b) 1, 0, 0, 0, 0, 0\n(c) 1/8, 2/3, 1/3, 1/3, -1/4, -1/3\n(d) 1/12, 1/12, 1/6, 1/6, 1/6, 3/2\n(e) 0.1, 0.2, 0.3, 0.4, 0.5, 0.6",
+      "Solution": "(a) Valid, since all probabilities are positive and sum to 1.\n(b) Valid, as the probabilities are 0 or 1 and sum to 1.\n(c) Not valid, due to negative values.\n(d) Not valid, since one probability exceeds 1.\n(e) Not valid, as the sum exceeds 1.",
+      "Final_answer": "",
+      "chapter": "Probability"
+    },
+    {
+      "Title": "Probability",
+      "Subtitle": "",
+      "Example": "One card is drawn from a well-shuffled deck of 52 cards. Calculate the probability that the card will be: (i) a diamond, (ii) not an ace, (iii) a black card, (iv) not a diamond, (v) not a black card.",
+      "Solution": "(i) Diamonds: 13 cards, so $P(diamond) = 13/52 = 1/4$.\n(ii) Not an ace: $P(not ace) = 1 - 4/52 = 12/13$.\n(iii) Black card: 26 cards, so $P(black) = 26/52 = 1/2$.\n(iv) Not a diamond: $P(not diamond) = 1 - 1/4 = 3/4$.\n(v) Not a black card: $P(not black) = 1 - 1/2 = 1/2$.",
+      "Final_answer": "",
+      "chapter": "Probability"
+    },
+    {
+      "Title": "Probability",
+      "Subtitle": "",
+      "Example": "A bag contains 9 discs: 4 red, 3 blue, and 2 yellow. A disc is drawn at random. Calculate the probability that it will be: (i) red, (ii) yellow, (iii) blue, (iv) not blue, (v) either red or blue.",
+      "Solution": "Total discs = 9.\n(i) $P(red) = 4/9$.\n(ii) $P(yellow) = 2/9$.\n(iii) $P(blue) = 3/9 = 1/3$.\n(iv) $P(not blue) = 1 - 1/3 = 2/3$.\n(v) $P(red or blue) = 4/9 + 1/3 = 7/9$.",
+      "Final_answer": "",
+      "chapter": "Probability"
+    },
+    {
+      "Title": "Probability",
+      "Subtitle": "",
+      "Example": "Two students, Anil and Ashima, appeared in an examination. The probability that Anil qualifies is 0.05, Ashima qualifies is 0.10, and both qualify is 0.02. Find the probability that: (a) both do not qualify, (b) at least one does not qualify, (c) only one qualifies.",
+      "Solution": "Let $E$ and $F$ denote the events that Anil and Ashima qualify respectively.\n$P(E)=0.05$, $P(F)=0.10$, $P(E \\cap F)=0.02$.\n(a) $P(not both) = 1 - (0.05+0.10-0.02) = 0.87$.\n(b) $P(at least one not) = 1 - 0.02 = 0.98$.\n(c) $P(only one) = (0.05-0.02) + (0.10-0.02) = 0.11$.",
+      "Final_answer": "",
+      "chapter": "Probability"
+    },
+    {
+      "Title": "Probability",
+      "Subtitle": "",
+      "Example": "A committee of two persons is selected from two men and two women. What is the probability that the committee will have: (a) no man, (b) one man, (c) two men?",
+      "Solution": "Total persons = 4; number of ways to choose 2 = 6.\n(a) Two women: 1 way, so $P(no man) = 1/6$.\n(b) One man and one woman: 4 ways, so $P(one man) = 4/6 = 2/3$.\n(c) Two men: 1 way, so $P(two men) = 1/6$.",
+      "Final_answer": "",
+      "chapter": "Probability"
+    },
+    {
+      "Title": "Probability",
+      "Subtitle": "",
+      "Example": "Veena visits four cities (A, B, C, and D) in a random order. What is the probability that she visits: (i) A before B, (ii) A before B and B before C, (iii) A first and B last, (iv) A either first or second, (v) A just before B?",
+      "Solution": "Total arrangements = 4! = 24.\n(i) In half of the arrangements, A comes before B: $12/24 = 1/2$.\n(ii) 'A before B and B before C' occurs in 4 arrangements: $4/24 = 1/6$.\n(iii)-(v) are left as exercises.",
+      "Final_answer": "",
+      "chapter": "Probability"
+    },
+    {
+      "Title": "Probability",
+      "Subtitle": "",
+      "Example": "Prove that for any three events A, B, and C,\n$P(A \\cup B \\cup C) = P(A) + P(B) + P(C) - P(A \\cap B) - P(A \\cap C) - P(B \\cap C) + P(A \\cap B \\cap C)$.",
+      "Solution": "Let $E = B \\cup C$. Then, $P(A \\cup E) = P(A) + P(E) - P(A \\cap E)$.\nSince $P(E) = P(B) + P(C) - P(B \\cap C)$ and $P(A \\cap E) = P(A \\cap B) + P(A \\cap C) - P(A \\cap B \\cap C)$, substituting yields the required formula.",
+      "Final_answer": "",
+      "chapter": "Probability"
+    },
+    {
+      "Title": "Probability",
+      "Subtitle": "",
+      "Example": "In a relay race with five teams (A, B, C, D, and E): (a) What is the probability that A, B, and C finish first, second, and third respectively? (b) What is the probability that A, B, and C are the first three finishers (in any order)?",
+      "Solution": "Total ways to choose the first three positions = P(5, 3) = 5 × 4 × 3 = 60.\n(a) Only one arrangement gives A first, B second, C third: $1/60$.\n(b) The teams can be arranged in 3! = 6 ways: $6/60 = 1/10$.",
+      "Final_answer": "",
+      "chapter": "Probability"
+    },
+    {
+      "Title": "Statistics",
+      "Subtitle": "Finding the Mean Deviation about the Mean",
+      "Example": "Find the mean deviation about the mean for the data: 6, 7, 10, 12, 13, 4, 8, 12.",
+      "Solution": "Mean, $\\bar{x} = (6+7+10+12+13+4+8+12)/8 = 9$.\nDeviations: -3, -2, 1, 3, 4, -5, -1, 3.\nAbsolute deviations: 3, 2, 1, 3, 4, 5, 1, 3.\nMean deviation = (3+2+1+3+4+5+1+3)/8 = 22/8 = 2.75.",
+      "Final_answer": "Mean Deviation: 2.75.",
+      "chapter": "Statistics"
+    },
+    {
+      "Title": "Statistics",
+      "Subtitle": "Finding the Mean Deviation about the Median",
+      "Example": "Find the mean deviation about the median for the data: 3, 9, 5, 3, 12, 10, 18, 4, 7, 19, 21.",
+      "Solution": "Arrange the data: 3, 3, 4, 5, 7, 9, 10, 12, 18, 19, 21.\nMedian (6th term) = 9.\nAbsolute deviations: |3-9|=6, |3-9|=6, |4-9|=5, |5-9|=4, |7-9|=2, |9-9|=0, |10-9|=1, |12-9|=3, |18-9|=9, |19-9|=10, |21-9|=12.\nSum = 58; Mean deviation = 58/11 ≈ 5.27.",
+      "Final_answer": "Mean Deviation about the Median: 5.27.",
+      "chapter": "Statistics"
+    },
+    {
+      "Title": "Statistics",
+      "Subtitle": "Finding the Mean Deviation about the Median",
+      "Example": "Find the mean deviation about the median for the grouped data:\n\n$x_i$: 3, 6, 9, 12, 13, 15, 21, 22\n$f_i$: 3, 4, 5, 2, 4, 5, 4, 3.",
+      "Solution": "Total frequency, $N = 30$. The median lies in the class of the 15th and 16th observations, so $M = 13$.\nCalculate the weighted absolute deviations (total = 149).\nMean deviation = 149/30 ≈ 4.97.",
+      "Final_answer": "Mean Deviation about the Median: 4.97.",
+      "chapter": "Statistics"
+    },
+    {
+      "Title": "Statistics",
+      "Subtitle": "Finding Mean, Variance, and Standard Deviation",
+      "Example": "Calculate the mean, variance, and standard deviation for the distribution with classes: 30–40, 40–50, 50–60, 60–70, 70–80, 80–90, 90–100 and frequencies: 3, 7, 12, 15, 8, 3, 2.",
+      "Solution": "Using class midpoints and an assumed mean of 65, the computed mean is 62, variance is 201, and standard deviation is √201 ≈ 14.18.",
+      "Final_answer": {
+        "Mean": "62",
+        "Variance": "201",
+        "Standard Deviation": "14.18"
+      },
+      "chapter": "Statistics"
+    },
+    {
+      "Title": "Statistics",
+      "Subtitle": "Effect of Multiplying Observations on Variance",
+      "Example": "The variance of 20 observations is 5. If each observation is multiplied by 2, find the new variance.",
+      "Solution": "Multiplying each observation by 2 scales the variance by 2². New variance = 5 × 4 = 20.",
+      "Final_answer": "New Variance: 20.",
+      "chapter": "Statistics"
+    },
+    {
+      "Title": "Statistics",
+      "Subtitle": "Finding Missing Observations Given Mean and Variance",
+      "Example": "The mean of 5 observations is 4.4 and their variance is 8.24. If three observations are 1, 2, and 6, find the other two.",
+      "Solution": "Let the missing observations be x and y. Mean gives 1+2+6+x+y = 22, so x+y = 13. Variance leads to x²+y² = 97. Solving yields x = 4 and y = 9 (or vice versa).",
+      "Final_answer": "Missing Observations: 4 and 9.",
+      "chapter": "Statistics"
+    },
+    {
+      "Title": "Statistics",
+      "Subtitle": "Effect of Adding a Constant to Observations on Variance",
+      "Example": "Show that if a constant is added to each observation, the variance remains unchanged.",
+      "Solution": "Adding a constant shifts the mean but does not affect the differences $x_i - \\bar{x}$, so the variance remains unchanged.",
+      "Final_answer": "Variance remains unchanged.",
+      "chapter": "Statistics"
+    },
+    {
+      "Title": "Statistics",
+      "Subtitle": "Correcting Mean and Standard Deviation Due to an Incorrect Observation",
+      "Example": "The mean and standard deviation of 100 observations were calculated as 40 and 5.1, but one observation was mistakenly taken as 50 instead of 40. Find the correct mean and standard deviation.",
+      "Solution": "Incorrect total = 4000. Correcting by subtracting 10 gives 3990, so correct mean = 3990/100 = 39.9. Recalculation yields a standard deviation of 5.",
+      "Final_answer": "Correct Mean: 39.9, Correct Standard Deviation: 5.",
+      "chapter": "Statistics"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "Write the first three terms of the sequences: (i) $a_n = 2n + 5$, (ii) $a_n = (n - 3)/4$.",
+      "Solution": "(i) For n = 1, 2, 3: $a_1 = 7$, $a_2 = 9$, $a_3 = 11$.\n(ii) For n = 1, 2, 3: $a_1 = -1/2$, $a_2 = -1/4$, $a_3 = 0$.",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "What is the 20th term of the sequence defined by $a_n = (n-1)(2-n)(3+n)$?",
+      "Solution": "Substitute n = 20: $a_{20} = 19 × (2-20) × 23 = 19 × (-18) × 23 = -7866$.",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "Find the first five terms of the sequence defined by $a_1 = 1$, $a_n = a_{n-1} + 2$ for n ≥ 2, and write the corresponding series.",
+      "Solution": "The terms are: 1, 3, 5, 7, 9. The series is: 1 + 3 + 5 + 7 + 9 + …",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "Find the 10th and nth terms of the G.P. 5, 25, 125, ...",
+      "Solution": "Here, a = 5 and r = 5. So, $a_{10} = 5 × 5^9$ and $a_n = 5 × 5^{n-1}$.",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "In a G.P., the 3rd term is 24 and the 6th term is 192. Find the 10th term.",
+      "Solution": "Let $a_3 = a r^2 = 24$ and $a_6 = a r^5 = 192$. Dividing gives $r^3 = 8$, so $r = 2$. Then, a = 6 and $a_{10} = 6 × 2^9 = 3072$.",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "Find the sum of the first n terms and the sum of the first 5 terms of the geometric series $1 + 2/3 + 4/9 + ...$",
+      "Solution": "Here, a = 1 and r = 2/3. The sum is $S_n = [1 - (2/3)^n] / [1 - 2/3] = 3[1 - (2/3)^n]$. For 5 terms, $S_5 = 3[1 - (2/3)^5]$.",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "How many terms of the G.P. $3, 3/2, 3/4, ...$ are needed to give the sum $3069/512$?",
+      "Solution": "For a = 3 and r = 1/2, the sum is $S_n = 6(1 - 1/2^n)$. Setting $6(1 - 1/2^n) = 3069/512$ and solving gives n = 10.",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "The sum of the first three terms of a G.P. is 13/12 and their product is -1. Find the common ratio and the terms.",
+      "Solution": "Let the terms be $a/r$, a, and $ar$. Then, $(a/r) + a + ar = 13/12$ and $a^3 = -1$, so a = -1. Substituting gives $-1/r - 1 - r = 13/12$. Solving yields $r = -3/4$ or $-4/3$, so the terms are either $4/3, -1, 3/4$ or $3/4, -1, 4/3$.",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "Find the sum of the sequence 7, 77, 777, 7777, ... up to n terms.",
+      "Solution": "Express each term in a form related to powers of 10. The sum is $S_n = (7/9)[(10(10^n - 1)/9) - n]$.",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "A person has 2 parents, 4 grandparents, 8 great grandparents, and so on. Find the number of ancestors during the ten generations preceding his own.",
+      "Solution": "This is a geometric series with a = 2, r = 2, and n = 10. The sum is $S_{10} = 2(2^{10} - 1) = 2046$.",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "Insert three numbers between 1 and 256 so that the resulting sequence is a G.P.",
+      "Solution": "Let the inserted numbers be $G_1, G_2, G_3$. Since $256 = r^4$, we have r = 4. Then, $G_1 = 4$, $G_2 = 16$, $G_3 = 64$.",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "If the arithmetic mean (A.M.) and geometric mean (G.M.) of two positive numbers are 10 and 8 respectively, find the numbers.",
+      "Solution": "Let the numbers be a and b. Then, $(a+b)/2 = 10$ and $\\sqrt{ab} = 8$. So, a+b = 20 and ab = 64. Solving gives a = 4 and b = 16 (or vice versa).",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "If a, b, c, d and p are different real numbers such that\n(a^2 + b^2 + c^2)p^2 - 2(ab + bc + cd)p + (b^2 + c^2 + d^2) ≤ 0, show that a, b, c, d are in G.P.",
+      "Solution": "Rewrite the expression as $(ap - b)^2 + (bp - c)^2 + (cp - d)^2 ≥ 0$. For equality, each term must be 0, so $ap = b$, $bp = c$, $cp = d$. Hence, $b/a = c/b = d/c = p$, showing a, b, c, d are in G.P.",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "The first term of an A.P. is a, the second term is b, and the last term is c. Show that the sum of the A.P. is ((b+c-2a)(c+a))/(2(b-a)).",
+      "Solution": "Let the common difference be d = b - a and let the number of terms be n such that c = a + (n-1)d. Then, n = (c - a)/d + 1 = (b+c-2a)/(b-a). The sum is $S_n = (n/2)(a+c) = ((b+c-2a)(a+c))/(2(b-a))$.",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "The pth term of an A.P. is a and the qth term is b. Prove that the sum of its (p+q) terms is ((p+q)/2)[a+b+(a-b)/(p-q)].",
+      "Solution": "Let the first term be A and common difference D. Then, A + (p-1)D = a and A + (q-1)D = b. Subtracting gives (p-q)D = a - b, so D = (a-b)/(p-q). The sum of (p+q) terms is $S_{p+q} = ((p+q)/2)[2A + (p+q-1)D]$, which simplifies to the required expression.",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "If there are (2n+1) terms in an A.P., prove that the ratio of the sum of odd terms to the sum of even terms is (n+1):n.",
+      "Solution": "Let the first term be a and common difference d. The sum of odd terms is $S_{odd} = (n+1)(a+nd)$ and the sum of even terms is $S_{even} = n(a+nd)$. Thus, the ratio is $(n+1)/n$.",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "At the end of each year the value of a machine depreciates by 20% of its value at the beginning of that year. If its initial value was Rs 1250, find its value at the end of 5 years.",
+      "Solution": "Each year, the machine retains 80% of its value. Thus, after 5 years, its value is $1250 × 0.8^5 ≈ 409.6$.",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "Find the sum of the first 24 terms of an A.P. if $a_1 + a_5 + a_{10} + a_{15} + a_{20} + a_{24} = 225$.",
+      "Solution": "In an A.P., the sum of terms equidistant from the beginning and end is constant. Here, $a_1 + a_{24} = 75$ (since 3 pairs sum to 225). Therefore, $S_{24} = (24/2)(a_1+a_{24}) = 12 × 75 = 900$.",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "The product of three numbers in A.P. is 224, and the largest number is 7 times the smallest. Find the numbers.",
+      "Solution": "Let the numbers be $a-d$, a, and $a+d$. Then, $a(a^2-d^2)=224$ and $a+d = 7(a-d)$. Solving gives a = 8 and d = 6, so the numbers are 2, 8, and 14.",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "Show that $x^2+xy+y^2$, $z^2+xz+x^2$, and $y^2+yz+z^2$ are consecutive terms of an A.P. if $x, y, z$ are in A.P.",
+      "Solution": "For three numbers to be in A.P., the difference between consecutive terms must be equal. A short calculation shows the condition reduces to $x+z = 2y$, which holds since $x, y, z$ are in A.P.",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "If the sum of m terms of an A.P. equals the sum of either the next n terms or the next p terms, prove that\n$(m+n)(1/m - 1/p) = (m+p)(1/m - 1/n)$.",
+      "Solution": "Set up expressions for the sums of the first m, (m+n), and (m+p) terms of the A.P. By equating the sum of the first m terms to that of the next n and next p terms, and then subtracting and simplifying, the desired relation is obtained.",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "If $a_1, a_2, ..., a_n$ are in A.P. with common difference $d \\neq 0$, then show that\n$\\sin d (\\csc a_1 \\csc a_2 + \\csc a_2 \\csc a_3 + ... + \\csc a_{n-1} \\csc a_n) = \\cot a_1 - \\cot a_n$.",
+      "Solution": "Using the identity $\\sin(a_{k+1} - a_k) = \\sin d$ and writing the difference of cotangents, the sum telescopes to $\\cot a_1 - \\cot a_n$.",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    },
+    {
+      "Title": "Sequence And Series",
+      "Subtitle": "",
+      "Example": "(i) If $a, b, c, d$ are four distinct positive quantities in A.P., show that $bc > ad$.\n(ii) If $a, b, c, d$ are four distinct positive quantities in G.P., show that $a+d > b+c$.",
+      "Solution": "For (i), using properties of an A.P. and the fact that the arithmetic mean exceeds the geometric mean, one can show that $bc > ad$.\nFor (ii), a similar argument for a G.P. shows that $a+d > b+c$. (Detailed steps are omitted.)",
+      "Final_answer": "",
+      "chapter": "Sequence And Series"
+    }
+  ]
+  
