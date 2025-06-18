@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, ScrollView, SafeAreaView, StyleSheet } from 'react-native';
-import CBSEMath12 from './mathTopics/CBSEMath12f.json';
+import CBSEMath12 from './mathTopics/CBSEMath12fc.json';
 
 const TopicCardCBSE12 = ({ navigation }) => {
   const uniqueTitles = Array.from(new Set(CBSEMath12.map(item => item.Title)));

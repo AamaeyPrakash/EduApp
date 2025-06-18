@@ -1930,7 +1930,7 @@
   {
     "Title": "Continuity and Differentiability",
     "Subtitle": "",
-    "Example": "Discuss the continuity of the function defined by\n$$\nf(x)=\\left\\{\\begin{array}{r}}\nx+2, \\text { if } x<0 \\\\\n-x+2, \\text { if } x>0\n\\end{array}\\right.\n$$",
+    "Example": "Discuss the continuity of the function defined by\n$$\nf(x)=\\left\\{\\begin{array}{r}\nx+2, \\text { if } x<0 \\\\\n-x+2, \\text { if } x>0\n\\end{array}\\right.\n$$",
     "Solution": "Observe that the function is defined at all real numbers except at 0 . Domain of definition of this function is\n$$\n\\begin{aligned}\n& {D}_{1} \\cup {D}_{2} \\text { where } {D}_{1}=\\{x \\in \\mathbf{R}: x<0\\} \\text { and } \\\\\n& {D}_{2}=\\{x \\in \\mathbf{R}: x>0\\}\n\\end{aligned}\n$$\nCase 1 If $c \\in {D}_{1}$, then $\\lim _{x \\rightarrow c} f(x)=\\lim _{x \\rightarrow c}(x+2)$ $=c+2=f(c)$ and hence $f$ is continuous in ${D}_{1}$.\nCase 2 If $c \\in {D}_{2}$, then $\\lim _{x \\rightarrow c} f(x)=\\lim _{x \\rightarrow c}(-x+2)$ $=-c+2=f(c)$ and hence $f$ is continuous in ${D}_{2}$. Since $f$ is continuous at all points in the domain of $f$, we deduce that $f$ is continuous. Note that to graph this function we need to lift the pen from the plane of the paper, but we need to do that only for those points where the function is not defined.\n\\\\",
     "Final_answer": "$f$ is continuous at all points in the domain of $f$, we deduce that $f$ is continuous. Note that to graph this function we need to lift the pen from the plane of the paper, but we need to do that only for those points where the function is not defined.",
     "chapter": "Continuity and Differentiability"
@@ -2052,7 +2052,7 @@
     "Subtitle": "",
     "Example": "If $y=\\sin ^{-1} x$, show that $\\left(1-x^{2}\\right) \\frac{d^{2} y}{d x^{2}}-x \\frac{d y}{d x}=0$.",
     "Solution": "We have $y=\\sin ^{-1} x$. Then\nor\n$$\n\\frac{d y}{d x}=\\frac{1}{\\sqrt{\\left(1-x^{2}\\right)}}\n$$\n$$\n\\sqrt{\\left(1-x^{2}\\right)} \\frac{d y}{d x}=1\n$$\nSo\n$$\n\\frac{d}{d x}\\left(\\sqrt{\\left(1-x^{2}\\right)} \\cdot \\frac{d y}{d x}\\right)=0\n$$\nor\n$$\n\\sqrt{\\left(1-x^{2}\\right)} \\cdot \\frac{d^{2} y}{d x^{2}}+\\frac{d y}{d x} \\cdot \\frac{d}{d x}\\left(\\sqrt{\\left(1-x^{2}\\right)}\\right)=0\n$$\nor\n$$\n\\sqrt{\\left(1-x^{2}\\right)} \\cdot \\frac{d^{2} y}{d x^{2}}-\\frac{d y}{d x} \\cdot \\frac{2 x}{2 \\sqrt{1-x^{2}}}=0\n$$\nHence $\\quad\\left(1-x^{2}\\right) \\frac{d^{2} y}{d x^{2}}-x \\frac{d y}{d x}=0$\nAlternatively, Given that $y=\\sin ^{-1} x$, we have\n$$\ny_{1}=\\frac{1}{\\sqrt{1-x^{2}}} \\text {, i.e. }\\left(1-x^{2}\\right) y_{1}^{2}=1\n$$\nSo\n$$\n\\left(1-x^{2}\\right) \\cdot 2 y_{1} y_{2}+y_{1}^{2}(0-2 x)=0\n$$\nHence\n$$\n\\left(1-x^{2}\\right) y_{2}-x y_{1}=0\n$$\n\\\\",
-    "Final_answer": "$left(1-x^{2}\\right) y_{2}-x y_{1}=0$",
+    "Final_answer": "$\\left(1-x^{2}\\right) y_{2}-x y_{1}=0$",
     "chapter": "Continuity and Differentiability"
   },
   {
@@ -2068,7 +2068,7 @@
     "Subtitle": "",
     "Example": "Differentiate the following w.r.t. $x$.\n(i) $\\cos ^{-1}(\\sin x)$\n(ii) $\\tan ^{-1}\\left(\\frac{\\sin x}{1+\\cos x}\\right)$\n(iii) $\\sin ^{-1}\\left(\\frac{2^{x+1}}{1+4^x}\\right)$",
     "Solution": "(i) Let $f(x)=\\cos ^{-1}(\\sin x)$. Observe that this function is defined for all real numbers. We may rewrite this function as\n$$\n\\begin{aligned}\nf(x) & =\\cos ^{-1}(\\sin x) \\\\\n& =\\cos ^{-1}\\left[\\cos \\left(\\frac{\\pi}{2}-x\\right)\\right] \\\\\n& =\\frac{\\pi}{2}-x\n\\end{aligned}\n$$\nThus\n$$\nf^{\\prime}(x)=-1 \\text {. }\n$$\n(ii) Let $f(x)=\\tan ^{-1}\\left(\\frac{\\sin x}{1+\\cos x}\\right)$. Observe that this function is defined for all real numbers, where $\\cos x\neq-1$; i.e., at all odd multiplies of $\\pi$. We may rewrite this function as\n$$\n\\begin{aligned}\nf(x) & =\\tan ^{-1}\\left(\\frac{\\sin x}{1+\\cos x}\\right) \\\\\n& =\\tan ^{-1}\\left[\\frac{2 \\sin \\left(\\frac{x}{2}\\right) \\cos \\left(\\frac{x}{2}\\right)}{2 \\cos ^2 \\frac{x}{2}}\\right]\n\\end{aligned}\n$$\n$$\n=\\tan ^{-1}\\left[\\tan \\left(\\frac{x}{2}\\right)\\right]=\\frac{x}{2}\n$$\nObserve that we could cancel $\\cos \\left(\\frac{x}{2}\\right)$ in both numerator and denominator as it is not equal to zero. Thus $f^{\\prime}(x)=\\frac{1}{2}$.\n(iii) Let $f(x)=\\sin ^{-1}\\left(\\frac{2^{x+1}}{1+4^x}\\right)$. To find the domain of this function we need to find all $x$ such that $-1 \\leq \\frac{2^{x+1}}{1+4^x} \\leq 1$. Since the quantity in the middle is always positive, we need to find all $x$ such that $\\frac{2^{x+1}}{1+4^x} \\leq 1$, i.e., all $x$ such that $2^{x+1} \\leq 1+4^x$. We may rewrite this as $2 \\leq \\frac{1}{2^x}+2^x$ which is true for all $x$. Hence the function is defined at every real number. By putting $2^x=\\tan \\theta$, this function may be rewritten as\n$$\n\\begin{aligned}\nf(x) & =\\sin ^{-1}\\left[\\frac{2^{x+1}}{1+4^x}\\right] \\\\\n& =\\sin ^{-1}\\left[\\frac{2^x \\cdot 2}{1+\\left(2^x\\right)^2}\\right] \\\\\n& =\\sin ^{-1}\\left[\\frac{2 \\tan \\theta}{1+\\tan ^2 \\theta}\\right] \\\\\n& =\\sin ^{-1}[\\sin 2 \\theta] \\\\\n& =2 \\theta=2 \\tan { }^{-1}\\left(2^x\\right) \\\\\nf^{\\prime}(x) & =2 \\cdot \\frac{1}{1+\\left(2^x\\right)^2} \\cdot \\frac{d}{d x}\\left(2^x\\right) \\\\\n& =\\frac{2}{1+4^x} \\cdot\\left(2^x\\right) \\log 2 \\\\\n& =\\frac{2^{x+1} \\log 2}{1+4^x}\n\\end{aligned}\n$$\nThus\n$$\n\\begin{aligned}\nf^{\\prime}(x) & =2 \\cdot \\frac{1}{1+\\left(2^x\\right)^2} \\cdot \\frac{d}{d x}\\left(2^x\\right) \\\\\n& =\\frac{2}{1+4^x} \\cdot\\left(2^x\\right) \\log 2 \\\\\n& =\\frac{2^{x+1} \\log 2}{1+4^x}\n\\end{aligned}\n$$\n\\\\",
-    "Final_answer": "(i) $f^{\\prime}(x)=-1$ (ii) $f^{\\prime}(x)=\\frac{1}{2}$ (iii) frac{2^{x+1} \\log 2}{1+4^x}",
+    "Final_answer": "(i) $f^{\\prime}(x)=-1$ (ii) $f^{\\prime}(x)=\\frac{1}{2}$ (iii) \\frac{2^{x+1} \\log 2}{1+4^x}",
     "chapter": "Continuity and Differentiability"
   },
   {
@@ -3528,9 +3528,9 @@
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "Evaluate $\\int_{\\frac{-\\pi}{4}}^{\frac{\\pi}{4}} \\sin ^{2} x d x$",
-    "Solution": "We observe that $\\sin ^{2} x$ is an even function. Therefore, by $P_{7}$ (i), we get\n$$\n\\int_{\\frac{-\\pi}{4}}^{\frac{\\pi}{4}} \\sin ^{2} x d x=2 \\int_{0}^{\\frac{\\pi}{4}} \\sin ^{2} x d x=2 \\int_{0}^{\\frac{\\pi}{4}} \\frac{(1-\\cos 2 x)}{2} d x=\\int_{0}^{\\frac{\\pi}{4}}(1-\\cos 2 x) d x\n$$\n$$\n=\\left[x-\\frac{1}{2} \\sin 2 x\\right]_{0}^{\\frac{\\pi}{4}}=\\left(\\frac{\\pi}{4}-\\frac{1}{2} \\sin \\frac{\\pi}{2}\\right)-0=\\frac{\\pi}{4}-\\frac{1}{2}\n$$",
-    "Final_answer": "(ii) $\\int_{\\frac{-\\pi}{4}}^{\frac{\\pi}{4}} \\sin ^{2} x d x=\\frac{\\pi}{4}-\\frac{1}{2}$",
+    "Example": "Evaluate $\\int_{\\frac{-\\pi}{4}}^{\\frac{\\pi}{4}} \\sin^{2}x\\,dx$",
+    "Solution": "We observe that $\\sin^{2}x$ is an even function, so\n$\\int_{\\frac{-\\pi}{4}}^{\\frac{\\pi}{4}} \\sin^{2}x\\,dx = 2\\int_{0}^{\\frac{\\pi}{4}} \\sin^{2}x\\,dx = 2\\int_{0}^{\\frac{\\pi}{4}} \\tfrac{1-\\cos 2x}{2}\\,dx = \\int_{0}^{\\frac{\\pi}{4}} (1-\\cos 2x)\\,dx = \\Bigl[x-\\tfrac12\\sin 2x\\Bigr]_{0}^{\\frac{\\pi}{4}} = \\frac{\\pi}{4} - \\frac{1}{2}.",
+    "Final_answer": "$\\int_{\\frac{-\\pi}{4}}^{\\frac{\\pi}{4}} \\sin^{2}x\\,dx = \\frac{\\pi}{4}-\\tfrac12$",
     "chapter": "Integrals"
   },
   {

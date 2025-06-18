@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView, Platform } from 'react-native';
 import MathView from 'react-native-math-view';
-import CBSEMath12 from '../mathTopics/CBSEMath12fc.json';
+import CBSEMath12 from '../mathTopics/CBSEMath12fc_fixed.json';
 
 const MathText = ({ content }) => {
   // Split content by LaTeX delimiters while preserving delimiters
