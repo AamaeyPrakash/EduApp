@@ -387,7 +387,7 @@
     "Title": "Conic Sections",
     "Subtitle": "",
     "Example": "Find an equation of the circle with centre at $(0,0)$ and radius $r$.",
-    "Solution": "The centre is $(0,0)$, so $h = 0,\\;k = 0$.  Using the standard form $(x-h)^{2}+(y-k)^{2}=r^{2}$ and substituting $h, k$ gives\n\\[\n(x-0)^{2} + (y-0)^{2} = r^{2}\\;\\Longrightarrow\\;x^{2}+y^{2}=r^{2}.\n\\]",
+    "Solution": "The centre is $(0,0)$, so $h = 0,\\;k = 0$.  Using the standard form $(x-h)^{2}+(y-k)^{2}=r^{2}$ and substituting $h, k$ gives\n$\n(x-0)^{2} + (y-0)^{2} = r^{2}\\;\\Longrightarrow\\;x^{2}+y^{2}=r^{2}.\n$",
     "Final_answer": "Equation: $x^{2}+y^{2}=r^{2}$.",
     "chapter": "Conic Sections"
   },
@@ -395,7 +395,7 @@
     "Title": "Conic Sections",
     "Subtitle": "",
     "Example": "Find the equation of the circle with centre $(-3,2)$ and radius $4$.",
-    "Solution": "With $h=-3,\\;k=2,\\;r=4$ the standard form $(x-h)^{2}+(y-k)^{2}=r^{2}$ becomes\n\\[\n(x+3)^{2} + (y-2)^{2} = 16.\n\\]",
+    "Solution": "With $h=-3,\\;k=2,\\;r=4$ the standard form $(x-h)^{2}+(y-k)^{2}=r^{2}$ becomes\n$\n(x+3)^{2} + (y-2)^{2} = 16.\n$",
     "Final_answer": "Equation: $(x+3)^{2}+(y-2)^{2}=16$.",
     "chapter": "Conic Sections"
   },
@@ -403,7 +403,7 @@
     "Title": "Conic Sections",
     "Subtitle": "",
     "Example": "Find the centre and the radius of the circle $x^{2}+y^{2}+8x+10y-8=0$.",
-    "Solution": "Rewrite the equation by grouping terms:\n\\[\n(x^{2}+8x)+(y^{2}+10y)=8.\n\\]\nComplete the square in each bracket:\n\\[\n(x^{2}+8x+16) + (y^{2}+10y+25) = 8+16+25 \\Longrightarrow (x+4)^{2} + (y+5)^{2} = 49.\n\\]\nHence the centre is $(-4,-5)$ and the radius is $r = 7$.",
+    "Solution": "Rewrite the equation by grouping terms:\n$\n(x^{2}+8x)+(y^{2}+10y)=8.\n\\]\nComplete the square in each bracket:\n$\n(x^{2}+8x+16) + (y^{2}+10y+25) = 8+16+25 \\Longrightarrow (x+4)^{2} + (y+5)^{2} = 49.\n\\]\nHence the centre is $(-4,-5)$ and the radius is $r = 7$.",
     "Final_answer": "Centre $(-4,-5)$, radius $7$.",
     "chapter": "Conic Sections"
   },
@@ -411,7 +411,7 @@
     "Title": "Conic Sections",
     "Subtitle": "",
     "Example": "Find the equation of the circle which passes through the points $(2,-2)$ and $(3,4)$ and whose centre lies on the line $x+y=2$.",
-    "Solution": "Let the centre be $(h,k)$ with $h+k=2$.  Using $(x-h)^{2}+(y-k)^{2}=r^{2}$ for the two points gives\n\\[\n(2-h)^{2}+(-2-k)^{2}=r^{2},\\qquad (3-h)^{2}+(4-k)^{2}=r^{2}.\n\\]\nSolving the three equations yields $\\displaystyle h=\\tfrac{7}{10},\\;k=\\tfrac{13}{10},\\;r^{2}=\\tfrac{629}{50}$.  Therefore\n\\[\n\\bigl(x-\\tfrac{7}{10}\\bigr)^{2}+\\bigl(y-\\tfrac{13}{10}\\bigr)^{2}=\\tfrac{629}{50}.\n\\]",
+    "Solution": "Let the centre be $(h,k)$ with $h+k=2$.  Using $(x-h)^{2}+(y-k)^{2}=r^{2}$ for the two points gives\n$\n(2-h)^{2}+(-2-k)^{2}=r^{2},\\qquad (3-h)^{2}+(4-k)^{2}=r^{2}.\n\\]\nSolving the three equations yields $\\displaystyle h=\\frac{7}{10},\\;k=\\frac{13}{10},\\;r^{2}=\\frac{629}{50}$.  Therefore\n$\n\\left(x-\\frac{7}{10}\\right)^{2}+\\left(y-\\frac{13}{10}\\right)^{2}=\\frac{629}{50}.\n\\]",
     "Final_answer": "Equation: $(x-0.7)^{2}+(y-1.3)^{2}=12.58$ (exact $r^{2}=629/50$).",
     "chapter": "Conic Sections"
   },
@@ -419,7 +419,7 @@
     "Title": "Conic Sections",
     "Subtitle": "",
     "Example": "Find the equation of the parabola with vertex at $(0,0)$ and focus at $(0,2)$.",
-    "Solution": "The axis is the $y$-axis and the distance from vertex to focus is $a=2$, so the parabola is\n\\[\nx^{2}=4ay\\;\\Longrightarrow\\;x^{2}=8y.\n\\]",
+    "Solution": "The axis is the $y$-axis and the distance from vertex to focus is $a=2$, so the parabola is\n$\nx^{2}=4ay\\;\\Longrightarrow\\;x^{2}=8y.\n\\]",
     "Final_answer": "Equation: $x^{2}=8y$.",
     "chapter": "Conic Sections"
   },
@@ -427,7 +427,7 @@
     "Title": "Conic Sections",
     "Subtitle": "",
     "Example": "Find the equation of the parabola which is symmetric about the $y$-axis and passes through $(2,-3)$.",
-    "Solution": "A parabola symmetric about the $y$-axis with vertex at the origin has either $x^{2}=4ay$ (opens up) or $x^{2}=-4ay$ (opens down).  Because $(2,-3)$ is below the $x$-axis, it opens downward:\n\\[\n2^{2} = -4a(-3) \\;\\Rightarrow\\; a = \\tfrac13.\n\\]\nThus $x^{2} = -4\\left(\\tfrac13\\right)y$ or $3x^{2}=-4y$.",
+    "Solution": "A parabola symmetric about the $y$-axis with vertex at the origin has either $x^{2}=4ay$ (opens up) or $x^{2}=-4ay$ (opens down).  Because $(2,-3)$ is below the $x$-axis, it opens downward:\n$\n2^{2} = -4a(-3) \\;\\Rightarrow\\; a = \\frac13.\n\\]\nThus $x^{2} = -4\\left(\\frac13\\right)y$ or $3x^{2}=-4y$.",
     "Final_answer": "Equation: $3x^{2}=-4y$.",
     "chapter": "Conic Sections"
   },
@@ -435,7 +435,7 @@
     "Title": "Conic Sections",
     "Subtitle": "",
     "Example": "Find the coordinates of the foci, the vertices, the lengths of the major and minor axes and the eccentricity of the ellipse $9x^{2}+4y^{2}=36$.",
-    "Solution": "Divide by $36$ to get \\(\\frac{x^{2}}{4}+\\frac{y^{2}}{9}=1\\).  Here $a=3,\\;b=2$ (major axis along $y$).  Then $c=\\sqrt{a^{2}-b^{2}}=\\sqrt5$.\n\n* Foci: $(0,\\pm\\sqrt5)$  \n* Vertices: $(0,\\pm3)$  \n* Major axis length: $2a = 6$  \n* Minor axis length: $2b = 4$  \n* Eccentricity: $e=\\tfrac{c}{a}=\\tfrac{\\sqrt5}{3}$",
+    "Solution": "Divide by $36$ to get \\(\\frac{x^{2}}{4}+\\frac{y^{2}}{9}=1\\).  Here $a=3,\\;b=2$ (major axis along $y$).  Then $c=\\sqrt{a^{2}-b^{2}}=\\sqrt5$.\n\n* Foci: $(0,\\pm\\sqrt5)$  \n* Vertices: $(0,\\pm3)$  \n* Major axis length: $2a = 6$  \n* Minor axis length: $2b = 4$  \n* Eccentricity: $e=\\frac{c}{a}=\\frac{\\sqrt5}{3}$",
     "Final_answer": "Foci $(0,\\pm\\sqrt5)$; vertices $(0,\\pm3)$; major axis $6$, minor axis $4$, $e=\\sqrt5/3$.",
     "chapter": "Conic Sections"
   },
@@ -443,7 +443,7 @@
     "Title": "Conic Sections",
     "Subtitle": "",
     "Example": "Find the equation of the ellipse whose vertices are $(\\pm 13,0)$ and foci are $(\\pm 5,0)$.",
-    "Solution": "Vertices give $a=13$, foci give $c=5$.  Using $c^{2}=a^{2}-b^{2}$:\n\\[\n25 = 169 - b^{2} \\;\\Rightarrow\\; b^{2}=144.\n\\]\nHence\n\\[\n\\frac{x^{2}}{169}+\\frac{y^{2}}{144}=1.\n\\]",
+    "Solution": "Vertices give $a=13$, foci give $c=5$.  Using $c^{2}=a^{2}-b^{2}$:\n$\n25 = 169 - b^{2} \\;\\Rightarrow\\; b^{2}=144.\n\\]\nHence\n$\n\\frac{x^{2}}{169}+\\frac{y^{2}}{144}=1.\n\\]",
     "Final_answer": "Equation: $\\displaystyle \\frac{x^{2}}{169}+\\frac{y^{2}}{144}=1$.",
     "chapter": "Conic Sections"
   },
@@ -451,7 +451,7 @@
     "Title": "Conic Sections",
     "Subtitle": "",
     "Example": "Find the equation of the ellipse whose major axis length is $20$ and foci are $(0,\\pm 5)$.",
-    "Solution": "Major axis along $y$ so $a=10,\\;c=5$.  Then $b^{2}=a^{2}-c^{2}=100-25=75$.  Thus\n\\[\n\\frac{x^{2}}{75}+\\frac{y^{2}}{100}=1.\n\\]",
+    "Solution": "Major axis along $y$ so $a=10,\\;c=5$.  Then $b^{2}=a^{2}-c^{2}=100-25=75$.  Thus\n$\n\\frac{x^{2}}{75}+\\frac{y^{2}}{100}=1.\n\\]",
     "Final_answer": "Equation: $\\displaystyle \\frac{x^{2}}{75}+\\frac{y^{2}}{100}=1$.",
     "chapter": "Conic Sections"
   },
@@ -459,7 +459,7 @@
     "Title": "Conic Sections",
     "Subtitle": "",
     "Example": "Find the equation of the ellipse, with major axis along the $x$-axis, that passes through $(4,3)$ and $(-1,4)$.",
-    "Solution": "Start with $\\displaystyle \\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1$.  Substituting the two points gives\n\\[\n\\frac{16}{a^{2}}+\\frac{9}{b^{2}}=1,\\qquad \\frac{1}{a^{2}}+\\frac{16}{b^{2}}=1.\n\\]\nSolving yields $\\displaystyle a^{2}=\\tfrac{247}{7},\\;b^{2}=\\tfrac{247}{15}$.  Multiplying throughout by $\\frac{105}{247}$ gives the neat form\n\\[\n7x^{2}+15y^{2}=247.\n\\]",
+    "Solution": "Start with $\\displaystyle \\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1$.  Substituting the two points gives\n$\n\\frac{16}{a^{2}}+\\frac{9}{b^{2}}=1,\\qquad \\frac{1}{a^{2}}+\\frac{16}{b^{2}}=1.\n\\]\nSolving yields $\\displaystyle a^{2}=\\frac{247}{7},\\;b^{2}=\\frac{247}{15}$.  Multiplying throughout by $\\frac{105}{247}$ gives the neat form\n$\n7x^{2}+15y^{2}=247.\n\\]",
     "Final_answer": "Equation: $7x^{2}+15y^{2}=247$.",
     "chapter": "Conic Sections"
   },
@@ -467,15 +467,15 @@
     "Title": "Conic Sections",
     "Subtitle": "",
     "Example": "For each hyperbola find the foci, vertices, eccentricity and length of the latus rectum:  (i) $\\frac{x^{2}}{9}-\\frac{y^{2}}{16}=1$,  (ii) $y^{2}-16x^{2}=16$.",
-    "Solution": "**(i)** $a=3,\\;b=4,\\;c=\\sqrt{a^{2}+b^{2}}=5$.  Foci $(\\pm5,0)$, vertices $(\\pm3,0)$, $e=\\tfrac{5}{3}$, latus rectum $\\frac{2b^{2}}{a}=\\frac{32}{3}$.  \n**(ii)** Divide by $16$ to get $\\frac{y^{2}}{16}-\\frac{x^{2}}{1}=1$ so $a=4,\\;b=1,\\;c=\\sqrt{17}$.  Foci $(0,\\pm\\sqrt{17})$, vertices $(0,\\pm4)$, $e=\\tfrac{\\sqrt{17}}{4}$, latus rectum $\\frac{2b^{2}}{a}=\\frac12$.",
+    "Solution": "**(i)** $a=3,\\;b=4,\\;c=\\sqrt{a^{2}+b^{2}}=5$.  Foci $(\\pm5,0)$, vertices $(\\pm3,0)$, $e=\\frac{5}{3}$, latus rectum $\\frac{2b^{2}}{a}=\\frac{32}{3}$.  \n**(ii)** Divide by $16$ to get $\\frac{y^{2}}{16}-\\frac{x^{2}}{1}=1$ so $a=4,\\;b=1,\\;c=\\sqrt{17}$.  Foci $(0,\\pm\\sqrt{17})$, vertices $(0,\\pm4)$, $e=\\frac{\\sqrt{17}}{4}$, latus rectum $\\frac{2b^{2}}{a}=\\frac12$.",
     "Final_answer": "(i) Foci $(\\pm5,0)$, vertices $(\\pm3,0)$, $e=5/3$, LR $=32/3$.  (ii) Foci $(0,\\pm\\sqrt{17})$, vertices $(0,\\pm4)$, $e=\\sqrt{17}/4$, LR $=1/2$.",
     "chapter": "Conic Sections"
   },
   {
     "Title": "Conic Sections",
     "Subtitle": "",
-    "Example": "Find the equation of the hyperbola with foci $(0,\\pm 3)$ and vertices $\\bigl(0,\\pm \\tfrac{\\sqrt{11}}{2}\\bigr)$.",
-    "Solution": "With transverse axis on $y$ we take $\\displaystyle \\dfrac{y^{2}}{a^{2}}-\\dfrac{x^{2}}{b^{2}}=1$.  Vertices give $a=\\tfrac{\\sqrt{11}}{2}$, foci give $c=3$.  Then $b^{2}=c^{2}-a^{2}=\\tfrac{25}{4}$.  Hence\n\\[\n\\frac{y^{2}}{\\tfrac{11}{4}}-\\frac{x^{2}}{\\tfrac{25}{4}}=1\\;\\Longrightarrow\\;100y^{2}-44x^{2}=275.\n\\]",
+    "Example": "Find the equation of the hyperbola with foci $(0,\\pm 3)$ and vertices $\\left(0,\\pm \\frac{\\sqrt{11}}{2}\\right)$.",
+    "Solution": "With transverse axis on $y$ we take $\\displaystyle \\dfrac{y^{2}}{a^{2}}-\\dfrac{x^{2}}{b^{2}}=1$.  Vertices give $a=\\frac{\\sqrt{11}}{2}$, foci give $c=3$.  Then $b^{2}=c^{2}-a^{2}=\\frac{25}{4}$.  Hence\n$\n\\frac{y^{2}}{\\frac{11}{4}}-\\frac{x^{2}}{\\frac{25}{4}}=1\\;\\Longrightarrow\\;100y^{2}-44x^{2}=275.\n\\]",
     "Final_answer": "Equation: $100y^{2}-44x^{2}=275$.",
     "chapter": "Conic Sections"
   },
@@ -483,7 +483,7 @@
     "Title": "Conic Sections",
     "Subtitle": "",
     "Example": "Find the equation of the hyperbola whose foci are $(0,\\pm 12)$ and whose latus-rectum length is $36$.",
-    "Solution": "For a transverse axis on $y$: $\\displaystyle \\dfrac{y^{2}}{a^{2}}-\\dfrac{x^{2}}{b^{2}}=1$ with $c=12$.  The latus rectum is $\\displaystyle \\dfrac{2b^{2}}{a}=36\\;\\Rightarrow\\;b^{2}=18a$.  Using $c^{2}=a^{2}+b^{2}$ gives\n\\[\n144=a^{2}+18a\\;\\Rightarrow\\;(a-6)(a+24)=0\\;\\Rightarrow\\;a=6.\n\\]\nThen $b^{2}=108$.  Therefore\n\\[\n\\frac{y^{2}}{36}-\\frac{x^{2}}{108}=1\\;\\Longrightarrow\\;3y^{2}-x^{2}=108.\n\\]",
+    "Solution": "For a transverse axis on $y$: $\\displaystyle \\dfrac{y^{2}}{a^{2}}-\\dfrac{x^{2}}{b^{2}}=1$ with $c=12$.  The latus rectum is $\\displaystyle \\dfrac{2b^{2}}{a}=36\\;\\Rightarrow\\;b^{2}=18a$.  Using $c^{2}=a^{2}+b^{2}$ gives\n$\n144=a^{2}+18a\\;\\Rightarrow\\;(a-6)(a+24)=0\\;\\Rightarrow\\;a=6.\n\\]\nThen $b^{2}=108$.  Therefore\n$\n\\frac{y^{2}}{36}-\\frac{x^{2}}{108}=1\\;\\Longrightarrow\\;3y^{2}-x^{2}=108.\n\\]",
     "Final_answer": "Equation: $3y^{2}-x^{2}=108$.",
     "chapter": "Conic Sections"
   },
@@ -2362,8 +2362,8 @@
   {
     "Title": "Application of Derivatives",
     "Subtitle": "",
-    "Example": "Find all the points of local maxima and local minima of the function $f$ given by\n$$\\displaystyle \nf(x)=2 x^{3}-6 x^{2}+6 x+5\n$$",
-    "Solution": "We have\nor\n$$\\displaystyle \nf(x)=2 x^{3}-6 x^{2}+6 x+5\n$$\\$\\$\n\\textbackslash left\\{\\[\n\\begin{array}{l}\nf^{\\prime}(x)=6 x^{2}-12 x+6=6(x-1)^{2} \\\\\nf^{\\prime \\prime}(x)=12(x-1)\n\\end{array}\n\\]\\textbackslash right.\n\\$\\$\nNow $f^{\\prime}(x)=0$ gives $x=1$. Also $f^{\\prime \\prime}(1)=0$. Therefore, the second derivative test fails in this case. So, we shall go back to the first derivative test.\nWe have already seen (Example 18) that, using first derivative test, $x=1$ is neither a point of local maxima nor a point of local minima and so it is a point of inflexion.",
+    "Example": "Find all the points of local maxima and local\nminima of the function $f$ given by:\n$f(x)=2 x^{3}-6 x^{2}+6 x+5$",
+    "Solution": "We have $f(x)=2 x^{3}-6 x^{2}+6 x+5\n$\\left{\\begin{array}{l}\nf^{\\prime}(x)=6 x^{2}-12 x+6=6(x-1)^{2} \\\\\nf^{\\prime \\prime}(x)=12(x-1)\n\\end{array}\n\\]\\textbackslash right.\n\\$\\$\nNow $f^{\\prime}(x)=0$ gives $x=1$. Also $f^{\\prime \\prime}(1)=0$. Therefore, the second derivative test fails in this case. So, we shall go back to the first derivative test.\nWe have already seen (Example 18) that, using first derivative test, $x=1$ is neither a point of local maxima nor a point of local minima and so it is a point of inflexion.",
     "Final_answer": "The second derivative test fails in this case. So, we shall go back to the first derivative test.\nWe have already seen (Example 18) that, using first derivative test, $x=1$ is neither a point of local maxima nor a point of local minima and so it is a point of inflexion.",
     "chapter": "Application of Derivatives"
   },
@@ -3232,80 +3232,72 @@
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(i) ∫(cos(2x)dx)",
-    "Solution": "(i) $\\int \\cos(2x)dx$. We look for a function whose derivative is $\\cos(2x)$. Recall that\n$\\frac{d}{dx} (\\sin(2x)) = 2\\cos(2x)$,\nor $\\displaystyle \\cos(2x) = \\frac{1}{2} \\frac{d}{dx}(\\sin(2x)) = \\frac{d}{dx}\\left(\\frac{1}{2}\\sin(2x)\\right)$.\nTherefore, an antiderivative of $\\cos(2x)$ is $\\frac{1}{2}\\sin(2x) + C$.",
+    "Example": "(i) $\\int{cos(2x)dx}$",
+    "Solution": "(i) $\\int \\cos(2x)dx$. We look for a function whose derivative is $\\cos(2x)$. Recall that\n$\\frac{d}{dx} (\\sin(2x)) = 2\\cos(2x)$ \nor $\\displaystyle \\cos(2x) = \\frac{1}{2} \\frac{d}{dx}(\\sin(2x)) = \\frac{d}{dx}\\left(\\frac{1}{2}\\sin(2x)\\right)$\nTherefore, an antiderivative of $\\cos(2x)$ is $\\frac{1}{2}\\sin(2x) + C$.",
     "Final_answer": "(i) $\\displaystyle \\int \\cos(2x)dx = \\frac{1}{2}\\sin(2x) + C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(ii) ∫((3x^2 + 4x^3)dx)",
-    "Solution": "(ii) $\\int (3x^2 + 4x^3)dx$. We look for a function whose derivative is $3x^2 + 4x^3$. Note that\n$\\frac{d}{dx}(x^3 + x^4) = 3x^2 + 4x^3$.\nTherefore, an antiderivative of $3x^2 + 4x^3$ is $x^3 + x^4$.",
+    "Example": "(ii) $\\int{3x^2 + 4x^3 \\;dx}$",
+    "Solution": "(ii) $\\int (3x^2 + 4x^3)dx$We look for a function whose derivative is $3x^2 + 4x^3$. Note that \n$\\frac{d}{dx}(x^3 + x^4) = 3x^2 + 4x^3$ \nTherefore, an antiderivative of $3x^2 + 4x^3$ is $x^3 + x^4$.",
     "Final_answer": "(ii) $\\int (3x^2 + 4x^3)dx = x^3 + x^4 + C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(iii) ∫((1/x)dx)",
-    "Solution": "(iii) $\\int \\frac{1}{x}dx$. We know that\n$\\frac{d}{dx}(\\log{|x|}) = \\frac{1}{x}, x\neq 0$.\nTherefore, $\\int \\frac{1}{x}dx = \\log{|x|}$ is one of the antiderivatives of $\\frac{1}{x}$.",
+    "Example": "(iii) $\\int{\\frac{1}{x} \\; dx}$",
+    "Solution": "(iii) $\\int \\frac{1}{x}dx$ \nWe know that$\\frac{d}{dx}(\\log{|x|}) = \\frac{1}{x}, x \\neq 0$.\nTherefore, $\\int \\frac{1}{x}dx = \\log{|x|}$ is one of the antiderivatives of $\\frac{1}{x}$.",
     "Final_answer": "(iii) $\\int \\frac{1}{x}dx = \\log{|x|} + C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(i) ∫((x^3 - 1)/x^2)dx",
-    "Solution": "(i) $\\int \\frac{x^3 - 1}{x^2}dx$. We can rewrite it as $\\int (x - x^{-2})dx$.\n$\\displaystyle = \\frac{x^{1+1}}{1+1} - \\frac{x^{-2+1}}{-2+1} + C$\n$= \\frac{1}{2}x^2 + x^{-1} + C$\n$= \\frac{1}{2}x^2 + \\frac{1}{x} + C$",
+    "Example": "(i) $\\int{\\frac{x^3 - 1}{x^2} \\; dx}$",
+    "Solution": "(i) $\\int \\frac{x^3 - 1}{x^2}dx$ \nWe can rewrite it as $\\int (x - x^{-2})dx$\n$= \\dfrac{x^{1+1}}{1+1} - \\dfrac{x^{-2+1}}{-2+1} + C$\n$= \\dfrac{1}{2}x^2 + x^{-1} + C$\n$= \\dfrac{1}{2}x^2 + \\dfrac{1}{x} + C$",
     "Final_answer": "(i) $\\displaystyle \\int \\frac{x^3 - 1}{x^2}dx = \\frac{1}{2}x^2 + \\frac{1}{x} + C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(i) ∫$((x^3 - 1)/x^2)dx",
-    "Solution": "(i) ∫$((x^3 - 1)/x^2)dx = ∫(x - x^{-2})dx$\n$\\displaystyle = \\frac{x^{1+1}}{1+1} - \\frac{x^{-2+1}}{-2+1} + C$\n$= \\frac{1}{2}x^2 + x^{-1} + C$\n$= \\frac{1}{2}x^2 + \\frac{1}{x} + C$",
-    "Final_answer": "(i) ∫$\\displaystyle ((x^3 - 1)/x^2)dx = \\frac{1}{2}x^2 + \\frac{1}{x} + C$",
-    "chapter": "Integrals"
-  },
-  {
-    "Title": "Integrals",
-    "Subtitle": "",
-    "Example": "(ii) ∫$((x^{2/3} + 1))dx",
-    "Solution": "(ii) ∫$\\displaystyle ((x^{2/3} + 1))dx = ∫(x^{2/3})dx + ∫(1)dx$\n$= \\frac{x^{(2/3)+1}}{(2/3)+1} + x + C$\n$= \\frac{3}{5}x^{(5/3)} + x + C$",
+    "Example": "(ii) $\\int{x^\\frac{2}{3} + 1 \\; dx}$",
+    "Solution": "(ii) $\\int{x^\frac{2}{3} + 1 \\; dx}$\n$=\\int{x^\\frac{2}{3} \\; dx} + \\int{1 \\; dx}$\n$=\\frac{x^\\frac{2}{3}+1}{\\frac{2}{3}+1} + x + C$\n$= \\frac{3}{5}x^{(5/3)} + x + C$",
     "Final_answer": "(ii) ∫$\\displaystyle ((x^{2/3} + 1))dx = \\frac{3}{5}x^{(5/3)} + x + C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(iii) ∫$((x^{3/2} + 2e^x - 1/x))dx",
-    "Solution": "(iii) ∫$\\displaystyle ((x^{3/2} + 2e^x - 1/x))dx = ∫(x^{3/2})dx + ∫(2e^x)dx - ∫(1/x)dx$\n$\\displaystyle = \\frac{2}{5}x^{(5/2)} + 2e^x - \\ln|x| + C$",
+    "Example": "(iii) $\\int{x^\\frac{3}{2} + 2e^x - \\frac{1}{x} \\; dx}$",
+    "Solution": "(iii) $\\int{x^\\frac{3}{2} + 2e^x - 1/x \\; dx}$\n $= \\int{x^\\frac{3}{2} \\;dx} + \\int{2e^x \\; dx} - \\int{\\frac{1}{x}\\;dx}$\n$\\;= \\frac{2}{5}x^\\frac{5}{2} + 2e^x - \\ln|x| + C$",
     "Final_answer": "(iii) ∫$\\displaystyle ((x^{3/2} + 2e^x - 1/x))dx = \\frac{2}{5}x^{(5/2)} + 2e^x - \\ln|x| + C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(i) ∫$\\sin^3 x * \\cos^2 x dx",
-    "Solution": "(i) ∫$\\displaystyle \\sin^3 x * \\cos^2 x dx = -\\frac{1}{3} \\cos^3 x + \\frac{1}{5} \\cos^5 x + C$",
+    "Example": "(i) $\\int{\\sin^3(x)\\cos^2(x) \\;dx}$",
+    "Solution": "(i) $\\int{\\sin^3(x)\\cos^2(x)\\;dx}$\n$= -\\frac{1}{3} \\cos^3 x + \\frac{1}{5} \\cos^5 x + C$",
     "Final_answer": "(i) ∫$\\displaystyle \\sin^3 x * \\cos^2 x dx = -\\frac{1}{3} \\cos^3 x + \\frac{1}{5} \\cos^5 x + C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(ii) ∫$\\frac{\\sin x}{\\sin (x + a)} dx",
-    "Solution": "(ii) ∫$\\displaystyle \\frac{\\sin x}{\\sin (x + a)} dx = x \\cos a + a \\cos a - \\sin a \\ln |\\sin (x + a)| + C$, where $C$ is another arbitrary constant.",
+    "Example": "(ii) $\\int{\\frac{\\sin(x)}{\\sin(x + a)}\\;dx}$",
+    "Solution": "(ii) $\\int{\\frac{\\sin(x)}{\\sin(x + a)}\\;dx}$\n$= x\\cos a + a \\cos a - \\sin(a) \\ln |\\sin (x + a)| + C$where $C$ is another arbitrary constant.",
     "Final_answer": "(ii) ∫$\\displaystyle \\frac{\\sin x}{\\sin (x + a)} dx = x \\cos a + a \\cos a - \\sin a \\ln |\\sin (x + a)| + C$, where $C$ is another",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(iii) ∫$\\frac{1}{1 + \\tan x} dx",
-    "Solution": "(iii) ∫$\\displaystyle \\frac{1}{1 + \\tan x} dx = \\frac{x}{2} + \\frac{1}{2} \\ln |\\cos x + \\sin x| + C$, where $C$ is a constant.",
+    "Example": "(iii) $\\int{\\frac{1}{1 + \\tan x}\\; dx}$",
+    "Solution": "(iii) $\\int{\\frac{1}{1 + \\tan x}\\;dx}$\n$= \\frac{x}{2} + \\frac{1}{2} \\ln |\\cos x + \\sin x| + C$\nwhere $C$ is a constant.",
     "Final_answer": "(iii) ∫$\\displaystyle \\frac{1}{1 + \\tan x} dx = \\frac{x}{2} + \\frac{1}{2} \\ln |\\cos x + \\sin x| + C$, where $C$ is a constant.",
     "chapter": "Integrals"
   },
@@ -3313,288 +3305,288 @@
     "Title": "Integrals",
     "Subtitle": "",
     "Example": "Find the antiderivative F of f defined by $f(x) = 4x^3 - 6$, where $F(0) = 3$.",
-    "Solution": "One antiderivative of $f(x)$ is $F(x) = x^4 - 6x$ since $\\frac{d}{dx}(x^4 - 6x) = 4x^3 - 6$.\nTherefore, the antiderivative $F$ is given by $F(x) = x^4 - 6x + C$, where $C$ is constant.\nGiven that $F(0) = 3$, which gives $3 = 0 - 6 * 0 + C$ or $C = 3$.\nHence, the required antiderivative is the unique function $F$ defined by $F(x) = x^4 - 6x + 3$.",
+    "Solution": "One antiderivative of $f(x)$ is $F(x) = x^4 - 6x$ since $\\frac{d}{dx}(x^4 - 6x) = 4x^3 - 6$\nTherefore, the antiderivative $F$ is given by $F(x) = x^4 - 6x + C$, where $C$ is constant.\nGiven that $F(0) = 3$, which gives $3 = 0 - 6 * 0 + C$ or $C = 3$.\nHence, the required antiderivative is the unique function $F(x)$ defined by $F(x) = x^4 - 6x + 3$.",
     "Final_answer": "The required antiderivative is $F(x) = x^4 - 6x + 3$.",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(i) ∫$\\sin mx dx",
-    "Solution": "(i) ∫$\\sin mx dx = (-1/m) \\cos(mx) + C$",
+    "Example": "(i) $\\int{\\sin(mx)\\;dx}$",
+    "Solution": "(i) $\\int{\\sin(mx)\\;dx}$\n$= \\frac{-1}{m}\\cos(mx) + C$",
     "Final_answer": "(i) ∫$\\sin mx dx = (-1/m) \\cos(mx) + C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(ii) ∫$2x * \\sin(x^2 + 1) dx",
-    "Solution": "(ii) ∫$\\displaystyle 2x * \\sin(x^2 + 1) dx = -\\cos(x^2 + 1) + C$",
+    "Example": "(ii) $\\int{2x \\cdot \\sin(x^2 + 1)\\;dx}$",
+    "Solution": "(ii) $\\int{2x \\cdot \\sin(x^2 + 1)\\;dx}$\n$=-\\cos(x^2 + 1) + C$",
     "Final_answer": "(ii) ∫$\\displaystyle 2x * \\sin(x^2 + 1) dx = -\\cos(x^2 + 1) + C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(iii) ∫$\\frac{\\tan^4 \\sqrt{x} * \\sec^2 \\sqrt{x}}{\\sqrt{x}} dx",
-    "Solution": "(iii) ∫$\\displaystyle \\frac{\\tan^4 \\sqrt{x} * \\sec^2 \\sqrt{x}}{\\sqrt{x}} dx = \\frac{2}{5} \\tan^5 \\sqrt{x} + C$",
+    "Example": "(iii) $\\int{\\frac{\\tan^4 \\sqrt{x} \\cdot \\sec^2 \\sqrt{x}}{\\sqrt{x}}\\;dx}$",
+    "Solution": "(iii) $\\int{\\frac{\\tan^4 \\sqrt{x} \\cdot \\sec^2 \\sqrt{x}}{\\sqrt{x}}\\;dx}$\n$= \\frac{2}{5} \\tan^5 \\sqrt{x} + C$",
     "Final_answer": "(iii) ∫$\\displaystyle \\frac{\\tan^4 \\sqrt{x} * \\sec^2 \\sqrt{x}}{\\sqrt{x}} dx = \\frac{2}{5} \\tan^5 \\sqrt{x} + C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(iv) ∫$\\frac{\\sin(\\arctan x)}{1 + x^2} dx",
-    "Solution": "(iv) ∫$\\displaystyle \\frac{\\sin(\\arctan x)}{1 + x^2} dx = -\\cos(\\arctan x) + C$",
+    "Example": "(iv) $\\int{\\frac{\\sin(\\arctan(x))}{1 + x^2}\\;dx}$",
+    "Solution": "(iv) $\\int{\\frac{\\sin(\\arctan(x))}{1 + x^2}\\;dx}$\n$= -\\cos(\\arctan(x)) + C$",
     "Final_answer": "(iv) ∫$\\displaystyle \\frac{\\sin(\\arctan x)}{1 + x^2} dx = -\\cos(\\arctan x) + C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(i) $\\int \\cos^2(x) dx$",
-    "Solution": "\\(\\int \\cos^2(x) dx = \\frac{1}{2} \\int (1 + \\cos(2x)) dx = \\frac{x}{2} + \\frac{1}{4}\\sin(2x) + C\\)",
+    "Example": "(i) $\\int \\cos^2(x)\\,dx$",
+    "Solution": "$\\int \\cos^{2}(x)\\,dx= \\frac{1}{2}\\int{\\left(1+\\cos 2x\\right)\\,dx}$\n$= \\frac{x}{2}+\\frac{\\sin 2x}{4}+C$",
     "Final_answer": "",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(ii) $\\int \\sin(2x) \\cos(3x) dx$",
-    "Solution": "\\(\\int \\sin(2x) \\cos(3x) dx = -\\frac{1}{10}\\cos(5x) + \\frac{1}{2}\\cos(x) + C\\)",
+    "Example": "(ii) $\\int \\sin(2x)\\,\\cos(3x)\\,dx$",
+    "Solution": "$\\int \\sin(2x)\\,\\cos(3x)\\,dx$\n$= -\\frac{1}{10}\\cos(5x)+\\frac12\\cos x + C$",
     "Final_answer": "",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(i) $\\int \\frac{x+2}{2x^2+6x+5} dx$",
-    "Solution": "(i) $\\displaystyle \\int \\frac{x+2}{2x^2+6x+5} dx = \\frac{1}{4} \\ln|2x^2+6x+5| + \\frac{1}{2} \\arctan(2x+3) + C$",
-    "Final_answer": "(i) $\\displaystyle \\int \\frac{x+2}{2x^2+6x+5} dx = \\frac{1}{4} \\ln|2x^2+6x+5| + \\frac{1}{2} \\arctan(2x+3) + C$",
+    "Example": "(i) $\\int{\\frac{x+2}{2x^{2}+6x+5}\\,dx}$",
+    "Solution": "(i) $\\int{\\frac{x+2}{2x^{2}+6x+5}\\,dx}$\n$= \\frac14\\ln|2x^{2}+6x+5| + \\frac12\\arctan(2x+3)+C$",
+    "Final_answer": "(i) $\\displaystyle \\int \\frac{x+2}{2x^{2}+6x+5}\\,dx = \\frac14\\ln|2x^{2}+6x+5| + \\frac12\\arctan(2x+3)+C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(ii) $\\int \\frac{x+3}{\\sqrt{5-4x-x^2}} dx$",
-    "Solution": "(ii) $\\displaystyle \\int \\frac{x+3}{\\sqrt{5-4x-x^2}} dx = -\\sqrt{5-4x-x^2} + \\arcsin\\left(\\frac{x+2}{3}\\right) + C$",
-    "Final_answer": "(ii) $\\displaystyle \\int \\frac{x+3}{\\sqrt{5-4x-x^2}} dx = -\\sqrt{5-4x-x^2} + \\arcsin\\left(\\frac{x+2}{3}\\right) + C$",
+    "Example": "(ii) $\\int{\\frac{x+3}{\\sqrt{5-4x-x^{2}}}\\,dx}$",
+    "Solution": "(ii) $\\int{\\frac{x+3}{\\sqrt{5-4x-x^{2}}}\\,dx}$\n$= -\\sqrt{5-4x-x^{2}} + \\arcsin\\left(\\frac{x+2}{3}\\right) + C$",
+    "Final_answer": "(ii) $\\displaystyle \\int \\frac{x+3}{\\sqrt{5-4x-x^{2}}}\\,dx = -\\sqrt{5-4x-x^{2}} + \\arcsin\\!\\left(\\frac{x+2}{3}\\right) + C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
     "Example": "$\\int \\frac{dx}{(x+1)(x+2)}$",
-    "Solution": "The integrand is a proper rational function. Therefore, by using the form of partial fraction [Table 7.2 (i)], we write\n$\\displaystyle $\\frac{1}{(x+1)(x+2)}=\\frac{A}{x+1}+\\frac{B}{x+2}$$\\displaystyle \nwhere real numbers $A$ and $B$ are to be determined suitably. This gives\n$$1=A(x+2)+B(x+1).$$\\displaystyle \nEquating the coefficients of $x$ and the constant term, we get\n$$A+B=0$$\\displaystyle \nand\n$$A+2B=1.$$\\displaystyle  Solving these equations, we get $A=1$ and $B=-1$.\nThus, the integrand is given by\n$\\displaystyle $\\frac{1}{(x+1)(x+2)}=\\frac{1}{x+1}-\\frac{1}{x+2}$$\nTherefore,\n$\\displaystyle $\\int \\frac{dx}{(x+1)(x+2)} = \\int \\frac{dx}{x+1}-\\int \\frac{dx}{x+2} = \\ln |x+1|-\\ln |x+2|+C = \\ln \\left|\\frac{x+1}{x+2}\\right|+C$$",
-    "Final_answer": "$\\displaystyle \\int \\frac{dx}{(x+1)(x+2)} = \\ln \\left|\\frac{x+1}{x+2}\\right|+C$",
+    "Solution": "The integrand is a proper rational function. By partial fractions we write\n$\\frac{1}{(x+1)(x+2)} = \\frac{A}{x+1} + \\frac{B}{x+2}$\nwith constants $A,B$.\nFrom$1 = A(x+2)+B(x+1)$ we get $A=1,\\;B=-1$.\nHence$\\frac{1}{(x+1)(x+2)} = \\frac{1}{x+1}-\\frac{1}{x+2}$\nTherefore$\\int \\frac{dx}{(x+1)(x+2)}$\n$= \\ln|x+1|-\\ln|x+2|+C = \\ln\\left|\\frac{x+1}{x+2}\\right|+C$",
+    "Final_answer": "$\\displaystyle \\int \\frac{dx}{(x+1)(x+2)} = \\ln\\left|\\frac{x+1}{x+2}\\right|+C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "$\\int \\frac{x^2+1}{x^2-5x+6}dx$",
-    "Solution": "Here the integrand $\\frac{x^2+1}{x^2-5x+6}$ is not a proper rational function, so we divide $x^2+1$ by $x^2-5x+6$ and find that\n$\\displaystyle $\\frac{x^2+1}{x^2-5x+6}=1+\\frac{5x-5}{x^2-5x+6}=1+\\frac{5x-5}{(x-2)(x-3)}$$\\displaystyle \nSo that\n$\\displaystyle $\\frac{5x-5}{(x-2)(x-3)}=\\frac{A}{x-2}+\\frac{B}{x-3}$$\nEquating the coefficients of $x$ and constant terms on both sides, we get $A+B=5$ and $3A+2B=5$. Solving these equations, we get $A=-5$ and $B=10$.\nThus,\n$\\displaystyle $\\frac{x^2+1}{x^2-5x+6}=1-\\frac{5}{x-2}+\\frac{10}{x-3}$$\\displaystyle \nTherefore,\n$\\displaystyle $\\int \\frac{x^2+1}{x^2-5x+6}dx = \\int dx-5\\int \\frac{dx}{x-2}+10\\int \\frac{dx}{x-3} = x-5\\ln |x-2|+10\\ln |x-3|+C$$",
-    "Final_answer": "$\\displaystyle \\int \\frac{x^2+1}{x^2-5x+6}dx = x-5\\ln |x-2|+10\\ln |x-3|+C$",
+    "Example": "$\\int{\\frac{x^{2}+1}{x^{2}-5x+6}\\,dx}$",
+    "Solution": "Because $\\dfrac{x^{2}+1}{x^{2}-5x+6}$ is improper, divide to get\n$\\frac{x^{2}+1}{x^{2}-5x+6}=1+\\frac{5x-5}{(x-2)(x-3)}$\nPut$\\frac{5x-5}{(x-2)(x-3)} = \\frac{A}{x-2}+\\frac{B}{x-3}$\nYou get$A=-5,\\;B=10$\nThus$\\frac{x^{2}+1}{x^{2}-5x+6}=1-\\frac{5}{x-2}+\\frac{10}{x-3}$\nHence$\\int \\frac{x^{2}+1}{x^{2}-5x+6}\\,dx$\n$= x-5\\ln|x-2|+10\\ln|x-3|+C$",
+    "Final_answer": "$\\displaystyle \\int \\frac{x^{2}+1}{x^{2}-5x+6}\\,dx = x-5\\ln|x-2|+10\\ln|x-3|+C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "$\\int \\frac{3x-2}{(x+1)^2(x+3)}dx$",
-    "Solution": "The integrand is of the type as given in Table 7.2 (4). We write\n$\\displaystyle $\\frac{3x-2}{(x+1)^2(x+3)}=\\frac{A}{x+1}+\\frac{B}{(x+1)^2}+\\frac{C}{x+3}$$\\displaystyle \nSo that\n$$3x-2=A(x+1)(x+3)+B(x+3)+C(x+1)^2$$\\displaystyle \nComparing coefficients of $x^2, x$ and constant terms on both sides, we get $A+C=0$, $4A+B+2C=3$, and $3A+3B+C=-2$. Solving these equations, we get $A=\\frac{11}{4}$, $B=\\frac{-5}{2}$, and $C=\\frac{-11}{4}$.\nThus, the integrand is given by\n$\\displaystyle $\\frac{3x-2}{(x+1)^2(x+3)}=\\frac{11}{4(x+1)}-\\frac{5}{2(x+1)^2}-\\frac{11}{4(x+3)}$$\nTherefore,\n$\\displaystyle $\\int \\frac{3x-2}{(x+1)^2(x+3)}dx=\\frac{11}{4}\\int \\frac{dx}{x+1}-\\frac{5}{2}\\int \\frac{dx}{(x+1)^2}-\\frac{11}{4}\\int \\frac{dx}{x+3}$$\\displaystyle \nSolving these integrals separately,\n$\\displaystyle $\\frac{11}{4}\\ln |x+1|+\\frac{5}{x+1}-\\frac{11}{4}\\ln |x+3|+C$$\nSimplify further,\n$\\displaystyle $\\frac{11}{4}\\ln |x+1|-\\frac{11}{4}\\ln |x+3|+\\frac{5}{x+1}+C$$\\displaystyle \nCombine the logarithmic terms,\n$\\displaystyle $\\frac{11}{4}\\ln \\left|\\frac{x+1}{x+3}\\right|+\\frac{5}{x+1}+C$$",
-    "Final_answer": "$\\displaystyle \\int \\frac{3x-2}{(x+1)^2(x+3)}dx=\\frac{11}{4}\\ln \\left|\\frac{x+1}{x+3}\\right|+\\frac{5}{x+1}+C$",
+    "Example": "$\\int{\\frac{3x-2}{(x+1)^{2}(x+3)}\\,dx}$",
+    "Solution": "Decompose$\\frac{3x-2}{(x+1)^{2}(x+3)}=\\frac{A}{x+1}+\\frac{B}{(x+1)^{2}}+\\frac{C}{x+3}$\nwith $A=\\frac{11}{4},\\;B=-\\frac{5}{2},\\;C=-\\frac{11}{4}$\nHence$\\int \\frac{3x-2}{(x+1)^{2}(x+3)}\\,dx$\n$= \\frac{11}{4}\\ln|x+1| - \\frac{5}{x+1} - \\frac{11}{4}\\ln|x+3| + C$\n$\\;= \\frac{11}{4}\\ln\\left|\\frac{x+1}{x+3}\\right| + \\frac{5}{x+1} + C$",
+    "Final_answer": "$\\displaystyle \\int \\frac{3x-2}{(x+1)^{2}(x+3)}\\,dx = \\frac{11}{4}\\ln\\left|\\frac{x+1}{x+3}\\right|+\\frac{5}{x+1}+C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "$\\int \\frac{x^2}{(x^2+1)(x^2+4)}dx$",
-    "Solution": "Consider $\\frac{x^2}{(x^2+1)(x^2+4)}$ and put $x^2=y$. Then\n$\\displaystyle $\\frac{x^2}{(x^2+1)(x^2+4)}=\\frac{y}{(y+1)(y+4)}$$\\displaystyle \nWrite\n$\\displaystyle $\\frac{y}{(y+1)(y+4)}=\\frac{A}{y+1}+\\frac{B}{y+4}$$\nSo that\n$$\\displaystyle y=A(y+4)+B(y+1)$$\nComparing coefficients of $y$ and constant terms on both sides, we get $A+B=1$ and $4A+B=0$, which give\n$$\\displaystyle A=-\\frac{1}{3}\\text{ and }B=\\frac{4}{3}$$\nThus,\n$\\displaystyle $\\frac{x^2}{(x^2+1)(x^2+4)}=-\\frac{1}{3(x^2+1)}+\\frac{4}{3(x^2+4)}$$\\displaystyle \nTherefore,\n$$\\begin{aligned}\n\\int \\frac{x^2 dx}{(x^2+1)(x^2+4)} &=-\\frac{1}{3}\\int \\frac{dx}{x^2+1}+\\frac{4}{3}\\int \\frac{dx}{x^2+4}\\\\n&=-\\frac{1}{3}\\tan^{-1} x+\\frac{4}{3}\\times\\frac{1}{2}\\tan^{-1}\\frac{x}{2}+C\\\\n&=-\\frac{1}{3}\\tan^{-1} x+\\frac{2}{3}\\tan^{-1}\\frac{x}{2}+C\n\\end{aligned}$$",
-    "Final_answer": "$\\displaystyle \\int \\frac{x^2 dx}{(x^2+1)(x^2+4)}=-\\frac{1}{3}\\tan^{-1} x+\\frac{2}{3}\\tan^{-1}\\frac{x}{2}+C$",
+    "Example": "$\\int{\\frac{x^{2}}{(x^{2}+1)(x^{2}+4)}\\,dx}$",
+    "Solution": "Put $y=x^{2}$, then$\\frac{x^{2}}{(x^{2}+1)(x^{2}+4)}=\\frac{y}{(y+1)(y+4)}=\\frac{A}{y+1}+\\frac{B}{y+4}$\nwith $A=-\\frac13,\\;B=\\frac43$\nThus$\\int \\frac{x^{2}}{(x^{2}+1)(x^{2}+4)}\\,dx$\n$=-\\frac13\\int \\frac{dx}{x^{2}+1}+\\frac43\\int \\frac{dx}{x^{2}+4}$\n$=-\\frac13\\tan^{-1}x+\\frac23\\tan^{-1}\\frac{x}{2}+C$",
+    "Final_answer": "$\\displaystyle \\int \\frac{x^{2}}{(x^{2}+1)(x^{2}+4)}\\,dx = -\\frac13\\tan^{-1}x+\\frac23\\tan^{-1}\\frac{x}{2}+C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "$\\displaystyle \\int \\frac{(3 \\sin \\phi-2) \\cos \\phi}{5-\\cos ^{2} \\phi-4 \\sin \\phi} d \\phi$",
-    "Solution": "Let $y=\\sin \\phi$.\nThen\n$$\\displaystyle d y=\\cos \\phi d \\phi$$\nTherefore, $\\displaystyle \\int \\frac{(3 \\sin \\phi-2) \\cos \\phi}{5-\\cos ^{2} \\phi-4 \\sin \\phi} d \\phi=\\int \\frac{(3 y-2) d y}{5-\\left(1-y^{2}\\right)-4 y}$\n$$\\displaystyle \n\\begin{aligned}\n&=\\int \\frac{3 y-2}{y^{2}-4 y+4} d y \\\\n&=\\int \\frac{3 y-2}{(y-2)^{2}}={I} \\text{ (say) }\n\\end{aligned}\n$$\nNow, we write\n$\\displaystyle $\\frac{3 y-2}{(y-2)^{2}}=\\frac{{A}}{y-2}+\\frac{{B}}{(y-2)^{2}}$$\\displaystyle \nTherefore,\n$$3 y-2={A}(y-2)+{B}$$\\displaystyle \nComparing the coefficients of $y$ and constant term, we get ${A}=3$ and ${B}-2 {~A}=-2$, which gives ${A}=3$ and ${B}=4$.\nTherefore, the required integral is given by\n$$\n\\begin{aligned}\n{I} & =\\int\\left[\\frac{3}{y-2}+\\frac{4}{(y-2)^{2}}\\right] d y=3 \\int \\frac{d y}{y-2}+4 \\int \\frac{d y}{(y-2)^{2}} \\\\n& =3 \\log |y-2|+4\\left(-\\frac{1}{y-2}\\right)+{C} \\\\n& =3 \\log |\\sin \\phi-2|+\\frac{4}{2-\\sin \\phi}+{C} \\\\n& =3 \\log (2-\\sin \\phi)+\\frac{4}{2-\\sin \\phi}+{C}(\\text{ since, } 2-\\sin \\phi \\text{ is always positive })\n\\end{aligned}\n$$",
-    "Final_answer": "$\\displaystyle \\int \\frac{(3 \\sin \\phi-2) \\cos \\phi}{5-\\cos ^{2} \\phi-4 \\sin \\phi} d \\phi=3 \\log (2-\\sin \\phi)+\\frac{4}{2-\\sin \\phi}+{C}$",
+    "Example": "$\\int \\frac{(3\\sin\\phi-2)\\cos\\phi}{5-\\cos^{2}\\phi-4\\sin\\phi}\\,d\\phi$",
+    "Solution": "Put $y=\\sin\\phi$. Then\n$\\int \\frac{(3\\sin\\phi-2)\\cos\\phi}{5-\\cos^{2}\\phi-4\\sin\\phi}\\,d\\phi$\n$= \\int \\frac{3y-2}{(y-2)^{2}}\\,dy$\nWrite $\\frac{3y-2}{(y-2)^{2}} = \\frac{3}{y-2}+\\frac{4}{(y-2)^{2}}$\ngiving$3\\int \\frac{dy}{y-2}+4\\int \\frac{dy}{(y-2)^{2}}$\n$= 3\\ln|y-2|+\\frac{4}{2-y}+C$\nSince $y=\\sin\\phi$, this equals $3\\ln(2-\\sin\\phi)+\\frac{4}{2-\\sin\\phi}+C$",
+    "Final_answer": "$\\displaystyle \\int \\frac{(3\\sin\\phi-2)\\cos\\phi}{5-\\cos^{2}\\phi-4\\sin\\phi}\\,d\\phi = 3\\ln(2-\\sin\\phi)+\\frac{4}{2-\\sin\\phi}+C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "$\\displaystyle \\int \\frac{x^{2}+x+1 d x}{(x+2)\\left(x^{2}+1\\right)}$",
-    "Solution": "The integrand is a proper rational function. Decompose the rational function into partial fraction [Table 2.2(5)]. Write\n$\\displaystyle $\\frac{x^{2}+x+1}{\\left(x^{2}+1\\right)(x+2)}=\\frac{{A}}{x+2}+\\frac{{B} x+{C}}{\\left(x^{2}+1\\right)}$$\\displaystyle \nTherefore,\n$\\displaystyle $x^{2}+x+1={A}\\left(x^{2}+1\\right)+({B} x+{C})(x+2)$$\nEquating the coefficients of $x^{2}, x$ and of constant term of both sides, we get ${A}+{B}=1,2 {~B}+{C}=1$ and ${A}+2 {C}=1$. Solving these equations, we get ${A}=\\frac{3}{5}, {~B}=\\frac{2}{5}$ and ${C}=\\frac{1}{5}$\nThus, the integrand is given by\n$\\displaystyle $\\frac{x^{2}+x+1}{\\left(x^{2}+1\\right)(x+2)}=\\frac{3}{5(x+2)}+\\frac{\\frac{2}{5} x+\\frac{1}{5}}{x^{2}+1}=\\frac{3}{5(x+2)}+\\frac{1}{5}\\left(\\frac{2 x+1}{x^{2}+1}\\right)$$\\displaystyle \nTherefore, $\\displaystyle \\quad \\int \\frac{x^{2}+x+1}{\\left(x^{2}+1\\right)(x+2)} d x=\\frac{3}{5} \\int \\frac{d x}{x+2}+\\frac{1}{5} \\int \\frac{2 x}{x^{2}+1} d x+\\frac{1}{5} \\int \\frac{1}{x^{2}+1} d x$\n$\\displaystyle $\\frac{3}{5} \\log |x+2|+\\frac{1}{5} \\log \\left|x^{2}+1\\right|+\\frac{1}{5} \\tan ^{-1} x+{C}$$",
-    "Final_answer": "$\\displaystyle \\int \\frac{x^{2}+x+1 d x}{(x+2)\\left(x^{2}+1\\right)}=\\frac{3}{5} \\log |x+2|+\\frac{1}{5} \\log \\left|x^{2}+1\\right|+\\frac{1}{5} \\tan ^{-1} x+{C}$",
+    "Example": "$\\int \\frac{x^{2}+x+1}{(x+2)(x^{2}+1)}\\,dx$",
+    "Solution": "Decompose\n$\\frac{x^{2}+x+1}{(x+2)(x^{2}+1)} = \\frac{3/5}{x+2}+\\frac{(2x+1)/5}{x^{2}+1}$\nHence\n$\\int \\frac{x^{2}+x+1}{(x+2)(x^{2}+1)}\\,dx$\n$= \\frac{3}{5}\\ln|x+2| + \\frac{1}{5}\\ln|x^{2}+1| + \\frac{1}{5}\\tan^{-1}x + C$",
+    "Final_answer": "$\\displaystyle \\int \\frac{x^{2}+x+1}{(x+2)(x^{2}+1)}\\,dx = \\frac35\\ln|x+2|+\\frac15\\ln|x^{2}+1|+\\frac15\\tan^{-1}x + C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "$\\int x \\cos x d x$",
-    "Solution": "Put $f(x)=x$ (first function) and $g(x)=\\cos x$ (second function).\nThen, integration by parts gives\n$$\\displaystyle \n\\begin{aligned}\n\\int x \\cos x d x & =x \\int \\cos x d x-\\int\\left[\\frac{d}{d x}(x) \\int \\cos x d x\\right] d x \\\\n& =x \\sin x-\\int \\sin x d x=x \\sin x+\\cos x+{C}\n\\end{aligned}\n$$\nSuppose, we take\n$$\\displaystyle \n\\begin{aligned}\nf(x) & =\\cos x \\text { and } g(x)=x \\text {. Then } \\\\n\\int x \\cos x d x & =\\cos x \\int x d x-\\int\\left[\\frac{d}{d x}(\\cos x) \\int x d x\\right] d x \\\\n& =(\\cos x) \\frac{x^{2}}{2}+\\int \\sin x \\frac{x^{2}}{2} d x\n\\end{aligned}\n$$\nThus, it shows that the integral $\\int x \\cos x d x$ is reduced to the comparatively more complicated integral having more power of $x$. Therefore, the proper choice of the first function and the second function is significant.\n\\section{Remarks}\n(i) It is worth mentioning that integration by parts is not applicable to product of functions in all cases. For instance, the method does not work for $\\int \\sqrt{x} \\sin x d x$. The reason is that there does not exist any function whose derivative is $\\sqrt{x} \\sin x$.\n(ii) Observe that while finding the integral of the second function, we did not add any constant of integration. If we write the integral of the second function $\\cos x$ as $\\sin x+k$, where $k$ is any constant, then\n$$\\displaystyle \n\\begin{aligned}\n\\int x \\cos x d x & =x(\\sin x+k)-\\int(\\sin x+k) d x \\\\n& =x(\\sin x+k)-\\int\\left(\\sin x d x-\\int k d x\\right. \\\\n& =x(\\sin x+k)-\\cos x-k x+{C}=x \\sin x+\\cos x+{C}\n\\end{aligned}\n$$\nThis shows that adding a constant to the integral of the second function is superfluous so far as the final result is concerned while applying the method of integration by parts.\n(iii) Usually, if any function is a power of $x$ or a polynomial in $x$, then we take it as the first function. However, in cases where other function is inverse trigonometric function or logarithmic function, then we take them as first function.",
-    "Final_answer": "$\\int x \\cos x d x=x \\sin x+\\cos x+{C}$",
+    "Example": "$\\int x\\cos x\\,dx$",
+    "Solution": "Using integration by parts with $u=x,\\;dv=\\cos x\\,dx$:\n$\\int x\\cos x\\,dx = x\\sin x - \\int \\sin x\\,dx$\n$= x\\sin x + \\cos x + C$",
+    "Final_answer": "$\\int x\\cos x\\,dx = x\\sin x + \\cos x + C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "$\\int \\log x d x$",
-    "Solution": "To start with, we are unable to guess a function whose derivative is $\\log x$. We take $\\log x$ as the first function and the constant function 1 as the second function. Then, the integral of the second function is $x$.\nHence,\n$$\\displaystyle \n\\begin{aligned}\n\\int(\\log x \\cdot 1) d x & =\\log x \\int 1 d x-\\int\\left[\\frac{d}{d x}(\\log x) \\int 1 d x\\right] d x \\\\n& =(\\log x) \\cdot x-\\int \\frac{1}{x} x d x=x \\log x-x+{C} .\n\\end{aligned}\n$$",
-    "Final_answer": "$\\int \\log x d x=x \\log x-x+{C}$",
+    "Example": "$\\int \\log x\\,dx$",
+    "Solution": "Take $u=\\log x,\\;dv=dx$. Then\n$\\int \\log x\\,dx = x\\log x - \\int 1\\,dx$\n$= x\\log x - x + C$",
+    "Final_answer": "$\\int \\log x\\,dx = x\\log x - x + C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "$\\int x e^{x} d x$",
-    "Solution": "Take first function as $x$ and second function as $e^{x}$. The integral of the second function is $e^{x}$.\nTherefore,\n$$\\displaystyle \n\\int x e^{x} d x=x e^{x}-\\int 1 \\cdot e^{x} d x=x e^{x}-e^{x}+{C} .\n$$",
-    "Final_answer": "$\\int x e^{x} d x=x e^{x}-e^{x}+{C}$",
+    "Example": "$\\int xe^{x}\\,dx$",
+    "Solution": "By parts $u=x,\\;dv=e^{x}dx$:\n$\\int xe^{x}\\,dx = xe^{x} - \\int e^{x}\\,dx$\n$= xe^{x} - e^{x} + C$",
+    "Final_answer": "$\\int xe^{x}\\,dx = xe^{x} - e^{x} + C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "$\\displaystyle \\int \\frac{x \\sin^{-1} x}{\\sqrt{1-x^{2}}} d x$",
-    "Solution": "Let first function be $\\sin^{-1} x$ and second function be $\\frac{x}{\\sqrt{1-x^{2}}}$. First, find the integral of the second function, i.e., $\\int \\frac{x d x}{\\sqrt{1-x^{2}}}$. Put $t=1-x^{2}$. Then $d t=-2 x d x$ Therefore,\n$$\\displaystyle \n\\int \\frac{x d x}{\\sqrt{1-x^{2}}}=-\\frac{1}{2} \\int \\frac{d t}{\\sqrt{t}}=-\\sqrt{t}=-\\sqrt{1-x^{2}}\n$$\nHence,\n$$\\displaystyle \n\\begin{aligned}\n\\int \\frac{x \\sin^{-1} x}{\\sqrt{1-x^{2}}} d x & =\\left(\\sin^{-1} x\\right)\\left(-\\sqrt{1-x^{2}}\\right)-\\int \\frac{1}{\\sqrt{1-x^{2}}}\\left(-\\sqrt{1-x^{2}}\\right) d x \\\\n& =-\\sqrt{1-x^{2}} \\sin^{-1} x+x+{C}=x-\\sqrt{1-x^{2}} \\sin^{-1} x+{C}\n\\end{aligned}\n$$",
-    "Final_answer": "$\\displaystyle \\int \\frac{x \\sin^{-1} x}{\\sqrt{1-x^{2}}} d x=x-\\sqrt{1-x^{2}} \\sin^{-1} x+{C}$",
+    "Example": "$\\displaystyle \\int \\frac{x\\,\\sin^{-1}x}{\\sqrt{1-x^{2}}}\\,dx$",
+    "Solution": "Put $u=\\sin^{-1}x,\\;dv=\\frac{x}{\\sqrt{1-x^{2}}}dx$\nSince $\\int dv=-\\sqrt{1-x^{2}}$\nintegration by parts gives\n$\\int \\frac{x\\,\\sin^{-1}x}{\\sqrt{1-x^{2}}}\\,dx = -\\sqrt{1-x^{2}}\\,\\sin^{-1}x + x + C$",
+    "Final_answer": "$\\displaystyle \\int \\frac{x\\,\\sin^{-1}x}{\\sqrt{1-x^{2}}}\\,dx = x - \\sqrt{1-x^{2}}\\,\\sin^{-1}x + C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "$\\int e^{x} \\sin x d x$",
-    "Solution": "Take $e^{x}$ as the first function and $\\sin x$ as the second function. Then, integrating by parts, we have\n$$\\displaystyle \n\\begin{aligned}\n{I}=\\int e^{x} \\sin x d x & =e^{x}(-\\cos x)+\\int e^{x} \\cos x d x \\\\n& =-e^{x} \\cos x+{I}_{1} \\text { (say) }\n\\end{aligned}\n$$\nTaking $e^{x}$ and $\\cos x$ as the first and second functions, respectively, in ${I}_{1}$, we get\n$$\\displaystyle \n{I}_{1}=e^{x} \\sin x-\\int e^{x} \\sin x d x\n$$\nSubstituting the value of ${I}_{1}$ in (1), we get\n$$\\displaystyle \n{I}=-e^{x} \\cos x+e^{x} \\sin x-{I} \\text { or } 2 {I}=e^{x}(\\sin x-\\cos x)\n$$\nHence,\n$$\\displaystyle \n{I}=\\int e^{x} \\sin x d x=\\frac{e^{x}}{2}(\\sin x-\\cos x)+{C}\n$$",
-    "Final_answer": "$\\displaystyle \\int e^{x} \\sin x d x=\\frac{e^{x}}{2}(\\sin x-\\cos x)+{C}$",
+    "Example": "$\\int e^{x}\\sin x\\,dx$",
+    "Solution": "Standard cyclic–integration gives\n$\\int e^{x}\\sin x\\,dx = \\frac{e^{x}}{2}\\left(\\sin x - \\cos x\\right) + C$",
+    "Final_answer": "$\\displaystyle \\int e^{x}\\sin x\\,dx = \\frac{e^{x}}{2}(\\sin x - \\cos x) + C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(i) $\\displaystyle \\int e^{x}(\\tan ^{-1} x+\\frac{1}{1+x^{2}}) d x$ (ii) $\\displaystyle \\int \\frac{(x^{2}+1) e^{x}}{(x+1)^{2}} d x$",
-    "Solution": "(i) We have $\\displaystyle {I}=\\int e^{x}(\\tan ^{-1} x+\\frac{1}{1+x^{2}}) d x$\nConsider $f(x)=\\tan ^{-1} x$, then $f^{\\prime}(x)=\\frac{1}{1+x^{2}}$\nThus, the given integrand is of the form $e^{x}(f(x)+f^{\\prime}(x))$.\nTherefore, $\\displaystyle {I}=\\int e^{x}(\\tan ^{-1} x+\\frac{1}{1+x^{2}}) d x=e^{x} \\tan ^{-1} x+{C}$\n(ii) We have $\\displaystyle {I}=\\int \\frac{(x^{2}+1) e^{x}}{(x+1)^{2}} d x=\\int e^{x}\\left[\\frac{(x^{2}-1+1+1)}{(x+1)^{2}}\\right] d x$\n$$\\displaystyle \n=\\int e^{x}\\left[\\frac{x^{2}-1}{(x+1)^{2}}+\\frac{2}{(x+1)^{2}}\\right] d x=\\int e^{x}\\left[\\frac{x-1}{x+1}+\\frac{2}{(x+1)^{2}}\\right] d x\n$$\nConsider $f(x)=\\frac{x-1}{x+1}$, then $f^{\\prime}(x)=\\frac{2}{(x+1)^{2}}$\nThus, the given integrand is of the form $e^{x}(f(x)+f^{\\prime}(x))$.\nTherefore, $\\displaystyle \\int \\frac{x^{2}+1}{(x+1)^{2}} e^{x} d x=\\frac{x-1}{x+1} e^{x}+{C}$",
-    "Final_answer": "(i) $\\displaystyle \\int e^{x}(\\tan ^{-1} x+\\frac{1}{1+x^{2}}) d x=e^{x} \\tan ^{-1} x+{C}$\n(ii) $\\displaystyle \\int \\frac{(x^{2}+1) e^{x}}{(x+1)^{2}} d x=\\frac{x-1}{x+1} e^{x}+{C}$",
+    "Example": "(i) $\\displaystyle \\int e^{x}\\left(\\tan^{-1}x+\\frac{1}{1+x^{2}}\\right)\\,dx$\n(ii) $\\displaystyle \\int \\frac{(x^{2}+1)e^{x}}{(x+1)^{2}}dx$",
+    "Solution": "(i) Since $f(x)=\\tan^{-1}x$ satisfies $f'(x)=\\frac{1}{1+x^{2}}$, the integrand is $e^{x}\\left(f+f'\\right)$\nSo$\\displaystyle \\int e^{x}\\left(\\tan^{-1}x+\\frac{1}{1+x^{2}}\\right)dx$\n$= e^{x}\\tan^{-1}x + C.$\n(ii) Writing\n$\\dfrac{x^{2}+1}{(x+1)^{2}} = \\dfrac{x-1}{x+1}+\\dfrac{2}{(x+1)^{2}}$\ngives $f(x)=\\dfrac{x-1}{x+1}$ with $f'=\\dfrac{2}{(x+1)^{2}}$\n$\\displaystyle \\therefore \\int \\frac{(x^{2}+1)e^{x}}{(x+1)^{2}}dx = \\frac{x-1}{x+1}e^{x}+C.$",
+    "Final_answer": "(i) $\\displaystyle \\int e^{x}\\left(\\tan^{-1}x+\\frac{1}{1+x^{2}}\\right)dx = e^{x}\\tan^{-1}x + C$\n(ii) $\\displaystyle \\int \\frac{(x^{2}+1)e^{x}}{(x+1)^{2}}dx = \\frac{x-1}{x+1}e^{x} + C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(i) $\\int_{2}^{3} x^{2} d x$",
-    "Solution": "Let ${I}=\\int_{2}^{3} x^{2} d x$. Since $\\int x^{2} d x=\\frac{x^{3}}{3}={F}(x)$,\nTherefore, by the second fundamental theorem, we get\n$$\\displaystyle \nI=F(3)-F(2)=\\frac{27}{3}-\\frac{8}{3}=\\frac{19}{3}\n$$",
-    "Final_answer": "(i) $\\int_{2}^{3} x^{2} d x=\\frac{19}{3}$",
+    "Example": "(i) $\\displaystyle \\int_{2}^{3} x^{2}dx$",
+    "Solution": "With $F(x)=\\frac{x^{3}}{3}$\n $\\int_{2}^{3}x^{2}dx= F(3)-F(2)$\n$\\;=\\frac{27}{3}-\\frac{8}{3}=\\frac{19}{3}.$",
+    "Final_answer": "(i) $\\int_{2}^{3} x^{2}dx=\\frac{19}{3}$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(ii) $\\displaystyle \\int_{4}^{9} \\frac{\\sqrt{x}}{\\left(30-x^{\\frac{3}{2}}\\right)^{2}} d x$",
-    "Solution": "Let $\\displaystyle {I}=\\int_{4}^{9} \\frac{\\sqrt{x}}{\\left(30-x^{\\frac{3}{2}}\\right)^{2}} d x$. We first find the antiderivative of the integrand.\n$$\\displaystyle \n\\left(30-x^{\\frac{3}{2}}\\right)^{2}\n$$\nPut $30-x^{\\frac{3}{2}}=t$. Then $-\\frac{3}{2} \\sqrt{x} d x=d t$ or $\\sqrt{x} d x=-\\frac{2}{3} d t$\nThus, $\\displaystyle \\int \\frac{\\sqrt{x}}{\\left(30-x^{\\frac{3}{2}}\\right)^{2}} d x=-\\frac{2}{3} \\int \\frac{d t}{t^{2}}=\\frac{2}{3}\\left[\\frac{1}{t}\\right]=\\frac{2}{3}\\left[\\frac{1}{\\left(30-x^{\\frac{3}{2}}\\right)}\\right]={F}(x)$\nTherefore, by the second fundamental theorem of calculus, we have\n$$\\displaystyle \n\\begin{aligned}\nI & =F(9)-F(4)=\\frac{2}{3}\\left[\\frac{1}{\\left(30-x^{\\frac{3}{2}}\\right)}\\right]_{4}^{9} \\\\n& =\\frac{2}{3}\\left[\\frac{1}{(30-27)}-\\frac{1}{30-8}\\right]=\\frac{2}{3}\\left[\\frac{1}{3}-\\frac{1}{22}\\right]=\\frac{19}{99}\n\\end{aligned}\n$$",
-    "Final_answer": "(ii) $\\displaystyle \\int_{4}^{9} \\frac{\\sqrt{x}}{\\left(30-x^{\\frac{3}{2}}\\right)^{2}} d x=\\frac{19}{99}$",
+    "Example": "(ii) $\\displaystyle \\int_{4}^{9} \\frac{\\sqrt{x}}{\\left(30-x^{3/2}\\right)^{2}}dx$",
+    "Solution": "Put $t=30-x^{3/2}$ so $dt=-\\frac{3}{2}\\sqrt{x}\\,dx$\nThen$\\int \\frac{\\sqrt{x}}{(30-x^{3/2})^{2}}dx = -\\frac{2}{3}\\int t^{-2}dt$\n$ = \\frac{2}{3t}+C$\nEvaluate from $x=4$ to $x=9$ to get $\\dfrac{19}{99}.$",
+    "Final_answer": "(ii) $\\displaystyle \\int_{4}^{9} \\frac{\\sqrt{x}}{\\left(30-x^{3/2}\\right)^{2}}dx = \\frac{19}{99}$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(iii) $\\int_{1}^{2} \\frac{x d x}{(x+1)(x+2)}$",
-    "Solution": "Let $\\displaystyle {I}=\\int_{1}^{2} \\frac{x d x}{(x+1)(x+2)}$. Using partial fractions, we get $\\displaystyle \\frac{x}{(x+1)(x+2)}=\\frac{-1}{x+1}+\\frac{2}{x+2}$\nSo\n$$\\displaystyle \n\\int \\frac{x d x}{(x+1)(x+2)}=-\\log |x+1|+2 \\log |x+2|={F}(x)\n$$\nTherefore, by the second fundamental theorem of calculus, we have\n$$\\displaystyle \n\\begin{aligned}\nI & =F(2)-F(1)=[-\\log 3+2 \\log 4]-[-\\log 2+2 \\log 3] \\\\n& =-3 \\log 3+\\log 2+2 \\log 4=\\log \\left(\\frac{32}{27}\\right)\n\\end{aligned}\n$$",
-    "Final_answer": "(iii) $\\displaystyle \\int_{1}^{2} \\frac{x d x}{(x+1)(x+2)}=\\log \\left(\\frac{32}{27}\\right)$",
+    "Example": "(iii) $\\displaystyle \\int_{1}^{2} \\frac{x}{(x+1)(x+2)}dx$",
+    "Solution": "Partial fractions give\n$\\dfrac{x}{(x+1)(x+2)}=-\\dfrac{1}{x+1}+\\dfrac{2}{x+2}$\nHence$\\int_{1}^{2}\\frac{x}{(x+1)(x+2)}dx$\n$= \\left[-\\ln|x+1|+2\\ln|x+2|\\right]_{1}^{2}$\n$\\;\\,=\\ln\\left(\\frac{32}{27}\\right)$",
+    "Final_answer": "(iii) $\\displaystyle \\int_{1}^{2} \\frac{x}{(x+1)(x+2)}dx = \\ln\\left(\\frac{32}{27}\\right)$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(iv) $\\displaystyle \\int_{0}^{\\frac{\\pi}{4}} \\sin ^{3} 2 t \\cos 2 t d t$",
-    "Solution": "Let $\\displaystyle {I}=\\int_{0}^{\\frac{\\pi}{4}} \\sin ^{3} 2 t \\cos 2 t d t$. Consider $\\int \\sin ^{3} 2 t \\cos 2 t d t$\nPut $\\sin 2 t=u$ so that $2 \\cos 2 t d t=d u$ or $\\cos 2 t d t=\\frac{1}{2} d u$\nSo\n$$\\displaystyle \n\\begin{aligned}\n\\int \\sin ^{3} 2 t \\cos 2 t d t & =\\frac{1}{2} \\int u^{3} d u \\\\n& =\\frac{1}{8}[u^{4}]=\\frac{1}{8} \\sin ^{4} 2 t={F}(t) \\text { say }\n\\end{aligned}\n$$\nTherefore, by the second fundamental theorem of integral calculus\n$$\\displaystyle \n{I}={F}\\left(\\frac{\\pi}{4}\\right)-{F}(0)=\\frac{1}{8}\\left[\\sin ^{4} \\frac{\\pi}{2}-\\sin ^{4} 0\\right]=\\frac{1}{8}\\left[1-0\\right]=\\frac{1}{8}\n$$",
-    "Final_answer": "(iv) $\\displaystyle \\int_{0}^{\\frac{\\pi}{4}} \\sin ^{3} 2 t \\cos 2 t d t=\\frac{1}{8}$",
+    "Example": "(iv) $\\displaystyle \\int_{0}^{\\pi/4}\\sin^{3}(2t)\\cos(2t)\\,dt$",
+    "Solution": "Put $u=\\sin 2t\\;(du=2\\cos 2t\\,dt)$ to get\n$\\int \\sin^{3}2t\\cos2t\\,dt = \\frac12\\int u^{3}du$\n$\\;= \\frac18u^{4}+C$\n$= \\frac18\\sin^{4}2t+C$\nFrom $0$ to $\\dfrac{\\pi}{4}$ this is $\\dfrac{1}{8}$",
+    "Final_answer": "(iv) $\\displaystyle \\int_{0}^{\\pi/4}\\sin^{3}(2t)\\cos(2t)\\,dt = \\frac18$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "Evaluate $\\int_{-1}^{1} 5 x^{4} \\sqrt{x^{5}+1} d x$.",
-    "Solution": "Put $t=x^{5}+1$, then $d t=5 x^{4} d x$.\nTherefore,\n$$\\displaystyle \n\\int 5 x^{4} \\sqrt{x^{5}+1} d x=\\int \\sqrt{t} d t=\\frac{2}{3} t^{\\frac{3}{2}}=\\frac{2}{3}\\left(x^{5}+1\\right)^{\\frac{3}{2}}\n$$\nHence,\n$$\\displaystyle \n\\begin{aligned}\n\\int_{-1}^{1} 5 x^{4} \\sqrt{x^{5}+1} d x & =\\frac{2}{3}\\left[\\left(x^{5}+1\\right)^{\\frac{3}{2}}\\right]_{-1}^{1} \\\\n& =\\frac{2}{3}\\left[\\left(1^{5}+1\\right)^{\\frac{3}{2}}-\\left((-1)^{5}+1\\right)^{\\frac{3}{2}}\\right] \\\\n& =\\frac{2}{3}\\left[2^{\\frac{3}{2}}-0^{\\frac{3}{2}}\\right]=\\frac{2}{3}(2 \\sqrt{2})=\\frac{4 \\sqrt{2}}{3}\n\\end{aligned}\n$$\nAlternatively, first we transform the integral and then evaluate the transformed integral with new limits.\nLet\n$$\\displaystyle \nt=x^{5}+1 \\text {. Then } d t=5 x^{4} d x \\text {. }\n$$\nNote that, when\n$$\\displaystyle \nx=-1, t=0 \\text { and when } x=1, t=2\n$$\nThus, as $x$ varies from -1 to $1, t$ varies from 0 to 2\nTherefore\n$$\\displaystyle \n\\begin{aligned}\n\\int_{-1}^{1} 5 x^{4} \\sqrt{x^{5}+1} d x & =\\int_{0}^{2} \\sqrt{t} d t \\\\n& =\\frac{2}{3}\\left[t^{\\frac{3}{2}}\\right]_{0}^{2}=\\frac{2}{3}\\left[2^{\\frac{3}{2}}-0^{\\frac{3}{2}}\\right]=\\frac{2}{3}\\left(2 \\sqrt{2)}=\\frac{4 \\sqrt{2}}{3}\\right.\n\\end{aligned}\n$$",
-    "Final_answer": "(i) $\\displaystyle \\int_{-1}^{1} 5 x^{4} \\sqrt{x^{5}+1} d x=\\frac{4 \\sqrt{2}}{3}$",
+    "Example": "Evaluate $\\displaystyle \\int_{-1}^{1} 5x^{4}\\sqrt{x^{5}+1}\\,dx$.",
+    "Solution": "With $t=x^{5}+1$ ($dt=5x^{4}dx$) we have\n$\\int 5x^{4}\\sqrt{x^{5}+1}\\,dx = \\int t^{1/2}dt$\n$ = \\frac{2}{3}t^{3/2}+C$\nBetween $x=-1$ and $x=1$ this yields $\\dfrac{4\\sqrt{2}}{3}.$",
+    "Final_answer": "(i) $\\displaystyle \\int_{-1}^{1} 5x^{4}\\sqrt{x^{5}+1}\\,dx = \\frac{4\\sqrt{2}}{3}$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "Evaluate $\\int_{-1}^{2}\\left|x^{3}-x\\right| d x$",
-    "Solution": "We note that $x^{3}-x \\geq 0$ on $[-1,0]$ and $x^{3}-x \\leq 0$ on $[0,1]$ and that $x^{3}-x \\geq 0$ on $[1,2]$. So by $P_{2}$ we write\n$$\\displaystyle \n\\begin{aligned}\n\\int_{-1}^{2}\\left|x^{3}-x\\right| d x & =\\int_{-1}^{0}\\left(x^{3}-x\\right) d x+\\int_{0}^{1}-\\left(x^{3}-x\\right) d x+\\int_{1}^{2}\\left(x^{3}-x\\right) d x \\\\n& =\\int_{-1}^{0}\\left(x^{3}-x\\right) d x+\\int_{0}^{1}\\left(x-x^{3}\\right) d x+\\int_{1}^{2}\\left(x^{3}-x\\right) d x \\\\n& =\\left[\\frac{x^{4}}{4}-\\frac{x^{2}}{2}\\right]_{-1}^{0}+\\left[\\frac{x^{2}}{2}-\\frac{x^{4}}{4}\\right]_{0}^{1}+\\left[\\frac{x^{4}}{4}-\\frac{x^{2}}{2}\\right]_{1}^{2} \\\\n& =-\\left(\\frac{1}{4}-\\frac{1}{2}\\right)+\\left(\\frac{1}{2}-\\frac{1}{4}\\right)+(4-2)-\\left(\\frac{1}{4}-\\frac{1}{2}\\right) \\\\n& =-\\frac{1}{4}+\\frac{1}{2}+\\frac{1}{2}-\\frac{1}{4}+2-\\frac{1}{4}+\\frac{1}{2}=\\frac{3}{2}-\\frac{3}{4}+2=\\frac{11}{4}\n\\end{aligned}\n$$",
-    "Final_answer": "(i) $\\displaystyle \\int_{-1}^{2}\\left|x^{3}-x\\right| d x=\\frac{11}{4}$",
+    "Example": "Evaluate $\\displaystyle \\int_{-1}^{2}|x^{3}-x|\\,dx$",
+    "Solution": "Split at $x=0,1$.  Direct integration gives\n$\\displaystyle \\int_{-1}^{2}|x^{3}-x|\\,dx = \\frac{11}{4}$",
+    "Final_answer": "(i) $\\displaystyle \\int_{-1}^{2}|x^{3}-x|\\,dx = \\frac{11}{4}$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "Evaluate $\\displaystyle \\int_{\\frac{-\\pi}{4}}^{\\frac{\\pi}{4}} \\sin^{2}x\\,dx$",
-    "Solution": "We observe that $\\sin^{2}x$ is an even function, so\n$\\int_{\\frac{-\\pi}{4}}^{\\frac{\\pi}{4}} \\sin^{2}x\\,dx = 2\\int_{0}^{\\frac{\\pi}{4}} \\sin^{2}x\\,dx = 2\\int_{0}^{\\frac{\\pi}{4}} \\tfrac{1-\\cos 2x}{2}\\,dx = \\int_{0}^{\\frac{\\pi}{4}} (1-\\cos 2x)\\,dx = \\Bigl[x-\\tfrac12\\sin 2x\\Bigr]_{0}^{\\frac{\\pi}{4}} = \\frac{\\pi}{4} - \\frac{1}{2}.",
-    "Final_answer": "$\\displaystyle \\int_{\\frac{-\\pi}{4}}^{\\frac{\\pi}{4}} \\sin^{2}x\\,dx = \\frac{\\pi}{4}-\\tfrac12$",
+    "Example": "Evaluate $\\displaystyle \\int_{-\\pi/4}^{\\pi/4}\\sin^{2}x\\,dx$",
+    "Solution": "Using evenness of $\\sin^{2}x$:\n$\\int_{-\\pi/4}^{\\pi/4}\\sin^{2}x\\,dx = 2\\int_{0}^{\\pi/4}\\sin^{2}x\\,dx$\n$= 2\\int_{0}^{\\pi/4}\\frac{1-\\cos2x}{2}\\,dx = \\frac{\\pi}{4}-\\frac12$",
+    "Final_answer": "$\\displaystyle \\int_{-\\pi/4}^{\\pi/4}\\sin^{2}x\\,dx = \\frac{\\pi}{4}-\\frac12$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "Evaluate $\\displaystyle \\int_{0}^{\\pi} \\frac{x \\sin x}{1+\\cos ^{2} x} d x$",
-    "Solution": "Let $\\displaystyle {I}=\\int_{0}^{\\pi} \\frac{x \\sin x}{1+\\cos ^{2} x} d x$. Then, by symmetry (property $P_7$), we have\n$\\displaystyle $\\begin{align*}{I} &= \\int_{0}^{\\pi} \\frac{x \\sin x}{1+\\cos ^{2} x} d x \\\\ &= \\int_{0}^{\\pi} \\frac{(\\pi - x) \\sin (\\pi - x)}{1+\\cos ^{2} (\\pi - x)} d x \\\\ &= \\int_{0}^{\\pi} \\frac{(\\pi - x) \\sin x}{1+\\cos ^{2} x} d x.\\end{align*}$$\\displaystyle \nAdding the two expressions for ${I}$, we get\n$\\displaystyle $2{I} = \\int_{0}^{\\pi} \\frac{x \\sin x}{1+\\cos ^{2} x} d x + \\int_{0}^{\\pi} \\frac{(\\pi - x) \\sin x}{1+\\cos ^{2} x} d x.$$",
-    "Final_answer": "2{I} = \\int_{0}^{\\pi} \\frac{x \\sin x}{1+\\cos ^{2} x} d x + \\int_{0}^{\\pi} \\frac{(\\pi - x) \\sin x}{1+\\cos ^{2} x} d x.",
+    "Example": "Evaluate $\\displaystyle \\int_{0}^{\\pi}\\frac{x\\sin x}{1+\\cos^{2}x}\\,dx$",
+    "Solution": "Let $I=\\int_{0}^{\\pi}\\frac{x\\sin x}{1+\\cos^{2}x}\\,dx$.  Replace $x$ by $\\pi-x$ and add to obtain:\n$2I=\\pi\\int_{0}^{\\pi}\\frac{\\sin x}{1+\\cos^{2}x}\\,dx$\nComputing the remaining integral\n(substitute $u=\\cos x$) gives the value of $I$.",
+    "Final_answer": "The required integral simplifies to $2I=\\pi\\displaystyle \\int_{0}^{\\pi}\\frac{\\sin x}{1+\\cos^{2}x}\\,dx$; hence $I=\\frac{\\pi}{2}\\left[\\tan^{-1}(\\cos x)\\right]_{0}^{\\pi}=0$.",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "Find $\\int \\cos 6 x \\sqrt{1+\\sin 6 x} d x$",
-    "Solution": "Put $t=1+\\sin 6 x$, so that $d t=6 \\cos 6 x d x$. Therefore $\\displaystyle \\int \\cos 6 x \\sqrt{1+\\sin 6 x} d x=\\frac{1}{6} \\int t^{\\frac{1}{2}} d t=\\frac{1}{6} \\times \\frac{2}{3}(t)^{\\frac{3}{2}}+C=\\frac{1}{9}(1+\\sin 6 x)^{\\frac{3}{2}}+C$",
-    "Final_answer": "\\(\\int \\cos 6 x \\sqrt{1+\\sin 6 x} d x = \\frac{1}{9}(1+\\sin 6 x)^{\\frac{3}{2}} + C\\)",
+    "Example": "Find $\\int \\cos 6x\\,\\sqrt{1+\\sin 6x}\\,dx$",
+    "Solution": "Set $t=1+\\sin6x\\;(dt=6\\cos6x\\,dx)$ to get$\\int \\cos6x\\,\\sqrt{1+\\sin6x}\\,dx$\n$= \\frac16\\int t^{1/2}dt = \\frac19t^{3/2}+C$\n$= \\frac19(1+\\sin6x)^{3/2}+C$",
+    "Final_answer": "$\\displaystyle \\int \\cos 6x\\,\\sqrt{1+\\sin 6x}\\,dx = \\frac19(1+\\sin 6x)^{3/2}+C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "Find $\\displaystyle \\int \\frac{(x^{4}-x)^{\\frac{1}{4}}}{x^{5}} d x$",
-    "Solution": "Put $1-\\frac{1}{x^{3}}=1-x^{-3}=t$, so that $\\frac{3}{x^{4}} d x=d t$. Therefore $\\displaystyle \\int \\frac{(x^{4}-x)^{\\frac{1}{4}}}{x^{5}} d x=\\frac{1}{3} \\int t^{\\frac{1}{4}} d t=\\frac{1}{3} \\times \\frac{4}{5} t^{\\frac{5}{4}}+C=\\frac{4}{15}(1-\\frac{1}{x^{3}})^{\\frac{5}{4}}+C$",
-    "Final_answer": "\\(\\int \\frac{(x^{4}-x)^{\\frac{1}{4}}}{x^{5}} d x = \\frac{4}{15}(1-\\frac{1}{x^{3}})^{\\frac{5}{4}} + C\\)",
+    "Example": "Find $\\displaystyle \\int \\frac{(x^{4}-x)^{1/4}}{x^{5}}\\,dx$",
+    "Solution": "Put $t=1-x^{-3}$ so $dt=\\frac{3}{x^{4}}dx$\nThen$\\int \\frac{(x^{4}-x)^{1/4}}{x^{5}}dx = \\frac13\\int t^{1/4}dt$\n$\\;\\;= \\frac{4}{15}t^{5/4}+C$\n$ = \\frac{4}{15}\\left(1-\\frac{1}{x^{3}}\\right)^{5/4}+C$",
+    "Final_answer": "$\\displaystyle \\int \\frac{(x^{4}-x)^{1/4}}{x^{5}}\\,dx = \\frac{4}{15}\\left(1-\\frac{1}{x^{3}}\\right)^{5/4}+C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "Find $\\int \\frac{x^{4} d x}{(x-1)(x^{2}+1)}$",
-    "Solution": "We have $\\displaystyle \\frac{x^{4}}{(x-1)(x^{2}+1)} =(x+1)+\\frac{1}{x^{3}-x^{2}+x-1} =(x+1)+\\frac{1}{(x-1)(x^{2}+1)}$. Now express $\\displaystyle \\frac{1}{(x-1)(x^{2}+1)}=\\frac{A}{(x-1)}+\\frac{Bx+C}{(x^{2}+1)}$. So $\\displaystyle 1 = A(x^{2}+1)+(Bx+C)(x-1) = (A+B)x^{2}+(C-B)x+(A-C)$. Equating coefficients on both sides, we get $A+B=0$, $C-B=0$ and $A-C=1$, which give $A=\\frac{1}{2}$, $B=C=-\\frac{1}{2}$. Substituting values of $A, B$ and $C$ in, we get $\\displaystyle \\frac{x^{4}}{(x-1)(x^{2}+1)}=\\frac{1}{2(x-1)}-\\frac{1}{2} \\frac{x}{(x^{2}+1)}-\\frac{1}{2(x^{2}+1)}$. Again, substituting this result in, we have $\\displaystyle \\int \\frac{x^{4}}{(x-1)(x^{2}+x+1)} d x=\\frac{x^{2}}{2}+x+\\frac{1}{2} \\log |x-1|-\\frac{1}{4} \\log (x^{2}+1)-\\frac{1}{2} \\tan ^{-1} x+C$",
-    "Final_answer": "\\(\\int \\frac{x^{4} d x}{(x-1)(x^{2}+1)} = \\frac{x^{2}}{2}+x+\\frac{1}{2} \\log |x-1|-\\frac{1}{4} \\log (x^{2}+1)-\\frac{1}{2} \\tan ^{-1} x + C\\)",
+    "Example": "Find $\\int \\frac{x^{4}}{(x-1)(x^{2}+1)}\\,dx$",
+    "Solution": "Express\n$\\displaystyle \\frac{x^{4}}{(x-1)(x^{2}+1)} = x+1+\\frac{1}{2(x-1)}-\\frac{x}{2(x^{2}+1)}-\\frac{1}{2(x^{2}+1)}$\nIntegrating term-wise yields\n$\\int \\frac{x^{4}}{(x-1)(x^{2}+1)}dx$\n$= \\frac{x^{2}}{2}+x+\\frac12\\ln|x-1|-\\frac14\\ln(x^{2}+1)-\\frac12\\tan^{-1}x + C$",
+    "Final_answer": "$\\displaystyle \\int \\frac{x^{4}}{(x-1)(x^{2}+1)}\\,dx = \\frac{x^{2}}{2}+x+\\frac12\\ln|x-1|-\\frac14\\ln(x^{2}+1)-\\frac12\\tan^{-1}x+C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "Find $\\displaystyle \\int[\\log (\\log x)+\\frac{1}{(\\log x)^{2}}] d x$",
-    "Solution": "Let $\\displaystyle I=\\int[\\log (\\log x)+\\frac{1}{(\\log x)^{2}}] d x=\\int \\log (\\log x) d x+\\int \\frac{1}{(\\log x)^{2}} d x$. In the first integral, let us take 1 as the second function. Then integrating it by parts, we get $\\displaystyle I=x \\log (\\log x)-\\int \\frac{1}{x \\log x} x d x+\\int \\frac{d x}{(\\log x)^{2}}=x \\log (\\log x)-\\int \\frac{d x}{\\log x}+\\int \\frac{d x}{(\\log x)^{2}}$. Again, consider $\\int \\frac{d x}{\\log x}$, take 1 as the second function and integrate it by parts, we have $\\displaystyle \\int \\frac{d x}{\\log x}=\\left[\\frac{x}{\\log x}-\\int x\\left\\{-\\frac{1}{(\\log x)^{2}}\\left(\\frac{1}{x}\\right)\\right\\} d x\\right]$. Putting this result in, we get $\\displaystyle I=x \\log (\\log x)-\\frac{x}{\\log x}-\\int \\frac{d x}{(\\log x)^{2}}+\\int \\frac{d x}{(\\log x)^{2}}=x \\log (\\log x)-\\frac{x}{\\log x}+C$",
-    "Final_answer": "\\(\\int[\\log (\\log x)+\\frac{1}{(\\log x)^{2}}] d x = x \\log (\\log x) - \\frac{x}{\\log x} + C\\)",
+    "Example": "Find $\\displaystyle \\int\\left[\\log(\\log x)+\\frac{1}{(\\log x)^{2}}\\right]dx$",
+    "Solution": "Integration by parts twice gives\n$\\int\\left[\\log(\\log x)+\\frac{1}{(\\log x)^{2}}\\right]dx$\n$= x\\log(\\log x)-\\frac{x}{\\log x}+C$",
+    "Final_answer": "$\\displaystyle \\int\\left[\\log(\\log x)+\\frac{1}{(\\log x)^{2}}\\right]dx = x\\log(\\log x)-\\frac{x}{\\log x}+C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "Find $\\int[\\sqrt{\\cot x}+\\sqrt{\\tan x}] d x$",
-    "Solution": "We have $\\displaystyle I=\\int[\\sqrt{\\cot x}+\\sqrt{\\tan x}] d x=\\int \\sqrt{\\tan x}(1+\\cot x) d x$. Put $\\tan x=t^{2}$, so that $\\sec^{2} x d x=2t dt$, or $d x=\\frac{2t dt}{1+t^{4}}$. Then $\\displaystyle I=\\int t(1+\\frac{1}{t^{2}}) \\frac{2t}{(1+t^{4})} d t=2 \\int \\frac{(t^{2}+1)}{t^{4}+1} d t=2 \\int \\frac{(1+\\frac{1}{t^{2}}) d t}{(t^{2}+\\frac{1}{t^{2}})}=2 \\int \\frac{(1+\\frac{1}{t^{2}}) d t}{(t-\\frac{1}{t})^{2}+2}$. Put $t-\\frac{1}{t}=y$, so that $(1+\\frac{1}{t^{2}}) d t=d y$. Then $\\displaystyle I=2 \\int \\frac{d y}{y^{2}+2}=\\sqrt{2} \\tan^{-1} \\frac{y}{\\sqrt{2}}+C=\\sqrt{2} \\tan^{-1} \\frac{(t^{2}-1)}{\\sqrt{2} t}+C=\\sqrt{2} \\tan^{-1}\\left(\\frac{\\tan x-1}{\\sqrt{2 \\tan x}}\\right)+C$",
-    "Final_answer": "\\(\\int[\\sqrt{\\cot x}+\\sqrt{\\tan x}] d x = \\sqrt{2} \\tan^{-1}\\left(\\frac{\\tan x-1}{\\sqrt{2 \\tan x}}\\right)+C\\)",
+    "Example": "Find $\\int\\left(\\sqrt{\\cot x}+\\sqrt{\\tan x}\\right)dx$",
+    "Solution": "With $\\tan x=t^{2}$ and the substitution $y=t-1/t$, one obtains\n$\\int\\left(\\sqrt{\\cot x}+\\sqrt{\\tan x}\\right)dx$\n$= \\sqrt{2}\\,\\tan^{-1}\\left(\\frac{\\tan x-1}{\\sqrt{2\\tan x}}\\right)+C$",
+    "Final_answer": "$\\displaystyle \\int\\left(\\sqrt{\\cot x}+\\sqrt{\\tan x}\\right)dx = \\sqrt{2}\\,\\tan^{-1}\\left(\\frac{\\tan x-1}{\\sqrt{2\\tan x}}\\right)+C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "Find $\\displaystyle \\int \\frac{\\sin 2 x \\cos 2 x d x}{\\sqrt{9-\\cos^{4}(2 x)}}$",
-    "Solution": "Let $\\displaystyle I=\\int \\frac{\\sin 2 x \\cos 2 x}{\\sqrt{9-\\cos^{4} 2 x}} d x$. Put $\\cos^{2}(2 x)=t$, so that $4 \\sin 2 x \\cos 2 x d x=-d t$. Therefore $\\displaystyle {I}=-\\frac{1}{4} \\int \\frac{d t}{\\sqrt{9-t^{2}}}=-\\frac{1}{4} \\sin^{-1}\\left(\\frac{t}{3}\\right)+C=-\\frac{1}{4} \\sin^{-1}\\left[\\frac{1}{3} \\cos^{2} 2 x\\right]+C$",
-    "Final_answer": "\\(\\int \\frac{\\sin 2 x \\cos 2 x d x}{\\sqrt{9-\\cos^{4}(2 x)}} = -\\frac{1}{4} \\sin^{-1}\\left[\\frac{1}{3} \\cos^{2} 2 x\\right]+C\\)",
+    "Example": "Find $\\displaystyle \\int \\frac{\\sin2x\\,\\cos2x}{\\sqrt{9-\\cos^{4}2x}}dx$",
+    "Solution": "Put $t=\\cos^{2}2x$\nThen $dt=-4\\sin2x\\cos2x\\,dx$\nand$\\int \\frac{\\sin2x\\,\\cos2x}{\\sqrt{9-\\cos^{4}2x}}dx = -\\frac14\\int \\frac{dt}{\\sqrt{9-t^{2}}}$\n$= -\\frac14\\sin^{-1}\\left(\\frac{t}{3}\\right)+C$\n$= -\\frac14\\sin^{-1}\\left(\\frac{\\cos^{2}2x}{3}\\right)+C$",
+    "Final_answer": "$\\displaystyle \\int \\frac{\\sin2x\\,\\cos2x}{\\sqrt{9-\\cos^{4}2x}}dx = -\\frac14\\sin^{-1}\\left(\\frac{\\cos^{2}2x}{3}\\right)+C$",
     "chapter": "Integrals"
   },
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "Evaluate $\\displaystyle \\int_{-1}^{\\frac{3}{2}}|x \\sin (\\pi x)| d x$",
-    "Solution": "Here $\\displaystyle f(x)=|x \\sin \\pi x|=\\begin{cases}x \\sin \\pi x & \\text{for }-1 \\leq x \\leq 1 \\\\-x \\sin \\pi x & \\text{for } 1 \\leq x \\leq \\frac{3}{2}\\end{cases}$. Therefore $\\displaystyle \\int_{-1}^{\\frac{3}{2}}|x \\sin \\pi x| d x=\\int_{-1}^{1} x \\sin \\pi x d x+\\int_{1}^{\\frac{3}{2}}-x \\sin \\pi x d x=\\int_{-1}^{1} x \\sin \\pi x d x-\\int_{1}^{\\frac{3}{2}} x \\sin \\pi x d x$. Integrating both integrals on the right-hand side, we get $\\displaystyle \\int_{-1}^{\\frac{3}{2}}|x \\sin (\\pi x)| d x=\\left[\\frac{-x \\cos \\pi x}{\\pi}+\\frac{\\sin \\pi x}{\\pi^{2}}\\right]_{-1}^{1}-\\left[\\frac{-x \\cos \\pi x}{\\pi}+\\frac{\\sin \\pi x}{\\pi^{2}}\\right]_{1}^{\\frac{3}{2}}=\\frac{2}{\\pi}-\\left[-\\frac{1}{\\pi^{2}}-\\frac{1}{\\pi}\\right]=\\frac{3}{\\pi}+\\frac{1}{\\pi^{2}}$",
-    "Final_answer": "\\(\\int_{-1}^{\\frac{3}{2}}|x \\sin (\\pi x)| d x = \\frac{3}{\\pi}+\\frac{1}{\\pi^{2}}\\)",
+    "Example": "Evaluate $\\displaystyle \\int_{-1}^{3/2}\\left|x\\sin(\\pi x)\\right|dx$",
+    "Solution": "Split at $x=1$\nDirect evaluation gives:\n$\\int_{-1}^{3/2}\\left|x\\sin(\\pi x)\\right|dx$\n$= \\frac{3}{\\pi}+\\frac{1}{\\pi^{2}}$",
+    "Final_answer": "$\\displaystyle \\int_{-1}^{3/2}\\left|x\\sin(\\pi x)\\right|dx = \\frac{3}{\\pi}+\\frac{1}{\\pi^{2}}$",
     "chapter": "Integrals"
   },
   {
