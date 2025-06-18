@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Alert, ScrollView, Platform } from 'react-native';
 import { databases, account, database1Id, UserAccountsId } from '../../constants';
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = ({ navigation, onLogout }) => {
   const [userInfo, setUserInfo] = useState(null);
 
   const educationBoardData = [
@@ -19,7 +19,6 @@ const ProfileScreen = ({ navigation }) => {
       try {
         const currentUser = await account.get();
         console.log('Fetched Current User:', currentUser);
-        //const result = await databases.listDocuments(database1Id, UserAccountsId);
         const userDocs = await databases.getDocument(
           database1Id,
           UserAccountsId,
@@ -27,16 +26,6 @@ const ProfileScreen = ({ navigation }) => {
         )
         console.log('Fetched Documents:', userDocs);
         setUserInfo(userDocs);
-        /*
-        for (let i = 0; i < result.documents.length; i++) {
-          const doc = result.documents[i];
-          // console.log(Document: ${doc.userId}, Current User: ${currentUser.$id});
-          if (doc.userId === currentUser.$id) {
-            setUserInfo(doc);
-            break;
-          }
-        }
-          */
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -47,8 +36,12 @@ const ProfileScreen = ({ navigation }) => {
 
   if (!userInfo) {
     return (
-      <SafeAreaView style={styles.loadingContainer}>
-        <Text style={styles.loadingText}>Loading your profile...</Text>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.loadingContainer}>
+          <View style={styles.loadingCard}>
+            <Text style={styles.loadingText}>Loading your profile...</Text>
+          </View>
+        </View>
       </SafeAreaView>
     );
   }
@@ -57,53 +50,61 @@ const ProfileScreen = ({ navigation }) => {
     try {
       await account.deleteSession('current');
       Alert.alert('Logged out successfully');
-      navigation.navigate('SignIn');
+      // Call the onLogout function to update the user state in MainNavigator
+      if (onLogout) {
+        onLogout();
+      }
     } catch (error) {
       console.error('Logout failed', error);
       Alert.alert('Error logging out, please try again.');
     }
   };
 
-  const boardNumber = userInfo.educationBoard
+  const boardNumber = userInfo.educationBoard;
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
         <Text style={styles.title}>Profile</Text>
-      </View>
-      <View style={styles.profileCard}>
-        <View style={styles.avatarPlaceholder}>
-          <Text style={styles.avatarText}>{userInfo.name[0].toUpperCase()}</Text>
+        
+        {/* Main Profile Card */}
+        <View style={styles.profileCard}>
+          <View style={styles.avatarContainer}>
+            <Text style={styles.avatarText}>{userInfo.name[0].toUpperCase()}</Text>
+          </View>
+          <Text style={styles.nameText}>{userInfo.name}</Text>
+          <Text style={styles.emailText}>{userInfo.email}</Text>
         </View>
-        <Text style={styles.nameText}>{userInfo.name}</Text>
-        <Text style={styles.emailText}>{userInfo.email}</Text>
-        <View style={styles.infoContainer}>
-          {/* <View style={styles.infoBox}>
-            <Text style={styles.infoLabel}>Age</Text>
-            <Text style={styles.infoValue}>{userInfo.age}</Text>
-          </View> */}
-          <View style={styles.infoBox}>
+
+        {/* Academic Info Cards */}
+        <View style={styles.infoGrid}>
+          <View style={styles.infoCard}>
             <Text style={styles.infoLabel}>Grade</Text>
             <Text style={styles.infoValue}>{userInfo.grade}</Text>
           </View>
-          <View style={styles.infoBox}>
+          <View style={styles.infoCard}>
             <Text style={styles.infoLabel}>Board</Text>
             <Text style={styles.infoValue}>
               {educationBoardData.find((board) => board.value === boardNumber)?.label || 'Unknown'}
             </Text>
           </View>
         </View>
-        <View style={styles.infoContainer}>
 
-          <View style={styles.infoBox}>
-            <Text style={styles.infoLabel}>School</Text>
-            <Text style={styles.infoValue}>{userInfo.school}</Text>
-          </View>
+        {/* School Info Card */}
+        <View style={styles.schoolCard}>
+          <Text style={styles.infoLabel}>School</Text>
+          <Text style={styles.schoolValue}>{userInfo.school}</Text>
         </View>
-      </View>
-      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <Text style={styles.logoutButtonText}>Logout</Text>
-      </TouchableOpacity>
+
+        {/* Logout Button */}
+        <TouchableOpacity 
+          style={styles.logoutButton} 
+          onPress={handleLogout}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.logoutButtonText}>Logout</Text>
+        </TouchableOpacity>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -111,102 +112,188 @@ const ProfileScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F9FAFB',
-    alignItems: 'center',
-    paddingHorizontal: 20,
+    backgroundColor: '#000000',
   },
-  header: {
-    marginTop: 40,
-    marginBottom: 20,
+  scrollContent: {
+    flexGrow: 1,
+    alignItems: 'center',
+    paddingVertical: 60,
+    paddingHorizontal: 20,
   },
   title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#1D1D1F',
+    fontSize: 34,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 40,
+    textAlign: 'center',
+    letterSpacing: -0.34,
   },
   profileCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    paddingVertical: 30,
-    paddingHorizontal: 20,
-    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 24,
+    padding: 32,
     width: '100%',
+    maxWidth: 400,
+    alignItems: 'center',
+    marginBottom: 24,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
-    marginBottom: 40,
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.4,
+    shadowRadius: 32,
+    elevation: 12,
   },
-  avatarPlaceholder: {
-    backgroundColor: '#E4E7EB',
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+  avatarContainer: {
+    backgroundColor: 'rgba(10, 132, 255, 0.2)',
+    borderWidth: 2,
+    borderColor: 'rgba(10, 132, 255, 0.4)',
+    width: 100,
+    height: 100,
+    borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 24,
+    shadowColor: '#0A84FF',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.3,
+    shadowRadius: 16,
+    elevation: 8,
   },
   avatarText: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    color: '#1D1D1F',
+    fontSize: 42,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    letterSpacing: -0.42,
   },
   nameText: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: '600',
-    color: '#1D1D1F',
-    marginBottom: 4,
+    color: '#FFFFFF',
+    marginBottom: 8,
+    textAlign: 'center',
+    letterSpacing: -0.28,
   },
   emailText: {
     fontSize: 16,
-    color: '#6B7280',
+    color: '#EBEBF5',
+    opacity: 0.8,
+    textAlign: 'center',
+    letterSpacing: -0.16,
+  },
+  infoGrid: {
+    flexDirection: 'row',
+    width: '100%',
+    maxWidth: 400,
+    justifyContent: 'space-between',
     marginBottom: 20,
   },
-  infoContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: 10,
-  },
-  infoBox: {
+  infoCard: {
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    borderRadius: 20,
+    padding: 20,
+    flex: 0.48,
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.15)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.3,
+    shadowRadius: 20,
+    elevation: 8,
+  },
+  schoolCard: {
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    borderRadius: 20,
+    padding: 24,
+    width: '100%',
+    maxWidth: 400,
+    alignItems: 'center',
+    marginBottom: 40,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.15)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.3,
+    shadowRadius: 20,
+    elevation: 8,
   },
   infoLabel: {
     fontSize: 14,
-    color: '#6B7280',
+    color: '#EBEBF5',
+    opacity: 0.7,
+    marginBottom: 8,
+    textAlign: 'center',
+    letterSpacing: -0.14,
+    fontWeight: '500',
   },
   infoValue: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    letterSpacing: -0.20,
+  },
+  schoolValue: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#1D1D1F',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    letterSpacing: -0.18,
   },
   logoutButton: {
-    backgroundColor: '#007AFF',
-    paddingVertical: 15,
-    paddingHorizontal: 100,
-    borderRadius: 30,
+    backgroundColor: 'rgba(255, 69, 58, 0.9)',
+    borderRadius: 18,
+    paddingVertical: 16,
+    paddingHorizontal: 60,
     alignItems: 'center',
-    shadowColor: '#007AFF',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 5,
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.15)',
+    shadowColor: '#FF453A',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.4,
+    shadowRadius: 20,
+    elevation: 12,
+    // Enhanced neomorphism effect
+    borderTopColor: 'rgba(255, 255, 255, 0.3)',
+    borderLeftColor: 'rgba(255, 255, 255, 0.3)',
+    borderRightColor: 'rgba(255, 69, 58, 0.4)',
+    borderBottomColor: 'rgba(255, 69, 58, 0.4)',
+    borderTopWidth: 1.5,
+    borderLeftWidth: 1.5,
+    borderRightWidth: 1.5,
+    borderBottomWidth: 1.5,
   },
   logoutButtonText: {
     color: '#FFFFFF',
     fontSize: 16,
     fontWeight: '600',
+    letterSpacing: -0.16,
   },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F9FAFB',
+  },
+  loadingCard: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 24,
+    padding: 32,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.4,
+    shadowRadius: 32,
+    elevation: 12,
   },
   loadingText: {
     fontSize: 18,
-    color: '#6B7280',
+    color: '#EBEBF5',
+    opacity: 0.8,
+    letterSpacing: -0.18,
   },
 });
 

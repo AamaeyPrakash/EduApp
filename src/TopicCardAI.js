@@ -2,18 +2,39 @@ import { View, Text, TouchableOpacity, ScrollView, SafeAreaView, StyleSheet, But
 import IBMathTopicData from './mathTopics/IBMathAITopicData.json';
 
 const TopicCardAI = ({navigation}) => {
+  const handleExit = () => {
+    navigation.goBack(); // Goes back to the previous screen
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.content}>
+      <View style={styles.header}>
+        <TouchableOpacity
+          style={styles.exitButton}
+          onPress={handleExit}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.exitButtonText}>✕</Text>
+        </TouchableOpacity>
+      </View>
+      
+      <ScrollView style={styles.content} contentContainerStyle={styles.scrollContent}>
         {IBMathTopicData.map((subject, index) => (
           <View key={index} style={styles.card}>  
             <Text style={styles.cardTitle}>{subject.topicNumber} - {subject.topic}</Text>
             <Text style={styles.cardTopic}>{subject.level}</Text>
             <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.buttonSecondary}>
+              <TouchableOpacity 
+                style={styles.buttonSecondary}
+                activeOpacity={0.8}
+              >
                 <Text style={styles.buttonSecondaryText}>Revisions</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.buttonPrimary} onPress={() => navigation.navigate('QuizScreen', { topicData: subject })}>
+              <TouchableOpacity 
+                style={styles.buttonPrimary} 
+                onPress={() => navigation.navigate('QuizScreen', { topicData: subject })}
+                activeOpacity={0.8}
+              >
                 <Text style={styles.buttonPrimaryText}>Quiz</Text>
               </TouchableOpacity>
             </View>
@@ -27,69 +48,125 @@ const TopicCardAI = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F0F4F8',
+    backgroundColor: '#000000',
   },
   content: {
     flex: 1,
-    padding: 16,
+    paddingHorizontal: 20,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    paddingHorizontal: 20,
+    paddingTop: 10,
+    paddingBottom: 0,
+  },
+  exitButton: {
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    borderRadius: 20,
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.15)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.3,
+    shadowRadius: 16,
+    elevation: 8,
+    // Neomorphism effect
+    borderTopColor: 'rgba(255, 255, 255, 0.2)',
+    borderLeftColor: 'rgba(255, 255, 255, 0.2)',
+    borderRightColor: 'rgba(0, 0, 0, 0.3)',
+    borderBottomColor: 'rgba(0, 0, 0, 0.3)',
+    borderTopWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderBottomWidth: 1,
+  },
+  exitButtonText: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    opacity: 0.9,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    paddingVertical: 40,
   },
   card: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 24,
+    padding: 24,
+    marginBottom: 20,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
+    shadowOffset: { width: 0, height: 12 },
+    shadowOpacity: 0.4,
+    shadowRadius: 32,
+    elevation: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    backdropFilter: 'blur(30px)',
   },
   cardTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#1F2937',
-    marginBottom: 4,
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    marginBottom: 8,
+    letterSpacing: -0.2,
   },
   cardTopic: {
     fontSize: 14,
-    color: '#6B7280',
-    marginBottom: 12,
+    fontWeight: '500',
+    color: '#EBEBF5',
+    opacity: 0.7,
+    marginBottom: 20,
+    letterSpacing: -0.14,
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    gap: 12,
   },
   buttonSecondary: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3F4F6',
-    borderRadius: 20,
-    paddingVertical: 8,
-    marginRight: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    borderRadius: 18,
+    paddingVertical: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.15)',
   },
   buttonSecondaryText: {
-    color: '#1F2937',
-    fontSize: 14,
-    fontWeight: '500',
-    marginLeft: 4,
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+    letterSpacing: -0.16,
   },
   buttonPrimary: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#3B82F6',
-    borderRadius: 20,
-    paddingVertical: 8,
-    marginLeft: 8,
+    backgroundColor: 'rgba(10, 132, 255, 0.9)',
+    borderRadius: 18,
+    paddingVertical: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.15)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.3,
+    shadowRadius: 16,
+    elevation: 8,
   },
   buttonPrimaryText: {
     color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '500',
-    marginLeft: 4,
+    fontSize: 16,
+    fontWeight: '600',
+    letterSpacing: -0.16,
   },
 });
 
