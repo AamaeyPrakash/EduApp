@@ -56,7 +56,8 @@ const extraTabOptions = {
 
 const TabNavigator = ({user, onLogout}) => {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
+
+    <Tab.Navigator screenOptions={{ headerShown: false, tabBarHideOnKeyboard: true }}>
       <Tab.Screen
         name="Home"
         options={{

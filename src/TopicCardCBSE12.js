@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, ScrollView, SafeAreaView, StyleSheet } from 'react-native';
-import CBSEMath12 from './mathTopics/CBSEMath12.json';
+import CBSEMath12 from './mathTopics/CBSEMath12f.json';
 
 const TopicCardCBSE12 = ({ navigation }) => {
   const uniqueTitles = Array.from(new Set(CBSEMath12.map(item => item.Title)));
@@ -60,27 +60,27 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingHorizontal: 20,
     paddingTop: 10,
-    paddingBottom: 0,
+    paddingBottom: 10,
   },
   exitButton: {
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    backgroundColor: 'rgba(255, 255, 255, 0.18)',
     borderRadius: 20,
     width: 40,
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.15)',
+    borderColor: 'rgba(255, 255, 255, 0.35)',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.3,
     shadowRadius: 16,
     elevation: 8,
     // Neomorphism effect
-    borderTopColor: 'rgba(255, 255, 255, 0.2)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.2)',
-    borderRightColor: 'rgba(0, 0, 0, 0.3)',
-    borderBottomColor: 'rgba(0, 0, 0, 0.3)',
+    borderTopColor: 'rgba(255, 255, 255, 0.3)',
+    borderLeftColor: 'rgba(255, 255, 255, 0.3)',
+    borderRightColor: 'rgba(255, 255, 255, 0.3)',
+    borderBottomColor: 'rgba(255, 255, 255, 0.3)',
     borderTopWidth: 1,
     borderLeftWidth: 1,
     borderRightWidth: 1,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     paddingVertical: 40,
   },
   card: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: 'rgba(255, 255, 255, 0.18)',
     borderRadius: 24,
     padding: 24,
     marginBottom: 20,
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     shadowRadius: 32,
     elevation: 12,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
+    borderColor: 'rgba(255, 255, 255, 0.35)',
     backdropFilter: 'blur(30px)',
   },
   cardTitle: {
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
     borderRadius: 18,
     paddingVertical: 16,
     borderWidth: 1,

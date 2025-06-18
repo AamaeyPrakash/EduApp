@@ -30,7 +30,7 @@ const HomeScreen = ({ navigation }) => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={[styles.card, styles.secondaryCard]}
+            style={[styles.card, styles.primaryCard]}
             onPress={() => navigation.navigate('Math AI')}
             activeOpacity={0.8}
           >
@@ -45,7 +45,7 @@ const HomeScreen = ({ navigation }) => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={[styles.card, styles.accentCard]}
+            style={[styles.card, styles.primaryCard]}
             onPress={() => navigation.navigate('CBSE 12')}
             activeOpacity={0.8}
           >
@@ -117,19 +117,13 @@ const styles = StyleSheet.create({
     minHeight: 140,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: 'rgba(255, 255, 255, 0.18)',
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
+    borderColor: 'rgba(255, 255, 255, 0.35)',
     backdropFilter: 'blur(30px)',
   },
   primaryCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-  },
-  secondaryCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-  },
-  accentCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    backgroundColor: 'rgba(255, 255, 255, 0.18)',
   },
   cardIcon: {
     width: 60,
