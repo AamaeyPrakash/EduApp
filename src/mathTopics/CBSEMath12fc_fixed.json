@@ -11,14 +11,14 @@
     "Title": "Probability",
     "Subtitle": "",
     "Example": "A coin is tossed three times. Consider the events: A: 'No head appears', B: 'Exactly one head appears', and C: 'At least two heads appear'. Do they form a set of mutually exclusive and exhaustive events?",
-    "Solution": "The sample space is $\\displaystyle S = \\{HHH, HHT, HTH, THH, HTT, THT, TTH, TTT\\}$.\nLet $A = \\{TTT\\}$, $B = \\{HTT, THT, TTH\\}$, and $C = \\{HHT, HTH, THH, HHH\\}$.\nSince $A \\cup B \\cup C = S$ and the events are pairwise disjoint, they are mutually exclusive and exhaustive.",
+    "Solution": "The sample space is $\\displaystyle S = \\{HHH, HHT, HTH, THH, HTT, THT, TTH, TTT\\}$\nLet $A = \\{TTT\\}$, $B = \\{HTT, THT, TTH\\}$, and $C = \\{HHT, HTH, THH, HHH\\}$.\nSince $A \\cup B \\cup C = S$ and the events are pairwise disjoint, they are mutually exclusive and exhaustive.",
     "Final_answer": "",
     "chapter": "Probability"
   },
   {
     "Title": "Probability",
     "Subtitle": "",
-    "Example": "Let the sample space be $S = {ω_1, ω_2, ω_3, ω_4, ω_5, ω_6}$. Which of the following assignments of probabilities are valid?\n(a) 1/6, 1/6, 1/6, 1/6, 1/6, 1/6\n(b) 1, 0, 0, 0, 0, 0\n(c) 1/8, 2/3, 1/3, 1/3, -1/4, -1/3\n(d) 1/12, 1/12, 1/6, 1/6, 1/6, 3/2\n(e) 0.1, 0.2, 0.3, 0.4, 0.5, 0.6",
+    "Example": "Let the sample space be $S = {ω_1, ω_2, ω_3, ω_4, ω_5, ω_6}$Which of the following assignments of probabilities are valid?\n(a) 1/6, 1/6, 1/6, 1/6, 1/6, 1/6\n(b) 1, 0, 0, 0, 0, 0\n(c) 1/8, 2/3, 1/3, 1/3, -1/4, -1/3\n(d) 1/12, 1/12, 1/6, 1/6, 1/6, 3/2\n(e) 0.1, 0.2, 0.3, 0.4, 0.5, 0.6",
     "Solution": "(a) Valid, since all probabilities are positive and sum to 1.\n(b) Valid, as the probabilities are 0 or 1 and sum to 1.\n(c) Not valid, due to negative values.\n(d) Not valid, since one probability exceeds 1.\n(e) Not valid, as the sum exceeds 1.",
     "Final_answer": "",
     "chapter": "Probability"
@@ -26,80 +26,82 @@
   {
     "Title": "Probability",
     "Subtitle": "",
-    "Example": "One card is drawn from a well-shuffled deck of 52 cards. Calculate the probability that the card will be: (i) a diamond, (ii) not an ace, (iii) a black card, (iv) not a diamond, (v) not a black card.",
-    "Solution": "(i) Diamonds: 13 cards, so $P(diamond) = 13/52 = 1/4$.\n(ii) Not an ace: $P(not ace) = 1 - 4/52 = 12/13$.\n(iii) Black card: 26 cards, so $P(black) = 26/52 = 1/2$.\n(iv) Not a diamond: $P(not diamond) = 1 - 1/4 = 3/4$.\n(v) Not a black card: $P(not black) = 1 - 1/2 = 1/2$.",
+    "Example": "One card is drawn from a well-shuffled deck of 52 cards. Calculate the probability that the card will be:\n(i) a diamond\n(ii) not an ace\n(iii) a black card\n(iv) not a diamond\n(v) not a black card.",
+    "Solution": "(i) Diamonds: 13 cards, so $P(diamond) = 13/52 = 1/4$\n(ii) Not an ace: $P(not ace) = 1 - 4/52 = 12/13$\n(iii) Black card: 26 cards, so $P(black) = 26/52 = 1/2$\n(iv) Not a diamond: $P(not diamond) = 1 - 1/4 = 3/4$\n(v) Not a black card: $P(not black) = 1 - 1/2 = 1/2$",
     "Final_answer": "",
     "chapter": "Probability"
   },
   {
     "Title": "Probability",
     "Subtitle": "",
-    "Example": "A bag contains 9 discs: 4 red, 3 blue, and 2 yellow. A disc is drawn at random. Calculate the probability that it will be: (i) red, (ii) yellow, (iii) blue, (iv) not blue, (v) either red or blue.",
-    "Solution": "Total discs = 9.\n(i) $P(red) = 4/9$.\n(ii) $P(yellow) = 2/9$.\n(iii) $P(blue) = 3/9 = 1/3$.\n(iv) $P(not blue) = 1 - 1/3 = 2/3$.\n(v) $P(red or blue) = 4/9 + 1/3 = 7/9$.",
+    "Example": "A bag contains 9 discs: 4 red, 3 blue, and 2 yellow. A disc is drawn at random. Calculate the probability that it will be:\n(i) red\n(ii) yellow\n(iii) blue\n(iv) not blue\n(v) either red or blue.",
+    "Solution": "Total discs = 9.\n(i) $P(red) = 4/9$\n(ii) $P(yellow) = 2/9$\n(iii) $P(blue) = 3/9 = 1/3$\n(iv) $P(not blue) = 1 - 1/3 = 2/3$\n(v) $P(red or blue) = 4/9 + 1/3 = 7/9$",
     "Final_answer": "",
     "chapter": "Probability"
   },
   {
     "Title": "Probability",
     "Subtitle": "",
-    "Example": "Two students, Anil and Ashima, appeared in an examination. The probability that Anil qualifies is 0.05, Ashima qualifies is 0.10, and both qualify is 0.02. Find the probability that: (a) both do not qualify, (b) at least one does not qualify, (c) only one qualifies.",
-    "Solution": "Let $E$ and $F$ denote the events that Anil and Ashima qualify respectively.\n$P(E)=0.05$, $P(F)=0.10$, $P(E \\cap F)=0.02$.\n(a) $\\displaystyle P(not both) = 1 - (0.05+0.10-0.02) = 0.87$.\n(b) $P(at least one not) = 1 - 0.02 = 0.98$.\n(c) $\\displaystyle P(only one) = (0.05-0.02) + (0.10-0.02) = 0.11$.",
+    "Example": "Two students, Anil and Ashima, appeared in an examination. The probability that Anil qualifies is 0.05, Ashima qualifies is 0.10, and both qualify is 0.02. Find the probability that:\n(a) both do not qualify\n(b) at least one does not qualify\n(c) only one qualifies.",
+    "Solution": "Let $E$ and $F$ denote the events\nthat Anil and Ashima qualify respectively.\n$P(E)=0.05$\n$P(F)=0.10$\n$P(E \\cap F)=0.02$.\n(a) $P(\\text{not both}) = 1 - (0.05+0.10-0.02) = 0.87$\n(b) $P(\\text{at least one not}) = 1 - 0.02 = 0.98$\n(c) $\\displaystyle P(\\text{only one}) = (0.05-0.02) + (0.10-0.02) = 0.11$",
     "Final_answer": "",
     "chapter": "Probability"
   },
   {
     "Title": "Probability",
     "Subtitle": "",
-    "Example": "A committee of two persons is selected from two men and two women. What is the probability that the committee will have: (a) no man, (b) one man, (c) two men?",
-    "Solution": "Total persons = 4; number of ways to choose 2 = 6.\n(a) Two women: 1 way, so $P(no man) = 1/6$.\n(b) One man and one woman: 4 ways, so $P(one man) = 4/6 = 2/3$.\n(c) Two men: 1 way, so $P(two men) = 1/6$.",
+    "Example": "A committee of two persons is selected from two men and two women. What is the probability that the committee will have:\n(a) no man\n(b) one man\n(c) two men?",
+    "Solution": "Total persons = 4; number of ways to choose 2 = 6.\n(a) Two women: 1 way, so $P(\\text{no man}) = 1/6$.\n(b) One man and one woman: 4 ways, so $P(\\text{one man}) = 4/6 = 2/3$.\n(c) Two men: 1 way, so $P(\\text{two men}) = 1/6$.",
     "Final_answer": "",
     "chapter": "Probability"
   },
   {
     "Title": "Probability",
     "Subtitle": "",
-    "Example": "Veena visits four cities (A, B, C, and D) in a random order. What is the probability that she visits: (i) A before B, (ii) A before B and B before C, (iii) A first and B last, (iv) A either first or second, (v) A just before B?",
-    "Solution": "Total arrangements = 4! = 24.\n(i) In half of the arrangements, A comes before B: $12/24 = 1/2$.\n(ii) 'A before B and B before C' occurs in 4 arrangements: $4/24 = 1/6$.\n(iii)-(v) are left as exercises.",
+    "Example": "Veena visits four cities (A, B, C, and D) in a random order. What is the probability that she visits:\n(i) A before B\n(ii) A before B and B before C\n(iii) A first and B last\n(iv) A either first or second\n(v) A just before B?",
+    "Solution": "Total arrangements = 4! = 24.\n(i) In half of the arrangements, A comes\nbefore B: $12/24 = 1/2$.\n(ii) 'A before B and B before C' occurs in 4\narrangements: $4/24 = 1/6$.\n(iii)-(v) are left as exercises.",
     "Final_answer": "",
     "chapter": "Probability"
   },
   {
     "Title": "Probability",
     "Subtitle": "",
-    "Example": "Prove that for any three events A, B, and C,\n$\\displaystyle P(A \\cup B \\cup C) = P(A) + P(B) + P(C) - P(A \\cap B) - P(A \\cap C) - P(B \\cap C) + P(A \\cap B \\cap C)$.",
-    "Solution": "Let $E = B \\cup C$. Then, $P(A \\cup E) = P(A) + P(E) - P(A \\cap E)$.\nSince $P(E) = P(B) + P(C) - P(B \\cap C)$ and $\\displaystyle P(A \\cap E) = P(A \\cap B) + P(A \\cap C) - P(A \\cap B \\cap C)$, substituting yields the required formula.",
+    "Example": "Prove that for any three events A, B, and C\n$P(A \\cup B \\cup C)= P(A) + P(B) + P(C) - P(A \\cap B)$\n$- P(A \\cap C) - P(B \\cap C) + P(A \\cap B \\cap C)$.",
+    "Solution": "Let $E = B \\cup C$. Then:\n$P(A \\cup E) = P(A) + P(E) - P(A \\cap E)$\nSince:\n$P(E) = P(B) + P(C) - P(B \\cap C)$\nAnd\n$\\displaystyle P(A \\cap E) = P(A \\cap B) + P(A \\cap C) - P(A \\cap B \\cap C)$\nSubstituting yields the required formula.",
     "Final_answer": "",
     "chapter": "Probability"
   },
   {
     "Title": "Probability",
     "Subtitle": "",
-    "Example": "In a relay race with five teams (A, B, C, D, and E): (a) What is the probability that A, B, and C finish first, second, and third respectively? (b) What is the probability that A, B, and C are the first three finishers (in any order)?",
-    "Solution": "Total ways to choose the first three positions = P(5, 3) = 5 × 4 × 3 = 60.\n(a) Only one arrangement gives A first, B second, C third: $1/60$.\n(b) The teams can be arranged in 3! = 6 ways: $6/60 = 1/10$.",
+    "Example": "In a relay race with five teams (A, B, C, D, and E):\n(a) What is the probability that A, B, and C finish first, second, and third respectively?\n(b) What is the probability that A, B, and C are the first three finishers (in any order)?",
+    "Solution": "Total ways to choose the first three positions = P(5, 3) = 5 × 4 × 3 = 60.\n(a) Only one arrangement gives A first,\nB second, C third: $1/60$.\n(b) The teams can be arranged in\n3! = 6 ways: $6/60 = 1/10$.",
     "Final_answer": "",
     "chapter": "Probability"
   },
+
+
   {
     "Title": "Statistics",
     "Subtitle": "Finding the Mean Deviation about the Mean",
-    "Example": "Find the mean deviation about the mean for the data: 6, 7, 10, 12, 13, 4, 8, 12.",
-    "Solution": "Mean, $\\bar{x} = (6+7+10+12+13+4+8+12)/8 = 9$.\nDeviations: -3, -2, 1, 3, 4, -5, -1, 3.\nAbsolute deviations: 3, 2, 1, 3, 4, 5, 1, 3.\nMean deviation = (3+2+1+3+4+5+1+3)/8 = 22/8 = 2.75.",
+    "Example": "Find the mean deviation about the mean for\nthe data:$6, 7, 10, 12, 13, 4, 8, 12$",
+    "Solution": "Mean:\n$\\bar{x} = (6+7+10+12+13+4+8+12)/8 = 9$\nDeviations: $-3, -2, 1, 3, 4, -5, -1, 3$\nAbsolute deviations:$3, 2, 1, 3, 4, 5, 1, 3$\nMean deviation = $\\frac{3+2+1+3+4+5+1+3}{8}$\n$= \\frac{22}{8} = 2.75$",
     "Final_answer": "Mean Deviation: 2.75.",
     "chapter": "Statistics"
   },
   {
     "Title": "Statistics",
     "Subtitle": "Finding the Mean Deviation about the Median",
-    "Example": "Find the mean deviation about the median for the data: 3, 9, 5, 3, 12, 10, 18, 4, 7, 19, 21.",
-    "Solution": "Arrange the data: 3, 3, 4, 5, 7, 9, 10, 12, 18, 19, 21.\nMedian (6th term) = 9.\nAbsolute deviations: |3-9|=6, |3-9|=6, |4-9|=5, |5-9|=4, |7-9|=2, |9-9|=0, |10-9|=1, |12-9|=3, |18-9|=9, |19-9|=10, |21-9|=12.\nSum = 58; Mean deviation = 58/11 ≈ 5.27.",
+    "Example": "Find the mean deviation about the median for\nthe data:$3, 9, 5, 3, 12, 10, 18, 4, 7, 19, 21$",
+    "Solution": "Arrange the data:\n$3, 3, 4, 5, 7, 9, 10, 12, 18, 19, 21$\nMedian (6th term) $= 9$.\nAbsolute deviations:\n$|3-9|=6,\\; |3-9|=6,\\;|4-9|=5,\\; |5-9|=4$\n$|7-9|=2,\\; |9-9|=0,\\; |10-9|=1,\\; |12-9|=3$\n$|18-9|=9,\\; |19-9|=10,\\; |21-9|=12$\nSum $= 58$\nMean deviation $= \\frac{58}{11} \\approx 5.27$",
     "Final_answer": "Mean Deviation about the Median: 5.27.",
     "chapter": "Statistics"
   },
   {
     "Title": "Statistics",
     "Subtitle": "Finding the Mean Deviation about the Median",
-    "Example": "Find the mean deviation about the median for the grouped data:\n$x_i$: 3, 6, 9, 12, 13, 15, 21, 22\n$f_i$: 3, 4, 5, 2, 4, 5, 4, 3.",
-    "Solution": "Total frequency, $N = 30$. The median lies in the class of the 15th and 16th observations, so $M = 13$.\nCalculate the weighted absolute deviations (total = 149).\nMean deviation = 149/30 ≈ 4.97.",
+    "Example": "Find the mean deviation about the median for the grouped data:\n$x_i: 3, 6, 9, 12, 13, 15, 21, 22$\n$f_i: 3, 4, 5, 2, 4, 5, 4, 3$",
+    "Solution": "Total frequency, $N = 30$\nThe median lies in the class of the 15th\nand 16th observations, so $M = 13$\nCalculate the weighted absolute deviations (total = 149).\nMean deviation = $\\frac{149}{30} \\approx 4.97$",
     "Final_answer": "Mean Deviation about the Median: 4.97.",
     "chapter": "Statistics"
   },
@@ -107,7 +109,7 @@
     "Title": "Statistics",
     "Subtitle": "Finding Mean, Variance, and Standard Deviation",
     "Example": "Calculate the mean, variance, and standard deviation for the distribution with classes: 30–40, 40–50, 50–60, 60–70, 70–80, 80–90, 90–100 and frequencies: 3, 7, 12, 15, 8, 3, 2.",
-    "Solution": "Using class midpoints and an assumed mean of 65, the computed mean is 62, variance is 201, and standard deviation is √201 ≈ 14.18.",
+    "Solution": "Using class midpoints and an assumed mean of 65, the computed mean is 62, variance is 201, and standard deviation is $\\sqrt{201} \\approx 14.18$",
     "Final_answer": "Mean: 62, Variance: 201, Standard Deviation: 14.18",
     "chapter": "Statistics"
   },
@@ -115,15 +117,15 @@
     "Title": "Statistics",
     "Subtitle": "Effect of Multiplying Observations on Variance",
     "Example": "The variance of 20 observations is 5. If each observation is multiplied by 2, find the new variance.",
-    "Solution": "Multiplying each observation by 2 scales the variance by 2². New variance = 5 × 4 = 20.",
+    "Solution": "Multiplying each observation by 2 scale\nthe variance by $2^2$\nNew variance $= 5 \\times 4 = 20$",
     "Final_answer": "New Variance: 20.",
     "chapter": "Statistics"
   },
   {
     "Title": "Statistics",
     "Subtitle": "Finding Missing Observations Given Mean and Variance",
-    "Example": "The mean of 5 observations is 4.4 and their variance is 8.24. If three observations are 1, 2, and 6, find the other two.",
-    "Solution": "Let the missing observations be x and y. Mean gives 1+2+6+x+y = 22, so x+y = 13. Variance leads to x²+y² = 97. Solving yields x = 4 and y = 9 (or vice versa).",
+    "Example": "The mean of $5$ observations is $4.4$ and their\nvariance is $8.24$. If three observations\nare $1,\\; 2,\\; \\text{and}\\; 6,$ find the other two.",
+    "Solution": "Let the missing observations be x and y.\nMean gives $1+2+6+x+y = 22$\nSo $x+y = 13$\nVariance leads to $x^2+y^2 = 97$\nSolving yields\n $x = 4$ and $y = 9$ (or vice versa).",
     "Final_answer": "Missing Observations: 4 and 9.",
     "chapter": "Statistics"
   },
@@ -131,207 +133,201 @@
     "Title": "Statistics",
     "Subtitle": "Effect of Adding a Constant to Observations on Variance",
     "Example": "Show that if a constant is added to each observation, the variance remains unchanged.",
-    "Solution": "Adding a constant shifts the mean but does not affect the differences $x_i - \\bar{x}$, so the variance remains unchanged.",
+    "Solution": "Adding a constant shifts the mean but does not affect the differences\n$x_i - \\bar{x}$, so the variance remains\nunchanged.",
     "Final_answer": "Variance remains unchanged.",
     "chapter": "Statistics"
   },
   {
     "Title": "Statistics",
     "Subtitle": "Correcting Mean and Standard Deviation Due to an Incorrect Observation",
-    "Example": "The mean and standard deviation of 100 observations were calculated as 40 and 5.1, but one observation was mistakenly taken as 50 instead of 40. Find the correct mean and standard deviation.",
-    "Solution": "Incorrect total = 4000. Correcting by subtracting 10 gives 3990, so correct mean = 3990/100 = 39.9. Recalculation yields a standard deviation of 5.",
+    "Example": "The mean and standard deviation of $100$\nobservations were calculated as $40$ and $5.1$\nbut one observation was mistakenly taken as\n$50$ instead of $40$. Find the correct mean\nand standard deviation.",
+    "Solution": "Incorrect total $= 4000$\nCorrecting by subtracting $10$ gives $3990$\nSo correct mean $= 3990/100 = 39.9$\nRecalculation yields a standard deviation\nof $5.$",
     "Final_answer": "Correct Mean: 39.9, Correct Standard Deviation: 5.",
     "chapter": "Statistics"
   },
+
+
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "Write the first three terms of the sequences: (i) $a_n = 2n + 5$, (ii) $a_n = (n - 3)/4$.",
-    "Solution": "(i) For n = 1, 2, 3: $a_1 = 7$, $a_2 = 9$, $a_3 = 11$.\n(ii) For n = 1, 2, 3: $a_1 = -1/2$, $a_2 = -1/4$, $a_3 = 0$.",
+    "Example": "Write the first three terms of the sequences:\n(i) $a_n = 2n + 5$\n(ii) $a_n = \\frac{n-3}{4}$",
+    "Solution": "(i) For $n = 1, 2, 3$:\n$a_1 = 7$, $a_2 = 9$, $a_3 = 11$\n(ii) For $n = 1, 2, 3$:\n$a_1 = -1/2$, $a_2 = -1/4$, $a_3 = 0$",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "What is the 20th term of the sequence defined by $a_n = (n-1)(2-n)(3+n)$?",
-    "Solution": "Substitute n = 20: $\\displaystyle a_{20} = 19 × (2-20) × 23 = 19 × (-18) × 23 = -7866$.",
+    "Example": "What is the 20th term of the sequence\ndefined by $a_n = (n-1)(2-n)(3+n)\\text{?}$",
+    "Solution": "Substitute n = 20:\n$a_{20} = 19 \\times (2-20) \\times 23$\n$\\quad\\;\\;= 19 \\times (-18) \\times 23$\n$\\quad\\;\\;\\,= -7866$",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "Find the first five terms of the sequence defined by $a_1 = 1$, $a_n = a_{n-1} + 2$ for n ≥ 2, and write the corresponding series.",
-    "Solution": "The terms are: 1, 3, 5, 7, 9. The series is: 1 + 3 + 5 + 7 + 9 + …",
+    "Example": "Find the first five terms of the sequence\ndefined by $a_1 = 1$, $a_n = a_{n-1} + 2$ for\n$n \\geq 2$, and write the corresponding series.",
+    "Solution": "The terms are:$1, 3, 5, 7, 9$\nThe series is:$1 + 3 + 5 + 7 + 9 + …$",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "Find the 10th and nth terms of the G.P. 5, 25, 125, ...",
-    "Solution": "Here, a = 5 and r = 5. So, $a_{10} = 5 × 5^9$ and $a_n = 5 × 5^{n-1}$.",
+    "Example": "Find the $10^{\\text{th}}$ and $n^{\\text{th}}$ terms of the\nGeometric Progression:$5, 25, 125, ...$",
+    "Solution": "Here, $a = 5$ and $r = 5$\n$a_{10} = 5 \\times 5^9$\n$a_n = 5 \\times 5^{n-1}$",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "In a G.P., the 3rd term is 24 and the 6th term is 192. Find the 10th term.",
-    "Solution": "Let $a_3 = a r^2 = 24$ and $a_6 = a r^5 = 192$. Dividing gives $r^3 = 8$, so $r = 2$. Then, a = 6 and $a_{10} = 6 × 2^9 = 3072$.",
+    "Example": "In a Geometric Progression, the $3^{\\text{rd}}$ term is\n$24$ and the $6^{\\text{th}}$ term is $192$. Find the $10^\\text{th}$ term.",
+    "Solution": "Let $a_3 = a r^2 = 24$ and $a_6 = a r^5 = 192$\nDividing gives $r^3 = 8$, so $r = 2$\nThen, a = 6 and $a_{10} = 6 \\times 2^9 = 3072$.",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "Find the sum of the first n terms and the sum of the first 5 terms of the geometric series $1 + 2/3 + 4/9 + ...$",
-    "Solution": "Here, a = 1 and r = 2/3. The sum is $\\displaystyle S_n = [1 - (2/3)^n] / [1 - 2/3] = 3[1 - (2/3)^n]$. For 5 terms, $S_5 = 3[1 - (2/3)^5]$.",
+    "Example": "Find the sum of the first $n$ terms and the\nsum of the first $5$ terms of the geometric\nseries $1 + \\frac{2}{3} + \\frac{4}{9} + ...$",
+    "Solution": "Here, $a = 1$ and $r = \\frac{2}{3}$\nThe sum is $S_n = \\frac{1 - (\\frac{2}{3})^n}{1 - \\frac{2}{3}}= 3\\left(1 - \\left(\\frac{2}{3}\\right)^n\\right)$\nFor 5 terms, $S_5 = 3\\left(1 - \\left(\\frac{2}{3}\\right)^5\\right)$.",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "How many terms of the G.P. $3, 3/2, 3/4, ...$ are needed to give the sum $3069/512$?",
-    "Solution": "For a = 3 and r = 1/2, the sum is $S_n = 6(1 - 1/2^n)$. Setting $6(1 - 1/2^n) = 3069/512$ and solving gives n = 10.",
+    "Example": "How many terms of the Geometric\nProgression $3, 3/2, 3/4, ...$ are needed\nto give the sum $\\frac{3069}{512}\\text{?}$",
+    "Solution": "For $a = 3$ and $r = \\frac{1}{2}$\nThe sum is $S_n = 6(1 - \\left(\\frac{1}{2}\\right)^n)$\nSetting $6(1 - \\left(\\frac{1}{2}\\right)^n) = \\frac{3069}{512}$\nSolving gives $n = 10$",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "The sum of the first three terms of a G.P. is 13/12 and their product is -1. Find the common ratio and the terms.",
-    "Solution": "Let the terms be $a/r$, a, and $ar$. Then, $(a/r) + a + ar = 13/12$ and $a^3 = -1$, so a = -1. Substituting gives $-1/r - 1 - r = 13/12$. Solving yields $r = -3/4$ or $-4/3$, so the terms are either $4/3, -1, 3/4$ or $3/4, -1, 4/3$.",
+    "Example": "The sum of the first three terms of a\nGeometric progression is $\\frac{13}{12}$ and their\nproduct is -1. Find the common ratio and\nthe terms.",
+    "Solution": "Let the terms be $\\frac{a}{r}$, a, and $ar$\nThen,$\\frac{a}{r} + a + ar = \\frac{13}{12}$\nand $a^3 = -1$\nSo $a = -1$\nSubstituting gives $\\frac{-1}{r} - 1 - r = \\frac{13}{12}$\nSolving yields $r = \\frac{-3}{4}$ or $\\frac{-4}{3}$\nThe terms are:\n(i)$\\frac{4}{3}, -1, \\frac{3}{4}$ or (ii)$\\frac{3}{4}, -1, \\frac{4}{3}$.",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "Find the sum of the sequence 7, 77, 777, 7777, ... up to n terms.",
-    "Solution": "Express each term in a form related to powers of 10. The sum is $S_n = (7/9)[(10(10^n - 1)/9) - n]$.",
+    "Example": "Find the sum of the sequence 7, 77, 777,\n7777, ... up to $n$ terms.",
+    "Solution": "Express each term in a form related to powers of 10\nThe sum is:\n$S_n = \\left(\\frac{7}{9}\\right)\\left[\\frac{10(10^n - 1)}{9} - n\\right]$",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "A person has 2 parents, 4 grandparents, 8 great grandparents, and so on. Find the number of ancestors during the ten generations preceding his own.",
-    "Solution": "This is a geometric series with a = 2, r = 2, and n = 10. The sum is $S_{10} = 2(2^{10} - 1) = 2046$.",
+    "Example": "A person has $2$ parents, $4$ grandparents, $8$\ngreat grandparents, and so on. Find the\nnumber of ancestors during the ten\ngenerations preceding his own.",
+    "Solution": "This is a geometric series with:\n$a = 2$, $r = 2$, $n = 10$\nThe sum is $S_{10} = 2(2^{10} - 1) = 2046$.",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "Insert three numbers between 1 and 256 so that the resulting sequence is a G.P.",
-    "Solution": "Let the inserted numbers be $G_1, G_2, G_3$. Since $256 = r^4$, we have r = 4. Then, $G_1 = 4$, $G_2 = 16$, $G_3 = 64$.",
+    "Example": "Insert three numbers between $1$ and $256$ so\nthat the resulting sequence is a Geometric\nprogression.",
+    "Solution": "Let the inserted numbers be $G_1, G_2, G_3$\nSince $256 = r^4$, we have r = 4\nThen, $G_1 = 4$, $G_2 = 16$, $G_3 = 64$.",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "If the arithmetic mean (A.M.) and geometric mean (G.M.) of two positive numbers are 10 and 8 respectively, find the numbers.",
-    "Solution": "Let the numbers be a and b. Then, $(a+b)/2 = 10$ and $\\sqrt{ab} = 8$. So, a+b = 20 and ab = 64. Solving gives a = 4 and b = 16 (or vice versa).",
+    "Example": "If the arithmetic mean (A.M.) and geometric\nmean (G.M.) of two positive numbers are $10$\nand $8$ respectively, find the numbers.",
+    "Solution": "Let the numbers be a and b\nThen, $\\frac{a+b}{2} = 10$ and $\\sqrt{ab} = 8$\nSo, $a+b = 20$ and $ab = 64$\nSolving gives $a = 4$ and $b = 16$\n(or vice versa).",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "If a, b, c, d and p are different real numbers such that\n(a^2 + b^2 + c^2)p^2 - 2(ab + bc + cd)p + (b^2 + c^2 + d^2) ≤ 0, show that a, b, c, d are in G.P.",
-    "Solution": "Rewrite the expression as $(ap - b)^2 + (bp - c)^2 + (cp - d)^2 ≥ 0$. For equality, each term must be 0, so $ap = b$, $bp = c$, $cp = d$. Hence, $b/a = c/b = d/c = p$, showing a, b, c, d are in G.P.",
+    "Example": "If $a, b, c, d$ and $p$ are different real numbers\nsuch that\n$(a^2 + b^2 + c^2)p^2 - 2(ab + bc + cd)p + (b^2 + c^2 + d^2) ≤ 0$\nShow that $a, b, c, d$ are in G.P.",
+    "Solution": "Rewrite the expression as:\n$(ap - b)^2 + (bp - c)^2 + (cp - d)^2 ≥ 0$\nFor equality, each term must be $0$\nSo $ap = b$, $bp = c$, $cp = d$\nHence, $b/a = c/b = d/c = p$\nShowing $a, b, c, d$ are in G.P.",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "The first term of an A.P. is a, the second term is b, and the last term is c. Show that the sum of the A.P. is ((b+c-2a)(c+a))/(2(b-a)).",
-    "Solution": "Let the common difference be d = b - a and let the number of terms be n such that c = a + (n-1)d. Then, n = (c - a)/d + 1 = (b+c-2a)/(b-a). The sum is $\\displaystyle S_n = (n/2)(a+c) = ((b+c-2a)(a+c))/(2(b-a))$.",
+    "Example": "The first term of an A.P. is $a$, the second term\nis $b$, and the last term is $c$\nShow that the sum of the A.P. is $\\frac{(b+c-2a)(c+a)}{2(b-a)}$.",
+    "Solution": "Let the common difference be $d = b - a$\nLet the number of terms be $n$\nsuch that $c = a + (n-1)d$\nThen:$n = (c - a)/d + 1 = \\frac{(b+c-2a)(c+a)}{2(b-a)}$\nThe sum is:\n$S_n = \\left(\\frac{n}{2}\\right)(a+c) = \\frac{(b+c-2a)(c+a)}{2(b-a)}$",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "The pth term of an A.P. is a and the qth term is b. Prove that the sum of its (p+q) terms is ((p+q)/2)[a+b+(a-b)/(p-q)].",
-    "Solution": "Let the first term be A and common difference D. Then, A + (p-1)D = a and A + (q-1)D = b. Subtracting gives (p-q)D = a - b, so D = (a-b)/(p-q). The sum of (p+q) terms is $S_{p+q} = ((p+q)/2)[2A + (p+q-1)D]$, which simplifies to the required expression.",
+    "Example": "The pth term of an A.P. is a and the $q^\\text{th}$\nterm is $b$. Prove that the sum of its\n$(p+q)$ terms is $=\\left(\\frac{p+q}{2}\\right)\\left[a+b+\\frac{a-b}{p-q}\\right]$",
+    "Solution": "Let the first term be $A$ and common\ndifference $D$\nThen, $A + (p-1)D = a$\nand $A + (q-1)D = b$\nSubtracting gives $(p-q)D = a - b$\nSo $D = (a-b)/(p-q)$\nThe sum of $(p+q)$ terms is:\n$S_{p+q} = \\left(\\frac{p+q}{2}\\right)\\left[2A + (p+q-1)D\\,\\right]$\nWhich simplifies to the required\nexpression.",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "If there are (2n+1) terms in an A.P., prove that the ratio of the sum of odd terms to the sum of even terms is (n+1):n.",
-    "Solution": "Let the first term be a and common difference d. The sum of odd terms is $S_{odd} = (n+1)(a+nd)$ and the sum of even terms is $S_{even} = n(a+nd)$. Thus, the ratio is $(n+1)/n$.",
+    "Example": "If there are $(2n+1)$ terms in an A.P., prove\nthat the ratio of the sum of odd terms to the\nsum of even terms is $(n+1):n$",
+    "Solution": "Let the first term be a and common\ndifference $d$\nThe sum of odd terms is:\n$S_{odd} = (n+1)(a+nd)$\nThe sum of even terms is:\n$S_{even} = n(a+nd)$\nThus, the ratio is $\\frac{n+1}{n}$.",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "At the end of each year the value of a machine depreciates by 20% of its value at the beginning of that year. If its initial value was Rs 1250, find its value at the end of 5 years.",
-    "Solution": "Each year, the machine retains 80% of its value. Thus, after 5 years, its value is $1250 × 0.8^5 ≈ 409.6$.",
+    "Example": "At the end of each year the value of a machine\ndepreciates by $20\\%$ of its value at the\nbeginning of that year. If its initial value was\n₹$1250$, find its value at the end of $5$ years.",
+    "Solution": "Each year, the machine retains $80\\%$\nof its value\nThus, after 5 years, its value is:\n$1250 \\times 0.8^5 \\approx 409.6$.",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "Find the sum of the first 24 terms of an A.P. if $\\displaystyle a_1 + a_5 + a_{10} + a_{15} + a_{20} + a_{24} = 225$.",
-    "Solution": "In an A.P., the sum of terms equidistant from the beginning and end is constant. Here, $a_1 + a_{24} = 75$ (since 3 pairs sum to 225). Therefore, $\\displaystyle S_{24} = (24/2)(a_1+a_{24}) = 12 × 75 = 900$.",
+    "Example": "Find the sum of the first $24$ terms of an A.P.\nif $a_1 + a_5 + a_{10} + a_{15} + a_{20} + a_{24} = 225$",
+    "Solution": "In an A.P., the sum of terms equidistant from the beginning and end is constant\n$a_1 + a_{24} = 75$(since 3 pairs sum to 225)\nTherefore:\n$S_{24} = \\left(\\frac{24}{2}\\right)(a_1+a_{24}) = 12 × 75 = 900$",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "The product of three numbers in A.P. is 224, and the largest number is 7 times the smallest. Find the numbers.",
-    "Solution": "Let the numbers be $a-d$, a, and $a+d$. Then, $a(a^2-d^2)=224$ and $a+d = 7(a-d)$. Solving gives a = 8 and d = 6, so the numbers are 2, 8, and 14.",
+    "Example": "The product of three numbers in A.P. is\n$224$, and the largest number is $7$ times\nthe smallest. Find the numbers.",
+    "Solution": "Let the numbers be $a-d$, $a$, and $a+d$Then, $a(a^2-d^2)=224$ and $a+d = 7(a-d)$\nSolving gives: $a = 8$ and $d = 6$\nSo the numbers are $2$, $8$, and $14$.",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "Show that $x^2+xy+y^2$, $z^2+xz+x^2$, and $y^2+yz+z^2$ are consecutive terms of an A.P. if $x, y, z$ are in A.P.",
-    "Solution": "For three numbers to be in A.P., the difference between consecutive terms must be equal. A short calculation shows the condition reduces to $x+z = 2y$, which holds since $x, y, z$ are in A.P.",
+    "Example": "Show that $x^2+xy+y^2$, $z^2+xz+x^2$,\nand $y^2+yz+z^2$ are consecutive terms of\nan A.P. if $x, y, z$ are in A.P.",
+    "Solution": "For three numbers to be in A.P., the\ndifference between consecutive terms\nmust be equal. A short calculation shows\nthe condition reduces to $x+z = 2y$\nwhich holds since $x, y, z$ are in A.P.",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "If the sum of m terms of an A.P. equals the sum of either the next n terms or the next p terms, prove that\n$(m+n)(1/m - 1/p) = (m+p)(1/m - 1/n)$.",
-    "Solution": "Set up expressions for the sums of the first m, (m+n), and (m+p) terms of the A.P. By equating the sum of the first m terms to that of the next n and next p terms, and then subtracting and simplifying, the desired relation is obtained.",
+    "Example": "If the sum of $m$ terms of an A.P. equals the\nsum of either the next $n$ terms or the next\n$p$ terms, prove that:\n$(m+n)\\left(\\frac{1}{m}-\\frac{1}{p}\\right) = (m+p)\\left(\\frac{1}{m}-\\frac{1}{n}\\right)$",
+    "Solution": "Set up expressions for the sums of\nthe first $m$, $(m+n)$, and $(m+p)$ terms\nof the A.P. By equating the sum of the\nfirst $m$ terms to that of the next $n$\nand next $p$ terms, and then subtracting\nand simplifying, the desired relation is\nobtained.",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "If $a_1, a_2, ..., a_n$ are in A.P. with common difference $d \\neq 0$, then show that\n$\\displaystyle \\sin d (\\csc a_1 \\csc a_2 + \\csc a_2 \\csc a_3 + ... + \\csc a_{n-1} \\csc a_n) = \\cot a_1 - \\cot a_n$.",
-    "Solution": "Using the identity $\\sin(a_{k+1} - a_k) = \\sin d$ and writing the difference of cotangents, the sum telescopes to $\\cot a_1 - \\cot a_n$.",
+    "Example": "If $a_1, a_2, ..., a_n$ are in A.P. with common\ndifference $d \\neq 0$, then show that:\n$\\sin(d)(\\csc(a_1)\\csc(a_2)+\\csc(a_2)\\csc(a_3)+...+\\csc(a_{n-1})\\csc(a_n)) = \\cot a_1 - \\cot a_n$",
+    "Solution": "Using the identity $\\sin(a_{k+1} - a_k) = \\sin d$\nand writing the difference of cotangents,\nthe sum simplifies to $\\cot a_1 - \\cot a_n$.",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "(i) If $a, b, c, d$ are four distinct positive quantities in A.P., show that $bc > ad$.\n(ii) If $a, b, c, d$ are four distinct positive quantities in G.P., show that $a+d > b+c$.",
-    "Solution": "For (i), using properties of an A.P. and the fact that the arithmetic mean exceeds the geometric mean, one can show that $bc > ad$.\nFor (ii), a similar argument for a G.P. shows that $a+d > b+c$. (Detailed steps are omitted.)",
-    "Final_answer": "",
-    "chapter": "Sequence And Series"
-  },
-  {
-    "Title": "Sequence And Series",
-    "Subtitle": "",
-    "Example": "Find the natural number $a$ for which $\\displaystyle \\sum_{k=1}^{n} f(a+k)=16\\left(2^{n}-1\\right)$, where the function $f$ satisfies $f(x+y)=f(x) . f(y)$ for all natural numbers $x, y$ and further $f(1)=2$.",
-    "Solution": "Given that\nTherefore,\n$$\\displaystyle \n\\begin{aligned}\nf(x+y) & =f(x) \\cdot f(y) \\text { and } f(1)=2 \\\\\nf(2) & =f(1+1)=f(1) \\cdot f(1)=2^{2} \\\\\nf(3) & =f(1+2)=f(1) \\cdot f(2)=2^{3} \\\\\nf(4) & =f(1+3)=f(1) \\cdot f(3)=2^{4}\n\\end{aligned}\n$$\nand so on. Continuing the process, we obtain\n$$\\displaystyle \nf(k)=2^{k} \\text { and } f(a)=2^{a}\n$$\nHence\n$$\\displaystyle \n\\begin{aligned}\n\\sum_{k=1}^{n} f(a+k) & =\\sum_{k=1}^{n} f(a) \\cdot f(k) \\\\\n& =f(a) \\sum_{k=1}^{n} f(k) \\\\\n& =2^{a}\\left(2^{1}+2^{2}+2^{3}+\\ldots+2^{n}\\right) \\\\\n& =2^{a}\\left\\{\\frac{2 \\cdot\\left(2^{n}-1\\right)}{2-1}\\right\\}=2^{a+1}\\left(2^{n}-1\\right)\n\\end{aligned}\n$$\nBut, we are given $\\displaystyle \\quad \\sum_{k=1}^{n} f(a+k)=16\\left(2^{n}-1\\right)$\n$$\\displaystyle \n\\begin{array}{rlrl}\n& & 2^{a+1}\\left(2^{n}-1\\right) & =16\\left(2^{n}-1\\right) \\\\\n\\Rightarrow & 2^{a+1} & =2^{4} \\Rightarrow a+1=4 \\\\\n\\Rightarrow & a & =3\n\\end{array}\n$$",
+    "Example": "(i) If $a, b, c, d$ are four distinct positive\nquantities in A.P., show that $bc > ad$.\n(ii) If $a, b, c, d$ are four distinct positive\nquantities in G.P., show that $a+d > b+c$.",
+    "Solution": "(i)Using properties of an A.P. and the fact\nthat the arithmetic mean exceeds the\ngeometric mean, one can show that\n$bc > ad$.\n(ii)A similar argument for a G.P. shows\nthat $a+d > b+c$",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
@@ -339,7 +335,7 @@
     "Title": "Sequence And Series",
     "Subtitle": "",
     "Example": "In a G.P. of positive terms, if any term is equal to the sum of the next two terms. Then the common ratio of the G.P. is\n(A) $\\sin 18^{\\circ}$\n(B) $2 \\cos 18^{\\circ}$\n(C) $\\cos 18^{\\circ}$\n(D) $2 \\sin 18^{\\circ}$",
-    "Solution": "(D) is the correct answer, since\n$$\\displaystyle \n\\begin{aligned}\n& t_{n}=t_{n+1}+t_{n+2} \\\\\n\\Rightarrow \\quad & a r^{n-1}=a r^{n}+a r^{n+1} \\\\\n\\Rightarrow \\quad 1 & =r+r^{2} \\\\\n& r=\\frac{-1 \\pm \\sqrt{5}}{2}, \\text { since } r>0\n\\end{aligned}\n$$\nTherefore,\n$$\\displaystyle \nr=2 \\frac{\\sqrt{5}-1}{4}=2 \\sin 18^{\\circ}\n$$",
+    "Solution": "(D) is the correct answer\nSince $t_n = ar^{n-1}$ and the condition is\n$t_n = t_{n+1}+t_{n+2}.$We have:\n$ar^{n-1}=ar^{n}+ar^{n+1} \\Longrightarrow 1=r+r^{2}$\nSolving $r^{2}+r-1=0$ and keeping\nthe positive root (terms are positive)\ngives $r=\\dfrac{\\sqrt{5}-1}{2}=2\\sin18^{\\circ}$",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
@@ -347,47 +343,49 @@
     "Title": "Sequence And Series",
     "Subtitle": "",
     "Example": "In an A.P. the $p$ th term is $q$ and the $(p+q)^{\\text {th }}$ term is 0 . Then the $q$ th term is\n(A) $-p$\n(B $p$\n(C) $p+q$\n(D) $p-q$",
-    "Solution": "(B) is the correct answer\nLet $a, d$ be the first term and common difference respectively.\nTherefore,\n$$\\displaystyle \n\\begin{aligned}\n{T}_{p} & =a+(p-1) d=q \\text { and } \\\\\n{T}_{p+q} & =a+(p+q-1) d=0\n\\end{aligned}\n$$\nSubtracting (1), from (2) we get $q d=-q$\nSubstituting in (1) we get $a=q-(p-1)(-1)=q+p-1$\nNow\n$$\\displaystyle \n\\begin{aligned}\n{T}_{q} & =a+(q-1) d=q+p-1+(q-1)(-1) \\\\\n& =q+p-1-q+1=p\n\\end{aligned}\n$$",
+    "Solution": "(B) is the correct answer\nLet $a, d$ be the first term and common\ndifference respectively.\nTherefore$T_{p}=a+(p-1)d=q \\quad(1)$\nAnd$T_{p+q}=a+(p+q-1) d=0 \\quad(2)$\nSubtracting (1), from (2) we get $q d=-q$\nSubstituting in (1) we get:\n$a=q-(p-1)(-1)=q+p-1$\nNow\n${T}_{q}=a+(q-1) d=q+p-1+(q-1)(-1)$\n$\\therefore T_q=q+p-1-q+1=p$",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "Let ${S}$ be the sum, ${P}$ be the product and ${R}$ be the sum of the reciprocals of 3 terms of a G.P. Then ${P}^{2} {R}^{3}: {S}^{3}$ is equal to\n(A) $1: 1$\n(B) $(\\text { common ratio })^{n}: 1$\n(C) (first term $)^{2}:(\\text { common ratio })^{2}$\n(D) none of these",
-    "Solution": "(A) is the correct answer\nLet us take a G.P. with three terms $\\frac{a}{r}, a, a r$. Then\n$$\\displaystyle \n\\begin{aligned}\n& {S}=\\frac{a}{r}+a+a r=\\frac{a\\left(r^{2}+r+1\\right)}{r} \\\\\n& {P}=a^{3}, {R}=\\frac{r}{a}+\\frac{1}{a}+\\frac{1}{a r}=\\frac{1}{a}\\left(\\frac{r^{2}+r+1}{r}\\right) \\\\\n& \\frac{{P}^{2} {R}^{3}}{{~S}^{3}}=\\frac{a^{6} \\cdot \\frac{1}{a^{3}}\\left(\\frac{r^{2}+r+1}{r}\\right)^{3}}{a^{3}\\left(\\frac{r^{2}+r+1}{r}\\right)^{3}}=1\n\\end{aligned}\n$$\nTherefore, the ratio is $1: 1$\n\\\\",
+    "Example": "Let ${S}$ be the sum, ${P}$ be the product and ${R}$\nbe the sum of the reciprocals of 3 terms of a\nG.P. Then ${P}^{2} {R}^{3}: {S}^{3}$ is equal to\n(A) $1: 1$\n(B) $(\\text { common ratio })^{n}: 1$\n(C) (first term $)^{2}:(\\text { common ratio })^{2}$\n(D) none of these",
+    "Solution": "(A) is the correct answer\nLet us take a G.P. with three terms\n$\\frac{a}{r}, a, a r$\nThen:\n${S}=\\frac{a}{r}+a+a$\n$r=\\frac{a\\left(r^{2}+r+1\\right)}{r}$\n${P}=a^{3}$\n${R}=\\frac{r}{a}+\\frac{1}{a}+\\frac{1}{a r}=\\frac{1}{a}\\left(\\frac{r^{2}+r+1}{r}\\right)$\n$\\dfrac{{P}^{2} {R}^{3}}{{~S}^{3}}=\\frac{a^{6} \\cdot \\frac{1}{a^{3}}\\left(\\frac{r^{2}+r+1}{r}\\right)^{3}}{a^{3}\\left(\\frac{r^{2}+r+1}{r}\\right)^{3}}=1$\nTherefore, the ratio is $1: 1$",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "The 10th common term between the series\n$$\\displaystyle \n3+7+11+\\ldots \\text { and } 1+6+11+\\ldots \\text { is }\n$$\n(A) 191\n(B) 193\n(C) 211\n(D) None of these",
-    "Solution": "(A) is the correct answer. The first common term is 11 .\nNow the next common term is obtained by adding L.C.M. of the common difference 4 and 5, i.e., 20 .\nTherefore, $10^{\\text {th }}$ common term $={T}_{10}$ of the AP whose $a=11$ and $d=20$ ${T}_{10}=a+9 d=11+9(20)=191$\n\\\\",
+    "Example": "The $10^\\text{th}$ common term between the series\n$\n3+7+11+\\ldots \\text { and } 1+6+11+\\ldots \\text { is }\n$\n(A) 191\n(B) 193\n(C) 211\n(D) None of these",
+    "Solution": "(A) is the correct answer.\nThe first common term is $11$\nNow the next common term is obtained\nby adding L.C.M. of the common\ndifference $4$ and $5$, i.e., $20$\nTherefore, $10^{\\text {th }}$ common term $={T}_{10}$\nof the AP whose $a=11$ and $d=20$\n${T}_{10}=a+9 d=11+9(20)=191$",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "In a G.P. of even number of terms, the sum of all terms is 5 times the sum of the odd terms. The common ratio of the G.P. is\n(A) $\\frac{-4}{5}$\n(B) $\\frac{1}{5}$\n(C) 4\n(D) none the these",
-    "Solution": "$({C})$ is the correct answer\nLet us consider a G.P. $a, a r, a r^{2}, \\ldots$ with $2 n$ terms. We have $\\displaystyle \\frac{a\\left(r^{2 n}-1\\right)}{r-1}=\\frac{5 a\\left(\\left(r^{2}\\right)^{n}-1\\right)}{r^{2}-1}$ (Since common ratio of odd terms will be $r^{2}$ and number of terms will be $n$ )\n$\\displaystyle \\Rightarrow \\frac{a\\left(r^{2 n}-1\\right)}{r-1}=5 \\frac{a\\left(r^{2 n}-1\\right)}{\\left(r^{2}-1\\right)}$\n$\\Rightarrow a(r+1)=5 a$, i.e., $r=4$\n\\\\",
+    "Example": "In a G.P. of even number of terms, the sum of\nall terms is 5 times the sum of the odd terms.\nThe common ratio of the G.P. is\n(A) $\\frac{-4}{5}$\n(B) $\\frac{1}{5}$\n(C) 4\n(D) none the these",
+    "Solution": "$({C})$ is the correct answer\nLet us consider a G.P. $a, a r, a r^{2}, \\ldots$\nwith $2 n$ terms\nWe have $\\frac{a\\left(r^{2 n}-1\\right)}{r-1}=\\frac{5 a\\left(\\left(r^{2}\\right)^{n}-1\\right)}{r^{2}-1}$\n(Since common ratio of odd terms will be\n$r^{2}$ and number of terms will be $n$)\n$\\Rightarrow \\frac{a\\left(r^{2 n}-1\\right)}{r-1}=5 \\frac{a\\left(r^{2 n}-1\\right)}{\\left(r^{2}-1\\right)}$\n$\\Rightarrow a(r+1)=5 a$\n$r=4$",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
   {
     "Title": "Sequence And Series",
     "Subtitle": "",
-    "Example": "The minimum value of the expression $3^{x}+3^{1-x}, x \\in \\mathbf{R}$, is\n(A) 0\n(B) $\\frac{1}{3}$\n(C) 3\n(D) $2 \\sqrt{3}$",
-    "Solution": "(D) is the correct answer.\nWe know A.M. $\\geq$ G.M. for positive numbers.\nTherefore, $\\displaystyle \\frac{3^{x}+3^{1-x}}{2} \\geq \\sqrt{3^{x} \\cdot 3^{1-x}}$\n$\\displaystyle \\Rightarrow \\quad \\frac{3^{x}+3^{1-x}}{2} \\geq \\sqrt{3^{x} \\cdot \\frac{3}{3^{x}}}$\n$\\displaystyle \\Rightarrow \\quad 3^{x}+3^{1-x} \\geq 2 \\sqrt{3}$",
+    "Example": "The minimum value of the expression\n$3^{x}+3^{1-x}, x \\in \\mathbf{R}$, is\n(A) 0\n(B) $\\frac{1}{3}$\n(C) 3\n(D) $2 \\sqrt{3}$",
+    "Solution": "(D) is the correct answer.\nWe know A.M. $\\geq$ G.M. for positive\nnumbers.\nTherefore:\n$\\frac{3^{x}+3^{1-x}}{2} \\geq \\sqrt{3^{x} \\cdot 3^{1-x}}$\n$\\Rightarrow \\quad \\frac{3^{x}+3^{1-x}}{2} \\geq \\sqrt{3^{x} \\cdot \\frac{3}{3^{x}}}$\n$\\displaystyle \\Rightarrow \\quad 3^{x}+3^{1-x} \\geq 2 \\sqrt{3}$",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
+
+
   {
     "Title": "Conic Sections",
     "Subtitle": "",
     "Example": "Find an equation of the circle with centre at $(0,0)$ and radius $r$.",
-    "Solution": "The centre is $(0,0)$, so $h = 0,\\;k = 0$.  Using the standard form $(x-h)^{2}+(y-k)^{2}=r^{2}$ and substituting $h, k$ gives\n$\n(x-0)^{2} + (y-0)^{2} = r^{2}\\;\\Longrightarrow\\;x^{2}+y^{2}=r^{2}.\n$",
+    "Solution": "The centre is $(0,0)$, so $h = 0,\\;k = 0$\nUsing the standard form:\n$(x-h)^{2}+(y-k)^{2}=r^{2}$\nand substituting $h, k$ gives:\n$(x-0)^{2} + (y-0)^{2} = r^{2}$\n$\\therefore x^{2}+y^{2}=r^{2}.\n$",
     "Final_answer": "Equation: $x^{2}+y^{2}=r^{2}$.",
     "chapter": "Conic Sections"
   },
@@ -395,30 +393,30 @@
     "Title": "Conic Sections",
     "Subtitle": "",
     "Example": "Find the equation of the circle with centre $(-3,2)$ and radius $4$.",
-    "Solution": "With $h=-3,\\;k=2,\\;r=4$ the standard form $(x-h)^{2}+(y-k)^{2}=r^{2}$ becomes\n$\n(x+3)^{2} + (y-2)^{2} = 16.\n$",
+    "Solution": "With $h=-3,\\;k=2,\\;r=4$ the standard form $(x-h)^{2}+(y-k)^{2}=r^{2}$ becomes\n$(x+3)^{2} + (y-2)^{2} = 16.\n$",
     "Final_answer": "Equation: $(x+3)^{2}+(y-2)^{2}=16$.",
     "chapter": "Conic Sections"
   },
   {
     "Title": "Conic Sections",
     "Subtitle": "",
-    "Example": "Find the centre and the radius of the circle $x^{2}+y^{2}+8x+10y-8=0$.",
-    "Solution": "Rewrite the equation by grouping terms:\n$\n(x^{2}+8x)+(y^{2}+10y)=8.\n\\]\nComplete the square in each bracket:\n$\n(x^{2}+8x+16) + (y^{2}+10y+25) = 8+16+25 \\Longrightarrow (x+4)^{2} + (y+5)^{2} = 49.\n\\]\nHence the centre is $(-4,-5)$ and the radius is $r = 7$.",
+    "Example": "Find the centre and the radius of the circle $x^{2}+y^{2}+8x+10y-8=0$",
+    "Solution": "Rewrite the equation by grouping terms:\n$(x^{2}+8x)+(y^{2}+10y)=8$\nComplete the square in each bracket:\n$(x^{2}+8x+16) + (y^{2}+10y+25) = 8+16+25$\n$(x+4)^{2} + (y+5)^{2} = 49$\nHence the centre is $(-4,-5)$\nThe radius is $r = 7$.",
     "Final_answer": "Centre $(-4,-5)$, radius $7$.",
     "chapter": "Conic Sections"
   },
   {
     "Title": "Conic Sections",
     "Subtitle": "",
-    "Example": "Find the equation of the circle which passes through the points $(2,-2)$ and $(3,4)$ and whose centre lies on the line $x+y=2$.",
-    "Solution": "Let the centre be $(h,k)$ with $h+k=2$.  Using $(x-h)^{2}+(y-k)^{2}=r^{2}$ for the two points gives\n$\n(2-h)^{2}+(-2-k)^{2}=r^{2},\\qquad (3-h)^{2}+(4-k)^{2}=r^{2}.\n\\]\nSolving the three equations yields $\\displaystyle h=\\frac{7}{10},\\;k=\\frac{13}{10},\\;r^{2}=\\frac{629}{50}$.  Therefore\n$\n\\left(x-\\frac{7}{10}\\right)^{2}+\\left(y-\\frac{13}{10}\\right)^{2}=\\frac{629}{50}.\n\\]",
+    "Example": "Find the equation of the circle which passes\nthrough the points $(2,-2)$ and $(3,4)$\nand whose centre lies on the line $x+y=2$.",
+    "Solution": "Let the centre be $(h,k)$ with $h+k=2$\nUsing $(x-h)^{2}+(y-k)^{2}=r^{2}$\nfor the two points gives:\n$(2-h)^{2}+(-2-k)^{2}=r^{2}$\n$(3-h)^{2}+(4-k)^{2}=r^{2}$\nSolving the three equations yields\n$\\displaystyle h=\\frac{7}{10},\\;k=\\frac{13}{10},\\;r^{2}=\\frac{629}{50}$\nTherefore\n$\\left(x-\\frac{7}{10}\\right)^{2}+\\left(y-\\frac{13}{10}\\right)^{2}=\\frac{629}{50}$",
     "Final_answer": "Equation: $(x-0.7)^{2}+(y-1.3)^{2}=12.58$ (exact $r^{2}=629/50$).",
     "chapter": "Conic Sections"
   },
   {
     "Title": "Conic Sections",
     "Subtitle": "",
-    "Example": "Find the equation of the parabola with vertex at $(0,0)$ and focus at $(0,2)$.",
+    "Example": "Find the equation of the parabola with vertex\nat $(0,0)$ and focus at $(0,2)$.",
     "Solution": "The axis is the $y$-axis and the distance from vertex to focus is $a=2$, so the parabola is\n$\nx^{2}=4ay\\;\\Longrightarrow\\;x^{2}=8y.\n\\]",
     "Final_answer": "Equation: $x^{2}=8y$.",
     "chapter": "Conic Sections"
@@ -426,48 +424,48 @@
   {
     "Title": "Conic Sections",
     "Subtitle": "",
-    "Example": "Find the equation of the parabola which is symmetric about the $y$-axis and passes through $(2,-3)$.",
-    "Solution": "A parabola symmetric about the $y$-axis with vertex at the origin has either $x^{2}=4ay$ (opens up) or $x^{2}=-4ay$ (opens down).  Because $(2,-3)$ is below the $x$-axis, it opens downward:\n$\n2^{2} = -4a(-3) \\;\\Rightarrow\\; a = \\frac13.\n\\]\nThus $x^{2} = -4\\left(\\frac13\\right)y$ or $3x^{2}=-4y$.",
+    "Example": "Find the equation of the parabola which is\nsymmetric about the $y$-axis and passes\nthrough $(2,-3)$.",
+    "Solution": "A parabola symmetric about the\n$y$-axis with vertex at the origin has either $x^{2}=4ay$ (opens up) or $x^{2}=-4ay$ (opens down).\nBecause $(2,-3)$ is below the\n$x$-axis, it opens downward:\n$\n2^{2} = -4a(-3) \\;\\Rightarrow\\; a = \\frac{1}{3}$\nThus $x^{2} = -4\\left(\\frac13\\right)y$ or $3x^{2}=-4y$.",
     "Final_answer": "Equation: $3x^{2}=-4y$.",
     "chapter": "Conic Sections"
   },
   {
     "Title": "Conic Sections",
     "Subtitle": "",
-    "Example": "Find the coordinates of the foci, the vertices, the lengths of the major and minor axes and the eccentricity of the ellipse $9x^{2}+4y^{2}=36$.",
-    "Solution": "Divide by $36$ to get \\(\\frac{x^{2}}{4}+\\frac{y^{2}}{9}=1\\).  Here $a=3,\\;b=2$ (major axis along $y$).  Then $c=\\sqrt{a^{2}-b^{2}}=\\sqrt5$.\n\n* Foci: $(0,\\pm\\sqrt5)$  \n* Vertices: $(0,\\pm3)$  \n* Major axis length: $2a = 6$  \n* Minor axis length: $2b = 4$  \n* Eccentricity: $e=\\frac{c}{a}=\\frac{\\sqrt5}{3}$",
+    "Example": "Find the coordinates of the foci, the vertices, the lengths of the major and minor axes and the eccentricity of the ellipse:\n$9x^{2}+4y^{2}=36$.",
+    "Solution": "Divide by $36$ to get $\\frac{x^{2}}{4}+\\frac{y^{2}}{9}=1$\nHere $a=3,b=2$ major axis along $y$\nThen $c=\\sqrt{a^{2}-b^{2}}=\\sqrt5$\n* Foci: $(0,\\pm\\sqrt5)$  \n* Vertices: $(0,\\pm3)$  \n* Major axis length: $2a = 6$  \n* Minor axis length: $2b = 4$  \n* Eccentricity: $e=\\frac{c}{a}=\\frac{\\sqrt5}{3}$",
     "Final_answer": "Foci $(0,\\pm\\sqrt5)$; vertices $(0,\\pm3)$; major axis $6$, minor axis $4$, $e=\\sqrt5/3$.",
     "chapter": "Conic Sections"
   },
   {
     "Title": "Conic Sections",
     "Subtitle": "",
-    "Example": "Find the equation of the ellipse whose vertices are $(\\pm 13,0)$ and foci are $(\\pm 5,0)$.",
-    "Solution": "Vertices give $a=13$, foci give $c=5$.  Using $c^{2}=a^{2}-b^{2}$:\n$\n25 = 169 - b^{2} \\;\\Rightarrow\\; b^{2}=144.\n\\]\nHence\n$\n\\frac{x^{2}}{169}+\\frac{y^{2}}{144}=1.\n\\]",
+    "Example": "Find the equation of the ellipse whose vertices\nare $(\\pm 13,0)$ and foci are $(\\pm 5,0)$.",
+    "Solution": "Vertices give $a=13$, foci give $c=5$\nUsing $c^{2}=a^{2}-b^{2}$:\n$\n25 = 169 - b^{2} \\;\\Rightarrow\\; b^{2}=144$\nHence$\\frac{x^{2}}{169}+\\frac{y^{2}}{144}=1$",
     "Final_answer": "Equation: $\\displaystyle \\frac{x^{2}}{169}+\\frac{y^{2}}{144}=1$.",
     "chapter": "Conic Sections"
   },
   {
     "Title": "Conic Sections",
     "Subtitle": "",
-    "Example": "Find the equation of the ellipse whose major axis length is $20$ and foci are $(0,\\pm 5)$.",
-    "Solution": "Major axis along $y$ so $a=10,\\;c=5$.  Then $b^{2}=a^{2}-c^{2}=100-25=75$.  Thus\n$\n\\frac{x^{2}}{75}+\\frac{y^{2}}{100}=1.\n\\]",
+    "Example": "Find the equation of the ellipse whose major\naxis length is $20$ and foci are $(0,\\pm 5)$.",
+    "Solution": "Major axis along $y$ so $a=10,\\;c=5$\nThen $b^{2}=a^{2}-c^{2}=100-25=75$\nThus$\\frac{x^{2}}{75}+\\frac{y^{2}}{100}=1$",
     "Final_answer": "Equation: $\\displaystyle \\frac{x^{2}}{75}+\\frac{y^{2}}{100}=1$.",
     "chapter": "Conic Sections"
   },
   {
     "Title": "Conic Sections",
     "Subtitle": "",
-    "Example": "Find the equation of the ellipse, with major axis along the $x$-axis, that passes through $(4,3)$ and $(-1,4)$.",
-    "Solution": "Start with $\\displaystyle \\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1$.  Substituting the two points gives\n$\n\\frac{16}{a^{2}}+\\frac{9}{b^{2}}=1,\\qquad \\frac{1}{a^{2}}+\\frac{16}{b^{2}}=1.\n\\]\nSolving yields $\\displaystyle a^{2}=\\frac{247}{7},\\;b^{2}=\\frac{247}{15}$.  Multiplying throughout by $\\frac{105}{247}$ gives the neat form\n$\n7x^{2}+15y^{2}=247.\n\\]",
+    "Example": "Find the equation of the ellipse, with major\naxis along the $x$-axis, that passes through $(4,3)$ and $(-1,4)$.",
+    "Solution": "Start with $\\displaystyle \\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1$\nSubstituting the two points gives:\n$\\frac{16}{a^{2}}+\\frac{9}{b^{2}}=1$\nAnd\n$\\frac{1}{a^{2}}+\\frac{16}{b^{2}}=1$\nSolving yields $\\displaystyle a^{2}=\\frac{247}{7},\\;b^{2}=\\frac{247}{15}$\nMultiplying throughout by $\\frac{105}{247}$\ngives the neat form $\n7x^{2}+15y^{2}=247$",
     "Final_answer": "Equation: $7x^{2}+15y^{2}=247$.",
     "chapter": "Conic Sections"
   },
   {
     "Title": "Conic Sections",
     "Subtitle": "",
-    "Example": "For each hyperbola find the foci, vertices, eccentricity and length of the latus rectum:  (i) $\\frac{x^{2}}{9}-\\frac{y^{2}}{16}=1$,  (ii) $y^{2}-16x^{2}=16$.",
-    "Solution": "**(i)** $a=3,\\;b=4,\\;c=\\sqrt{a^{2}+b^{2}}=5$.  Foci $(\\pm5,0)$, vertices $(\\pm3,0)$, $e=\\frac{5}{3}$, latus rectum $\\frac{2b^{2}}{a}=\\frac{32}{3}$.  \n**(ii)** Divide by $16$ to get $\\frac{y^{2}}{16}-\\frac{x^{2}}{1}=1$ so $a=4,\\;b=1,\\;c=\\sqrt{17}$.  Foci $(0,\\pm\\sqrt{17})$, vertices $(0,\\pm4)$, $e=\\frac{\\sqrt{17}}{4}$, latus rectum $\\frac{2b^{2}}{a}=\\frac12$.",
+    "Example": "For each hyperbola find the foci, vertices, eccentricity and length of the latus rectum: \n(i) $\\frac{x^{2}}{9}-\\frac{y^{2}}{16}=1$\n(ii) $y^{2}-16x^{2}=16$.",
+    "Solution": "(i) $a=3,\\;b=4,\\;c=\\sqrt{a^{2}+b^{2}}=5$\nFoci: $(\\pm5,0)$\nVertices: $(\\pm3,0)$\n$e=\\frac{5}{3}$\nLatus Rectum: $\\frac{2b^{2}}{a}=\\frac{32}{3}$\n(ii) Divide by $16$ to get $\\frac{y^{2}}{16}-\\frac{x^{2}}{1}=1$\nSo $a=4,\\;b=1,\\;c=\\sqrt{17}$\nFoci: $(0,\\pm\\sqrt{17})$\nVertices: $(0,\\pm4)$\n$e=\\frac{\\sqrt{17}}{4}$\nLatus Rrectum: $\\frac{2b^{2}}{a}=\\frac{1}{2}$",
     "Final_answer": "(i) Foci $(\\pm5,0)$, vertices $(\\pm3,0)$, $e=5/3$, LR $=32/3$.  (ii) Foci $(0,\\pm\\sqrt{17})$, vertices $(0,\\pm4)$, $e=\\sqrt{17}/4$, LR $=1/2$.",
     "chapter": "Conic Sections"
   },
@@ -475,31 +473,33 @@
     "Title": "Conic Sections",
     "Subtitle": "",
     "Example": "Find the equation of the hyperbola with foci $(0,\\pm 3)$ and vertices $\\left(0,\\pm \\frac{\\sqrt{11}}{2}\\right)$.",
-    "Solution": "With transverse axis on $y$ we take $\\displaystyle \\dfrac{y^{2}}{a^{2}}-\\dfrac{x^{2}}{b^{2}}=1$.  Vertices give $a=\\frac{\\sqrt{11}}{2}$, foci give $c=3$.  Then $b^{2}=c^{2}-a^{2}=\\frac{25}{4}$.  Hence\n$\n\\frac{y^{2}}{\\frac{11}{4}}-\\frac{x^{2}}{\\frac{25}{4}}=1\\;\\Longrightarrow\\;100y^{2}-44x^{2}=275.\n\\]",
+    "Solution": "With transverse axis on $y$ we take\n$\\dfrac{y^{2}}{a^{2}}-\\dfrac{x^{2}}{b^{2}}=1$\nVertices give $a=\\frac{\\sqrt{11}}{2}$\nFoci give $c=3$\nThen $b^{2}=c^{2}-a^{2}=\\frac{25}{4}$\nHence:\n$\\frac{y^{2}}{\\frac{11}{4}}-\\frac{x^{2}}{\\frac{25}{4}}=1\\;\\Longrightarrow\\;100y^{2}-44x^{2}=275$",
     "Final_answer": "Equation: $100y^{2}-44x^{2}=275$.",
     "chapter": "Conic Sections"
   },
   {
     "Title": "Conic Sections",
     "Subtitle": "",
-    "Example": "Find the equation of the hyperbola whose foci are $(0,\\pm 12)$ and whose latus-rectum length is $36$.",
-    "Solution": "For a transverse axis on $y$: $\\displaystyle \\dfrac{y^{2}}{a^{2}}-\\dfrac{x^{2}}{b^{2}}=1$ with $c=12$.  The latus rectum is $\\displaystyle \\dfrac{2b^{2}}{a}=36\\;\\Rightarrow\\;b^{2}=18a$.  Using $c^{2}=a^{2}+b^{2}$ gives\n$\n144=a^{2}+18a\\;\\Rightarrow\\;(a-6)(a+24)=0\\;\\Rightarrow\\;a=6.\n\\]\nThen $b^{2}=108$.  Therefore\n$\n\\frac{y^{2}}{36}-\\frac{x^{2}}{108}=1\\;\\Longrightarrow\\;3y^{2}-x^{2}=108.\n\\]",
+    "Example": "Find the equation of the hyperbola whose foci\nare $(0,\\pm 12)$ and whose latus-rectum length\nis $36$.",
+    "Solution": "For a transverse axis on $y$:\n$\\dfrac{y^{2}}{a^{2}}-\\dfrac{x^{2}}{b^{2}}=1$ with $c=12$\nThe latus rectum is $\\dfrac{2b^{2}}{a}=36\\;\\Rightarrow\\;b^{2}=18a$\nUsing $c^{2}=a^{2}+b^{2}$ gives:\n$\\;\\;144=a^{2}+18a$\n$(a-6)(a+24)=0\\;\\Rightarrow\\;a=6$\nThen $b^{2}=108$\nTherefore:\n$\\frac{y^{2}}{36}-\\frac{x^{2}}{108}=1\\;\\Longrightarrow\\;3y^{2}-x^{2}=108$",
     "Final_answer": "Equation: $3y^{2}-x^{2}=108$.",
     "chapter": "Conic Sections"
   },
+
+
   {
     "Title": "Permutation and Combination",
     "Subtitle": "",
-    "Example": "Find the number of 4 letter words, with or without meaning, which can be formed out of the letters of the word ROSE, where the repetition of the letters is not allowed.",
-    "Solution": "There are as many words as there are ways of filling in $4$ vacant places by the $4$ letters, keeping in mind that the repetition is not allowed. The first place can be filled in $4$ different ways by anyone of the 4 letters R,O,S,E. Following which, the second place can be filled in by anyone of the remaining 3 letters in $3$ different ways, following which the third place can be filled in $2$ different ways; following which, the fourth place can be filled in $1$ way. Thus, the number of ways in which the $4$ places can be filled, by the multiplication principle, is $4 \\times 3 \\times 2 \\times 1 = 24$. Hence, the required number of words is $24$.",
+    "Example": "Find the number of $4$ letter words, with or\nwithout meaning, which can be formed out\nof the letters of the word ROSE, where the\nrepetition of the letters is not allowed.",
+    "Solution": "There are as many words as there are\nways of filling in $4$ vacant places by the $4$\nletters, keeping in mind that the\nrepetition is not allowed.\nThe first place can be filled in $4$ different ways by anyone of the\n$4$ letters R,O,S,E.\nFollowing which, the second place can\nbe filled in by anyone of the remaining\n3 letters in $3$ different ways, following\nwhich the third place can be filled in $2$\ndifferent ways; following which, the\nfourth place can be filled in $1$ way.\nThus, the number of ways in which the $4$\nplaces can be filled, by the multiplication\nprinciple, is $4 \\times 3 \\times 2 \\times 1 = 24$\nHence, the required number of words is $24$.",
     "Final_answer": "The required number of words is $24$.",
     "chapter": "Permutation and Combination"
   },
   {
     "Title": "Permutation and Combination",
     "Subtitle": "",
-    "Example": "Given $4$ flags of different colours, how many different signals can be generated, if a signal requires the use of $2$ flags one below the other?",
-    "Solution": "There will be as many signals as there are ways of filling in $2$ vacant places in succession by the $4$ flags of different colours. The upper vacant place can be filled in 4 different ways by anyone of the $4$ flags; following which, the lower vacant place can be filled in $3$ different ways by anyone of the remaining $3$ different flags. Hence, by the multiplication principle, the required number of signals $= 4 \\times 3 = 12$.",
+    "Example": "Given $4$ flags of different colours, how many\ndifferent signals can be generated, if a signal\nrequires the use of $2$ flags one below the\nother?",
+    "Solution": "There will be as many signals as there are\nways of filling in $2$ vacant places in\nsuccession by the $4$ flags of different\ncolours.\nThe upper vacant place can be filled in 4\ndifferent ways by anyone of the $4$ flags,\nfollowing which, the lower vacant place\ncan be filled in $3$ different ways by any\none of the remaining $3$ different flags.\nHence, by the multiplication principle, the\nrequired number of signals $= 4 \\times 3 = 12$.",
     "Final_answer": "The required number of signals is $12$.",
     "chapter": "Permutation and Combination"
   },
@@ -3588,14 +3588,6 @@
     "Solution": "Split at $x=1$\nDirect evaluation gives:\n$\\int_{-1}^{3/2}\\left|x\\sin(\\pi x)\\right|dx$\n$= \\frac{3}{\\pi}+\\frac{1}{\\pi^{2}}$",
     "Final_answer": "$\\displaystyle \\int_{-1}^{3/2}\\left|x\\sin(\\pi x)\\right|dx = \\frac{3}{\\pi}+\\frac{1}{\\pi^{2}}$",
     "chapter": "Integrals"
-  },
-  {
-    "Title": "Probability",
-    "Subtitle": "",
-    "Example": "Let a sample space be $\\displaystyle S=\\left\\{\\omega_{1}, \\omega_{2}, \\ldots, \\omega_{6}\\right\\}$. Which of the following assignments of probabilities to each outcome are valid?\n$$\\displaystyle \n\\begin{array}{ccccccc}\n\\text { Outcomes } & \\omega_{1} & \\omega_{2} & \\omega_{3} & \\omega_{4} & \\omega_{5} & \\omega_{6} \\\\\n\\text { (a) } & \\frac{1}{6} & \\frac{1}{6} & \\frac{1}{6} & \\frac{1}{6} & \\frac{1}{6} & \\frac{1}{6} \\\\\n\\text { (b) } & 1 & 0 & 0 & 0 & 0 & 0 \\\\\n\\text { (c) } & \\frac{1}{8} & \\frac{2}{3} & \\frac{1}{3} & \\frac{1}{3} & -\\frac{1}{4} & -\\frac{1}{3} \\\\\n\\text { (d) } & \\frac{1}{12} & \\frac{1}{12} & \\frac{1}{6} & \\frac{1}{6} & \\frac{1}{6} & \\frac{3}{2} \\\\\n\\text { (e) } & 0.1 & 0.2 & 0.3 & 0.4 & 0.5 & 0.6\n\\end{array}\n$$",
-    "Solution": "(a) Condition (i): Each of the number ${p}\\left(\\omega_{i}\\right)$ is positive and less than one.\nCondition (ii): Sum of probabilities\n$$\\displaystyle \n=\\frac{1}{6}+\\frac{1}{6}+\\frac{1}{6}+\\frac{1}{6}+\\frac{1}{6}+\\frac{1}{6}=1\n$$\nTherefore, the assignment is valid\n(b) Condition (i): Each of the number $p\\left(\\omega_{i}\\right)$ is either 0 or 1.\nCondition (ii) Sum of the probabilities $=1+0+0+0+0+0=1$\nTherefore, the assignment is valid\n(c) Condition (i) Two of the probabilities $p\\left(\\omega_{5}\\right)$ and $p\\left(\\omega_{6}\\right)$ are negative, the assignment is not valid\n(d) Since $p\\left(\\omega_{6}\\right)=\\frac{3}{2}>1$, the assignment is not valid (e) Since, sum of probabilities $=0.1+0.2+0.3+0.4+0.5+0.6=2.1$, the assignment is not valid.",
-    "Final_answer": "",
-    "chapter": "Probability"
   },
   {
     "Title": "Linear Inequalities",
