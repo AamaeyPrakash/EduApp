@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- The reset link carries a secret, so never leak this page's URL to other sites. -->
+    <meta name="referrer" content="no-referrer" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src https:; base-uri 'none'; form-action 'none'"
+    />
+    <meta name="robots" content="noindex" />
+    <title>Reset your EduApp password</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #000000;
+        --surface: rgba(255, 255, 255, 0.12);
+        --border: rgba(255, 255, 255, 0.3);
+        --text: #ffffff;
+        --muted: rgba(255, 255, 255, 0.65);
+        --primary: #0a84ff;
+        --danger: #ff453a;
+        --success: #30d158;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px 16px;
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          Helvetica, Arial, sans-serif;
+      }
+      main {
+        width: 100%;
+        max-width: 420px;
+      }
+      h1 {
+        font-size: 28px;
+        margin: 0 0 8px;
+        text-align: center;
+      }
+      p.lead {
+        margin: 0 0 28px;
+        color: var(--muted);
+        text-align: center;
+        line-height: 1.5;
+      }
+      label {
+        display: block;
+        font-size: 14px;
+        color: var(--muted);
+        margin: 0 0 6px 4px;
+      }
+      input {
+        width: 100%;
+        padding: 16px;
+        margin-bottom: 16px;
+        font-size: 16px;
+        color: var(--text);
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 15px;
+      }
+      input:focus {
+        outline: 2px solid var(--primary);
+        outline-offset: 1px;
+      }
+      button {
+        width: 100%;
+        padding: 18px;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text);
+        background: var(--primary);
+        border: 0;
+        border-radius: 15px;
+        cursor: pointer;
+      }
+      button:disabled {
+        opacity: 0.55;
+        cursor: default;
+      }
+      .message {
+        padding: 12px 14px;
+        border-radius: 12px;
+        margin-bottom: 16px;
+        line-height: 1.45;
+      }
+      .message.error {
+        color: var(--danger);
+        background: rgba(255, 59, 48, 0.1);
+        border: 1px solid rgba(255, 59, 48, 0.3);
+      }
+      .message.success {
+        color: var(--success);
+        background: rgba(48, 209, 88, 0.12);
+        border: 1px solid rgba(48, 209, 88, 0.35);
+      }
+      [hidden] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Reset your password</h1>
+      <p class="lead">Choose a new password for your EduApp account.</p>
+      <div id="message" class="message" role="status" hidden></div>
+      <form id="form" novalidate>
+        <label for="password">New password</label>
+        <input
+          id="password"
+          type="password"
+          autocomplete="new-password"
+          minlength="8"
+          maxlength="256"
+          required
+        />
+        <label for="confirm">Confirm new password</label>
+        <input
+          id="confirm"
+          type="password"
+          autocomplete="new-password"
+          minlength="8"
+          maxlength="256"
+          required
+        />
+        <button id="submit" type="submit">Save new password</button>
+      </form>
+    </main>
+
+    <script>
+      // ---- Configure before deploying: same values as the app's .env ----
+      const APPWRITE_ENDPOINT = 'https://cloud.appwrite.io/v1';
+      const APPWRITE_PROJECT_ID = 'REPLACE_WITH_YOUR_PROJECT_ID';
+      // ---------------------------------------------------------------------
+
+      const form = document.getElementById('form');
+      const messageBox = document.getElementById('message');
+      const submit = document.getElementById('submit');
+      const password = document.getElementById('password');
+      const confirmation = document.getElementById('confirm');
+
+      const params = new URLSearchParams(window.location.search);
+      const userId = params.get('userId');
+      const secret = params.get('secret');
+      // Keep the one-time secret out of the address bar and browser history.
+      window.history.replaceState(null, '', window.location.pathname);
+
+      function showMessage(text, tone) {
+        messageBox.textContent = text;
+        messageBox.className = `message ${tone}`;
+        messageBox.hidden = false;
+      }
+
+      if (!userId || !secret) {
+        form.hidden = true;
+        showMessage(
+          'This reset link is incomplete. Open the link from your email again, or request a new one in the app.',
+          'error',
+        );
+      }
+
+      const MESSAGES = {
+        user_invalid_token:
+          'This reset link has expired or was already used. Request a new one from the app.',
+        password_recently_used:
+          "Choose a password you haven't used recently.",
+        password_personal_data:
+          "Your password can't contain your name or email address.",
+        general_rate_limit_exceeded:
+          'Too many attempts. Please wait a few minutes and try again.',
+      };
+
+      form.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (password.value.length < 8 || password.value.length > 256) {
+          showMessage('Passwords must be 8-256 characters long.', 'error');
+          return;
+        }
+        if (password.value !== confirmation.value) {
+          showMessage("The passwords don't match.", 'error');
+          return;
+        }
+        submit.disabled = true;
+        submit.textContent = 'Saving...';
+        try {
+          const response = await fetch(
+            `${APPWRITE_ENDPOINT.replace(/\/+$/, '')}/account/recovery`,
+            {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-Appwrite-Project': APPWRITE_PROJECT_ID,
+              },
+              body: JSON.stringify({ userId, secret, password: password.value }),
+            },
+          );
+          if (response.ok) {
+            form.hidden = true;
+            showMessage(
+              'Your password has been changed. You can now sign in to EduApp with your new password.',
+              'success',
+            );
+            return;
+          }
+          const data = await response.json().catch(() => ({}));
+          const text =
+            MESSAGES[data.type] ||
+            (data.type === 'general_argument_invalid'
+              ? 'That password is too weak or too common. Please choose another.'
+              : "We couldn't change your password. Please try again.");
+          showMessage(text, 'error');
+        } catch {
+          showMessage(
+            "Can't reach the server. Check your connection and try again.",
+            'error',
+          );
+        } finally {
+          submit.disabled = false;
+          submit.textContent = 'Save new password';
+        }
+      });
+    </script>
+  </body>
+</html>

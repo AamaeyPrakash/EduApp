@@ -1,0 +1,35 @@
+{
+  "projectId": "REPLACE_WITH_YOUR_PROJECT_ID",
+  "functions": [
+    {
+      "$id": "ask-ai",
+      "name": "ask-ai",
+      "runtime": "node-22",
+      "execute": ["users"],
+      "events": [],
+      "scopes": [],
+      "schedule": "",
+      "timeout": 30,
+      "enabled": true,
+      "logging": true,
+      "entrypoint": "src/main.js",
+      "commands": "npm install",
+      "path": "appwrite/functions/ask-ai"
+    },
+    {
+      "$id": "delete-account",
+      "name": "delete-account",
+      "runtime": "node-22",
+      "execute": ["users"],
+      "events": [],
+      "scopes": ["users.write", "documents.write"],
+      "schedule": "",
+      "timeout": 15,
+      "enabled": true,
+      "logging": true,
+      "entrypoint": "src/main.js",
+      "commands": "npm install",
+      "path": "appwrite/functions/delete-account"
+    }
+  ]
+}

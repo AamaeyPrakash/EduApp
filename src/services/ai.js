@@ -1,0 +1,62 @@
+import config from '../config';
+import { functions } from '../lib/appwrite';
+import { AppError } from '../lib/errors';
+import { readExecution } from '../lib/executions';
+
+// Only the most recent messages are sent, which keeps requests small and fast.
+export const MAX_HISTORY_MESSAGES = 12;
+export const MAX_MESSAGE_LENGTH = 1000;
+
+export function isTutorConfigured() {
+  return Boolean(config.aiFunctionId);
+}
+
+function callTutorFunction(payload) {
+  if (!isTutorConfigured()) {
+    throw new AppError(
+      'The AI tutor is not set up yet. Please try again later.',
+    );
+  }
+  return functions
+    .createExecution(
+      config.aiFunctionId,
+      JSON.stringify(payload),
+      false,
+      '/',
+      'POST',
+      { 'content-type': 'application/json' },
+    )
+    .then(readExecution);
+}
+
+// Sends the conversation to the `ask-ai` Appwrite Function, which calls OpenAI with
+// a server-side key. `messages` are `{ role: 'user' | 'assistant', content }`.
+export async function askTutor({ messages, student }) {
+  const history = messages
+    .slice(-MAX_HISTORY_MESSAGES)
+    .map(({ role, content }) => ({ role, content }));
+  const { statusCode, body } = await callTutorFunction({
+    messages: history,
+    student,
+  });
+  const reply = typeof body.reply === 'string' ? body.reply.trim() : '';
+  if (statusCode === 200 && reply) {
+    return reply;
+  }
+  throw new AppError(
+    body.error || "The tutor couldn't answer right now. Please try again.",
+  );
+}
+
+// Flags an AI reply as inappropriate or wrong. Google Play requires apps that
+// generate AI content to let people report it without leaving the app.
+export async function reportTutorReply({ question, reply }) {
+  const { statusCode, body } = await callTutorFunction({
+    report: { question, reply },
+  });
+  if (statusCode !== 200 || !body.reported) {
+    throw new AppError(
+      body.error || "We couldn't send your report. Please try again.",
+    );
+  }
+}

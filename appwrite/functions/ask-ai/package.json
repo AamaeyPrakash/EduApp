@@ -1,0 +1,8 @@
+{
+  "name": "ask-ai",
+  "version": "1.0.0",
+  "description": "EduApp AI tutor: forwards a student's chat to OpenAI using a server-side API key.",
+  "main": "src/main.js",
+  "private": true,
+  "license": "UNLICENSED"
+}

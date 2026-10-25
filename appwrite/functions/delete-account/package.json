@@ -1,0 +1,8 @@
+{
+  "name": "delete-account",
+  "version": "1.0.0",
+  "description": "EduApp account deletion: removes the caller's profile document and Appwrite account.",
+  "main": "src/main.js",
+  "private": true,
+  "license": "UNLICENSED"
+}
