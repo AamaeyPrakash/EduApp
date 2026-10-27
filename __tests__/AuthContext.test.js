@@ -444,3 +444,56 @@ describe('grantAiConsent', () => {
     });
   });
 });
+
+describe('updatePrefs', () => {
+  it('runs overlapping updates one after another without losing either', async () => {
+    const result = await renderSignedIn();
+    const resolvers = [];
+    account.updatePrefs.mockImplementation(
+      prefs =>
+        new Promise(resolve =>
+          resolvers.push(() => resolve({ ...USER, prefs })),
+        ),
+    );
+
+    let first;
+    let second;
+    await act(async () => {
+      first = result.current.updatePrefs({ study: { b: ['a1'] } });
+      second = result.current.updatePrefs({ aiConsentAt: 'now' });
+    });
+    // The second update waits for the first to finish.
+    expect(account.updatePrefs).toHaveBeenCalledTimes(1);
+    await act(async () => {
+      resolvers[0]();
+      await first;
+    });
+    await act(async () => {
+      resolvers[1]();
+      await second;
+    });
+
+    expect(account.updatePrefs).toHaveBeenLastCalledWith({
+      study: { b: ['a1'] },
+      aiConsentAt: 'now',
+    });
+    expect(result.current.user.prefs).toEqual({
+      study: { b: ['a1'] },
+      aiConsentAt: 'now',
+    });
+  });
+
+  it('keeps going after a failed update', async () => {
+    const result = await renderSignedIn();
+    account.updatePrefs
+      .mockRejectedValueOnce(networkError())
+      .mockImplementation(async prefs => ({ ...USER, prefs }));
+
+    await act(async () => {
+      await expect(result.current.updatePrefs({ a: 1 })).rejects.toThrow();
+    });
+    await act(() => result.current.updatePrefs({ b: 2 }));
+
+    expect(account.updatePrefs).toHaveBeenLastCalledWith({ b: 2 });
+  });
+});

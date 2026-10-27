@@ -23,6 +23,10 @@ export const colors = {
   success: '#30D158',
   successSurface: 'rgba(48, 209, 88, 0.12)',
   successBorder: 'rgba(48, 209, 88, 0.35)',
+  // Questions still to review.
+  warning: '#FF9F0A',
+  warningSurface: 'rgba(255, 159, 10, 0.12)',
+  warningBorder: 'rgba(255, 159, 10, 0.35)',
   tabBar: 'rgba(0, 0, 0, 0.95)',
   tabBarBorder: 'rgba(255, 255, 255, 0.4)',
 };

@@ -1,41 +1,100 @@
 import { spawnSync } from 'child_process';
 import path from 'path';
-import { CBSE_CHAPTERS, getChapterQuestions } from '../src/content/cbse';
-import { getIBTopic, IB_COURSES } from '../src/content/ib';
+import {
+  COURSES,
+  courseQuestions,
+  coursesForBoard,
+  getQuestion,
+  getQuestions,
+  getTopic,
+  hashText,
+  searchQuestions,
+} from '../src/content';
 
-describe('CBSE content', () => {
-  it('lists each chapter once with its questions', () => {
-    const titles = CBSE_CHAPTERS.map(chapter => chapter.title);
-    expect(new Set(titles).size).toBe(titles.length);
-    for (const chapter of CBSE_CHAPTERS) {
-      expect(chapter.questionCount).toBeGreaterThan(0);
-      expect(getChapterQuestions(chapter.title)).toHaveLength(
-        chapter.questionCount,
-      );
+const allQuestions = COURSES.flatMap(course => courseQuestions(course.key));
+
+describe('courses', () => {
+  it('gives every question a unique id that can be looked up', () => {
+    const ids = allQuestions.map(question => question.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    for (const question of allQuestions) {
+      expect(getQuestion(question.id)).toBe(question);
+      expect(question.prompt.trim()).not.toBe('');
+      expect(question.solution.trim()).not.toBe('');
     }
+  });
+
+  it('derives ids from the question text, so they survive reordering', () => {
+    expect(hashText('Find $x$.')).toBe(hashText('Find $x$.'));
+    expect(hashText('Find $x$.')).not.toBe(hashText('Find $y$.'));
+    const [question] = getTopic('cbse', 'Sets').questions;
+    expect(question.id).toBe(`c${hashText(`Sets\n${question.prompt}`)}`);
   });
 
   it('shows every Probability question in its quiz', () => {
     // The quiz used to filter by `chapter`, where 20 of these were spelled
     // "probability", so only 10 of the 30 listed questions appeared.
-    const chapter = CBSE_CHAPTERS.find(item => item.title === 'Probability');
-    expect(chapter.questionCount).toBe(30);
-    expect(getChapterQuestions('Probability')).toHaveLength(30);
+    expect(getTopic('cbse', 'Probability').questions).toHaveLength(30);
   });
 
-  it('returns no questions for an unknown chapter', () => {
-    expect(getChapterQuestions('Not a chapter')).toEqual([]);
+  it('lists CBSE chapters in NCERT order with their class', () => {
+    const topics = COURSES.find(course => course.key === 'cbse').topics;
+    expect(topics[0]).toMatchObject({ title: 'Sets', label: 'Class 11' });
+    expect(topics.at(-1)).toMatchObject({
+      title: 'Linear Programming',
+      label: 'Class 12',
+    });
+    expect(
+      topics.findIndex(topic => topic.key === 'Limits And Derivatives'),
+    ).toBeLessThan(topics.findIndex(topic => topic.key === 'Matrices'));
+  });
+
+  it('marks IB questions as calculator or non-calculator', () => {
+    for (const question of courseQuestions('ib-aa')) {
+      expect(typeof question.calculator).toBe('boolean');
+    }
+    for (const question of courseQuestions('cbse')) {
+      expect(question.calculator).toBeNull();
+    }
+  });
+
+  it("puts the student's board first", () => {
+    expect(coursesForBoard('1').map(course => course.key)).toEqual([
+      'cbse',
+      'ib-aa',
+      'ib-ai',
+    ]);
+    expect(coursesForBoard('5')[0].key).toBe('ib-aa');
+    expect(coursesForBoard('3')).toHaveLength(3);
+  });
+
+  it('skips ids of questions that no longer exist', () => {
+    const [question] = allQuestions;
+    expect(getQuestions(['missing', question.id])).toEqual([question]);
+    expect(getTopic('cbse', 'Not a chapter')).toBeNull();
   });
 });
 
-describe('IB content', () => {
-  it('finds topics by course and topic number', () => {
-    for (const key of Object.keys(IB_COURSES)) {
-      const [first] = IB_COURSES[key].topics;
-      expect(getIBTopic(key, first.topicNumber)).toBe(first);
-    }
-    expect(getIBTopic('AA', 'Topic 99')).toBeNull();
-    expect(getIBTopic('XX', 'Topic 1')).toBeNull();
+describe('searchQuestions', () => {
+  it('finds questions by topic and by words in the question', () => {
+    const bayes = searchQuestions('Bayes');
+    expect(bayes.length).toBeGreaterThan(0);
+    expect(bayes.every(question => question.topicKey === 'Probability')).toBe(
+      true,
+    );
+
+    const matrices = searchQuestions('farmers rice');
+    expect(matrices[0].topicKey).toBe('Matrices');
+  });
+
+  it('needs every word to match and ignores TeX markup', () => {
+    expect(searchQuestions('displaystyle')).toEqual([]);
+    expect(searchQuestions('   ')).toEqual([]);
+    expect(searchQuestions('probability zebra')).toEqual([]);
+  });
+
+  it('limits the number of results', () => {
+    expect(searchQuestions('the', 5)).toHaveLength(5);
   });
 });
 

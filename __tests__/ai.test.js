@@ -3,6 +3,7 @@ import { functions } from '../src/lib/appwrite';
 import {
   askTutor,
   MAX_HISTORY_MESSAGES,
+  QUESTION_LIMITS,
   reportTutorReply,
 } from '../src/services/ai';
 import { TEST_CONFIG } from './helpers/appwrite';
@@ -116,5 +117,32 @@ describe('reportTutorReply', () => {
     await expect(
       reportTutorReply({ question: 'Q', reply: '' }),
     ).rejects.toMatchObject({ userMessage: 'Include the reply.' });
+  });
+});
+
+it('sends the practice question being asked about, cut to the size limits', async () => {
+  functions.createExecution.mockResolvedValue({
+    responseStatusCode: 200,
+    responseBody: JSON.stringify({ reply: 'Try factorising.' }),
+  });
+
+  await askTutor({
+    messages: [{ role: 'user', content: 'Hint please' }],
+    question: {
+      course: 'CBSE Maths',
+      topic: 'Integrals',
+      text: 'Find $\\int x\\,dx$.',
+      answer: '',
+      solution: 'x'.repeat(QUESTION_LIMITS.solution + 50),
+    },
+  });
+
+  const { question } = JSON.parse(functions.createExecution.mock.calls[0][1]);
+  expect(question).toEqual({
+    course: 'CBSE Maths',
+    topic: 'Integrals',
+    text: 'Find $\\int x\\,dx$.',
+    answer: '',
+    solution: 'x'.repeat(QUESTION_LIMITS.solution),
   });
 });

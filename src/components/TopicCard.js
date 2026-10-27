@@ -1,13 +1,40 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { colors } from '../theme';
+import ProgressBar from './ProgressBar';
 
-// A topic/chapter with its "Revisions" (study mode) and "Quiz" buttons.
-export default function TopicCard({ title, subtitle, onRevise, onQuiz }) {
+function progressLabel({ total, known, review }) {
+  if (known === 0 && review === 0) {
+    return 'Not started';
+  }
+  const parts = [`${known} of ${total} got it`];
+  if (review > 0) {
+    parts.push(`${review} to review`);
+  }
+  return parts.join(' · ');
+}
+
+// A topic/chapter with its progress and "Revisions" (study mode) and "Quiz" buttons.
+export default function TopicCard({
+  title,
+  subtitle,
+  progress,
+  onRevise,
+  onQuiz,
+}) {
   return (
     <View style={styles.card}>
       <Text style={styles.cardTitle}>{title}</Text>
       {subtitle ? <Text style={styles.cardSubtitle}>{subtitle}</Text> : null}
+      {progress ? (
+        <View style={styles.progress}>
+          <ProgressBar
+            value={progress.known / progress.total}
+            secondary={progress.review / progress.total}
+          />
+          <Text style={styles.progressText}>{progressLabel(progress)}</Text>
+        </View>
+      ) : null}
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.buttonSecondary}
@@ -66,6 +93,14 @@ const styles = StyleSheet.create({
     opacity: 0.7,
     marginBottom: 12,
     letterSpacing: -0.14,
+  },
+  progress: {
+    marginBottom: 8,
+  },
+  progressText: {
+    fontSize: 13,
+    color: colors.textFaint,
+    marginTop: 6,
   },
   buttonContainer: {
     flexDirection: 'row',

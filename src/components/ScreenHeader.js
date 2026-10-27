@@ -2,8 +2,9 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { colors } from '../theme';
 
-// Top bar with the round "✕" button used to leave topic and quiz screens.
-export default function ScreenHeader({ onClose, title, style }) {
+// Top bar with the round "✕" button used to leave topic and quiz screens, and an
+// optional element (such as a counter) on the right.
+export default function ScreenHeader({ onClose, title, right, style }) {
   return (
     <View style={[styles.header, style]}>
       <TouchableOpacity
@@ -16,11 +17,10 @@ export default function ScreenHeader({ onClose, title, style }) {
       >
         <Text style={styles.closeText}>✕</Text>
       </TouchableOpacity>
-      {title ? (
-        <Text style={styles.title} numberOfLines={1}>
-          {title}
-        </Text>
-      ) : null}
+      <Text style={styles.title} numberOfLines={1}>
+        {title || ''}
+      </Text>
+      {right}
     </View>
   );
 }
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
   title: {
     flex: 1,
-    marginLeft: 16,
+    marginHorizontal: 16,
     fontSize: 17,
     fontWeight: '600',
     color: colors.text,

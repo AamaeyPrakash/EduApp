@@ -411,7 +411,7 @@
     "Title": "Conic Sections",
     "Subtitle": "",
     "Example": "Find the equation of the parabola with vertex\nat $(0,0)$ and focus at $(0,2)$.",
-    "Solution": "The axis is the $y$-axis and the distance from vertex to focus is $a=2$, so the parabola is\n$\nx^{2}=4ay\\;\\Longrightarrow\\;x^{2}=8y.\n\\]",
+    "Solution": "The axis is the $y$-axis and the distance from vertex to focus is $a=2$, so the parabola is\n$$x^{2}=4ay\\;\\Longrightarrow\\;x^{2}=8y.$$",
     "Final_answer": "Equation: $x^{2}=8y$.",
     "chapter": "Conic Sections"
   },
@@ -539,7 +539,7 @@
     "Title": "Permutation and Combination",
     "Subtitle": "",
     "Example": "If $\\displaystyle \\frac{1}{8!} + \\frac{1}{9!} = \\frac{x}{10!}$ , find the value of x.",
-    "Solution": "$\\displaystyle \\frac{1}{8!} + \\frac{1}{9 \\times 8!} = \\frac{x}{10 \\times 9 \\times 8!}$\\ $1 + \\frac{1}{9} = \\frac{x}{10 \\times 9}$\\ so $x=100$",
+    "Solution": "$\\displaystyle \\frac{1}{8!} + \\frac{1}{9 \\times 8!} = \\frac{x}{10 \\times 9 \\times 8!}$\n$1 + \\frac{1}{9} = \\frac{x}{10 \\times 9}$\nso $x=100$",
     "Final_answer": "The value of x is 100.",
     "chapter": "Permutation and Combination"
   },
@@ -570,8 +570,8 @@
   {
     "Title": "Permutation and Combination",
     "Subtitle": "",
-    "Example": "Find the value of n such that \\(i) $^nP_{5} =42 $ $^nP_{3}, n>4$\\(ii) $\\frac{^nP_{4}}{^(n-1)P_{4}} , n>4$",
-    "Solution": "(i) Using the given relation $^nP_{5} = 42 \\cdot {}^nP_{3}$, we derive: $\\displaystyle n(n - 1)(n - 2)(n - 3)(n - 4) = 42 n(n - 1)(n - 2)$. Dividing both sides by $n(n - 1) (n - 2)$, we get $(n - 3)(n - 4) = 42$ resulting in the quadratic $n^2- 7n - 30 = 0$. The factors of this are $(n - 10)(n + 3) = 0$. Thus, $n = 10$ or $n = - 3$. Since n can't be negative, we conclude $n = 10$.\\(ii)\\From the equation $\\frac{^nP_{4}}{^(n-1)P_{4}}$, we derive $\\displaystyle 3n(n - 1)(n - 2)(n - 3) = 5(n - 1)(n - 2)(n - 3)(n - 4)$. Simplifying, we get $3n = 5(n - 4)$ [because $(n - 1)(n - 2)(n - 3)\\neq 0$ for $n > 4$]. Solving, we find $n = 10$.",
+    "Example": "Find the value of $n$ such that\n(i) $^nP_{5} = 42 \\cdot {}^nP_{3},\\ n>4$\n(ii) $\\frac{^nP_{4}}{^{n-1}P_{4}} = \\frac{5}{3},\\ n>4$",
+    "Solution": "(i) Using the given relation $^nP_{5} = 42 \\cdot {}^nP_{3}$, we derive: $\\displaystyle n(n - 1)(n - 2)(n - 3)(n - 4) = 42 n(n - 1)(n - 2)$. Dividing both sides by $n(n - 1) (n - 2)$, we get $(n - 3)(n - 4) = 42$ resulting in the quadratic $n^2- 7n - 30 = 0$. The factors of this are $(n - 10)(n + 3) = 0$. Thus, $n = 10$ or $n = - 3$. Since n can't be negative, we conclude $n = 10$.\n(ii) From the equation $\\frac{^nP_{4}}{^{n-1}P_{4}} = \\frac{5}{3}$, we derive $\\displaystyle 3n(n - 1)(n - 2)(n - 3) = 5(n - 1)(n - 2)(n - 3)(n - 4)$. Simplifying, we get $3n = 5(n - 4)$ [because $(n - 1)(n - 2)(n - 3)\\neq 0$ for $n > 4$]. Solving, we find $n = 10$.",
     "Final_answer": "The value of n for the given conditions is $n = 10$.",
     "chapter": "Permutation and Combination"
   },
@@ -947,38 +947,38 @@
     "Title": "Sets",
     "Subtitle": "",
     "Example": "Write the solution set of the equation $ x^2 + x - 2 = 0$ in roster form.",
-    "Solution": "The given equation can be written as $$\\displaystyle (x-1)(x+2) = 0$$, i.e., $x=1,-2$ . Therefore, the solution set of the given equation can be written in roster form as \\{1,-2\\}",
-    "Final_answer": "The solution set of the equation $x^2 + x - 2 = 0$ in roster form is \\{1,-2\\}.",
+    "Solution": "The given equation can be written as $$\\displaystyle (x-1)(x+2) = 0$$, i.e., $x=1,-2$ . Therefore, the solution set of the given equation can be written in roster form as $\\{1,-2\\}$",
+    "Final_answer": "The solution set of the equation $x^2 + x - 2 = 0$ in roster form is $\\{1,-2\\}$.",
     "chapter": "Sets"
   },
   {
     "Title": "Sets",
     "Subtitle": "",
-    "Example": "Write the set \\{$x : x$ is a positive integer and $x^2< 40$\\} in the roster form.",
-    "Solution": "The required numbers are $1, 2, 3, 4, 5, 6$. So, the given set in the roster form is \\{1, 2, 3, 4, 5, 6\\}.",
-    "Final_answer": "The set \\{$x : x$ is a positive integer and $x^2< 40$\\} in the roster form is \\{1, 2, 3, 4, 5, 6\\}.",
+    "Example": "Write the set {$x : x$ is a positive integer and $x^2< 40$} in the roster form.",
+    "Solution": "The required numbers are $1, 2, 3, 4, 5, 6$. So, the given set in the roster form is $\\{1, 2, 3, 4, 5, 6\\}$.",
+    "Final_answer": "The set {$x : x$ is a positive integer and $x^2< 40$} in the roster form is $\\{1, 2, 3, 4, 5, 6\\}$.",
     "chapter": "Sets"
   },
   {
     "Title": "Sets",
     "Subtitle": "",
-    "Example": "Write the set A = \\{1, 4, 9, 16, 25, . . . \\} in set-builder form.",
-    "Solution": "We may write the set A as A = \\{$x : x$ is the square of a natural number\\}. Alternatively, we can write A = \\{$x : x = n^2$, where $n \\in N$\\}.A = \\{$x : x$ is the square of a natural number\\} or A = \\{$x : x = n^2$, where $n \\in N$\\}.",
-    "Final_answer": "The set A = \\{1, 4, 9, 16, 25, . . . \\} in set-builder form is A = \\{$x : x$ is the square of a natural number\\} or A = \\{$x : x = n^2$, where $n \\in N$\\}.",
+    "Example": "Write the set A = $\\{1, 4, 9, 16, 25, . . . \\}$ in set-builder form.",
+    "Solution": "We may write the set A as A = {$x : x$ is the square of a natural number}. Alternatively, we can write A = {$x : x = n^2$, where $n \\in N$}.A = {$x : x$ is the square of a natural number} or A = {$x : x = n^2$, where $n \\in N$}.",
+    "Final_answer": "The set A = $\\{1, 4, 9, 16, 25, . . . \\}$ in set-builder form is A = {$x : x$ is the square of a natural number} or A = {$x : x = n^2$, where $n \\in N$}.",
     "chapter": "Sets"
   },
   {
     "Title": "Sets",
     "Subtitle": "",
-    "Example": "Write the set \\{$\\displaystyle \\frac{1}{2},\\frac{2}{3},\\frac{3}{4},\\frac{4}{5},\\frac{5}{6},\\frac{6}{7}$\\} in the set-builder form.",
-    "Solution": "We see that each member in the given set has the numerator one less than the denominator. Also, the numerator begin from 1 and do not exceed 6. Hence, in the set-builder form the given set is \\{$x:x = \\frac{n}{n+1} $ , where n is a natural number and $1 \\e n \\e 7$\\}.",
-    "Final_answer": "The set \\{\\frac{1}{2},\\frac{2}{3},\\frac{3}{4},\\frac{4}{5},\\frac{5}{6},\\frac{6}{7}\\} in set-builder form is \\{x:x = \\frac{n}{n+1}$ , where n is a natural number and $1 \\e n \\e 6$\\}.",
+    "Example": "Write the set $\\left\\{\\frac{1}{2},\\frac{2}{3},\\frac{3}{4},\\frac{4}{5},\\frac{5}{6},\\frac{6}{7}\\right\\}$ in the set-builder form.",
+    "Solution": "We see that each member in the given set has the numerator one less than the denominator. Also, the numerator begin from 1 and do not exceed 6. Hence, in the set-builder form the given set is $\\{x : x = \\frac{n}{n+1}$, where $n$ is a natural number and $1 \\le n \\le 6\\}$.",
+    "Final_answer": "$\\left\\{\\frac{1}{2},\\frac{2}{3},\\frac{3}{4},\\frac{4}{5},\\frac{5}{6},\\frac{6}{7}\\right\\} = \\{x : x = \\frac{n}{n+1}$, where $n$ is a natural number and $1 \\le n \\le 6\\}$",
     "chapter": "Sets"
   },
   {
     "Title": "Sets",
     "Subtitle": "",
-    "Example": "Match each of the set on the left described in the roster form with the same set on the right described in the set-builder form :\\ (i) \\{P, R, I, N, C, A, L\\}   (a) \\{$x: x$ is a positive integer and is a divisor of $18$\\}\\ (ii) \\{0\\}  (b) \\{$x: x$ is an integer and $x^2 - 9 = 0$\\}\\ (iii) \\{1, 2, 3, 6, 9, 18\\}  (c) \\{$x: x$is an integer and $x + 1= 1$\\}\\ (iv) \\{3, -3\\} (d) \\{$x: x$ is a letter of the word PRINCIPAL\\}",
+    "Example": "Match each of the set on the left described in the roster form with the same set on the right described in the set-builder form :\n(i) $\\{P, R, I, N, C, A, L\\}$   (a) {$x: x$ is a positive integer and is a divisor of $18$}\n(ii) $\\{0\\}$  (b) {$x: x$ is an integer and $x^2 - 9 = 0$}\n(iii) $\\{1, 2, 3, 6, 9, 18\\}$  (c) {$x: x$ is an integer and $x + 1= 1$}\n(iv) $\\{3, -3\\}$ (d) {$x: x$ is a letter of the word PRINCIPAL}",
     "Solution": "Since in (d), there are 9 letters in the word PRINCIPAL and two letters P and I are repeated, so (i) matches (d). Similarly, (ii) matches (c) as $x + 1 = 1$ implies $x = 0$. Also, $1, 2 ,3, 6, 9, 18$ are all divisors of 18 and so (iii) matches (a). Finally, $x^2 - 9 = 0$ implies $x = 3, -3$ and so (iv) matches (b).",
     "Final_answer": "(i) matches with (d), (ii) matches with (c), (iii) matches with (a), and (iv) matches with (b).",
     "chapter": "Sets"
@@ -986,31 +986,31 @@
   {
     "Title": "Sets",
     "Subtitle": "",
-    "Example": "State which of the following sets are finite or infinite :\\ (i) \\{$x: x \\in N$ and $(x - 1)(x - 2) = 0$\\}\\ (ii) \\{$x: x \\in N$ and $x^2= 4$\\}\\ (iii) \\{$x: x \\in N$ and $2x -1 = 0$\\}\\ (iv) \\{$x: x \\in N$ and $x$ is prime\\}\\ (v) \\{$x: x \\in N$ and $x$ is odd\\}",
-    "Solution": "(i) Given set = \\{$1, 2$\\}. Hence, it is finite.\\ (ii) Given set = \\{$2$\\}. Hence, it is finite.\\ (iii) Given set = $\\Phi$. Hence, it is finite.\\ (iv) The given set is the set of all prime numbers and since set of prime numbers is infinite. Hence the given set is infinite.\\ (v) Since there are infinite number of odd numbers, hence, the given set is infinite.",
+    "Example": "State which of the following sets are finite or infinite :\n(i) {$x: x \\in N$ and $(x - 1)(x - 2) = 0$}\n(ii) {$x: x \\in N$ and $x^2= 4$}\n(iii) {$x: x \\in N$ and $2x -1 = 0$}\n(iv) {$x: x \\in N$ and $x$ is prime}\n(v) {$x: x \\in N$ and $x$ is odd}",
+    "Solution": "(i) Given set = {$1, 2$}. Hence, it is finite.\n(ii) Given set = {$2$}. Hence, it is finite.\n(iii) Given set = $\\Phi$. Hence, it is finite.\n(iv) The given set is the set of all prime numbers and since set of prime numbers is infinite. Hence the given set is infinite.\n(v) Since there are infinite number of odd numbers, hence, the given set is infinite.",
     "Final_answer": "(i) Finite, (ii) Finite, (iii) Finite, (iv) Infinite, (v) Infinite.",
     "chapter": "Sets"
   },
   {
     "Title": "Sets",
     "Subtitle": "",
-    "Example": "Find the pairs of equal sets, if any, give reasons:\\ A = \\{0\\} B = \\{x : x > 15 \\text{ and } x < 5\\} C = \\{x : x - 5 = 0 \\} D = \\{x: x^2 = 25\\} E = \\{x : x \\text{ is an integral positive root of the equation } x^2 - 2x - 15 = 0\\}",
-    "Solution": "Since \\(0 \\in A\\) and \\(0\\) does not belong to any of the sets B, C, D, and E, it follows that, \\( A\\neq B \\), \\( A\\neq C \\), \\( A\\neq D \\), \\( A\\neq E \\). Since B = \\phi but none of the other sets are empty. Therefore \\(B\\neq C\\),\\( B\\neq D\\) and \\( B\\neq E \\). Also \\( C = \\{5\\} \\) but \\( -5 \\in D \\), hence \\( C\\neq D \\). Since E = \\{5\\}, C = E. Further, D = \\{-5, 5\\} and E = \\{5\\}, we find that, \\(D\\neq E\\). Thus, the only pair of equal sets is C and E.",
+    "Example": "Find the pairs of equal sets, if any, give reasons:\nA = $\\{0\\}$ B = $\\{x : x > 15 \\text{ and } x < 5\\}$ C = $\\{x : x - 5 = 0 \\}$ D = $\\{x: x^2 = 25\\}$ E = $\\{x : x \\text{ is an integral positive root of the equation } x^2 - 2x - 15 = 0\\}$",
+    "Solution": "Since $0 \\in A$ and $0$ does not belong to any of the sets B, C, D, and E, it follows that, $A\\neq B$, $A\\neq C$, $A\\neq D$, $A\\neq E$. Since $B = \\phi$ but none of the other sets are empty. Therefore $B\\neq C$,$B\\neq D$ and $B\\neq E$. Also $C = \\{5\\}$ but $-5 \\in D$, hence $C\\neq D$. Since E = $\\{5\\}$, C = E. Further, D = $\\{-5, 5\\}$ and E = $\\{5\\}$, we find that, $D\\neq E$. Thus, the only pair of equal sets is C and E.",
     "Final_answer": "C = E",
     "chapter": "Sets"
   },
   {
     "Title": "Sets",
     "Subtitle": "",
-    "Example": "Which of the following pairs of sets are equal? Justify your answer. (i) X, the set of letters in “ALLOY” and B, the set of letters in “LOYAL”. (ii) A = \\{n : n \\in Z\\text{ and } n^2 \\eq 4\\} and B = \\{x : x \\in R\\text{ and } x^2 - 3x + 2 = 0\\}.",
-    "Solution": "(i) We have, X = \\{A, L, L, O, Y\\}, B = \\{L, O, Y, A, L\\}. Then X and B are equal sets as repetition of elements in a set do not change a set. Thus, X = \\{A, L, O, Y\\} = B. (ii) A = \\{-2, -1, 0, 1, 2\\}, B = \\{1, 2\\}. Since \\(0 \\in A\\) and \\(0\\notin B\\), A and B are not equal sets.",
+    "Example": "Which of the following pairs of sets are equal? Justify your answer. (i) X, the set of letters in “ALLOY” and B, the set of letters in “LOYAL”. (ii) A = $\\{n : n \\in Z\\text{ and } n^2 \\leq 4\\}$ and B = $\\{x : x \\in R\\text{ and } x^2 - 3x + 2 = 0\\}$.",
+    "Solution": "(i) We have, X = $\\{A, L, L, O, Y\\}$, B = $\\{L, O, Y, A, L\\}$. Then X and B are equal sets as repetition of elements in a set do not change a set. Thus, X = $\\{A, L, O, Y\\}$ = B. (ii) A = $\\{-2, -1, 0, 1, 2\\}$, B = $\\{1, 2\\}$. Since $0 \\in A$ and $0\\notin B$, A and B are not equal sets.",
     "Final_answer": "(i) $X = B$ (ii) $A\\neq B$",
     "chapter": "Sets"
   },
   {
     "Title": "Sets",
     "Subtitle": "",
-    "Example": "Consider the sets $\\phi$, A = \\{ 1, 3 \\}, B = \\{1, 5, 9\\}, C = \\{1, 3, 5, 7, 9\\}. Insert the symbol $\\subseteq$ or $\\not\\subset$between each of the following pair of sets: (i) $\\phi$ . . . B (ii) A . . . B (iii) A . . . C (iv) B . . . C",
+    "Example": "Consider the sets $\\phi$, A = $\\{ 1, 3 \\}$, B = $\\{1, 5, 9\\}$, C = $\\{1, 3, 5, 7, 9\\}$. Insert the symbol $\\subseteq$ or $\\not\\subset$between each of the following pair of sets: (i) $\\phi$ . . . B (ii) A . . . B (iii) A . . . C (iv) B . . . C",
     "Solution": "(i) $\\phi$ $\\subseteq$ B as $\\phi$ is a subset of every set. (ii) A $\\not\\subset$ B as 3 $\\in$ A and 3 $\\notin$ B. (iii) A $\\subseteq$C as 1, 3 in A also belongs to C. (iv) B $\\subseteq$ C as each element of B is also an element of C.",
     "Final_answer": "(i) $\\phi$ $\\subseteq$ B, (ii) A $\\not\\subset$ B, (iii) A $\\subseteq$ C, (iv) B $\\subseteq$ C",
     "chapter": "Sets"
@@ -1058,33 +1058,33 @@
   {
     "Title": "Sets",
     "Subtitle": "",
-    "Example": "Let X =\n{Ram, Geeta, Akbar\n} be the set of students of Class XI, who are in school hockey team. Let Y =\n{Geeta, David, Ashok\n} be the set of students from Class XI who are in the school football team. Find \\(X\ncap Y\\) and interpret the set.",
-    "Solution": "The intersection \\(X\ncap Y\\) is the set of students who are in both the hockey and football teams. From the provided sets, only 'Geeta' is common to both. Therefore, \\(X\ncap Y\\) =\n{Geeta\n}.",
-    "Final_answer": "\\(X \\cap Y\\) = \\{Geeta\\}.",
+    "Example": "Let X = {Ram, Geeta, Akbar} be the set of students of Class XI, who are in school hockey team. Let Y = {Geeta, David, Ashok} be the set of students from Class XI who are in the school football team. Find $X \\cap Y$ and interpret the set.",
+    "Solution": "The intersection $X \\cap Y$ is the set of students who are in both the hockey and football teams. From the provided sets, only 'Geeta' is common to both. Therefore, $X \\cap Y$ = {Geeta}.",
+    "Final_answer": "$X \\cap Y$ = {Geeta}.",
     "chapter": "Sets"
   },
   {
     "Title": "Sets",
     "Subtitle": "",
-    "Example": "Let A = \\{ 1, 2, 3, 4, 5, 6\\}, B = \\{ 2, 4, 6, 8 \\}. Find A - B and B - A.",
-    "Solution": "The set difference A - B consists of elements that are in A but not in B. Thus, A - B = \\{ 1, 3, 5 \\}. Similarly, the set difference B - A consists of elements that are in B but not in A. Hence, B - A = \\{ 8 \\}. It is evident that A - B is not equal to B - A.",
-    "Final_answer": "A - B = \\{ 1, 3, 5 \\} and B - A = \\{ 8 \\}.",
+    "Example": "Let A = $\\{ 1, 2, 3, 4, 5, 6\\}$, B = $\\{ 2, 4, 6, 8 \\}$. Find A - B and B - A.",
+    "Solution": "The set difference A - B consists of elements that are in A but not in B. Thus, A - B = $\\{ 1, 3, 5 \\}$. Similarly, the set difference B - A consists of elements that are in B but not in A. Hence, B - A = $\\{ 8 \\}$. It is evident that A - B is not equal to B - A.",
+    "Final_answer": "A - B = $\\{ 1, 3, 5 \\}$ and B - A = $\\{ 8 \\}$.",
     "chapter": "Sets"
   },
   {
     "Title": "Sets",
     "Subtitle": "",
-    "Example": "Let V = \\{ a, e, i, o, u \\} and B = \\{ a, i, k, u\\}. Find V - B and B - V.",
-    "Solution": "The set difference V - B consists of elements that are in V but not in B. Thus, V - B = \\{ e, o \\}. Similarly, the set difference B - V consists of elements that are in B but not in V. Hence, B - V = \\{ k \\}. It is evident that V - B is not equal to B - V. Using set-builder notation, the definition of difference can be written as A - B = \\{x: x \\in A \\text{ and } x\\notin B\\}.V - B = \\{ e, o \\} and B - V = \\{ k \\}",
-    "Final_answer": "V - B = \\{ e, o \\} and B - V = \\{ k \\}.",
+    "Example": "Let V = $\\{ a, e, i, o, u \\}$ and B = $\\{ a, i, k, u\\}$. Find V - B and B - V.",
+    "Solution": "The set difference V - B consists of elements that are in V but not in B. Thus, V - B = $\\{ e, o \\}$. Similarly, the set difference B - V consists of elements that are in B but not in V. Hence, B - V = $\\{ k \\}$. It is evident that V - B is not equal to B - V. Using set-builder notation, the definition of difference can be written as A - B = $\\{x: x \\in A \\text{ and } x\\notin B\\}$.V - B = $\\{ e, o \\}$ and B - V = $\\{ k \\}$",
+    "Final_answer": "V - B = $\\{ e, o \\}$ and B - V = $\\{ k \\}$.",
     "chapter": "Sets"
   },
   {
     "Title": "Sets",
     "Subtitle": "",
-    "Example": "Let \\( U = \\{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\\} \\) and \\( A = \\{1, 3, 5, 7, 9\\} \\). Find \\( A' \\).",
-    "Solution": "We note that 2, 4, 6, 8, 10 are the only elements of U which do not belong to A. Hence \\( A' \\) = \\{2,4,6,8,10\\}",
-    "Final_answer": "\\( A' \\) = \\{2, 4, 6, 8, 10\\}.",
+    "Example": "Let $U = \\{1, 2, 3, 4, 5, 6, 7, 8, 9, 10\\}$ and $A = \\{1, 3, 5, 7, 9\\}$. Find $A'$.",
+    "Solution": "We note that 2, 4, 6, 8, 10 are the only elements of U which do not belong to A. Hence $A'$ = $\\{2,4,6,8,10\\}$",
+    "Final_answer": "$A'$ = $\\{2, 4, 6, 8, 10\\}$.",
     "chapter": "Sets"
   },
   {
@@ -1098,33 +1098,33 @@
   {
     "Title": "Sets",
     "Subtitle": "",
-    "Example": "Let \\( U = \\{1, 2, 3, 4, 5, 6\\} \\), \\( A = \\{2, 3\\} \\) and \\( B = \\{3, 4, 5\\} \\). Find \\( A' \\), \\( B' \\), \\( A' \\cap B' \\), \\( A \\cup B \\), and hence show that \\( (A \\cup B)' = A' \\cap B' \\).",
-    "Solution": "Clearly \\( A' = \\{1, 4, 5, 6\\} \\), \\( B' = \\{ 1, 2, 6 \\} \\). Hence \\( A' \\cap B' \\) = \\{ 1, 6 \\}. Also \\( A \\cup B \\) = \\{ 2, 3, 4, 5 \\}, so that \\( A \\cup B \\)' = \\{ 1, 6 \\}. It can be shown that the above result is true in general. If \\( A \\) and \\( B \\) are any two subsets of the universal set \\( U \\), then \\( (A \\cup B)' = A' \\cap B' \\). Similarly, \\( (A \\cap B)' = A' \\cup B' \\).",
-    "Final_answer": "\\( (A \\cup B)' = A' \\cap B' \\)",
+    "Example": "Let $U = \\{1, 2, 3, 4, 5, 6\\}$, $A = \\{2, 3\\}$ and $B = \\{3, 4, 5\\}$. Find $A'$, $B'$, $A' \\cap B'$, $A \\cup B$, and hence show that $(A \\cup B)' = A' \\cap B'$.",
+    "Solution": "Clearly $A' = \\{1, 4, 5, 6\\}$, $B' = \\{ 1, 2, 6 \\}$. Hence $A' \\cap B'$ = $\\{ 1, 6 \\}$. Also $A \\cup B$ = $\\{ 2, 3, 4, 5 \\}$, so that $A \\cup B$' = $\\{ 1, 6 \\}$. It can be shown that the above result is true in general. If $A$ and $B$ are any two subsets of the universal set $U$, then $(A \\cup B)' = A' \\cap B'$. Similarly, $(A \\cap B)' = A' \\cup B'$.",
+    "Final_answer": "$(A \\cup B)' = A' \\cap B'$",
     "chapter": "Sets"
   },
   {
     "Title": "Sets",
     "Subtitle": "",
     "Example": "Show that the set of letters needed to spell “CATARACT” and the set of letters needed to spell “TRACT” are equal.",
-    "Solution": "Let X be the set of letters in “CATARACT”. Then X = \\{ C, A, T, R \\}. Let Y be the set of letters in “TRACT”. Then Y = \\{ T, R, A, C, T \\} = \\{ T, R, A, C \\}. Since every element in X is in Y and every element in Y is in X, it follows that X = Y.",
+    "Solution": "Let X be the set of letters in “CATARACT”. Then X = $\\{ C, A, T, R \\}$. Let Y be the set of letters in “TRACT”. Then Y = $\\{ T, R, A, C, T \\}$ = $\\{ T, R, A, C \\}$. Since every element in X is in Y and every element in Y is in X, it follows that X = Y.",
     "Final_answer": "The set of letters to spell “CATARACT” and “TRACT” are equal.",
     "chapter": "Sets"
   },
   {
     "Title": "Sets",
     "Subtitle": "",
-    "Example": "List all the subsets of the set \\{ -1, 0, 1 \\}.",
-    "Solution": "Let A = \\{ -1, 0, 1 \\}. The subset of A having no element is the empty set $\\phi$. The subsets of A having one element are \\{ -1 \\}, \\{ 0 \\}, \\{ 1 \\}. The subsets of A having two elements are \\{-1, 0\\}, \\{-1, 1\\}, \\{0, 1\\}. The subset of A having three elements of A is A itself. So, all the subsets of A are $\\phi$, \\{-1\\}, \\{0\\}, \\{1\\}, \\{-1, 0\\}, \\{-1, 1\\}, \\{0, 1\\} and \\{-1, 0, 1\\}.",
-    "Final_answer": "The subsets of \\{ -1, 0, 1 \\} are $\\phi$, \\{-1\\}, \\{0\\}, \\{1\\}, \\{-1, 0\\}, \\{-1, 1\\}, \\{0, 1\\}, and \\{-1, 0, 1\\}.",
+    "Example": "List all the subsets of the set $\\{ -1, 0, 1 \\}$.",
+    "Solution": "Let A = $\\{ -1, 0, 1 \\}$. The subset of A having no element is the empty set $\\phi$. The subsets of A having one element are $\\{ -1 \\}$, $\\{ 0 \\}$, $\\{ 1 \\}$. The subsets of A having two elements are $\\{-1, 0\\}$, $\\{-1, 1\\}$, $\\{0, 1\\}$. The subset of A having three elements of A is A itself. So, all the subsets of A are $\\phi$, $\\{-1\\}$, $\\{0\\}$, $\\{1\\}$, $\\{-1, 0\\}$, $\\{-1, 1\\}$, $\\{0, 1\\}$ and $\\{-1, 0, 1\\}$.",
+    "Final_answer": "The subsets of $\\{ -1, 0, 1 \\}$ are $\\phi$, $\\{-1\\}$, $\\{0\\}$, $\\{1\\}$, $\\{-1, 0\\}$, $\\{-1, 1\\}$, $\\{0, 1\\}$, and $\\{-1, 0, 1\\}$.",
     "chapter": "Sets"
   },
   {
     "Title": "Sets",
     "Subtitle": "",
-    "Example": "Show that \\(A \\bigcup B\\) = \\(A \\cap B\\) implies A = B.",
-    "Solution": "Let \\(a \\in A\\). Then \\(a \\in A \\cup B\\). Since \\(A \\cup B = A \\cap B\\), \\(a \\in A \\cap B\\). So \\(a \\in B\\). Therefore, \\( A \\subset B \\). Similarly, if \\( b \\in B \\), then \\( b \\in A \\cup B \\). Since \\( A \\cup B = A \\cap B \\), \\( b \\in A \\cap B \\). So, \\( b \\in A \\). Therefore, \\( B \\subset A \\). Thus, \\( A = B \\).",
-    "Final_answer": "If \\(A \\bigcup B\\) = \\(A \\cap B\\), then A = B.",
+    "Example": "Show that $A \\bigcup B$ = $A \\cap B$ implies A = B.",
+    "Solution": "Let $a \\in A$. Then $a \\in A \\cup B$. Since $A \\cup B = A \\cap B$, $a \\in A \\cap B$. So $a \\in B$. Therefore, $A \\subset B$. Similarly, if $b \\in B$, then $b \\in A \\cup B$. Since $A \\cup B = A \\cap B$, $b \\in A \\cap B$. So, $b \\in A$. Therefore, $B \\subset A$. Thus, $A = B$.",
+    "Final_answer": "If $A \\bigcup B$ = $A \\cap B$, then A = B.",
     "chapter": "Sets"
   },
   {
@@ -2060,7 +2060,7 @@
     "Subtitle": "",
     "Example": "Differentiate the following w.r.t. $x$.\n(i) $\\cos ^{-1}(\\sin x)$\n(ii) $\\displaystyle \\tan ^{-1}\\left(\\frac{\\sin x}{1+\\cos x}\\right)$\n(iii) $\\displaystyle \\sin ^{-1}\\left(\\frac{2^{x+1}}{1+4^x}\\right)$",
     "Solution": "(i) Let $f(x)=\\cos ^{-1}(\\sin x)$. Observe that this function is defined for all real numbers. We may rewrite this function as\n$$\\displaystyle\n\\begin{aligned}\nf(x) & =\\cos ^{-1}(\\sin x) \\\\\n& =\\cos ^{-1}\\left[\\cos \\left(\\frac{\\pi}{2}-x\\right)\\right] \\\\\n& =\\frac{\\pi}{2}-x\n\\end{aligned}\n$$\nThus\n$$\\displaystyle\nf^{\\prime}(x)=-1 \\text {. }\n$$\n(ii) Let $\\displaystyle f(x)=\\tan ^{-1}\\left(\\frac{\\sin x}{1+\\cos x}\\right)$. Observe that this function is defined for all real numbers, where $\\cos x\\neq-1$; i.e., at all odd multiplies of $\\pi$. We may rewrite this function as\n$$\\displaystyle\n\\begin{aligned}\nf(x) & =\\tan ^{-1}\\left(\\frac{\\sin x}{1+\\cos x}\\right) \\\\\n& =\\tan ^{-1}\\left[\\frac{2 \\sin \\left(\\frac{x}{2}\\right) \\cos \\left(\\frac{x}{2}\\right)}{2 \\cos ^2 \\frac{x}{2}}\\right]\n\\end{aligned}\n$$\n$$\\displaystyle\n=\\tan ^{-1}\\left[\\tan \\left(\\frac{x}{2}\\right)\\right]=\\frac{x}{2}\n$$\nObserve that we could cancel $\\cos \\left(\\frac{x}{2}\\right)$ in both numerator and denominator as it is not equal to zero. Thus $f^{\\prime}(x)=\\frac{1}{2}$.\n(iii) Let $\\displaystyle f(x)=\\sin ^{-1}\\left(\\frac{2^{x+1}}{1+4^x}\\right)$. To find the domain of this function we need to find all $x$ such that $-1 \\leq \\frac{2^{x+1}}{1+4^x} \\leq 1$. Since the quantity in the middle is always positive, we need to find all $x$ such that $\\frac{2^{x+1}}{1+4^x} \\leq 1$, i.e., all $x$ such that $2^{x+1} \\leq 1+4^x$. We may rewrite this as $2 \\leq \\frac{1}{2^x}+2^x$ which is true for all $x$. Hence the function is defined at every real number. By putting $2^x=\\tan \\theta$, this function may be rewritten as\n$$\\displaystyle\n\\begin{aligned}\nf(x) & =\\sin ^{-1}\\left[\\frac{2^{x+1}}{1+4^x}\\right] \\\\\n& =\\sin ^{-1}\\left[\\frac{2^x \\cdot 2}{1+\\left(2^x\\right)^2}\\right] \\\\\n& =\\sin ^{-1}\\left[\\frac{2 \\tan \\theta}{1+\\tan ^2 \\theta}\\right] \\\\\n& =\\sin ^{-1}[\\sin 2 \\theta] \\\\\n& =2 \\theta=2 \\tan { }^{-1}\\left(2^x\\right) \\\\\nf^{\\prime}(x) & =2 \\cdot \\frac{1}{1+\\left(2^x\\right)^2} \\cdot \\frac{d}{d x}\\left(2^x\\right) \\\\\n& =\\frac{2}{1+4^x} \\cdot\\left(2^x\\right) \\log 2 \\\\\n& =\\frac{2^{x+1} \\log 2}{1+4^x}\n\\end{aligned}\n$$\nThus\n$$\\displaystyle\n\\begin{aligned}\nf^{\\prime}(x) & =2 \\cdot \\frac{1}{1+\\left(2^x\\right)^2} \\cdot \\frac{d}{d x}\\left(2^x\\right) \\\\\n& =\\frac{2}{1+4^x} \\cdot\\left(2^x\\right) \\log 2 \\\\\n& =\\frac{2^{x+1} \\log 2}{1+4^x}\n\\end{aligned}\n$$",
-    "Final_answer": "(i) $f^{\\prime}(x)=-1$ (ii) $f^{\\prime}(x)=\\frac{1}{2}$ (iii) \\frac{2^{x+1} \\log 2}{1+4^x}",
+    "Final_answer": "(i) $f^{\\prime}(x)=-1$ (ii) $f^{\\prime}(x)=\\frac{1}{2}$ (iii) $\\frac{2^{x+1} \\log 2}{1+4^x}$",
     "chapter": "Continuity and Differentiability"
   },
   {
@@ -2076,7 +2076,7 @@
     "Subtitle": "",
     "Example": "For a positive constant $a$ find $\\frac{d y}{d x}$, where\n$$\\displaystyle\ny=a^{i+\\frac{1}{t}} \\text {, and } x=\\left(t+\\frac{1}{t}\\right)^a\n$$",
     "Solution": "Observe that both $y$ and $x$ are defined for all real $t\\neq 0$. Clearly\n$$\\displaystyle\n\\begin{aligned}\n\\frac{d y}{d t}=\\frac{d}{d t}\\left(a+\\frac{1}{t}\\right) & =a^{t+\\frac{1}{t}} \\frac{d}{d t}\\left(t+\\frac{1}{t}\\right) \\cdot \\log a \\\\\n& =a^{t+\\frac{1}{t}}\\left(1-\\frac{1}{t^2}\\right) \\log a \\\\\n\\frac{d x}{d t} & =a\\left[t+\\frac{1}{t}\\right]^{d-1} \\cdot \\frac{d}{d t}\\left(t+\\frac{1}{t}\\right) \\\\\n& =a\\left[t+\\frac{1}{t}\\right]^{-1} \\cdot\\left(1-\\frac{1}{t^2}\\right)\n\\end{aligned}\n$$\nSimilarly\n$\\frac{d x}{d t}\\neq 0$ only if $t\\neq \\pm 1$. Thus for $t\\neq \\pm 1$,\n$$\\displaystyle\n\\begin{aligned}\n\\frac{d y}{d x}=\\frac{\\frac{d y}{d t}}{\\frac{d x}{d t}} & =\\frac{a^{t+\\frac{1}{t}}\\left(1-\\frac{1}{t^2}\\right) \\log a}{a\\left[t+\\frac{1}{t}\\right]^{a-1} \\cdot\\left(1-\\frac{1}{t^2}\\right)} \\\\\n& =\\frac{a^{t+\\frac{1}{t}} \\log a}{a\\left(t+\\frac{1}{t}\\right)^{a-1}}\n\\end{aligned}\n$$",
-    "Final_answer": "\\frac{a^{t+\\frac{1}{t}} \\log a}{a\\left(t+\\frac{1}{t}\\right)^{a-1}}",
+    "Final_answer": "$\\frac{a^{t+\\frac{1}{t}} \\log a}{a\\left(t+\\frac{1}{t}\\right)^{a-1}}$",
     "chapter": "Continuity and Differentiability"
   },
   {
@@ -2260,7 +2260,7 @@
     "Subtitle": "",
     "Example": "The volume of a cube is increasing at a rate of 9 cubic centimetres per second. How fast is the surface area increasing when the length of an edge is 10 centimetres?",
     "Solution": "Let $x$ be the length of a side, ${V}$ be the volume and ${S}$ be the surface area of the cube. Then, ${V}=x^{3}$ and ${S}=6 x^{2}$, where $x$ is a function of time $t$.\nNow\nTherefore\n$$\\displaystyle\n\\frac{d {~V}}{d t}=9 {~cm}^{3} / {s} \\text { (Given) }\n$$\n$$\\displaystyle\n9=\\frac{d {~V}}{d t}=\\frac{d}{d t}\\left(x^{3}\\right)=\\frac{d}{d x}\\left(x^{3}\\right) \\cdot \\frac{d x}{d t} \\quad(\\text { By Chain Rule })\n$$\n$$\\displaystyle\n=3 x^{2} \\cdot \\frac{d x}{d t}\n$$\nor\n$$\\displaystyle\n\\frac{d x}{d t}=\\frac{3}{x^{2}}\n$$\nNow\n$$\\displaystyle\n\\begin{aligned}\n\\frac{d S}{d t} & =\\frac{d}{d t}\\left(6 x^{2}\\right)=\\frac{d}{d x}\\left(6 x^{2}\\right) \\cdot \\frac{d x}{d t} \\\\\n& =12 x \\cdot\\left(\\frac{3}{x^{2}}\\right)=\\frac{36}{x}\n\\end{aligned}\n$$\nHence, when\n$$\\displaystyle\nx=10 {~cm}, \\frac{d S}{d t}=3.6 {~cm}^{2} / {s}\n$$",
-    "Final_answer": "x=10 {~cm}, \\frac{d S}{d t}=3.6 {~cm}^{2} / {s}",
+    "Final_answer": "$x=10 {~cm}, \\frac{d S}{d t}=3.6 {~cm}^{2} / {s}$",
     "chapter": "Application of Derivatives"
   },
   {
@@ -2338,9 +2338,9 @@
   {
     "Title": "Application of Derivatives",
     "Subtitle": "",
-    "Example": "Find all the points of local maxima and local minima of the function $f$ given by",
-    "Solution": "We have\n$$\\displaystyle\nf(x)=2 x^{3}-6 x^{2}+6 x+5 .\n$$\n$$\\displaystyle\n\\begin{aligned}\n& f(x)=2 x^{3}-6 x^{2}+6 x+5 \\\\\n\\text { or } & f^{\\prime}(x)=6 x^{2}-12 x+6=6(x-1)^{2} \\\\\n\\text { or } & f^{\\prime}(x)=0 \\text { at } x=1\n\\end{aligned}\n$$\nThus, $x=1$ is the only critical point of $f$. We shall now examine this point for local maxima and/or local minima of $f$. Observe that $f^{\\prime}(x) \\geq 0$, for all $x \\in \\mathbf{R}$ and in particular $f^{\\prime}(x)>0$, for values close to 1 and to the left and to the right of 1 . Therefore, by first derivative test, the point $x=1$ is neither a point of local maxima nor a point of local minima. Hence $x=1$ is a point of inflexion.\nRemark One may note that since $f^{\\prime}(x)$, in Example 30, never changes its sign on $\\mathbf{R}$, graph of $f$ has no turning points and hence no point of local maxima or local minima.\nWe shall now give another test to examine local maxima and local minima of a given function. This test is often easier to apply than the first derivative test.",
-    "Final_answer": "by first derivative test, the point $x=1$ is neither a point of local maxima nor a point of local minima. Hence $x=1$ is a point of inflexion.\nRemark One may note that since $f^{\\prime}(x)$, in Example 30, never changes its sign on $\\mathbf{R}$, graph of $f$ has no turning points and hence no point of local maxima or local minima.\nWe shall now give another test to examine local maxima and local minima of a given function. This test is often easier to apply than the first derivative test.",
+    "Example": "Find all the points of local maxima and local minima of the function $f$ given by $f(x)=2 x^{3}-6 x^{2}+6 x+5$.",
+    "Solution": "We have\n$$\\displaystyle\nf(x)=2 x^{3}-6 x^{2}+6 x+5 .\n$$\n$$\\displaystyle\n\\begin{aligned}\n& f(x)=2 x^{3}-6 x^{2}+6 x+5 \\\\\n\\text { or } & f^{\\prime}(x)=6 x^{2}-12 x+6=6(x-1)^{2} \\\\\n\\text { or } & f^{\\prime}(x)=0 \\text { at } x=1\n\\end{aligned}\n$$\nThus, $x=1$ is the only critical point of $f$. We shall now examine this point for local maxima and/or local minima of $f$. Observe that $f^{\\prime}(x) \\geq 0$, for all $x \\in \\mathbf{R}$ and in particular $f^{\\prime}(x)>0$, for values close to 1 and to the left and to the right of 1 . Therefore, by first derivative test, the point $x=1$ is neither a point of local maxima nor a point of local minima. Hence $x=1$ is a point of inflexion.\nSince $f^{\\prime}(x)$ never changes its sign on $\\mathbf{R}$, the graph of $f$ has no turning points, so $f$ has no point of local maxima or local minima.",
+    "Final_answer": "$f$ has no point of local maxima or local minima: its only critical point, $x=1$, is a point of inflexion.",
     "chapter": "Application of Derivatives"
   },
   {
@@ -2372,7 +2372,7 @@
     "Subtitle": "",
     "Example": "Find the shortest distance of the point $(0, c)$ from the parabola $y=x^{2}$, where $\\frac{1}{2} \\leq c \\leq 5$.",
     "Solution": "Let $(h, k)$ be any point on the parabola $y=x^{2}$. Let D be the required distance between $(h, k)$ and $(0, c)$. Then\n$$\\displaystyle\n{D}=\\sqrt{(h-0)^{2}+(k-c)^{2}}=\\sqrt{h^{2}+(k-c)^{2}}\n$$\nSince $(h, k)$ lies on the parabola $y=x^{2}$, we have $k=h^{2}$. So (1) gives\nor\n$$\\displaystyle\n{D} \\equiv {D}(k)=\\sqrt{k+(k-c)^{2}}\n$$\n$\\displaystyle {D}^{\\prime}(k)=\\frac{1+2(k-c)}{2 \\sqrt{k+(k-c)^{2}}}$\nNow\n$$\\displaystyle\n{D}^{\\prime}(k)=0 \\text { gives } k=\\frac{2 c-1}{2}\n$$\nObserve that when $k<\\frac{2 c-1}{2}$, then $2(k-c)+1<0$, i.e., ${D}^{\\prime}(k)<0$. Also when $k>\\frac{2 c-1}{2}$, then ${D}^{\\prime}(k)>0$. So, by first derivative test, ${D}(k)$ is minimum at $k=\\frac{2 c-1}{2}$. Hence, the required shortest distance is given by\n$$\\displaystyle\n{D}\\left(\\frac{2 c-1}{2}\\right)=\\sqrt{\\frac{2 c-1}{2}+\\left(\\frac{2 c-1}{2}-c\\right)^{2}}=\\frac{\\sqrt{4 c-1}}{2}\n$$",
-    "Final_answer": "The required shortest distance is given by\n$$\n{D}\\left(\\frac{2 c-1}{2}\\right)=\\sqrt{\\frac{2 c-1}{2}+\\left(\\frac{2 c-1}{2}-c\\right)^{2}}=\\frac{\\sqrt{4 c-1}}{2}",
+    "Final_answer": "The required shortest distance is given by\n$$\n{D}\\left(\\frac{2 c-1}{2}\\right)=\\sqrt{\\frac{2 c-1}{2}+\\left(\\frac{2 c-1}{2}-c\\right)^{2}}=\\frac{\\sqrt{4 c-1}}{2}$$",
     "chapter": "Application of Derivatives"
   },
   {
@@ -2428,7 +2428,7 @@
     "Subtitle": "",
     "Example": "An open topped box is to be constructed by removing equal squares from each corner of a 3 metre by 8 metre rectangular sheet of aluminium and folding up the sides. Find the volume of the largest such box.",
     "Solution": "Let $x$ metre be the length of a side of the removed squares. Then, the height of the box is $x$, length is $8-2 x$ and breadth is $3-2 x$ (Fig 6.23). If ${V}(x)$ is the volume of the box, then\n(a)\n(b)\nFig 6.23\n$$\\displaystyle\n\\begin{aligned}\n{V}(x) & =x(3-2 x)(8-2 x) \\\\\n& =4 x^3-22 x^2+24 x\n\\end{aligned}\n$$\nTherefore\n$$\\displaystyle\n\\left\\{\\begin{array}{l}\n{V}^{\\prime}(x)=12 x^2-44 x+24=4(x-3)(3 x-2) \\\\\n{V}^{\\prime \\prime}(x)=24 x-44\n\\end{array}\\right.\n$$\nNow\n$$\\displaystyle\n{V}^{\\prime}(x)=0 \\text { gives } x=3, \\frac{2}{3} \\text {. But } x\\neq 3 \\text { (Why?) }\n$$\nThus, we have $x=\\frac{2}{3}$. Now $\\displaystyle V^{\\prime \\prime}\\left(\\frac{2}{3}\\right)=24\\left(\\frac{2}{3}\\right)-44=-28<0$.\nTherefore, $x=\\frac{2}{3}$ is the point of maxima, i.e., if we remove a square of side $\\frac{2}{3}$ metre from each corner of the sheet and make a box from the remaining sheet, then the volume of the box such obtained will be the largest and it is given by\n$$\\displaystyle\n\\begin{aligned}\n{V}\\left(\\frac{2}{3}\\right) & =4\\left(\\frac{2}{3}\\right)^3-22\\left(\\frac{2}{3}\\right)^2+24\\left(\\frac{2}{3}\\right) \\\\\n& =\\frac{200}{27} {~m}^3\n\\end{aligned}\n$$",
-    "Final_answer": "\\frac{200}{27} {~m}^3",
+    "Final_answer": "$\\frac{200}{27} {~m}^3$",
     "chapter": "Application of Derivatives"
   },
   {
@@ -2515,8 +2515,8 @@
     "Title": "Matrices",
     "Subtitle": "",
     "Example": "Two farmers Ramkishan and Gurcharan Singh cultivates only three varieties of rice namely Basmati, Permal and Naura. The sale (in Rupees) of these varieties of rice by both the farmers in the month of September and October are given by the following matrices ${A}$ and ${B}$.\n$$\\displaystyle\n\\begin{gathered}\n\\text { September Sales (in Rupees) } \\\\\n{A}=\\left[\\begin{array}{ccc}\n\\text { Basmati } & \\text { Permal } & \\text { Naura } \\\\\n10,000 & 20,000 & 30,000 \\\\\n50,000 & 30,000 & 10,000\n\\end{array}\\right] \\text { Ramkishan } \\\\\n\\text { Gurcharan Singh } \\\\\n\\text { October Sales (in Rupees) } \\\\\n{B}=\\left[\\begin{array}{ccc}\n\\text { Basmati } & \\text { Permal } & \\text { Naura } \\\\\n5000 & 10,000 & 6000 \\\\\n20,000 & 10,000 & 10,000\n\\end{array}\\right] \\text { Ramkishan } \\text { Gurcharan Singh }\n\\end{gathered}\n$$\n(i) Find the combined sales in September and October for each farmer in each variety.\n(ii) Find the decrease in sales from September to October.\n(iii) If both farmers receive $2 \\%$ profit on gross sales, compute the profit for each farmer and for each variety sold in October.",
-    "Solution": "(i) Combined sales in September and October for each farmer in each variety is given by\n\n\\includegraphics[max width=\\textwidth]{2023_09_18_e86d7ec88ca930f59221g-09}\n\n(ii) Change in sales from September to October is given by\n$$\\displaystyle\n{A}-{B}=\\left[\\begin{array}{ccc}\n\\text { Basmati } & \\text { Permal } & \\text { Naura } \\\\\n5000 & 10,000 & 24,000 \\\\\n30,000 & 20,000 & 0\n\\end{array}\\right] \\begin{aligned}\n& \\text { Ramkishan } \\\\\n& \\text { Gurcharan Singh }\n\\end{aligned}\n$$\n(iii) $2 \\%$ of $\\displaystyle {B}=\\frac{2}{100} \\times {B}=0.02 \\times {B}$\n$$\\displaystyle\n\\begin{aligned}\n& =0.02\\left[\\begin{array}{ccc}\n5000 & 10,000 & 6000 \\\\\n20,000 & 10,000 & 10,000\n\\end{array}\\right] \\text { Ramkishan } \\\\\n& \\text { Gurcharan Singh } \\\\\n& =\\left[\\begin{array}{ccc}\n\\text { Basmati } & \\text { Permal } & \\text { Naura } \\\\\n400 & 200 & 120 \\\\\n400 & 200 & 200\n\\end{array}\\right] \\text { Ramkishan } \\\\\n& \\text { Gurcharan Singh }\n\\end{aligned}\n$$\nThus, in October Ramkishan receives â‚¹ 100, â‚¹ 200 and $â‚¹ 120$ as profit in the sale of each variety of rice, respectively, and Grucharan Singh receives profit of â‚¹ 400, $â‚¹ 200$ and â‚¹ 200 in the sale of each variety of rice, respectively.",
-    "Final_answer": "₹120 , ₹200",
+    "Solution": "(i) Combined sales in September and October for each farmer in each variety is given by\n\n$${A}+{B}=\\left[\\begin{array}{ccc}\n\\text { Basmati } & \\text { Permal } & \\text { Naura } \\\\\n15,000 & 30,000 & 36,000 \\\\\n70,000 & 40,000 & 20,000\n\\end{array}\\right] \\begin{aligned}\n& \\text { Ramkishan } \\\\\n& \\text { Gurcharan Singh }\n\\end{aligned}$$\n\n(ii) Change in sales from September to October is given by\n$$\\displaystyle\n{A}-{B}=\\left[\\begin{array}{ccc}\n\\text { Basmati } & \\text { Permal } & \\text { Naura } \\\\\n5000 & 10,000 & 24,000 \\\\\n30,000 & 20,000 & 0\n\\end{array}\\right] \\begin{aligned}\n& \\text { Ramkishan } \\\\\n& \\text { Gurcharan Singh }\n\\end{aligned}\n$$\n(iii) $2 \\%$ of $\\displaystyle {B}=\\frac{2}{100} \\times {B}=0.02 \\times {B}$\n$$\\displaystyle\n\\begin{aligned}\n& =0.02\\left[\\begin{array}{ccc}\n5000 & 10,000 & 6000 \\\\\n20,000 & 10,000 & 10,000\n\\end{array}\\right] \\text { Ramkishan } \\\\\n& \\text { Gurcharan Singh } \\\\\n& =\\left[\\begin{array}{ccc}\n\\text { Basmati } & \\text { Permal } & \\text { Naura } \\\\\n100 & 200 & 120 \\\\\n400 & 200 & 200\n\\end{array}\\right] \\text { Ramkishan } \\\\\n& \\text { Gurcharan Singh }\n\\end{aligned}\n$$\nThus, in October Ramkishan receives ₹ 100, ₹ 200 and ₹120 as profit in the sale of each variety of rice, respectively, and Grucharan Singh receives profit of ₹ 400, ₹200 and ₹ 200 in the sale of each variety of rice, respectively.",
+    "Final_answer": "Profit in October: Ramkishan ₹100, ₹200 and ₹120; Gurcharan Singh ₹400, ₹200 and ₹200 (Basmati, Permal and Naura respectively).",
     "chapter": "Matrices"
   },
   {
@@ -2579,7 +2579,7 @@
     "Title": "Matrices",
     "Subtitle": "",
     "Example": "In a legislative assembly election, a political group hired a public relations firm to promote its candidate in three ways: telephone, house calls, and letters. The cost per contact (in paise) is given in matrix ${A}$ as\n$$\\displaystyle\n{A}=\\left[\\begin{array}{c}\n\\text { Cost per contact } \\\\\n40 \\\\\n100 \\\\\n50\n\\end{array}\\right] \\text { Telephone }\n$$\nThe number of contacts of each type made in two cities ${X}$ and ${Y}$ is given by Telephone Housecall Letter $\\displaystyle {B}=\\left[\\begin{array}{rrr}1000 & 500 & 5000 \\\\ 3000 & 1000 & 10,000\\end{array}\\right] \\rightarrow {X}$. Find the total amount spent by the group in the two cities ${X}$ and ${Y}$.",
-    "Solution": "We have\n$$\\displaystyle\n\\begin{aligned}\n& {BA}=\\left[\\begin{array}{c}\n40,000+50,000+250,000 \\\\\n120,000+100,000+500,000\n\\end{array}\\right] \\rightarrow {X} \\\\\n&=\\left[\\begin{array}{c}\n340,000 \\\\\n720,000\n\\end{array}\\right] \\rightarrow {X} \\\\\n& \\rightarrow {Y}\n\\end{aligned}\n$$\nSo the total amount spent by the group in the two cities is 340,000 paise and 720,000 paise, i.e., $â‚¹ 3400$ and $â‚¹ 7200$, respectively.",
+    "Solution": "We have\n$$\\displaystyle\n\\begin{aligned}\n& {BA}=\\left[\\begin{array}{c}\n40,000+50,000+250,000 \\\\\n120,000+100,000+500,000\n\\end{array}\\right] \\rightarrow {X} \\\\\n&=\\left[\\begin{array}{c}\n340,000 \\\\\n720,000\n\\end{array}\\right] \\rightarrow {X} \\\\\n& \\rightarrow {Y}\n\\end{aligned}\n$$\nSo the total amount spent by the group in the two cities is 340,000 paise and 720,000 paise, i.e., ₹3400 and ₹7200, respectively.",
     "Final_answer": "₹3400 and ₹7200, respectively",
     "chapter": "Matrices"
   },
@@ -2594,31 +2594,31 @@
   {
     "Title": "Linear Programming",
     "Subtitle": "",
-    "Example": "Solve the following linear programming problem graphically:",
-    "Solution": "The shaded region in Fig 12.3 is the feasible region ABC determined by the system of constraints (2) to (4), which is bounded. The coordinates of corner points A, B, C are (0, 5), (4, 3), and (0, 6), respectively. Now we evaluate Z = 200x + 500y at these points.\nHence, the minimum value of Z is 2300 attained at the point (4, 3).",
+    "Example": "Solve the following linear programming problem graphically:\nMinimise $Z = 200x + 500y \\quad (1)$\nsubject to the constraints:\n$x + 2y \\geq 10 \\quad (2)$\n$3x + 4y \\leq 24 \\quad (3)$\n$x \\geq 0,\\ y \\geq 0 \\quad (4)$",
+    "Solution": "The feasible region is ABC, determined by the system of constraints (2) to (4), which is bounded. The coordinates of corner points A, B, C are (0, 5), (4, 3), and (0, 6), respectively. Now we evaluate $Z = 200x + 500y$ at these points: Z = 2500 at A(0, 5), Z = 2300 at B(4, 3) and Z = 3000 at C(0, 6).\nHence, the minimum value of Z is 2300 attained at the point (4, 3).",
     "Final_answer": "Minimum value of Z: 2300",
     "chapter": "Linear Programming"
   },
   {
     "Title": "Linear Programming",
     "Subtitle": "",
-    "Example": "Solve the following problem graphically:",
-    "Solution": "First of all, let us graph the feasible region of the system of linear inequalities (2) to (5). The feasible region ABCD is shown in Fig 12.4. Note that the region is bounded. The coordinates of the corner points A, B, C, and D are (0, 10), (5, 5), (15, 15), and (0, 20), respectively.\nFrom the table, we find that the minimum value of Z is 60 at the point B(5,5) of the feasible region.\nThe maximum value of Z on the feasible region occurs at the two corner points C(15,15) and D(0,20), and it is 180 in each case.",
+    "Example": "Solve the following problem graphically:\nMinimise and Maximise $Z = 3x + 9y \\quad (1)$\nsubject to the constraints:\n$x + 3y \\leq 60 \\quad (2)$\n$x + y \\geq 10 \\quad (3)$\n$x \\leq y \\quad (4)$\n$x \\geq 0,\\ y \\geq 0 \\quad (5)$",
+    "Solution": "First of all, let us graph the feasible region of the system of linear inequalities (2) to (5). The feasible region ABCD is bounded. The coordinates of the corner points A, B, C, and D are (0, 10), (5, 5), (15, 15), and (0, 20), respectively.\nEvaluating $Z = 3x + 9y$ at the corner points gives Z = 90 at A(0, 10), Z = 60 at B(5, 5), Z = 180 at C(15, 15) and Z = 180 at D(0, 20).\nSo the minimum value of Z is 60 at the point B(5,5) of the feasible region.\nThe maximum value of Z on the feasible region occurs at the two corner points C(15,15) and D(0,20), and it is 180 in each case.",
     "Final_answer": "Minimum value of Z: 60, Maximum value of Z: 180",
     "chapter": "Linear Programming"
   },
   {
     "Title": "Linear Programming",
     "Subtitle": "",
-    "Example": "Determine graphically the minimum value of the objective function:",
-    "Solution": "First of all, let us graph the feasible region of the system of inequalities (2) to (5). The feasible region is shown in Fig 12.5. Observe that the feasible region is unbounded. We evaluate Z at the corner points and find that -300 is the smallest value of Z at the corner point (6,0).\nHowever, since the feasible region is unbounded, -300 may or may not be the minimum value of Z. To decide this, we graph the inequality -50x + 20y < -300. The resulting open half-plane has common points with the feasible region. Therefore, Z = -50x + 20y has no minimum value subject to the given constraints.",
+    "Example": "Determine graphically the minimum value of the objective function\n$Z = -50x + 20y \\quad (1)$\nsubject to the constraints:\n$2x - y \\geq -5 \\quad (2)$\n$3x + y \\geq 3 \\quad (3)$\n$2x - 3y \\leq 12 \\quad (4)$\n$x \\geq 0,\\ y \\geq 0 \\quad (5)$",
+    "Solution": "First of all, let us graph the feasible region of the system of inequalities (2) to (5). Observe that the feasible region is unbounded. Evaluating Z at the corner points gives Z = 100 at (0, 5), Z = 60 at (0, 3), Z = -50 at (1, 0) and Z = -300 at (6, 0), so -300 is the smallest value of Z at a corner point.\nHowever, since the feasible region is unbounded, -300 may or may not be the minimum value of Z. To decide this, we graph the inequality -50x + 20y < -300. The resulting open half-plane has common points with the feasible region. Therefore, Z = -50x + 20y has no minimum value subject to the given constraints.",
     "Final_answer": "Z has no minimum value",
     "chapter": "Linear Programming"
   },
   {
     "Title": "Linear Programming",
     "Subtitle": "",
-    "Example": "Minimize Z = 3x + 2y",
+    "Example": "Minimise $Z = 3x + 2y$\nsubject to the constraints:\n$x + y \\geq 8 \\quad (1)$\n$3x + 5y \\leq 15 \\quad (2)$\n$x \\geq 0,\\ y \\geq 0 \\quad (3)$",
     "Solution": "Let us graph the inequalities (1) to (3). From the graph, we observe that there is no feasible region satisfying all the constraints simultaneously. Therefore, the problem has no feasible solution.",
     "Final_answer": "No feasible solution",
     "chapter": "Linear Programming"
@@ -2635,8 +2635,8 @@
     "Title": "Probability",
     "Subtitle": "Conditional Probability",
     "Example": "A family has two children. What is the probability that both children are boys given that at least one of them is a boy?",
-    "Solution": "Let $b$ stand for boy and $g$ for girl. The sample space of the experiment is $S = \\\\{(b, b), (g, b), (b, g), (g, g)\\\\}$.\nLet $E$ and $F$ denote the following events:\n$E$: 'both children are boys'\n$F$: 'at least one of the children is a boy'\nThen, $E = \\\\{(b, b)\\\\}$ and $F = \\\\{(b, b), (g, b), (b, g)\\\\}$.\nNow, $E \\\\cap F = \\\\{(b, b)\\\\}$.\nThus, $P(F) = \\\\frac{3}{4}$ and $P(E \\\\cap F) = \\\\frac{1}{4}$.\nTherefore, $\\displaystyle P(E | F) = \\\\frac{P(E \\\\cap F)}{P(F)} = \\\\frac{\\\\frac{1}{4}}{\\\\frac{3}{4}} = \\\\frac{1}{3}$.",
-    "Final_answer": "The probability that both children are boys given that at least one of them is a boy is $\\\\frac{1}{3}$.",
+    "Solution": "Let $b$ stand for boy and $g$ for girl. The sample space of the experiment is $S = \\\\{(b, b), (g, b), (b, g), (g, g)\\\\}$.\nLet $E$ and $F$ denote the following events:\n$E$: 'both children are boys'\n$F$: 'at least one of the children is a boy'\nThen, $E = \\\\{(b, b)\\\\}$ and $F = \\\\{(b, b), (g, b), (b, g)\\\\}$.\nNow, $E \\cap F = \\\\{(b, b)\\\\}$.\nThus, $P(F) = \\frac{3}{4}$ and $P(E \\cap F) = \\frac{1}{4}$.\nTherefore, $\\displaystyle P(E | F) = \\frac{P(E \\cap F)}{P(F)} = \\frac{\\frac{1}{4}}{\\frac{3}{4}} = \\frac{1}{3}$.",
+    "Final_answer": "The probability that both children are boys given that at least one of them is a boy is $\\frac{1}{3}$.",
     "chapter": "Probability"
   },
   {
@@ -2651,7 +2651,7 @@
     "Title": "Probability",
     "Subtitle": "Conditional Probability",
     "Example": "In a school, there are 1000 students, out of which 430 are girls. It is known that out of 430, 10% of the girls study in class XII. What is the probability that a student chosen randomly studies in Class XII given that the chosen student is a girl?",
-    "Solution": "Let E denote the event that a student chosen randomly studies in Class XII and F be the event that the randomly chosen student is a girl. We have to find P(E | F). Now,\nP(F) = \\frac{430}{1000} = 0.43 and P(E \\cap F) = \\frac{43}{1000} = 0.043 (Why?)\nThen,\nP(E | F) = \\frac{P(E \\cap F)}{P(F)} = \\frac{0.043}{0.43} = 0.1",
+    "Solution": "Let E denote the event that a student chosen randomly studies in Class XII and F be the event that the randomly chosen student is a girl. We have to find P(E | F). Now,\n$P(F) = \\frac{430}{1000} = 0.43$ and $P(E \\cap F) = \\frac{43}{1000} = 0.043$ (Why?)\nThen,\n$P(E | F) = \\frac{P(E \\cap F)}{P(F)} = \\frac{0.043}{0.43} = 0.1$",
     "Final_answer": "The probability that a student chosen randomly studies in Class XII, given that the chosen student is a girl, is 0.1.",
     "chapter": "Probability"
   },
@@ -2659,39 +2659,39 @@
     "Title": "Probability",
     "Subtitle": "Conditional Probability",
     "Example": "A die is thrown three times. Events A and B are defined as below:\nA: 4 on the third throw\nB: 6 on the first and 5 on the second throw\nFind the probability of A given that B has already occurred.",
-    "Solution": "The sample space has 216 outcomes.\nNow,\nA: {(6, 5, 4)}\nB: {(6, 5, 1), (6, 5, 2), (6, 5, 3), (6, 5, 4), (6, 5, 5), (6, 5, 6)}\nA ∩ B: {(6, 5, 4)}\nNow,\nP(B) = \\frac{6}{216} and P(A ∩ B) = \\frac{1}{216}\nThen,\nP(A | B) = \\frac{P(A ∩ B)}{P(B)} = \\frac{\\frac{1}{216}}{\\frac{6}{216}} = \\frac{1}{6}",
-    "Final_answer": "The conditional probability of event A, given that event B has already occurred, is \\frac{1}{6}.",
+    "Solution": "The sample space has 216 outcomes.\nNow,\nA: {(6, 5, 4)}\nB: {(6, 5, 1), (6, 5, 2), (6, 5, 3), (6, 5, 4), (6, 5, 5), (6, 5, 6)}\nA ∩ B: {(6, 5, 4)}\nNow,\n$P(B) = \\frac{6}{216}$ and $P(A \\cap  B) = \\frac{1}{216}$\nThen,\n$P(A | B) = \\frac{P(A \\cap  B)}{P(B)} = \\frac{\\frac{1}{216}}{\\frac{6}{216}} = \\frac{1}{6}$",
+    "Final_answer": "The conditional probability of event A, given that event B has already occurred, is $\\frac{1}{6}$.",
     "chapter": "Probability"
   },
   {
     "Title": "Probability",
     "Subtitle": "Conditional Probability",
     "Example": "A die is thrown twice, and the sum of the numbers appearing is observed to be 6. What is the conditional probability that the number 4 has appeared at least once?",
-    "Solution": "Let E be the event that 'number 4 appears at least once' and F be the event that 'the sum of the numbers appearing is 6'.\nThen,\nE: {(4,1),(4,2),(4,3),(4,4),(4,5),(4,6),(1,4),(2,4),(3,4),(5,4),(6,4)}\nF: {(1,5),(2,4),(3,3),(4,2),(5,1)}\nWe have\nP(E) = \\frac{11}{36} and P(F) = \\frac{5}{36}\nAlso,\nE ∩ F: {(2,4),(4,2)}\nTherefore,\nP(E ∩ F) = \\frac{2}{36}\nHence, the required probability\nP(E | F) = \\frac{P(E ∩ F)}{P(F)} = \\frac{\\frac{2}{36}}{\\frac{5}{36}} = \\frac{2}{5}",
-    "Final_answer": "The conditional probability that the number 4 has appeared at least once, given that the sum of the numbers appearing is 6, is \\frac{2}{5}.",
+    "Solution": "Let E be the event that 'number 4 appears at least once' and F be the event that 'the sum of the numbers appearing is 6'.\nThen,\nE: {(4,1),(4,2),(4,3),(4,4),(4,5),(4,6),(1,4),(2,4),(3,4),(5,4),(6,4)}\nF: {(1,5),(2,4),(3,3),(4,2),(5,1)}\nWe have\n$P(E) = \\frac{11}{36}$ and $P(F) = \\frac{5}{36}$\nAlso,\nE ∩ F: {(2,4),(4,2)}\nTherefore,\n$P(E \\cap  F) = \\frac{2}{36}$\nHence, the required probability\n$P(E | F) = \\frac{P(E \\cap  F)}{P(F)} = \\frac{\\frac{2}{36}}{\\frac{5}{36}} = \\frac{2}{5}$",
+    "Final_answer": "The conditional probability that the number 4 has appeared at least once, given that the sum of the numbers appearing is 6, is $\\frac{2}{5}$.",
     "chapter": "Probability"
   },
   {
     "Title": "Probability",
     "Subtitle": "Conditional Probability",
     "Example": "Consider the experiment of tossing a coin. If the coin shows head, toss it again but if it shows tail, then throw a die. Find the conditional probability of the event that 'the die shows a number greater than 4' given that 'there is at least one tail'.",
-    "Solution": "The outcomes of the experiment can be represented in the following diagrammatic manner called the 'tree diagram'.\nThe sample space of the experiment may be described as shown in Fig 13.1.\nS: {(H, H), (H, T), (T, 1), (T, 2), (T, 3), (T, 4), (T, 5), (T, 6)}\nwhere (H, H) denotes that both the tosses result in a head and (T, i) denotes the first toss resulting in a tail and the number i appeared on the die for i = 1, 2, 3, 4, 5, 6. The probabilities assigned to the 8 elementary events are clear from Fig 13.2.\nLet F be the event that 'there is at least one tail' and E be the event 'the die shows a number greater than 4'. Then,\nF: {(H, T), (T, 1), (T, 2), (T, 3), (T, 4), (T, 5), (T, 6)}\nE: {(T, 5), (T, 6)}\nE ∩ F: {(T, 5), (T, 6)}\nNow,\nP(F) = P({(H, T)}) + P({(T, 1)}) + P({(T, 2)}) + P({(T, 3)}) + P({(T, 4)}) + P({(T, 5)}) + P({(T, 6)}) = \\frac{1}{4} + \\frac{1}{12} + \\frac{1}{12} + \\frac{1}{12} + \\frac{1}{12} + \\frac{1}{12} + \\frac{1}{12} = \\frac{3}{4}\nand\nP(E ∩ F) = P({(T, 5)}) + P({(T, 6)}) = \\frac{1}{12} + \\frac{1}{12} = \\frac{1}{6}\nHence, P(E | F) = \\frac{P(E ∩ F)}{P(F)} = \\frac{\\frac{1}{6}}{\\frac{3}{4}} = \\frac{2}{9}",
-    "Final_answer": "The conditional probability of the event that 'the die shows a number greater than 4' given that 'there is at least one tail' is \\frac{2}{9}.",
+    "Solution": "The outcomes of the experiment can be represented in the following diagrammatic manner called the 'tree diagram'.\nThe sample space of the experiment may be described as shown in Fig 13.1.\nS: {(H, H), (H, T), (T, 1), (T, 2), (T, 3), (T, 4), (T, 5), (T, 6)}\nwhere (H, H) denotes that both the tosses result in a head and (T, i) denotes the first toss resulting in a tail and the number i appeared on the die for i = 1, 2, 3, 4, 5, 6. The probabilities assigned to the 8 elementary events are clear from Fig 13.2.\nLet F be the event that 'there is at least one tail' and E be the event 'the die shows a number greater than 4'. Then,\nF: {(H, T), (T, 1), (T, 2), (T, 3), (T, 4), (T, 5), (T, 6)}\nE: {(T, 5), (T, 6)}\nE ∩ F: {(T, 5), (T, 6)}\nNow,\n$P(F) = P(\\{(H, T)\\}) + P(\\{(T, 1)\\}) + P(\\{(T, 2)\\}) + P(\\{(T, 3)\\}) + P(\\{(T, 4)\\}) + P(\\{(T, 5)\\}) + P(\\{(T, 6)\\}) = \\frac{1}{4} + \\frac{1}{12} + \\frac{1}{12} + \\frac{1}{12} + \\frac{1}{12} + \\frac{1}{12} + \\frac{1}{12} = \\frac{3}{4}$\nand\n$P(E \\cap  F) = P(\\{(T, 5)\\}) + P(\\{(T, 6)\\}) = \\frac{1}{12} + \\frac{1}{12} = \\frac{1}{6}$\nHence, $P(E | F) = \\frac{P(E \\cap  F)}{P(F)} = \\frac{\\frac{1}{6}}{\\frac{3}{4}} = \\frac{2}{9}$",
+    "Final_answer": "The conditional probability of the event that 'the die shows a number greater than 4' given that 'there is at least one tail' is $\\frac{2}{9}$.",
     "chapter": "Probability"
   },
   {
     "Title": "Probability",
     "Subtitle": "Independent Events",
     "Example": "Three cards are drawn successively, without replacement from a pack of 52 well-shuffled cards. What is the probability that the first two cards are kings and the third card drawn is an ace?",
-    "Solution": "Let K denote the event that the card drawn is a king, and A be the event that the card drawn is an ace. We have to find P(KKA).\nNow,\nP(K) = \\frac{4}{52}\nAlso, P(K | K) is the probability of the second king with the condition that one king has already been drawn. Now there are three kings in (52-1) = 51 cards.\nTherefore,\nP(K | K) = \\frac{3}{51}\nLastly, P(A | KK) is the probability of the third drawn card to be an ace, with the condition that two kings have already been drawn. Now there are four aces in the remaining 50 cards.\nTherefore,\nP(A | KK) = \\frac{4}{50}\nBy the multiplication law of probability, we have\nP(KKA) = P(K) * P(K | K) * P(A | KK) = \\frac{4}{52} * \\frac{3}{51} * \\frac{4}{50} = \\frac{2}{5525}",
-    "Final_answer": "The probability that the first two cards are kings and the third card drawn is an ace is \\frac{2}{5525}.",
+    "Solution": "Let K denote the event that the card drawn is a king, and A be the event that the card drawn is an ace. We have to find P(KKA).\nNow,\n$P(K) = \\frac{4}{52}$\nAlso, P(K | K) is the probability of the second king with the condition that one king has already been drawn. Now there are three kings in (52-1) = 51 cards.\nTherefore,\n$P(K | K) = \\frac{3}{51}$\nLastly, P(A | KK) is the probability of the third drawn card to be an ace, with the condition that two kings have already been drawn. Now there are four aces in the remaining 50 cards.\nTherefore,\n$P(A | KK) = \\frac{4}{50}$\nBy the multiplication law of probability, we have\n$P(KKA) = P(K) \\times P(K | K) \\times P(A | KK) = \\frac{4}{52} \\times \\frac{3}{51} \\times \\frac{4}{50} = \\frac{2}{5525}$",
+    "Final_answer": "The probability that the first two cards are kings and the third card drawn is an ace is $\\frac{2}{5525}$.",
     "chapter": "Probability"
   },
   {
     "Title": "Probability",
     "Subtitle": "Independent Events",
     "Example": "A die is thrown. If E is the event 'the number appearing is a multiple of 3' and F be the event 'the number appearing is even,' then find whether E and F are independent?",
-    "Solution": "We know that the sample space is S = {1, 2, 3, 4, 5, 6}.\nNow,\nE = {3, 6}, F = {2, 4, 6}, and E ∩ F = {6}.\nThen,\nP(E) = \\frac{2}{6} = \\frac{1}{3}, P(F) = \\frac{3}{6} = \\frac{1}{2}, and P(E ∩ F) = \\frac{1}{6}.\nClearly,\nP(E ∩ F) = P(E) * P(F).\nHence,\nE and F are independent events.",
+    "Solution": "We know that the sample space is S = {1, 2, 3, 4, 5, 6}.\nNow,\nE = {3, 6}, F = {2, 4, 6}, and E ∩ F = {6}.\nThen,\n$P(E) = \\frac{2}{6} = \\frac{1}{3}$, $P(F) = \\frac{3}{6} = \\frac{1}{2}$, and $P(E \\cap  F) = \\frac{1}{6}$.\nClearly,\n$P(E \\cap  F) = P(E) \\times P(F)$.\nHence,\nE and F are independent events.",
     "Final_answer": "E and F are independent events.",
     "chapter": "Probability"
   },
@@ -2699,15 +2699,15 @@
     "Title": "Probability",
     "Subtitle": "Independent Events",
     "Example": "An unbiased die is thrown twice. Let the event A be 'odd number on the first throw' and B the event 'odd number on the second throw'. Check the independence of the events A and B.",
-    "Solution": "If all the 36 elementary events of the experiment are considered to be equally likely, we have\nAlso,\nP(A) = \\frac{18}{36} = \\frac{1}{2} and P(B) = \\frac{18}{36} = \\frac{1}{2}\nP(A ∩ B) = P(odd number on both throws) = \\frac{9}{36} = \\frac{1}{4}\nNow,\nP(A) * P(B) = \\frac{1}{2} * \\frac{1}{2} = \\frac{1}{4}\nClearly,\nP(A ∩ B) = P(A) * P(B)\nThus, A and B are independent events.",
+    "Solution": "If all the 36 elementary events of the experiment are considered to be equally likely, we have\nAlso,\n$P(A) = \\frac{18}{36} = \\frac{1}{2}$ and $P(B) = \\frac{18}{36} = \\frac{1}{2}$\n$P(A \\cap  B) = P(\\text{odd number on both throws}) = \\frac{9}{36} = \\frac{1}{4}$\nNow,\n$P(A) \\times P(B) = \\frac{1}{2} \\times \\frac{1}{2} = \\frac{1}{4}$\nClearly,\n$P(A \\cap  B) = P(A) \\times P(B)$\nThus, A and B are independent events.",
     "chapter": "Probability",
-    "Final_answer": ""
+    "Final_answer": "A and B are independent events."
   },
   {
     "Title": "Probability",
     "Subtitle": "Independent and Dependent Events",
     "Example": "Three coins are tossed simultaneously. Consider the event E 'three heads or three tails', F 'at least two heads' and G 'at most two heads'. Of the pairs (E,F), (E,G) and (F,G), which are independent? which are dependent?",
-    "Solution": "The sample space of the experiment is given by\nS = {HHH, HHT, HTH, THH, HTT, THT, TTH, TTT}\nClearly,\nE = {HHH, TTT}, F = {HHH, HHT, HTH, THH}, and G = {HHT, HTH, THH, HTT, THT, TTH, TTT}\nAlso, E ∩ F = {HHH}, E ∩ G = {TTT}, F ∩ G = {HHT, HTH, THH}\nTherefore,\nP(E) = \\frac{2}{8} = \\frac{1}{4}, P(F) = \\frac{4}{8} = \\frac{1}{2}, P(G) = \\frac{7}{8}\nand\nP(E ∩ F) = \\frac{1}{8}, P(E ∩ G) = \\frac{1}{8}, P(F ∩ G) = \\frac{3}{8}\nAlso,\nP(E) * P(F) = \\frac{1}{4} * \\frac{1}{2} = \\frac{1}{8}, P(E) * P(G) = \\frac{1}{4} * \\frac{7}{8} = \\frac{7}{32},\nand\nP(F) * P(G) = \\frac{1}{2} * \\frac{7}{8} = \\frac{7}{16}\nThus,\nP(E ∩ F) = P(E) * P(F) and P(E ∩ G) ≠ P(E) * P(G),\nP(F ∩ G) ≠ P(F) * P(G)\nHence, the events (E and F) are independent, and the events (E and G) and (F and G) are dependent.",
+    "Solution": "The sample space of the experiment is given by\nS = {HHH, HHT, HTH, THH, HTT, THT, TTH, TTT}\nClearly,\nE = {HHH, TTT}, F = {HHH, HHT, HTH, THH}, and G = {HHT, HTH, THH, HTT, THT, TTH, TTT}\nAlso, E ∩ F = {HHH}, E ∩ G = {TTT}, F ∩ G = {HHT, HTH, THH}\nTherefore,\n$P(E) = \\frac{2}{8} = \\frac{1}{4}$, $P(F) = \\frac{4}{8} = \\frac{1}{2}$, $P(G) = \\frac{7}{8}$\nand\n$P(E \\cap  F) = \\frac{1}{8}$, $P(E \\cap  G) = \\frac{1}{8}$, $P(F \\cap  G) = \\frac{3}{8}$\nAlso,\n$P(E) \\times P(F) = \\frac{1}{4} \\times \\frac{1}{2} = \\frac{1}{8}$, $P(E) \\times P(G) = \\frac{1}{4} \\times \\frac{7}{8} = \\frac{7}{32}$,\nand\n$P(F) \\times P(G) = \\frac{1}{2} \\times \\frac{7}{8} = \\frac{7}{16}$\nThus,\n$P(E \\cap  F) = P(E) \\times P(F)$ and $P(E \\cap  G) \\neq  P(E) \\times P(G)$,\n$P(F \\cap  G) \\neq  P(F) \\times P(G)$\nHence, the events (E and F) are independent, and the events (E and G) and (F and G) are dependent.",
     "Final_answer": "The pair of events (E and F) is independent, while the pairs (E and G) and (F and G) are dependent.",
     "chapter": "Probability"
   },
@@ -2762,24 +2762,24 @@
   {
     "Title": "Probability",
     "Subtitle": "Conditional Probability",
-    "Example": "A doctor is to visit a patient. From the past experience...",
-    "Solution": "Hence, the probability that a person selected at random is actually having HIV given that he/she is tested HIV+ive is 0.083.",
+    "Example": "A doctor is to visit a patient. From past experience, it is known that the probabilities that he will come by train, bus, scooter or by other means of transport are respectively $\\frac{3}{10}$, $\\frac{1}{5}$, $\\frac{1}{10}$ and $\\frac{2}{5}$. The probabilities that he will be late are $\\frac{1}{4}$, $\\frac{1}{3}$ and $\\frac{1}{12}$ if he comes by train, bus and scooter respectively, but if he comes by other means of transport, then he will not be late. When he arrives, he is late. What is the probability that he comes by train?",
+    "Solution": "Let $E$ be the event that the doctor visits the patient late, and let $T_1, T_2, T_3, T_4$ be the events that he comes by train, bus, scooter and other means of transport respectively.\nThen $P(T_1)=\\frac{3}{10}$, $P(T_2)=\\frac{1}{5}$, $P(T_3)=\\frac{1}{10}$ and $P(T_4)=\\frac{2}{5}$.\nAlso $P(E \\mid T_1)=\\frac{1}{4}$, $P(E \\mid T_2)=\\frac{1}{3}$, $P(E \\mid T_3)=\\frac{1}{12}$ and $P(E \\mid T_4)=0$.\nBy Bayes' theorem,\n$$P(T_1 \\mid E)=\\frac{P(T_1) P(E \\mid T_1)}{\\sum_{i=1}^{4} P(T_i) P(E \\mid T_i)}=\\frac{\\frac{3}{10} \\cdot \\frac{1}{4}}{\\frac{3}{10} \\cdot \\frac{1}{4}+\\frac{1}{5} \\cdot \\frac{1}{3}+\\frac{1}{10} \\cdot \\frac{1}{12}+\\frac{2}{5} \\cdot 0}$$\n$$=\\frac{\\frac{9}{120}}{\\frac{9}{120}+\\frac{8}{120}+\\frac{1}{120}}=\\frac{9}{18}=\\frac{1}{2}$$\nHence, the probability that the doctor comes by train, given that he is late, is $\\frac{1}{2}$.",
     "chapter": "Probability",
-    "Final_answer": "0.083"
+    "Final_answer": "$\\frac{1}{2}$"
   },
   {
     "Title": "Probability",
     "Subtitle": "Conditional Probability",
-    "Example": "A and B throw a die alternatively till one of them gets a '6' and wins the game...",
-    "Solution": "Hence, the probability that A wins the game when starting first is 6/11, and the probability that B wins is 5/11.",
+    "Example": "A and B throw a die alternately till one of them gets a '6' and wins the game. Find their respective probabilities of winning, if A starts first.",
+    "Solution": "Let $S$ denote a success (getting a '6') and $F$ a failure. Then $P(S)=\\frac{1}{6}$ and $P(F)=\\frac{5}{6}$.\nA wins if the first '6' comes on the 1st, 3rd, 5th, ... throw, so\n$$P(A \\text{ wins}) = \\frac{1}{6} + \\left(\\frac{5}{6}\\right)^{2} \\frac{1}{6} + \\left(\\frac{5}{6}\\right)^{4} \\frac{1}{6} + \\cdots = \\frac{\\frac{1}{6}}{1-\\frac{25}{36}} = \\frac{6}{11}$$\n$$P(B \\text{ wins}) = 1 - \\frac{6}{11} = \\frac{5}{11}$$\nHence, the probability that A wins is $\\frac{6}{11}$ and the probability that B wins is $\\frac{5}{11}$.",
     "chapter": "Probability",
     "Final_answer": "A: $\\frac{6}{11}$, B: $\\frac{5}{11}$"
   },
   {
     "Title": "Probability",
     "Subtitle": "Conditional Probability",
-    "Example": "If a machine is correctly set up, it produces 90% acceptable items...",
-    "Solution": "Therefore, the probability that the machine is correctly set up given that it produced 2 acceptable items is 0.95.",
+    "Example": "If a machine is correctly set up, it produces 90% acceptable items. If it is incorrectly set up, it produces only 40% acceptable items. Past experience shows that 80% of the set ups are correctly done. If after a certain set up, the machine produces 2 acceptable items, find the probability that the machine is correctly set up.",
+    "Solution": "Let $E_1$ be the event that the machine is correctly set up, $E_2$ the event that it is incorrectly set up, and $A$ the event that the machine produces 2 acceptable items.\nThen $P(E_1)=0.8$ and $P(E_2)=0.2$.\nThe two items are produced independently, so $P(A \\mid E_1)=0.9 \\times 0.9=0.81$ and $P(A \\mid E_2)=0.4 \\times 0.4=0.16$.\nBy Bayes' theorem,\n$$P(E_1 \\mid A)=\\frac{P(E_1) P(A \\mid E_1)}{P(E_1) P(A \\mid E_1)+P(E_2) P(A \\mid E_2)}=\\frac{0.8 \\times 0.81}{0.8 \\times 0.81+0.2 \\times 0.16}=\\frac{0.648}{0.68} \\approx 0.95$$\nHence, the probability that the machine is correctly set up is about $0.95$.",
     "chapter": "Probability",
     "Final_answer": "0.95"
   },
@@ -2865,9 +2865,9 @@
   },
   {
     "Title": "Differential Equations",
-    "Example": "Find the order and degree, if defined, of each of the following differential equations:",
-    "Solution": "['(i) $\\\\frac{d y}{d x}-\\\\cos x=0$ - Order: 1, Degree: 1', '(ii) $\\displaystyle x y \\\\frac{d^{2} y}{d x^{2}}+x\\\\left(\\\\frac{d y}{d x}\\\\right)^{2}-y \\\\frac{d y}{d x}=0$ - Order: 2, Degree: 1', '(iii) $\\displaystyle y^{\\\\prime \\\\prime \\\\prime}+y^{2}+e^{y^{\\\\prime}}=0$ - Order: 3, Degree: Not defined']",
-    "Final_answer": "",
+    "Example": "Find the order and degree, if defined, of each of the following differential equations:\n(i) $\\frac{d y}{d x}-\\cos x=0$\n(ii) $x y \\frac{d^{2} y}{d x^{2}}+x\\left(\\frac{d y}{d x}\\right)^{2}-y \\frac{d y}{d x}=0$\n(iii) $y^{\\prime \\prime \\prime}+y^{2}+e^{y^{\\prime}}=0$",
+    "Solution": "(i) The highest order derivative present is $\\frac{d y}{d x}$, so the order is 1. The equation is a polynomial in $y^{\\prime}$ and the highest power of $\\frac{d y}{d x}$ is 1, so the degree is 1.\n(ii) The highest order derivative present is $\\frac{d^{2} y}{d x^{2}}$, so the order is 2. The equation is a polynomial in $\\frac{d^{2} y}{d x^{2}}$ and $\\frac{d y}{d x}$, and the highest power of $\\frac{d^{2} y}{d x^{2}}$ is 1, so the degree is 1.\n(iii) The highest order derivative present is $y^{\\prime \\prime \\prime}$, so the order is 3. The equation is not a polynomial in its derivatives (it contains $e^{y^{\\prime}}$), so its degree is not defined.",
+    "Final_answer": "(i) order 1, degree 1 (ii) order 2, degree 1 (iii) order 3, degree not defined",
     "chapter": "Differential Equations",
     "Subtitle": ""
   },
@@ -3084,7 +3084,7 @@
     "Subtitle": "",
     "Example": "Find the vector joining the points ${P}(2,3,0)$ and ${Q}(-1,-2,-4)$ directed from ${P}$ to ${Q}$.",
     "Solution": "Since the vector is to be directed from ${P}$ to ${Q}$, clearly ${P}$ is the initial point and ${Q}$ is the terminal point. So, the required vector joining ${P}$ and ${Q}$ is the vector $\\overrightarrow{{PQ}}$, given by\n$$\\displaystyle\n\\overrightarrow{{PQ}}=(-1-2) \\hat{i}+(-2-3) \\hat{j}+(-4-0) \\hat{k}\n$$\ni.e.\n$$\\displaystyle\n\\overrightarrow{{PQ}}=-3 \\hat{i}-5 \\hat{j}-4 \\hat{k} \\text {. }\n$$",
-    "Final_answer": "\\overrightarrow{{PQ}}=-3 \\hat{i}-5 \\hat{j}-4 \\hat{k} \\text {. }\n$$",
+    "Final_answer": "$\\overrightarrow{{PQ}}=-3 \\hat{i}-5 \\hat{j}-4 \\hat{k} \\text {. }$\n$$",
     "chapter": "Vector Algebra"
   },
   {
@@ -3132,7 +3132,7 @@
     "Subtitle": "",
     "Example": "Find the projection of the vector $\\vec{a}=2 \\hat{i}+3 \\hat{j}+2 \\hat{k}$ on the vector $\\vec{b}=\\hat{i}+2 \\hat{j}+\\hat{k}$.",
     "Solution": "The projection of vector $\\vec{a}$ on the vector $\\vec{b}$ is given b\n$$\\displaystyle\n\\frac{1}{|\\vec{b}|}(\\vec{a} \\cdot \\vec{b})=\\frac{(2 \\times 1+3 \\times 2+2 \\times 1)}{\\sqrt{(1)^{2}+(2)^{2}+(1)^{2}}}=\\frac{10}{\\sqrt{6}}=\\frac{5}{3} \\sqrt{6}\n$$",
-    "Final_answer": "\\frac{5}{3} \\sqrt{6}",
+    "Final_answer": "$\\frac{5}{3} \\sqrt{6}$",
     "chapter": "Vector Algebra"
   },
   {
@@ -3148,7 +3148,7 @@
     "Subtitle": "",
     "Example": "If $\\vec{a}$ is a unit vector and $\\displaystyle (\\vec{x}-\\vec{a}) \\cdot(\\vec{x}+\\vec{a})=8$, then find $|\\vec{x}|$.",
     "Solution": "Since $\\vec{a}$ is a unit vector, $|\\vec{a}|=1$. Also,\n$$\\displaystyle\n(\\vec{x}-\\vec{a}) \\cdot(\\vec{x}+\\vec{a})=8\n$$\nor\n$$\\displaystyle\n\\vec{x} \\cdot \\vec{x}+\\vec{x} \\cdot \\vec{a}-\\vec{a} \\cdot \\vec{x}-\\vec{a} \\cdot \\vec{a}=8\n$$\nor\n$$\\displaystyle\n|\\vec{x}|^{2}-1=8 \\text { i.e. }|\\vec{x}|^{2}=9\n$$\nTherefore\n$$\\displaystyle\n|\\vec{x}|=3 \\text { (as the magnitude of a vector is non negative). }\n$$",
-    "Final_answer": "Therefore\n$$\n|\\vec{x}|=3 \\text { (as the magnitude of a vector is non negative). }",
+    "Final_answer": "Therefore\n$$\n|\\vec{x}|=3 \\text { (as the magnitude of a vector is non negative). }$$",
     "chapter": "Vector Algebra"
   },
   {
@@ -3156,7 +3156,7 @@
     "Subtitle": "",
     "Example": "For any two vectors $\\vec{a}$ and $\\vec{b}$, we always have $\\displaystyle |\\vec{a} \\cdot \\vec{b}| \\leq|\\vec{a}||\\vec{b}|$ (CauchySchwartz inequality).",
     "Solution": "The inequality holds trivially when either $\\vec{a}=\\overrightarrow{0}$ or $\\vec{b}=\\overrightarrow{0}$. Actually, in such a situation we have $\\displaystyle |\\vec{a} \\cdot \\vec{b}|=0=|\\vec{a}||\\vec{b}|$. So, let us assume that $|\\vec{a}|\\neq 0\\neq|\\vec{b}|$.\nThen, we have\n$$\\displaystyle\n\\frac{|\\vec{a} \\cdot \\vec{b}|}{|\\vec{a} \\| \\vec{b}|}=|\\cos \\theta| \\leq 1\n$$\nTherefore\n$$\\displaystyle\n|\\vec{a} \\cdot \\vec{b}| \\leq|\\vec{a}||\\vec{b}|\n$$",
-    "Final_answer": "Therefore\n$$\n|\\vec{a} \\cdot \\vec{b}| \\leq|\\vec{a}||\\vec{b}|",
+    "Final_answer": "Therefore\n$$\n|\\vec{a} \\cdot \\vec{b}| \\leq|\\vec{a}||\\vec{b}|$$",
     "chapter": "Vector Algebra"
   },
   {
@@ -3598,13 +3598,5 @@
     "Solution": "We have\n$$\\displaystyle\n\\begin{aligned}\n\\tan \\frac{13 \\pi}{12} & =\\tan \\left(\\pi+\\frac{\\pi}{12}\\right)=\\tan \\frac{\\pi}{12}=\\tan \\left(\\frac{\\pi}{4}-\\frac{\\pi}{6}\\right) \\\\\n& =\\frac{\\tan \\frac{\\pi}{4}-\\tan \\frac{\\pi}{6}}{1+\\tan \\frac{\\pi}{4} \\tan \\frac{\\pi}{6}}=\\frac{1-\\frac{1}{\\sqrt{3}}}{1+\\frac{1}{\\sqrt{3}}}=\\frac{\\sqrt{3}-1}{\\sqrt{3}+1}=2-\\sqrt{3}\n\\end{aligned}\n$$",
     "Final_answer": "$$\\displaystyle \\frac{\\sqrt{3}-1}{\\sqrt{3}+1}=2-\\sqrt{3}$$",
     "chapter": "Trigonometric Functions"
-  },
-  {
-    "Title": "Sets",
-    "Subtitle": "",
-    "Example": "Which of the following pairs of sets are equal? Justify your answer. (i) X, the set of letters in “ALLOY” and B, the set of letters in “LOYAL”. (ii) A = \\{n : n \\in Z\\text{ and } n^2 \\leq 4\\} and B = \\{x : x \\in R\\text{ and } x^2 - 3x + 2 = 0\\}.",
-    "Solution": "(i) We have, X = \\{A, L, L, O, Y\\}, B = \\{L, O, Y, A, L\\}. Then X and B are equal sets as repetition of elements in a set do not change a set. Thus, X = \\{A, L, O, Y\\} = B. (ii) A = \\{-2, -1, 0, 1, 2\\}, B = \\{1, 2\\}. Since \\(0 \\in A\\) and \\(0\\notin B\\), A and B are not equal sets.",
-    "Final_answer": "(i) $X = B$ (ii) $A\\neq B$",
-    "chapter": "Sets"
   }
 ]
