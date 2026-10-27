@@ -244,3 +244,66 @@ it('tells the model to format maths for the app', () => {
   expect(systemPrompt(null)).toMatch(/\$\.\.\.\$ for inline maths/);
   expect(systemPrompt(null)).not.toMatch(/curriculum/);
 });
+
+describe('practice questions', () => {
+  const PRACTICE = {
+    course: 'CBSE Maths',
+    topic: 'Probability',
+    text: 'A die is thrown twice. Find P(sum = 7).',
+    answer: '$\\frac{1}{6}$',
+    solution: 'There are 6 favourable outcomes out of 36.',
+  };
+
+  it('coaches with the official answer and solution', async () => {
+    const fetch = jest.fn().mockResolvedValue(openAiReply('Count pairs.'));
+    const { context, logs } = makeContext({
+      body: { ...QUESTION, question: PRACTICE },
+    });
+
+    const result = await handleAskAi(context, { fetch, env: ENV });
+
+    expect(result.statusCode).toBe(200);
+    const prompt = JSON.parse(fetch.mock.calls[0][1].body).messages[0].content;
+    expect(prompt).toContain('from CBSE Maths (Probability)');
+    expect(prompt).toContain(`<question>\n${PRACTICE.text}\n</question>`);
+    expect(prompt).toContain(PRACTICE.answer);
+    expect(prompt).toContain(PRACTICE.solution);
+    expect(prompt).toMatch(/one hint or step at a time/);
+    expect(prompt).toMatch(/without giving the answer away/);
+    expect(logs[0]).toMatch(/practice question/);
+  });
+
+  it('leaves the practice-question coaching out of ordinary chats', () => {
+    expect(systemPrompt(null, null)).not.toContain('<question>');
+  });
+
+  it('accepts a question without an answer and trims the fields', () => {
+    const parsed = parseRequest(
+      JSON.stringify({
+        ...QUESTION,
+        question: { text: '  Solve $x+1=2$.  ', solution: 'x = 1' },
+      }),
+    );
+    expect(parsed.question).toEqual({
+      course: '',
+      topic: '',
+      text: 'Solve $x+1=2$.',
+      answer: '',
+      solution: 'x = 1',
+    });
+  });
+
+  it.each([
+    ['without text', { solution: 'x' }],
+    [
+      'with a solution that is too long',
+      { text: 'Q', solution: 'x'.repeat(8001) },
+    ],
+    ['that is not an object', 'Solve it'],
+    ['with a field of the wrong type', { text: 'Q', answer: 4 }],
+  ])('rejects a practice question %s', (label, question) => {
+    expect(
+      parseRequest(JSON.stringify({ ...QUESTION, question })).error,
+    ).toMatch(/practice question/);
+  });
+});

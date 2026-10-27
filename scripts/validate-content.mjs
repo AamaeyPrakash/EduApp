@@ -53,15 +53,25 @@ let formulaCount = 0;
 
 // eslint-disable-next-line no-control-regex -- finding these is the point
 const CONTROL_CHARACTERS = /[\x00-\x08\x0b\x0c\x0e-\x1f\r\t]/;
+// UTF-8 text that was decoded as Windows-1252 somewhere along the way, e.g. "â‚¹" for "₹".
+const MOJIBAKE = /â€|â‚|Ã.|Â./;
+// The app shows plain text as is, so TeX written outside $...$ appears raw on screen.
 const TEXT_DEBRIS = [
   [/\\\$/, 'escaped dollar sign'],
   [/^\s*\\\\\s*$/, 'stray "\\\\" line break'],
-  [/\\(section|textbackslash|begin|end)\b/, 'TeX command outside math'],
+  [/\\[A-Za-z]+|\\[{}()[\]]|\\ /, 'TeX outside $...$'],
 ];
+// "\\frac" inside a formula is a line break followed by the word "frac".
+const DOUBLE_ESCAPED =
+  /\\\\(?:frac|sqrt|left|right|cos|sin|tan|log|prime|cdot|times|int)\b/;
+const INCOMPLETE_QUESTION = /(\.\.\.|…|:|\bgiven by)\s*$/;
 
 function checkContent(where, content) {
   if (CONTROL_CHARACTERS.test(content)) {
     errors.push(`${where}: contains control characters (broken JSON escapes)`);
+  }
+  if (MOJIBAKE.test(content)) {
+    errors.push(`${where}: contains garbled characters such as "â‚¹"`);
   }
   for (const block of parseMathContent(content)) {
     const formulas =
@@ -76,6 +86,9 @@ function checkContent(where, content) {
       if (problem) {
         errors.push(`${where}: ${problem} in "${math.slice(0, 80)}"`);
       }
+      if (DOUBLE_ESCAPED.test(math)) {
+        errors.push(`${where}: double-escaped TeX in "${math.slice(0, 80)}"`);
+      }
     }
     if (block.type === 'line') {
       const text = block.tokens
@@ -84,7 +97,7 @@ function checkContent(where, content) {
         .join(' ');
       for (const [pattern, label] of TEXT_DEBRIS) {
         if (pattern.test(text)) {
-          warnings.push(`${where}: ${label}: "${text.trim().slice(0, 80)}"`);
+          errors.push(`${where}: ${label}: "${text.trim().slice(0, 80)}"`);
         }
       }
     }
@@ -92,12 +105,22 @@ function checkContent(where, content) {
 }
 
 const cbse = readJson('CBSEMath12fc_fixed.json');
+const seenQuestions = new Map();
 cbse.forEach((question, index) => {
   const where = `CBSE #${index} (${question.Title})`;
   for (const field of ['Title', 'Example', 'Solution']) {
     if (typeof question[field] !== 'string' || !question[field].trim()) {
       errors.push(`${where}: missing ${field}`);
     }
+  }
+  if (INCOMPLETE_QUESTION.test(question.Example || '')) {
+    warnings.push(`${where}: the question looks cut off`);
+  }
+  const key = `${question.Title}\n${question.Example}`;
+  if (seenQuestions.has(key)) {
+    warnings.push(`${where}: duplicate of #${seenQuestions.get(key)}`);
+  } else {
+    seenQuestions.set(key, index);
   }
   if ('FinalAnswer' in question) {
     errors.push(`${where}: use Final_answer instead of FinalAnswer`);

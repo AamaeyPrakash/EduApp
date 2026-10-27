@@ -7,10 +7,13 @@ import React from 'react';
 import { Alert } from 'react-native';
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
 import App from '../App';
+import { getTopic } from '../src/content';
 import { account, databases, functions } from '../src/lib/appwrite';
+import { dayNumber } from '../src/study/progress';
 import {
   appwriteError,
   CONSENTED_USER,
+  networkError,
   PROFILE,
   unauthorized,
   USER,
@@ -131,41 +134,149 @@ describe('signing in', () => {
 });
 
 describe('studying', () => {
+  const probability = getTopic('cbse', 'Probability')!;
+  const sets = getTopic('cbse', 'Sets')!;
+
   it('opens CBSE revision with solutions already shown', async () => {
     startSignedIn();
     await render(<App />);
 
-    await fireEvent.press(await screen.findByText('Grade 12 CBSE'));
-    await fireEvent.press(await screen.findByLabelText('Revise Probability'));
+    await fireEvent.press(await screen.findByText('CBSE Maths'));
+    await fireEvent.press(await screen.findByLabelText('Revise Sets'));
 
     expect(await screen.findByText('Revision')).toBeOnTheScreen();
     expect(screen.getAllByText('Hide Solution').length).toBeGreaterThan(0);
   });
 
-  it('keeps quiz solutions hidden until asked', async () => {
+  it('quizzes one question at a time and saves the results', async () => {
     startSignedIn();
+    mocked(account.updatePrefs).mockImplementation(async prefs => ({
+      ...USER,
+      prefs,
+    }));
+    mocked(account.deleteSession).mockResolvedValue({});
     await render(<App />);
 
-    await fireEvent.press(await screen.findByText('Grade 12 CBSE'));
-    await fireEvent.press(await screen.findByLabelText('Quiz on Probability'));
-    const [firstButton] = await screen.findAllByText('Show Solution');
-    expect(screen.queryByText('Hide Solution')).toBeNull();
+    await fireEvent.press(await screen.findByText('CBSE Maths'));
+    await fireEvent.press(await screen.findByLabelText('Quiz on Sets'));
+    expect(
+      await screen.findByText(`1 / ${sets.questions.length}`),
+    ).toBeOnTheScreen();
+    expect(screen.queryByText('Got it')).toBeNull();
 
-    await fireEvent.press(firstButton);
-    expect(screen.getByText('Hide Solution')).toBeOnTheScreen();
+    await fireEvent.press(screen.getByText('Show answer'));
+    expect(screen.getByText('Solution')).toBeOnTheScreen();
+    await fireEvent.press(screen.getByText('Got it'));
+    expect(
+      await screen.findByText(`2 / ${sets.questions.length}`),
+    ).toBeOnTheScreen();
+
+    await fireEvent.press(screen.getByText('Show answer'));
+    await fireEvent.press(screen.getByText('Not yet'));
+    expect(
+      await screen.findByText(`3 / ${sets.questions.length}`),
+    ).toBeOnTheScreen();
+
+    // Leave the quiz and log out: the answers are saved first.
+    await fireEvent.press(screen.getByLabelText('Close'));
+    await fireEvent.press(screen.getByLabelText('Close'));
+    expect(await screen.findByLabelText('2/10 done today')).toBeOnTheScreen();
+    await fireEvent.press(screen.getByText('Profile'));
+    await fireEvent.press(await screen.findByText('Logout'));
+
+    expect(
+      await screen.findByText('You have been logged out.'),
+    ).toBeOnTheScreen();
+    const [first, second] = sets.questions;
+    const saved = mocked(account.updatePrefs).mock.calls.at(-1)[0];
+    expect(saved.study.q[first.id][0]).toBeGreaterThan(0);
+    expect(saved.study.q[second.id][0]).toBe(0);
+    expect(account.updatePrefs.mock.invocationCallOrder[0]).toBeLessThan(
+      mocked(account.deleteSession).mock.invocationCallOrder[0],
+    );
   });
 
-  it('opens an IB topic quiz', async () => {
+  it('shows a summary at the end and offers the missed questions again', async () => {
+    startSignedIn();
+    await render(<App />);
+    await fireEvent.press(await screen.findByText('Mathematics AA'));
+    await fireEvent.press(
+      await screen.findByLabelText('Quiz on Number and Algebra'),
+    );
+
+    for (const result of ['Got it', 'Not yet', 'Got it']) {
+      await fireEvent.press(await screen.findByText('Show answer'));
+      await fireEvent.press(screen.getByText(result));
+    }
+
+    expect(await screen.findByText('Session complete')).toBeOnTheScreen();
+    expect(screen.getByText('2 / 3')).toBeOnTheScreen();
+    await fireEvent.press(screen.getByText('Try the 1 I missed again'));
+    expect(await screen.findByText('1 / 1')).toBeOnTheScreen();
+  });
+
+  it('opens an IB topic quiz with the calculator rule shown', async () => {
     startSignedIn();
     await render(<App />);
 
     await fireEvent.press(await screen.findByText('Mathematics AA'));
     await fireEvent.press(
-      await screen.findByLabelText('Quiz on Topic 1 - Number and Algebra'),
+      await screen.findByLabelText('Quiz on Number and Algebra'),
     );
 
-    expect(await screen.findByText('Number and Algebra')).toBeOnTheScreen();
-    expect(screen.getAllByText('Show Answer').length).toBeGreaterThan(0);
+    expect(
+      await screen.findByText('Mathematics AA · Number and Algebra'),
+    ).toBeOnTheScreen();
+    expect(
+      screen.getByLabelText(/^(Calculator allowed|No calculator)$/),
+    ).toBeOnTheScreen();
+  });
+
+  it('brings back saved progress: reviews due and the streak', async () => {
+    const [question] = probability.questions;
+    const yesterday = dayNumber() - 1;
+    startSignedIn({
+      ...USER,
+      prefs: {
+        study: {
+          q: { [question.id]: [0, yesterday] },
+          b: [question.id],
+          s: [3, 5, yesterday],
+          t: [yesterday, 4],
+        },
+      },
+    });
+    await render(<App />);
+
+    expect(await screen.findByLabelText('3 day streak')).toBeOnTheScreen();
+    expect(screen.getByLabelText('1 to review')).toBeOnTheScreen();
+    expect(screen.getByText('Saved (1)')).toBeOnTheScreen();
+    expect(screen.getByText('Mistakes (1)')).toBeOnTheScreen();
+
+    await fireEvent.press(screen.getByText('Review 1 question'));
+    expect(await screen.findByText('1 / 1')).toBeOnTheScreen();
+    expect(screen.getByText('CBSE Maths · Probability')).toBeOnTheScreen();
+  });
+
+  it('finds questions by search and saves one for later', async () => {
+    startSignedIn();
+    await render(<App />);
+
+    await fireEvent.press(await screen.findByLabelText('Search questions'));
+    await fireEvent.changeText(
+      await screen.findByLabelText('Search questions'),
+      'bayes',
+    );
+    const [first] = await screen.findAllByText('CBSE Maths · Probability');
+    await fireEvent.press(first);
+
+    expect(await screen.findByText('1 / 1')).toBeOnTheScreen();
+    await fireEvent.press(screen.getByLabelText('Save question'));
+    expect(screen.getByLabelText('Remove from saved')).toBeOnTheScreen();
+
+    await fireEvent.press(screen.getByLabelText('Close'));
+    await fireEvent.press(screen.getByLabelText('Close'));
+    expect(await screen.findByText('Saved (1)')).toBeOnTheScreen();
   });
 });
 
@@ -236,6 +347,73 @@ describe('AI tutor', () => {
     expect(
       JSON.parse(mocked(functions.createExecution).mock.calls[1][1]),
     ).toEqual({ report: { question: 'Hi', reply: 'A strange answer.' } });
+  });
+
+  it('coaches through a practice question using its official solution', async () => {
+    startSignedIn(CONSENTED_USER);
+    mocked(functions.createExecution).mockResolvedValue({
+      responseStatusCode: 200,
+      responseBody: JSON.stringify({ reply: 'Start by substituting S.' }),
+    });
+    const [question] = getTopic('ib-aa', 'Topic 1')!.questions;
+    await render(<App />);
+
+    await fireEvent.press(await screen.findByText('Mathematics AA'));
+    await fireEvent.press(
+      await screen.findByLabelText('Quiz on Number and Algebra'),
+    );
+    await fireEvent.press(
+      await screen.findByText('Stuck? Ask the tutor about this'),
+    );
+    expect(
+      await screen.findByText('Stuck on this question?'),
+    ).toBeOnTheScreen();
+
+    await fireEvent.press(screen.getByText('Check my answer'));
+    expect(screen.getByLabelText('Message').props.value).toBe('My answer is: ');
+    await fireEvent.press(screen.getByText('Give me a hint'));
+
+    expect(
+      await screen.findByText('Start by substituting S.'),
+    ).toBeOnTheScreen();
+    const body = JSON.parse(mocked(functions.createExecution).mock.calls[0][1]);
+    expect(body.messages).toEqual([
+      {
+        role: 'user',
+        content: 'Give me a hint for the next step, not the whole answer.',
+      },
+    ]);
+    expect(body.question).toEqual({
+      course: 'Mathematics AA',
+      topic: 'Number and Algebra',
+      text: question.prompt,
+      answer: question.answer,
+      solution: question.solution,
+    });
+  });
+
+  it('lets the student try again after a failed message', async () => {
+    startSignedIn(CONSENTED_USER);
+    mocked(functions.createExecution)
+      .mockRejectedValueOnce(networkError())
+      .mockResolvedValueOnce({
+        responseStatusCode: 200,
+        responseBody: JSON.stringify({ reply: 'Back online.' }),
+      });
+    await render(<App />);
+
+    await fireEvent.press(await screen.findByText('AskGPT'));
+    await fireEvent.changeText(await screen.findByLabelText('Message'), 'Hi');
+    await fireEvent.press(screen.getByLabelText('Send message'));
+    await fireEvent.press(await screen.findByText('Try again'));
+
+    expect(await screen.findByText('Back online.')).toBeOnTheScreen();
+    expect(screen.queryByText('Try again')).toBeNull();
+    const calls = mocked(functions.createExecution).mock.calls;
+    expect(calls).toHaveLength(2);
+    expect(JSON.parse(calls[1][1]).messages).toEqual([
+      { role: 'user', content: 'Hi' },
+    ]);
   });
 
   it('returns to sign-in when the session has expired', async () => {

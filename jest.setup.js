@@ -20,3 +20,9 @@ jest.mock('./src/components/MathView', () => {
     return <Text testID="math">{math}</Text>;
   };
 });
+
+// A plain function rather than the preset's jest.fn(), so tests can call
+// jest.resetAllMocks() without the subscription turning into undefined. Tests that
+// need app-state changes replace it with jest.spyOn.
+const { AppState } = require('react-native');
+AppState.addEventListener = () => ({ remove() {} });

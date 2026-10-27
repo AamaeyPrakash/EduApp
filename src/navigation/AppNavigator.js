@@ -5,14 +5,15 @@ import { AUTH_STATUS, PROFILE_STATUS, useAuth } from '../auth/AuthContext';
 import StatusScreen from '../components/StatusScreen';
 import { missingConfigKeys } from '../config';
 import { getErrorMessage } from '../lib/errors';
-import CBSETopicsScreen from '../screens/CBSETopicsScreen';
+import CourseScreen from '../screens/CourseScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
-import IBTopicsScreen from '../screens/IBTopicsScreen';
-import MathQuizScreen from '../screens/MathQuizScreen';
+import PracticeScreen from '../screens/PracticeScreen';
 import ProfileFormScreen from '../screens/ProfileFormScreen';
-import QuizScreenCB12 from '../screens/QuizScreenCB12';
+import QuestionTutorScreen from '../screens/QuestionTutorScreen';
+import SearchScreen from '../screens/SearchScreen';
 import SignInScreen from '../screens/SignInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
+import StudyScreen from '../screens/StudyScreen';
 import { colors } from '../theme';
 import TabNavigator from './TabNavigator';
 
@@ -86,19 +87,11 @@ function RootStack() {
       ) : (
         <Stack.Group>
           <Stack.Screen name="Tabs" component={TabNavigator} />
-          <Stack.Screen
-            name="Math AA"
-            component={IBTopicsScreen}
-            initialParams={{ course: 'AA' }}
-          />
-          <Stack.Screen
-            name="Math AI"
-            component={IBTopicsScreen}
-            initialParams={{ course: 'AI' }}
-          />
-          <Stack.Screen name="CBSE 12" component={CBSETopicsScreen} />
-          <Stack.Screen name="QuizScreen" component={MathQuizScreen} />
-          <Stack.Screen name="CBQuizScreen" component={QuizScreenCB12} />
+          <Stack.Screen name="Course" component={CourseScreen} />
+          <Stack.Screen name="Study" component={StudyScreen} />
+          <Stack.Screen name="Practice" component={PracticeScreen} />
+          <Stack.Screen name="Search" component={SearchScreen} />
+          <Stack.Screen name="QuestionTutor" component={QuestionTutorScreen} />
           <Stack.Screen
             name="EditProfile"
             component={ProfileFormScreen}

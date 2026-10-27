@@ -4,6 +4,7 @@ import React, {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import config, { missingConfigKeys } from '../config';
@@ -324,27 +325,50 @@ export function AuthProvider({ children }) {
     setState(current => ({ ...current, notice: null }));
   }, []);
 
+  // Appwrite replaces the whole prefs object on every update, so updates run one at a
+  // time and each merges its changes into the prefs saved by the one before.
+  const userRef = useRef(currentUser);
+  const prefsQueue = useRef(Promise.resolve());
+  useEffect(() => {
+    userRef.current = currentUser;
+  }, [currentUser]);
+
+  const updatePrefs = useCallback(
+    changes => {
+      const run = prefsQueue.current.then(async () => {
+        const user = userRef.current;
+        if (!user) {
+          throw new AppError('Please sign in again.');
+        }
+        try {
+          const updated = await account.updatePrefs({
+            ...(user.prefs || {}),
+            ...changes,
+          });
+          if (userRef.current?.$id === user.$id) {
+            userRef.current = updated;
+          }
+          updateForUser(user.$id, { user: updated });
+          return updated;
+        } catch (error) {
+          if (isUnauthorizedError(error)) {
+            await verifySession();
+          }
+          throw error;
+        }
+      });
+      prefsQueue.current = run.catch(() => {});
+      return run;
+    },
+    [updateForUser, verifySession],
+  );
+
   // Records (in the user's Appwrite account preferences) that they agreed to their
   // tutor messages being sent to OpenAI. App Store guideline 5.1.2(i) requires this
   // permission before any personal data goes to a third-party AI service.
   const grantAiConsent = useCallback(async () => {
-    const user = currentUser;
-    if (!user) {
-      throw new AppError('Please sign in again.');
-    }
-    try {
-      const updated = await account.updatePrefs({
-        ...(user.prefs || {}),
-        aiConsentAt: new Date().toISOString(),
-      });
-      updateForUser(user.$id, { user: updated });
-    } catch (error) {
-      if (isUnauthorizedError(error)) {
-        await verifySession();
-      }
-      throw error;
-    }
-  }, [currentUser, updateForUser, verifySession]);
+    await updatePrefs({ aiConsentAt: new Date().toISOString() });
+  }, [updatePrefs]);
 
   const value = useMemo(
     () => ({
@@ -361,6 +385,7 @@ export function AuthProvider({ children }) {
       verifySession,
       clearNotice,
       grantAiConsent,
+      updatePrefs,
     }),
     [
       state,
@@ -375,6 +400,7 @@ export function AuthProvider({ children }) {
       verifySession,
       clearNotice,
       grantAiConsent,
+      updatePrefs,
     ],
   );
 

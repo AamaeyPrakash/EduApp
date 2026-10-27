@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Alert,
   ScrollView,
+  Share,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -16,7 +17,51 @@ import config from '../config';
 import { getBoardLabel } from '../constants/educationBoards';
 import { getErrorMessage } from '../lib/errors';
 import { openLink } from '../lib/links';
+import { useStudy } from '../study/StudyContext';
 import { colors } from '../theme';
+
+function ProgressCard() {
+  const { attemptedCount, knownCount, bestStreak } = useStudy();
+  const share = () =>
+    Share.share({
+      message: `I've practised ${attemptedCount} maths question${
+        attemptedCount === 1 ? '' : 's'
+      } on EduApp and got ${knownCount} right, with a best streak of ${bestStreak} day${
+        bestStreak === 1 ? '' : 's'
+      }.`,
+    }).catch(() => {});
+  return (
+    <View style={styles.progressCard}>
+      <Text style={styles.progressTitle} accessibilityRole="header">
+        Your progress
+      </Text>
+      <View style={styles.progressStats}>
+        {[
+          ['Practised', attemptedCount],
+          ['Got it', knownCount],
+          ['Best streak', bestStreak],
+        ].map(([label, value]) => (
+          <View
+            key={label}
+            style={styles.progressStat}
+            accessible
+            accessibilityLabel={`${label}: ${value}`}
+          >
+            <Text style={styles.infoValue}>{value}</Text>
+            <Text style={styles.progressLabel}>{label}</Text>
+          </View>
+        ))}
+      </View>
+      {attemptedCount > 0 ? (
+        <PrimaryButton
+          title="Share my progress"
+          variant="secondary"
+          onPress={share}
+        />
+      ) : null}
+    </View>
+  );
+}
 
 const ProfileScreen = ({ navigation }) => {
   const {
@@ -28,6 +73,7 @@ const ProfileScreen = ({ navigation }) => {
     signOut,
     deleteAccount,
   } = useAuth();
+  const { flush } = useStudy();
   const [busyAction, setBusyAction] = useState(null);
   const [actionError, setActionError] = useState(null);
 
@@ -46,10 +92,14 @@ const ProfileScreen = ({ navigation }) => {
     }
   };
 
+  // Saves the latest answers first; they are lost once the session ends.
   const handleLogout = () =>
     runAction(
       'logout',
-      signOut,
+      async () => {
+        await flush();
+        await signOut();
+      },
       "We couldn't log you out. Check your connection and try again.",
     );
 
@@ -141,6 +191,8 @@ const ProfileScreen = ({ navigation }) => {
         </View>
 
         {renderDetails()}
+
+        <ProgressCard />
 
         <Banner message={actionError} style={styles.wideBanner} />
 
@@ -311,6 +363,32 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 400,
     marginBottom: 24,
+  },
+  progressCard: {
+    ...card,
+    borderRadius: 20,
+    padding: 20,
+    marginBottom: 24,
+  },
+  progressTitle: {
+    fontSize: 17,
+    fontWeight: '700',
+    color: colors.text,
+    marginBottom: 16,
+    textAlign: 'center',
+  },
+  progressStats: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 16,
+  },
+  progressStat: {
+    alignItems: 'center',
+  },
+  progressLabel: {
+    fontSize: 13,
+    color: colors.textFaint,
+    marginTop: 4,
   },
   statusCard: {
     ...card,
