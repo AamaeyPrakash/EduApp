@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 import { useAuth } from '../auth/AuthContext';
+import AppText from '../components/AppText';
 import Banner from '../components/Banner';
-import FormScreen from '../components/FormScreen';
-import PrimaryButton from '../components/PrimaryButton';
+import Button from '../components/Button';
+import FormScreen, { formStyles } from '../components/FormScreen';
 import TextField from '../components/TextField';
 import { getErrorMessage } from '../lib/errors';
 import { validateEmail } from '../lib/validation';
-import { colors } from '../theme';
 
 const ForgotPasswordScreen = ({ navigation, route }) => {
   const { requestPasswordReset } = useAuth();
@@ -44,15 +44,19 @@ const ForgotPasswordScreen = ({ navigation, route }) => {
   };
 
   return (
-    <FormScreen contentContainerStyle={styles.content}>
-      <View style={styles.header}>
-        <Text style={styles.title} accessibilityRole="header">
-          Reset Password
-        </Text>
-        <Text style={styles.subtitle}>
+    <FormScreen onBack={() => navigation.popTo('SignIn')}>
+      <View style={formStyles.header}>
+        <AppText variant="largeTitle" accessibilityRole="header">
+          Reset password
+        </AppText>
+        <AppText
+          variant="body"
+          color="secondaryLabel"
+          style={formStyles.subtitle}
+        >
           Enter the email you signed up with and we'll send you a link to choose
           a new password.
-        </Text>
+        </AppText>
       </View>
 
       {sentTo ? (
@@ -77,58 +81,14 @@ const ForgotPasswordScreen = ({ navigation, route }) => {
         onSubmitEditing={handleSubmit}
       />
 
-      <PrimaryButton
+      <Button
         title={sentTo ? 'Send Again' : 'Send Reset Link'}
         onPress={handleSubmit}
         loading={loading}
-        style={styles.button}
+        style={formStyles.button}
       />
-
-      <TouchableOpacity
-        onPress={() => navigation.popTo('SignIn')}
-        style={styles.linkContainer}
-        accessibilityRole="link"
-      >
-        <Text style={styles.linkText}>Back to Sign In</Text>
-      </TouchableOpacity>
     </FormScreen>
   );
 };
-
-const styles = StyleSheet.create({
-  content: {
-    justifyContent: 'center',
-  },
-  header: {
-    alignItems: 'center',
-    marginBottom: 32,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: '700',
-    color: colors.text,
-    letterSpacing: -0.5,
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    lineHeight: 22,
-    color: colors.textMuted,
-    textAlign: 'center',
-  },
-  button: {
-    marginTop: 8,
-    marginBottom: 24,
-  },
-  linkContainer: {
-    alignItems: 'center',
-    paddingVertical: 12,
-  },
-  linkText: {
-    color: colors.primary,
-    fontSize: 14,
-    fontWeight: '600',
-  },
-});
 
 export default ForgotPasswordScreen;

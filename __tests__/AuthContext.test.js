@@ -28,9 +28,7 @@ jest.mock('../src/lib/appwrite', () =>
 
 const SIGN_UP_DETAILS = {
   name: ' Sam Lee ',
-  age: '16',
   grade: '11',
-  school: 'Springfield High',
   educationBoard: '5',
   email: ' Sam@Example.com ',
   password: 'secret123',
@@ -198,9 +196,10 @@ describe('signUp', () => {
         userId: 'user-1',
         email: 'sam@example.com',
         name: 'Sam Lee',
-        age: '16',
+        // No longer asked for; saved empty so older collections keep working.
+        age: '',
         grade: '11',
-        school: 'Springfield High',
+        school: '',
         educationBoard: '5',
       },
       ['read("user:user-1")', 'update("user:user-1")'],
@@ -253,20 +252,37 @@ describe('saveProfileDetails', () => {
     databases.createDocument.mockRejectedValue(
       appwriteError(409, 'document_already_exists'),
     );
-    const updated = { ...PROFILE, school: 'New School' };
+    const updated = { ...PROFILE, grade: '12' };
     databases.updateDocument.mockResolvedValue(updated);
 
     await act(() =>
-      result.current.saveProfileDetails({ ...PROFILE, school: 'New School' }),
+      result.current.saveProfileDetails({ ...PROFILE, grade: '12' }),
     );
 
     expect(databases.updateDocument).toHaveBeenCalledWith(
       'db',
       'profiles',
       'user-1',
-      expect.objectContaining({ school: 'New School' }),
+      expect.objectContaining({ grade: '12' }),
     );
     expect(result.current.profile).toEqual(updated);
+  });
+
+  it('clears the age and school that older versions stored', async () => {
+    const result = await renderSignedIn();
+    databases.createDocument.mockRejectedValue(
+      appwriteError(409, 'document_already_exists'),
+    );
+    databases.updateDocument.mockResolvedValue(PROFILE);
+
+    await act(() => result.current.saveProfileDetails(PROFILE));
+
+    expect(databases.updateDocument).toHaveBeenCalledWith(
+      'db',
+      'profiles',
+      'user-1',
+      expect.objectContaining({ age: '', school: '' }),
+    );
   });
 });
 

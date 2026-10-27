@@ -1,7 +1,6 @@
 package com.aamaeyprakash.eduapp
 
 import android.app.Application
-import androidx.appcompat.app.AppCompatDelegate
 import com.facebook.react.PackageList
 import com.facebook.react.ReactApplication
 import com.facebook.react.ReactHost
@@ -23,9 +22,6 @@ class MainApplication : Application(), ReactApplication {
 
   override fun onCreate() {
     super.onCreate()
-    // The app UI is always dark. Forcing night mode keeps the system bar icons, dialogs and
-    // keyboard light-on-dark even when the phone itself is in light mode.
-    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     loadReactNative(this)
   }
 }

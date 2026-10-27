@@ -11,14 +11,17 @@ export function fetchProfile(userId) {
   );
 }
 
+// `age` and `school` are no longer asked for. They're saved empty, which clears values
+// left by older versions. Appwrite rejects fields a collection doesn't define, so the
+// collection keeps both attributes.
 export function toProfileData(user, details) {
   return {
     userId: user.$id,
     email: user.email,
     name: details.name.trim(),
-    age: String(details.age).trim(),
+    age: '',
     grade: String(details.grade).trim(),
-    school: details.school.trim(),
+    school: '',
     educationBoard: details.educationBoard,
   };
 }

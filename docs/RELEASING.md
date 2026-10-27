@@ -50,7 +50,7 @@ EDUAPP_UPLOAD_KEY_PASSWORD=...
 - [ ] Store listing: 512×512 icon (`assets/store/play-store-icon-512.png`), 1024×500 feature graphic, phone screenshots.
 - [ ] App content → Privacy policy URL.
 - [ ] App content → App access: give the demo account's email and password.
-- [ ] App content → Data safety. Collected: name, email address, user ID, other info (age, grade, school, education board), and messages to the AI tutor. All are sent over HTTPS; users can delete their data.
+- [ ] App content → Data safety. Collected: name, email address, user ID, other info (grade, education board), app activity (practice progress and saved questions), and messages to the AI tutor. All are sent over HTTPS; users can delete their data.
 - [ ] Data safety → account deletion: in-app (Profile → Delete Account) **and a web link** where people can ask for deletion without the app (for example a page with your support email).
 - [ ] App content → Target audience and content, plus the content rating questionnaire.
 - [ ] Generative AI policy: AI replies can be reported in the app (the "Report" link under each answer). Reports appear in Appwrite → Functions → ask-ai → Executions, marked `REPORTED REPLY`. Review them regularly.
@@ -64,12 +64,12 @@ The project uses the UIScene lifecycle that apps built with the iOS 27 SDK requi
 - [ ] Product → Archive, then Distribute App → App Store Connect.
 - [ ] App Store Connect → App Privacy: the same data types as the Play Data safety form (name, email address, user ID, other user content, other data), linked to the user, used for app functionality and not for tracking. These are already declared in `ios/eduApp/PrivacyInfo.xcprivacy`; keep the two in sync if you collect anything new.
 - [ ] Privacy policy URL, support URL, age rating questionnaire, screenshots (6.9" iPhone at minimum; the app is iPhone-only).
-- [ ] App Review Information: the demo account, plus a note that AskGPT asks for permission before sending messages to OpenAI (guideline 5.1.2(i)) and that accounts can be deleted from Profile (guideline 5.1.1(v)).
+- [ ] App Review Information: the demo account, plus a note that the Tutor asks for permission before sending messages to OpenAI (guideline 5.1.2(i)) and that accounts can be deleted from Profile (guideline 5.1.1(v)).
 - [ ] Export compliance: the app only uses standard HTTPS. If you agree it qualifies for the exemption, add `ITSAppUsesNonExemptEncryption` = `NO` to `Info.plist` to skip the question on each upload.
 
 ## 5. Children's privacy
 
-The sign-up form collects name, age, grade and school, and MYP/IGCSE students can be under 13. If children under 13 (or under the local age of digital consent, up to 16 in parts of the EU) may use the app, laws such as COPPA and GDPR require parental consent, and both stores apply extra rules (Google Play Families policy; Apple's Kids category rules). The simplest option is to require users to be 13 or older and say so in the store listings and privacy policy. The minimum age the app accepts is set in `src/lib/validation.js` (`LIMITS.ageMin`). Get advice if you plan to serve younger students.
+The sign-up form collects name, grade and education board (it no longer asks for age or school), and MYP/IGCSE students can be under 13. If children under 13 (or under the local age of digital consent, up to 16 in parts of the EU) may use the app, laws such as COPPA and GDPR require parental consent, and both stores apply extra rules (Google Play Families policy; Apple's Kids category rules). The simplest option is to require users to be 13 or older and say so in the store listings, terms and privacy policy; since the app doesn't ask for age, it doesn't check this itself. Get advice if you plan to serve younger students.
 
 ## 6. Content notes
 

@@ -121,6 +121,7 @@ function buildCBSECourse() {
     key: 'cbse',
     board: '1',
     icon: 'Σ',
+    color: 'orange',
     title: 'CBSE Maths',
     subtitle: 'Classes 11 & 12 · NCERT examples',
     description: 'Worked examples for every chapter, with full solutions',
@@ -154,6 +155,7 @@ export const COURSES = [
   buildIBCourse('ib-aa', 'a', aaTopics, {
     board: '5',
     icon: '∫',
+    color: 'indigo',
     title: 'Mathematics AA',
     subtitle: 'IB · Analysis & Approaches',
     description: 'Calculus, algebra and proof for SL and HL',
@@ -161,6 +163,7 @@ export const COURSES = [
   buildIBCourse('ib-ai', 'i', aiTopics, {
     board: '5',
     icon: 'π',
+    color: 'teal',
     title: 'Mathematics AI',
     subtitle: 'IB · Applications & Interpretation',
     description: 'Modelling, statistics and real-world problems',

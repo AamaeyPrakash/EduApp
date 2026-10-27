@@ -1,6 +1,6 @@
 import React, { Component, useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { colors } from '../theme';
+import { type, useTheme } from '../theme';
 import { parseMathContent } from '../lib/mathContent';
 import MathView from './MathView';
 
@@ -27,13 +27,13 @@ class MathErrorBoundary extends Component {
   }
 }
 
-function Line({ tokens, textStyle }) {
+function Line({ tokens, textStyle, color }) {
   if (tokens.length === 0) {
     return <View style={styles.paragraphGap} />;
   }
   if (!tokens.some(token => token.type === 'math')) {
     return (
-      <Text style={[styles.text, textStyle]}>
+      <Text style={[styles.text, { color }, textStyle]}>
         {tokens.map(token => token.value).join('')}
       </Text>
     );
@@ -52,7 +52,7 @@ function Line({ tokens, textStyle }) {
           splitWords(token.value).map((word, wordIndex) => (
             <Text
               key={`text-${tokenIndex}-${wordIndex}`}
-              style={[styles.text, textStyle]}
+              style={[styles.text, { color }, textStyle]}
             >
               {word}
             </Text>
@@ -65,10 +65,15 @@ function Line({ tokens, textStyle }) {
 
 // Text with TeX formulas, e.g. "Solve $x^2 = 4$" or "$$\int_0^1 x\,dx$$".
 export default function MathText({ content, style, textStyle }) {
+  const { colors } = useTheme();
   const blocks = useMemo(() => parseMathContent(content), [content]);
   return (
     <MathErrorBoundary
-      fallback={<Text style={[styles.text, textStyle]}>{content}</Text>}
+      fallback={
+        <Text style={[styles.text, { color: colors.label }, textStyle]}>
+          {content}
+        </Text>
+      }
     >
       <View style={[styles.container, style]}>
         {blocks.map((block, index) =>
@@ -77,7 +82,12 @@ export default function MathText({ content, style, textStyle }) {
               <MathView math={block.math} />
             </View>
           ) : (
-            <Line key={index} tokens={block.tokens} textStyle={textStyle} />
+            <Line
+              key={index}
+              tokens={block.tokens}
+              textStyle={textStyle}
+              color={colors.label}
+            />
           ),
         )}
       </View>
@@ -90,10 +100,8 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   text: {
-    fontSize: 16,
-    color: colors.text,
-    lineHeight: 24,
-    letterSpacing: -0.16,
+    ...type.body,
+    lineHeight: 25,
   },
   inlineRow: {
     flexDirection: 'row',

@@ -8,9 +8,7 @@ import {
 
 const VALID_PROFILE = {
   name: 'Sam Lee',
-  age: '16',
   grade: '11',
-  school: 'Springfield High',
   educationBoard: '5',
 };
 
@@ -50,20 +48,16 @@ describe('profile', () => {
   it('reports every missing field', () => {
     expect(Object.keys(validateProfile({}))).toEqual([
       'name',
-      'age',
       'grade',
-      'school',
       'educationBoard',
     ]);
   });
 
-  it.each(['4', '100', 'abc', '1.5', '-3'])('rejects the age %p', age => {
-    expect(validateProfile({ ...VALID_PROFILE, age }).age).toMatch(
-      /between 5 and 99/,
-    );
+  it('accepts a grade given as a number', () => {
+    expect(validateProfile({ ...VALID_PROFILE, grade: 12 })).toEqual({});
   });
 
-  it.each(['0', '14'])('rejects the grade %p', grade => {
+  it.each(['0', '14', 'abc', '1.5'])('rejects the grade %p', grade => {
     expect(validateProfile({ ...VALID_PROFILE, grade }).grade).toMatch(
       /between 1 and 13/,
     );

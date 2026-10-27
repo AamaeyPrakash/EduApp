@@ -1,16 +1,12 @@
 import React, { useMemo, useState } from 'react';
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import ScreenHeader from '../components/ScreenHeader';
+import { TextInput, View } from 'react-native';
+import AppText from '../components/AppText';
+import CourseTile from '../components/CourseTile';
+import Icon from '../components/Icon';
+import PressableScale from '../components/PressableScale';
+import Screen from '../components/Screen';
 import { getCourse, searchQuestions, topicTitle } from '../content';
-import { colors } from '../theme';
+import { continuous, makeStyles, radius, type, useTheme } from '../theme';
 
 // Readable one-line preview of a question that may contain TeX.
 function preview(text) {
@@ -23,125 +19,162 @@ function preview(text) {
     .trim();
 }
 
-// Finds questions across every course by words in the topic, concept or question,
-// e.g. "bayes", "integration by parts", "matrix inverse".
+const SUGGESTIONS = [
+  'Bayes',
+  'Integration by parts',
+  'Inverse of a matrix',
+  'Limits',
+];
+
+// Finds questions across every course by words in the topic, concept or question.
 const SearchScreen = ({ navigation }) => {
+  const styles = useStyles();
+  const theme = useTheme();
   const [query, setQuery] = useState('');
   const results = useMemo(() => searchQuestions(query), [query]);
   const searched = query.trim().length > 0;
 
-  return (
-    <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
-      <ScreenHeader onClose={() => navigation.goBack()} title="Search" />
-      <View style={styles.searchBox}>
+  const header = (
+    <View>
+      <View style={styles.field}>
+        <Icon name="search" size={18} color="secondaryLabel" />
         <TextInput
           value={query}
           onChangeText={setQuery}
-          placeholder="Search topics and questions"
-          placeholderTextColor={colors.placeholder}
+          placeholder="Topics and questions"
+          placeholderTextColor={theme.colors.placeholder}
+          selectionColor={theme.colors.tint}
+          keyboardAppearance={theme.dark ? 'dark' : 'light'}
           style={styles.input}
           autoFocus
           autoCorrect={false}
           returnKeyType="search"
-          keyboardAppearance="dark"
           accessibilityLabel="Search questions"
         />
       </View>
-      <FlatList
-        data={results}
-        keyExtractor={question => question.id}
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={styles.list}
-        ListHeaderComponent={
-          searched ? (
-            <Text style={styles.count}>
-              {results.length === 50 ? '50+' : results.length} result
-              {results.length === 1 ? '' : 's'}
-            </Text>
-          ) : (
-            <Text style={styles.tip}>
-              Try a topic or method, like “Bayes”, “integration by parts” or
-              “inverse of a matrix”.
-            </Text>
-          )
-        }
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.result}
-            onPress={() =>
-              navigation.navigate('Practice', {
-                title: topicTitle(item),
-                questionIds: [item.id],
-              })
-            }
-            accessibilityRole="button"
+      {searched ? (
+        <AppText variant="footnote" color="secondaryLabel" style={styles.count}>
+          {results.length === 50 ? '50+' : results.length} result
+          {results.length === 1 ? '' : 's'}
+        </AppText>
+      ) : (
+        <View style={styles.suggestions}>
+          <AppText
+            variant="footnote"
+            color="secondaryLabel"
+            style={styles.count}
           >
-            <Text style={styles.resultHeading}>
-              {getCourse(item.courseKey)?.title} · {topicTitle(item)}
-            </Text>
-            <Text style={styles.resultText} numberOfLines={3}>
-              {preview(item.prompt)}
-            </Text>
-          </TouchableOpacity>
-        )}
-      />
-    </SafeAreaView>
+            Try searching for
+          </AppText>
+          {SUGGESTIONS.map(suggestion => (
+            <PressableScale
+              key={suggestion}
+              onPress={() => setQuery(suggestion)}
+              accessibilityRole="button"
+            >
+              <AppText variant="body" color="tint" style={styles.suggestion}>
+                {suggestion}
+              </AppText>
+            </PressableScale>
+          ))}
+        </View>
+      )}
+    </View>
+  );
+
+  return (
+    <Screen
+      title="Search"
+      onBack={() => navigation.goBack()}
+      list={{
+        data: results,
+        keyExtractor: question => question.id,
+        renderItem: ({ item }) => {
+          const course = getCourse(item.courseKey);
+          return (
+            <PressableScale
+              scaleTo={0.98}
+              onPress={() =>
+                navigation.navigate('Practice', {
+                  title: topicTitle(item),
+                  questionIds: [item.id],
+                })
+              }
+              accessibilityRole="button"
+            >
+              <View style={styles.result}>
+                <CourseTile course={course} size={28} />
+                <View style={styles.resultText}>
+                  <AppText
+                    variant="footnote"
+                    color="secondaryLabel"
+                    weight="600"
+                  >
+                    {course.title} · {topicTitle(item)}
+                  </AppText>
+                  <AppText
+                    variant="subheadline"
+                    numberOfLines={3}
+                    style={styles.preview}
+                  >
+                    {preview(item.prompt)}
+                  </AppText>
+                </View>
+              </View>
+            </PressableScale>
+          );
+        },
+      }}
+    >
+      {header}
+    </Screen>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  searchBox: {
-    paddingHorizontal: 20,
-    paddingBottom: 12,
+const useStyles = makeStyles(theme => ({
+  field: {
+    ...continuous,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: theme.colors.fill,
+    borderRadius: radius.medium,
+    paddingHorizontal: 12,
+    marginBottom: 12,
   },
   input: {
-    color: colors.text,
-    fontSize: 16,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-  },
-  list: {
-    paddingHorizontal: 20,
-    paddingBottom: 40,
+    ...type.body,
+    flex: 1,
+    minHeight: 44,
+    marginLeft: 8,
+    color: theme.colors.label,
   },
   count: {
-    fontSize: 13,
-    color: colors.textFaint,
     marginBottom: 8,
+    marginLeft: 4,
   },
-  tip: {
-    fontSize: 15,
-    lineHeight: 21,
-    color: colors.textMuted,
-    marginTop: 8,
+  suggestions: {
+    marginTop: 4,
+  },
+  suggestion: {
+    paddingVertical: 8,
+    paddingHorizontal: 4,
   },
   result: {
-    backgroundColor: colors.surfaceSubtle,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: colors.surfaceSubtleBorder,
-    padding: 16,
+    ...continuous,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    backgroundColor: theme.colors.surface,
+    borderRadius: radius.card,
+    padding: 14,
     marginBottom: 10,
   },
-  resultHeading: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: colors.primary,
-    marginBottom: 6,
-  },
   resultText: {
-    fontSize: 15,
-    lineHeight: 21,
-    color: colors.text,
+    flex: 1,
+    marginLeft: 12,
   },
-});
+  preview: {
+    marginTop: 2,
+  },
+}));
 
 export default SearchScreen;

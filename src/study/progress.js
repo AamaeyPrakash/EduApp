@@ -5,6 +5,8 @@
 //   b: [questionId, ...]                bookmarked questions, newest first
 //   s: [streak, bestStreak, lastDay]    days in a row with at least one answer marked
 //   t: [day, count]                     questions marked on that day
+//   g: number                           daily goal (questions a day)
+//   l: [courseKey, topicKey] | null     the topic studied most recently
 // Days are whole days since 1970-01-01 on the device's calendar (see dayNumber).
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -15,6 +17,7 @@ export const REVIEW_INTERVALS = [1, 3, 7, 16, 35, 90];
 // A question answered correctly the first time comes back after a week.
 const FIRST_CORRECT_BOX = 2;
 export const DAILY_GOAL = 10;
+export const GOAL_OPTIONS = [5, 10, 20, 30];
 // Leaves room in the 64 kB prefs for everything else stored there.
 export const MAX_SAVED_BYTES = 56000;
 
@@ -23,6 +26,8 @@ export const EMPTY_STUDY = Object.freeze({
   b: [],
   s: [0, 0, -1],
   t: [-1, 0],
+  g: DAILY_GOAL,
+  l: null,
 });
 
 export function dayNumber(date = new Date()) {
@@ -62,7 +67,14 @@ export function normalizeStudy(raw) {
     Array.isArray(raw.t) && raw.t.length === 2 && raw.t.every(isWholeNumber)
       ? raw.t
       : EMPTY_STUDY.t;
-  return { q, b, s, t };
+  const g = GOAL_OPTIONS.includes(raw.g) ? raw.g : DAILY_GOAL;
+  const l =
+    Array.isArray(raw.l) &&
+    raw.l.length === 2 &&
+    raw.l.every(part => typeof part === 'string')
+      ? raw.l
+      : null;
+  return { q, b, s, t, g, l };
 }
 
 // Records whether the student got a question right ("Got it") or not ("Not yet"),
@@ -90,6 +102,15 @@ export function recordResult(study, id, gotIt, today) {
     s: [nextStreak, Math.max(best, nextStreak), today],
     t: [today, study.t[0] === today ? study.t[1] + 1 : 1],
   };
+}
+
+export function setGoal(study, goal) {
+  return GOAL_OPTIONS.includes(goal) ? { ...study, g: goal } : study;
+}
+
+export function noteTopic(study, courseKey, topicKey) {
+  const same = study.l && study.l[0] === courseKey && study.l[1] === topicKey;
+  return same ? study : { ...study, l: [courseKey, topicKey] };
 }
 
 export function toggleBookmark(study, id) {

@@ -1,42 +1,53 @@
 import React, { useMemo, useState } from 'react';
 import {
   KeyboardAvoidingView,
+  Pressable,
   ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import AppText from '../components/AppText';
+import Icon from '../components/Icon';
 import MathText from '../components/MathText';
-import ScreenHeader from '../components/ScreenHeader';
+import { TopBar } from '../components/Screen';
 import TutorChat from '../components/TutorChat';
 import { getCourse, getQuestion, topicTitle } from '../content';
-import { colors } from '../theme';
+import { continuous, gutter, makeStyles, radius } from '../theme';
 
 const SUGGESTIONS = [
   {
     label: 'Give me a hint',
     text: 'Give me a hint for the next step, not the whole answer.',
+    icon: 'lightbulb',
   },
-  { label: 'Check my answer', text: 'My answer is: ', send: false },
+  {
+    label: 'Check my answer',
+    text: 'My answer is: ',
+    icon: 'check',
+    send: false,
+  },
   {
     label: 'Explain the solution',
     text: 'Explain the solution step by step.',
+    icon: 'book',
   },
   {
     label: 'Why this method?',
     text: 'Why does this method work here, and how would I spot it in an exam?',
+    icon: 'target',
   },
   {
     label: 'Similar question',
     text: 'Give me a similar question to practise, without the solution.',
+    icon: 'shuffle',
   },
 ];
 
 // The AI tutor for one practice question (`route.params.questionId`). The tutor gets
 // the question and its official solution, so its hints and answer checks follow it.
 const QuestionTutorScreen = ({ route, navigation }) => {
+  const styles = useStyles();
+  const insets = useSafeAreaInsets();
   const question = getQuestion(route.params?.questionId);
   const [questionShown, setQuestionShown] = useState(true);
 
@@ -55,85 +66,97 @@ const QuestionTutorScreen = ({ route, navigation }) => {
   );
 
   return (
-    <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+    <View style={styles.screen}>
       <KeyboardAvoidingView style={styles.flex} behavior="padding">
-        <ScreenHeader
-          onClose={() => navigation.goBack()}
-          title="Ask the tutor"
-        />
         {question ? (
-          <>
-            <View style={styles.questionBox}>
-              <TouchableOpacity
-                style={styles.questionHeader}
-                onPress={() => setQuestionShown(shown => !shown)}
-                accessibilityRole="button"
-                accessibilityState={{ expanded: questionShown }}
-              >
-                <Text style={styles.questionTitle} numberOfLines={1}>
-                  {context.topic}
-                </Text>
-                <Text style={styles.toggle}>
-                  {questionShown ? 'Hide question' : 'Show question'}
-                </Text>
-              </TouchableOpacity>
-              {questionShown ? (
-                <ScrollView style={styles.questionScroll} nestedScrollEnabled>
-                  <MathText content={question.prompt} />
-                </ScrollView>
-              ) : null}
-            </View>
-            <TutorChat
-              question={context}
-              suggestions={SUGGESTIONS}
-              emptyTitle="Stuck on this question?"
-              emptySubtitle="Ask for a hint, check your answer, or go through the solution step by step."
-            />
-          </>
+          <TutorChat
+            question={context}
+            suggestions={SUGGESTIONS}
+            bottomInset={Math.max(insets.bottom, 12)}
+            emptyTitle="Stuck on this question?"
+            emptySubtitle="Ask for a hint, check your answer, or go through the solution step by step."
+            renderHeader={() => (
+              <View style={{ paddingTop: insets.top + 56 }}>
+                <View style={styles.questionBox}>
+                  <Pressable
+                    style={styles.questionHeader}
+                    onPress={() => setQuestionShown(shown => !shown)}
+                    accessibilityRole="button"
+                    accessibilityState={{ expanded: questionShown }}
+                  >
+                    <AppText
+                      variant="footnote"
+                      color="secondaryLabel"
+                      weight="600"
+                      numberOfLines={1}
+                      style={styles.questionTitle}
+                    >
+                      {context.course} · {context.topic}
+                    </AppText>
+                    <AppText variant="footnote" color="tint" weight="600">
+                      {questionShown ? 'Hide question' : 'Show question'}
+                    </AppText>
+                    <Icon
+                      name={questionShown ? 'chevronUp' : 'chevronDown'}
+                      size={14}
+                      color="tint"
+                      strokeWidth={2.4}
+                    />
+                  </Pressable>
+                  {questionShown ? (
+                    <ScrollView
+                      style={styles.questionScroll}
+                      nestedScrollEnabled
+                    >
+                      <MathText content={question.prompt} />
+                    </ScrollView>
+                  ) : null}
+                </View>
+              </View>
+            )}
+          />
         ) : (
           <View style={styles.missing}>
-            <Text style={styles.missingText}>
+            <AppText variant="body" color="secondaryLabel" align="center">
               This question could not be found.
-            </Text>
+            </AppText>
           </View>
         )}
       </KeyboardAvoidingView>
-    </SafeAreaView>
+      <TopBar
+        title="Ask the tutor"
+        onBack={() => navigation.goBack()}
+        backIcon="close"
+        backLabel="Close"
+      />
+    </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
+const useStyles = makeStyles(theme => ({
+  screen: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: theme.colors.background,
   },
   flex: {
     flex: 1,
   },
   questionBox: {
-    marginHorizontal: 20,
+    ...continuous,
+    marginHorizontal: gutter,
     marginBottom: 4,
     padding: 14,
-    borderRadius: 16,
-    backgroundColor: colors.surfaceSubtle,
-    borderWidth: 1,
-    borderColor: colors.surfaceSubtleBorder,
+    borderRadius: radius.card,
+    backgroundColor: theme.colors.surface,
   },
   questionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 4,
   },
   questionTitle: {
     flex: 1,
-    fontSize: 14,
-    fontWeight: '600',
-    color: colors.textSecondary,
-  },
-  toggle: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: colors.primary,
-    marginLeft: 12,
+    marginRight: 8,
   },
   questionScroll: {
     maxHeight: 180,
@@ -142,14 +165,8 @@ const styles = StyleSheet.create({
   missing: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
+    padding: 32,
   },
-  missingText: {
-    fontSize: 17,
-    color: colors.textMuted,
-    textAlign: 'center',
-  },
-});
+}));
 
 export default QuestionTutorScreen;

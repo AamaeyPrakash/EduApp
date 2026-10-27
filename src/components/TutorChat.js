@@ -1,13 +1,12 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
   FlatList,
+  Keyboard,
+  Pressable,
   ScrollView,
-  StyleSheet,
-  Text,
   TextInput,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import { useAuth } from '../auth/AuthContext';
@@ -21,14 +20,57 @@ import {
   MAX_MESSAGE_LENGTH,
   reportTutorReply,
 } from '../services/ai';
-import { colors } from '../theme';
+import {
+  continuous,
+  gutter,
+  makeStyles,
+  radius,
+  type,
+  useTheme,
+} from '../theme';
+import AppText from './AppText';
 import Banner from './Banner';
+import Button from './Button';
+import Chip from './Chip';
+import Glass from './Glass';
+import Icon from './Icon';
+import { IconTile } from './List';
 import MathText from './MathText';
-import PrimaryButton from './PrimaryButton';
+import PressableScale from './PressableScale';
+
+function useKeyboardShown() {
+  const [shown, setShown] = useState(false);
+  useEffect(() => {
+    const showing = Keyboard.addListener('keyboardDidShow', () =>
+      setShown(true),
+    );
+    const hiding = Keyboard.addListener('keyboardDidHide', () =>
+      setShown(false),
+    );
+    return () => {
+      showing.remove();
+      hiding.remove();
+    };
+  }, []);
+  return shown;
+}
+
+function ConsentPoint({ icon, children }) {
+  const styles = useStyles();
+  return (
+    <View style={styles.point}>
+      <Icon name={icon} size={20} color="tint" />
+      <AppText variant="body" style={styles.pointText}>
+        {children}
+      </AppText>
+    </View>
+  );
+}
 
 // Shown once before the first question: App Store guideline 5.1.2(i) requires telling
 // people what is sent to a third-party AI service, and asking first.
 function AiConsent({ onAgree }) {
+  const styles = useStyles();
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(null);
 
@@ -50,79 +92,74 @@ function AiConsent({ onAgree }) {
 
   return (
     <ScrollView contentContainerStyle={styles.consent}>
-      <Text style={styles.consentTitle} accessibilityRole="header">
+      <IconTile name="sparkles" color="purple" size={56} />
+      <AppText
+        variant="title1"
+        accessibilityRole="header"
+        style={styles.consentTitle}
+      >
         Before you start
-      </Text>
-      <Text style={styles.consentText}>
-        AskGPT answers your questions using OpenAI, an AI service. To do that,
-        EduApp sends OpenAI:
-      </Text>
-      <Text style={styles.consentBullet}>
-        • the messages you type in this chat
-      </Text>
-      <Text style={styles.consentBullet}>
-        • your education board and grade, so answers match your syllabus
-      </Text>
-      <Text style={styles.consentBullet}>
-        • the practice question you are working on, when you ask about one
-      </Text>
-      <Text style={styles.consentText}>
+      </AppText>
+      <AppText variant="body" color="secondaryLabel" style={styles.consentText}>
+        The tutor answers using OpenAI, an AI service. To do that, EduApp sends
+        OpenAI:
+      </AppText>
+      <ConsentPoint icon="compose">
+        the messages you type in the chat
+      </ConsentPoint>
+      <ConsentPoint icon="graduation">
+        your education board and grade, so answers match your syllabus
+      </ConsentPoint>
+      <ConsentPoint icon="book">
+        the practice question you are working on, when you ask about one
+      </ConsentPoint>
+      <AppText
+        variant="subheadline"
+        color="secondaryLabel"
+        style={styles.consentText}
+      >
         Please don't include personal details such as your full name, address or
         phone number in your messages. AI answers can contain mistakes, so check
         important results.
-      </Text>
+      </AppText>
       {config.privacyPolicyUrl ? (
-        <Text
-          style={styles.consentLink}
+        <AppText
+          variant="subheadline"
+          color="tint"
           accessibilityRole="link"
           onPress={() => openLink(config.privacyPolicyUrl)}
+          style={styles.consentLink}
         >
           Read our Privacy Policy
-        </Text>
+        </AppText>
       ) : null}
       <Banner message={error} />
-      <PrimaryButton title="I Agree" onPress={agree} loading={saving} />
+      <Button title="I Agree" onPress={agree} loading={saving} />
     </ScrollView>
   );
 }
 
-// Tappable starters. `send: false` puts the text in the box to finish typing instead.
-function Suggestions({ items, onPick, disabled }) {
-  if (!items || items.length === 0) {
-    return null;
-  }
-  return (
-    <ScrollView
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      keyboardShouldPersistTaps="handled"
-      contentContainerStyle={styles.suggestions}
-    >
-      {items.map(item => (
-        <TouchableOpacity
-          key={item.label}
-          style={[styles.suggestion, disabled && styles.suggestionDisabled]}
-          onPress={() => onPick(item)}
-          disabled={disabled}
-          accessibilityRole="button"
-        >
-          <Text style={styles.suggestionText}>{item.label}</Text>
-        </TouchableOpacity>
-      ))}
-    </ScrollView>
-  );
-}
-
-// The AI tutor conversation. With `question` (a practice question), the tutor knows
-// the question and its official solution, and guides with hints instead of answering
-// outright. `suggestions` are [{ label, text, send }].
+// The AI tutor conversation.
+//   question       a practice question; the tutor then knows it and its official
+//                  solution, and guides with hints instead of answering outright
+//   suggestions    [{ label, text, icon, send }] starters; `send: false` puts the text
+//                  in the message box to finish instead of sending it
+//   renderHeader   ({ hasMessages, clear, sending }) => header element
+//   bottomInset    space to keep below the message box (e.g. for the tab bar)
+//   pendingPrompt  a message to send once the chat is ready (e.g. "summarise this
+//                  topic"); onPendingSent is called after it's sent
 export default function TutorChat({
   question,
-  suggestions,
-  emptyTitle = 'Start a conversation with AI',
-  emptySubtitle = "Ask me anything and I'll help you learn!",
-  onClear,
+  suggestions = [],
+  emptyTitle = 'How can I help?',
+  emptySubtitle = 'Ask about any maths topic, or pick a starting point.',
+  renderHeader,
+  bottomInset = 0,
+  pendingPrompt,
+  onPendingSent,
 }) {
+  const styles = useStyles();
+  const theme = useTheme();
   const { profile, verifySession, hasAiConsent, grantAiConsent } = useAuth();
   const [prompt, setPrompt] = useState('');
   const [messages, setMessages] = useState([]);
@@ -130,7 +167,9 @@ export default function TutorChat({
   const listRef = useRef(null);
   const inputRef = useRef(null);
   const nextId = useRef(0);
+  const keyboardShown = useKeyboardShown();
   const tutorReady = isTutorConfigured();
+  const needsConsent = tutorReady && !hasAiConsent;
 
   // Lets the tutor pitch answers at the student's curriculum and grade.
   const student = useMemo(
@@ -184,7 +223,7 @@ export default function TutorChat({
   const send = text => {
     const trimmed = text.trim();
     if (!trimmed || sending || !tutorReady) {
-      return;
+      return false;
     }
     const conversation = [
       ...messages.filter(message => message.role !== 'error'),
@@ -193,7 +232,18 @@ export default function TutorChat({
     setMessages(conversation);
     setPrompt('');
     requestReply(conversation);
+    return true;
   };
+
+  // Sends a message handed over by another screen once consent is in place.
+  const sendRef = useRef(send);
+  sendRef.current = send;
+  useEffect(() => {
+    if (pendingPrompt && !needsConsent && sendRef.current(pendingPrompt)) {
+      onPendingSent?.();
+    }
+    // `sending` is here so a prompt that arrives mid-reply goes out afterwards.
+  }, [pendingPrompt, needsConsent, onPendingSent, sending]);
 
   // Sends the last question again after a failed attempt.
   const retry = () => {
@@ -215,11 +265,6 @@ export default function TutorChat({
     } else {
       send(item.text);
     }
-  };
-
-  const clear = () => {
-    setMessages([]);
-    onClear?.();
   };
 
   const submitReport = async message => {
@@ -259,88 +304,134 @@ export default function TutorChat({
       ],
     );
 
-  const lastMessage = messages[messages.length - 1];
+  const header = renderHeader?.({
+    hasMessages: messages.length > 0,
+    clear: () => setMessages([]),
+    sending,
+  });
 
+  if (needsConsent) {
+    return (
+      <>
+        {header}
+        <AiConsent onAgree={grantAiConsent} />
+      </>
+    );
+  }
+
+  const lastMessage = messages[messages.length - 1];
   const renderMessage = ({ item }) => {
     if (item.role === 'user') {
       return (
-        <View style={[styles.messageBubble, styles.userBubble]}>
-          <Text style={[styles.messageText, styles.userText]} selectable>
+        <View style={[styles.bubble, styles.userBubble]}>
+          <AppText variant="body" color="onTint" selectable>
             {item.content}
-          </Text>
+          </AppText>
         </View>
       );
     }
     if (item.role === 'error') {
       return (
-        <View style={[styles.messageBubble, styles.errorBubble]}>
-          <Text style={[styles.messageText, styles.errorText]}>
-            {item.content}
-          </Text>
+        <View style={[styles.bubble, styles.errorBubble]}>
+          <AppText variant="subheadline">{item.content}</AppText>
           {item === lastMessage && !sending ? (
-            <TouchableOpacity
+            <Button
+              title="Try again"
+              icon="retry"
+              variant="plain"
+              size="small"
               onPress={retry}
-              accessibilityRole="button"
-              style={styles.retryButton}
-              hitSlop={8}
-            >
-              <Text style={styles.retryText}>Try again</Text>
-            </TouchableOpacity>
+              style={styles.retry}
+            />
           ) : null}
         </View>
       );
     }
     return (
-      <View style={styles.assistantMessage}>
-        <View style={[styles.messageBubble, styles.gptBubble]}>
+      <View style={styles.assistant}>
+        <View style={[styles.bubble, styles.assistantBubble]}>
           <MathText content={item.content} />
         </View>
-        <TouchableOpacity
+        <Pressable
           onPress={() => handleReport(item)}
           disabled={item.reported}
-          style={styles.reportButton}
           accessibilityRole="button"
           accessibilityLabel={
             item.reported ? 'Answer reported' : 'Report this answer'
           }
           hitSlop={8}
+          style={styles.report}
         >
-          <Text style={styles.reportText}>
+          <AppText variant="caption" color="tertiaryLabel">
             {item.reported ? 'Reported - thank you' : 'Report'}
-          </Text>
-        </TouchableOpacity>
+          </AppText>
+        </Pressable>
       </View>
     );
   };
 
-  if (tutorReady && !hasAiConsent) {
-    return <AiConsent onAgree={grantAiConsent} />;
-  }
-
   const canSend = tutorReady && !sending && prompt.trim().length > 0;
+  const dockBottom = keyboardShown ? 8 : bottomInset;
 
   return (
-    <>
+    <View style={styles.flex}>
+      {header}
       <FlatList
         ref={listRef}
         style={styles.flex}
         data={messages}
         keyExtractor={item => item.id}
         renderItem={renderMessage}
-        contentContainerStyle={styles.chatContent}
+        contentContainerStyle={[
+          styles.chat,
+          { paddingBottom: dockBottom + (question ? 128 : 84) },
+        ]}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
         onContentSizeChange={() =>
           listRef.current?.scrollToEnd({ animated: true })
         }
         ListEmptyComponent={
-          <View style={styles.emptyState}>
-            <Text style={styles.emptyStateText}>{emptyTitle}</Text>
-            <Text style={styles.emptyStateSubtext}>{emptySubtitle}</Text>
-            {tutorReady ? null : (
+          <View style={styles.empty}>
+            <AppText variant="title2" align="center">
+              {emptyTitle}
+            </AppText>
+            <AppText
+              variant="subheadline"
+              color="secondaryLabel"
+              align="center"
+              style={styles.emptySubtitle}
+            >
+              {emptySubtitle}
+            </AppText>
+            {tutorReady ? (
+              question ? null : (
+                <View style={styles.cards}>
+                  {suggestions.map(item => (
+                    <PressableScale
+                      key={item.label}
+                      style={styles.cardWrap}
+                      onPress={() => pickSuggestion(item)}
+                      accessibilityRole="button"
+                    >
+                      <View style={styles.card}>
+                        <Icon name={item.icon} size={22} color="tint" />
+                        <AppText
+                          variant="subheadline"
+                          weight="600"
+                          style={styles.cardLabel}
+                        >
+                          {item.label}
+                        </AppText>
+                      </View>
+                    </PressableScale>
+                  ))}
+                </View>
+              )
+            ) : (
               <Banner
-                style={styles.setupBanner}
                 tone="info"
+                style={styles.setup}
                 message="The AI tutor isn't set up yet. Please check back soon."
               />
             )}
@@ -349,42 +440,56 @@ export default function TutorChat({
         ListFooterComponent={
           sending ? (
             <View
-              style={[styles.messageBubble, styles.gptBubble, styles.typing]}
+              style={[styles.bubble, styles.assistantBubble, styles.typing]}
             >
-              <ActivityIndicator color={colors.textMuted} size="small" />
-              <Text style={styles.typingText}>Thinking...</Text>
+              <ActivityIndicator
+                color={theme.colors.secondaryLabel}
+                size="small"
+              />
+              <AppText
+                variant="subheadline"
+                color="secondaryLabel"
+                style={styles.typingText}
+              >
+                Thinking...
+              </AppText>
             </View>
           ) : null
         }
       />
 
-      <View style={styles.inputContainer}>
-        {tutorReady ? (
-          <Suggestions
-            items={suggestions}
-            onPick={pickSuggestion}
-            disabled={sending}
-          />
-        ) : null}
-        {messages.length > 0 && !sending ? (
-          <TouchableOpacity
-            onPress={clear}
-            accessibilityRole="button"
-            style={styles.newChat}
-            hitSlop={8}
+      <View
+        style={[styles.dock, { bottom: dockBottom }]}
+        pointerEvents="box-none"
+      >
+        {question && tutorReady ? (
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            contentContainerStyle={styles.chips}
           >
-            <Text style={styles.newChatText}>New chat</Text>
-          </TouchableOpacity>
+            {suggestions.map(item => (
+              <Chip
+                key={item.label}
+                label={item.label}
+                icon={item.icon}
+                disabled={sending}
+                onPress={() => pickSuggestion(item)}
+              />
+            ))}
+          </ScrollView>
         ) : null}
-        <View style={styles.inputWrapper}>
+        <Glass style={styles.inputBar}>
           <TextInput
             ref={inputRef}
-            placeholder="Type your message..."
+            placeholder="Message"
             value={prompt}
             onChangeText={setPrompt}
             style={styles.input}
-            placeholderTextColor={colors.placeholder}
-            keyboardAppearance="dark"
+            placeholderTextColor={theme.colors.placeholder}
+            selectionColor={theme.colors.tint}
+            keyboardAppearance={theme.dark ? 'dark' : 'light'}
             multiline
             maxLength={MAX_MESSAGE_LENGTH}
             editable={tutorReady}
@@ -393,210 +498,174 @@ export default function TutorChat({
             onSubmitEditing={() => send(prompt)}
             accessibilityLabel="Message"
           />
-          <TouchableOpacity
+          <PressableScale
             onPress={() => send(prompt)}
-            style={[styles.sendButton, !canSend && styles.sendButtonDisabled]}
             disabled={!canSend}
             accessibilityRole="button"
             accessibilityLabel="Send message"
+            style={[styles.send, canSend ? styles.sendActive : styles.sendIdle]}
           >
-            <Text style={styles.sendButtonText}>Send</Text>
-          </TouchableOpacity>
-        </View>
+            <Icon
+              name="arrowUp"
+              size={18}
+              color={canSend ? 'onTint' : 'secondaryLabel'}
+              strokeWidth={2.6}
+            />
+          </PressableScale>
+        </Glass>
       </View>
-    </>
+    </View>
   );
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles(theme => ({
   flex: {
     flex: 1,
   },
   consent: {
-    padding: 24,
+    padding: gutter + 8,
+    paddingBottom: 140,
   },
   consentTitle: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: colors.text,
-    marginBottom: 16,
+    marginTop: 20,
+    marginBottom: 8,
   },
   consentText: {
-    fontSize: 16,
-    lineHeight: 23,
-    color: colors.textSecondary,
-    marginBottom: 12,
+    marginVertical: 8,
   },
-  consentBullet: {
-    fontSize: 16,
-    lineHeight: 23,
-    color: colors.text,
-    marginBottom: 8,
-    paddingLeft: 8,
+  point: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginVertical: 8,
+  },
+  pointText: {
+    flex: 1,
+    marginLeft: 12,
   },
   consentLink: {
-    color: colors.primary,
-    fontSize: 15,
-    textDecorationLine: 'underline',
     marginBottom: 20,
   },
-  chatContent: {
-    padding: 20,
+  chat: {
+    paddingHorizontal: gutter,
+    paddingTop: 8,
     flexGrow: 1,
   },
-  emptyState: {
+  empty: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 60,
+    paddingVertical: 32,
   },
-  emptyStateText: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: colors.text,
-    marginBottom: 8,
-    textAlign: 'center',
+  emptySubtitle: {
+    marginTop: 6,
   },
-  emptyStateSubtext: {
-    fontSize: 16,
-    color: colors.textMuted,
-    textAlign: 'center',
-  },
-  setupBanner: {
+  cards: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
     marginTop: 24,
   },
-  messageBubble: {
-    padding: 16,
+  cardWrap: {
+    width: '48%',
+    flexGrow: 1,
+  },
+  card: {
+    ...continuous,
+    backgroundColor: theme.colors.surface,
+    borderRadius: radius.card,
+    padding: 14,
+    minHeight: 92,
+    justifyContent: 'space-between',
+  },
+  cardLabel: {
+    marginTop: 12,
+  },
+  setup: {
+    marginTop: 24,
+  },
+  bubble: {
+    ...continuous,
     borderRadius: 20,
-    marginVertical: 6,
-    maxWidth: '85%',
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    marginVertical: 4,
   },
   userBubble: {
     alignSelf: 'flex-end',
-    backgroundColor: colors.primary,
-    borderBottomRightRadius: 8,
+    maxWidth: '82%',
+    backgroundColor: theme.colors.tint,
+    borderBottomRightRadius: 6,
   },
-  assistantMessage: {
+  assistant: {
     alignItems: 'flex-start',
   },
-  gptBubble: {
+  assistantBubble: {
     alignSelf: 'flex-start',
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.surfaceBorder,
-    borderBottomLeftRadius: 8,
+    maxWidth: '94%',
+    backgroundColor: theme.colors.surface,
+    borderBottomLeftRadius: 6,
   },
-  reportButton: {
-    marginLeft: 12,
-    marginBottom: 4,
-  },
-  reportText: {
-    color: colors.textFaint,
-    fontSize: 12,
+  report: {
+    marginLeft: 10,
+    marginBottom: 6,
   },
   errorBubble: {
     alignSelf: 'flex-start',
-    backgroundColor: colors.dangerSurface,
-    borderWidth: 1,
-    borderColor: colors.dangerBorder,
-    borderBottomLeftRadius: 8,
+    maxWidth: '88%',
+    backgroundColor: theme.colors.redFill,
   },
-  retryButton: {
-    marginTop: 10,
-  },
-  retryText: {
-    color: colors.primary,
-    fontSize: 15,
-    fontWeight: '600',
-  },
-  messageText: {
-    fontSize: 16,
-    lineHeight: 22,
-  },
-  userText: {
-    color: colors.text,
-    fontWeight: '500',
-  },
-  errorText: {
-    color: colors.danger,
+  retry: {
+    alignSelf: 'flex-start',
+    marginTop: 4,
+    marginLeft: -14,
   },
   typing: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   typingText: {
-    color: colors.textMuted,
-    fontSize: 15,
     marginLeft: 10,
   },
-  inputContainer: {
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    backgroundColor: colors.tabBar,
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(255, 255, 255, 0.1)',
+  dock: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
   },
-  suggestions: {
+  chips: {
     gap: 8,
+    paddingHorizontal: gutter,
     paddingBottom: 10,
   },
-  suggestion: {
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: 'rgba(10, 132, 255, 0.5)',
-    backgroundColor: colors.primaryTint,
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-  },
-  suggestionDisabled: {
-    opacity: 0.5,
-  },
-  suggestionText: {
-    color: colors.text,
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  newChat: {
-    alignSelf: 'flex-end',
-    marginBottom: 8,
-  },
-  newChatText: {
-    color: colors.primary,
-    fontSize: 14,
-    fontWeight: '600',
-  },
-  inputWrapper: {
+  inputBar: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    borderRadius: 25,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    minHeight: 50,
+    marginHorizontal: gutter,
+    paddingLeft: 18,
+    paddingRight: 6,
+    paddingVertical: 6,
+    borderRadius: 26,
   },
   input: {
+    ...type.body,
     flex: 1,
-    color: colors.text,
-    fontSize: 16,
-    maxHeight: 100,
-    paddingVertical: 8,
-    paddingRight: 12,
+    maxHeight: 120,
+    minHeight: 40,
+    paddingTop: 10,
+    paddingBottom: 10,
+    color: theme.colors.label,
   },
-  sendButton: {
-    backgroundColor: colors.primary,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 20,
+  send: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    alignItems: 'center',
+    justifyContent: 'center',
     marginLeft: 8,
+    marginBottom: 1,
   },
-  sendButtonDisabled: {
-    backgroundColor: 'rgba(10, 132, 255, 0.3)',
+  sendActive: {
+    backgroundColor: theme.colors.tint,
   },
-  sendButtonText: {
-    color: colors.text,
-    fontWeight: '600',
-    fontSize: 15,
+  sendIdle: {
+    backgroundColor: theme.colors.fill,
   },
-});
+}));

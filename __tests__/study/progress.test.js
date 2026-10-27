@@ -1,15 +1,18 @@
 import {
   currentStreak,
+  DAILY_GOAL,
   dayNumber,
   dueIds,
   EMPTY_STUDY,
   fitToLimit,
   mistakeIds,
   normalizeStudy,
+  noteTopic,
   progressFor,
   questionStatus,
   recordResult,
   REVIEW_INTERVALS,
+  setGoal,
   todayCount,
   toggleBookmark,
 } from '../../src/study/progress';
@@ -129,7 +132,32 @@ describe('normalizeStudy', () => {
       b: ['a', 'b'],
       s: [2, 4, DAY],
       t: EMPTY_STUDY.t,
+      g: DAILY_GOAL,
+      l: null,
     });
+  });
+
+  it('keeps a valid daily goal and last topic', () => {
+    const study = normalizeStudy({ g: 20, l: ['cbse', 'Sets'] });
+    expect(study.g).toBe(20);
+    expect(study.l).toEqual(['cbse', 'Sets']);
+    expect(normalizeStudy({ g: 7, l: ['cbse'] })).toMatchObject({
+      g: DAILY_GOAL,
+      l: null,
+    });
+  });
+});
+
+describe('goal and last topic', () => {
+  it('only accepts the offered daily goals', () => {
+    expect(setGoal(EMPTY_STUDY, 30).g).toBe(30);
+    expect(setGoal(EMPTY_STUDY, 7)).toBe(EMPTY_STUDY);
+  });
+
+  it('remembers the last topic without changing anything else', () => {
+    const study = noteTopic(EMPTY_STUDY, 'cbse', 'Sets');
+    expect(study.l).toEqual(['cbse', 'Sets']);
+    expect(noteTopic(study, 'cbse', 'Sets')).toBe(study);
   });
 });
 

@@ -1,5 +1,9 @@
-import React from 'react';
-import { DarkTheme, NavigationContainer } from '@react-navigation/native';
+import React, { useMemo } from 'react';
+import {
+  DarkTheme,
+  DefaultTheme,
+  NavigationContainer,
+} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AUTH_STATUS, PROFILE_STATUS, useAuth } from '../auth/AuthContext';
 import StatusScreen from '../components/StatusScreen';
@@ -13,31 +17,28 @@ import QuestionTutorScreen from '../screens/QuestionTutorScreen';
 import SearchScreen from '../screens/SearchScreen';
 import SignInScreen from '../screens/SignInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
-import StudyScreen from '../screens/StudyScreen';
-import { colors } from '../theme';
+import TopicScreen from '../screens/TopicScreen';
+import { useTheme } from '../theme';
 import TabNavigator from './TabNavigator';
 
 const Stack = createNativeStackNavigator();
 
-const theme = {
-  ...DarkTheme,
-  colors: {
-    ...DarkTheme.colors,
-    primary: colors.primary,
-    background: colors.background,
-    card: colors.background,
-  },
-};
-
-const screenOptions = {
-  headerShown: false,
-  contentStyle: { backgroundColor: colors.background },
-};
+// Focused tasks (practice, the question tutor, editing details) slide up from the
+// bottom like iOS sheets; everything else pushes from the side.
+const SHEET = { animation: 'slide_from_bottom' };
 
 // Picks the screens for the current auth state. Switching between them (e.g. after
 // signing in or out) happens automatically when the auth state changes.
 function RootStack() {
   const { status, profile, profileStatus, error, restoreSession } = useAuth();
+  const theme = useTheme();
+  const screenOptions = useMemo(
+    () => ({
+      headerShown: false,
+      contentStyle: { backgroundColor: theme.colors.background },
+    }),
+    [theme],
+  );
 
   if (status === AUTH_STATUS.MISCONFIGURED) {
     return (
@@ -60,6 +61,7 @@ function RootStack() {
   if (status === AUTH_STATUS.UNREACHABLE) {
     return (
       <StatusScreen
+        icon="retry"
         title="Can't connect"
         message={getErrorMessage(error)}
         actions={[{ title: 'Try Again', onPress: restoreSession }]}
@@ -88,14 +90,23 @@ function RootStack() {
         <Stack.Group>
           <Stack.Screen name="Tabs" component={TabNavigator} />
           <Stack.Screen name="Course" component={CourseScreen} />
-          <Stack.Screen name="Study" component={StudyScreen} />
-          <Stack.Screen name="Practice" component={PracticeScreen} />
+          <Stack.Screen name="Topic" component={TopicScreen} />
           <Stack.Screen name="Search" component={SearchScreen} />
-          <Stack.Screen name="QuestionTutor" component={QuestionTutorScreen} />
+          <Stack.Screen
+            name="Practice"
+            component={PracticeScreen}
+            options={SHEET}
+          />
+          <Stack.Screen
+            name="QuestionTutor"
+            component={QuestionTutorScreen}
+            options={SHEET}
+          />
           <Stack.Screen
             name="EditProfile"
             component={ProfileFormScreen}
             initialParams={{ mode: 'edit' }}
+            options={SHEET}
           />
         </Stack.Group>
       )}
@@ -104,8 +115,23 @@ function RootStack() {
 }
 
 export default function AppNavigator() {
+  const theme = useTheme();
+  const navigationTheme = useMemo(() => {
+    const base = theme.dark ? DarkTheme : DefaultTheme;
+    return {
+      ...base,
+      colors: {
+        ...base.colors,
+        primary: theme.colors.tint,
+        background: theme.colors.background,
+        card: theme.colors.background,
+        text: theme.colors.label,
+        border: theme.colors.separator,
+      },
+    };
+  }, [theme]);
   return (
-    <NavigationContainer theme={theme}>
+    <NavigationContainer theme={navigationTheme}>
       <RootStack />
     </NavigationContainer>
   );

@@ -1,36 +1,42 @@
-import React, { useMemo, useRef, useState } from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { ScrollView, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import AppText from '../components/AppText';
+import Button from '../components/Button';
+import Glass, { GlassIconButton } from '../components/Glass';
+import Icon from '../components/Icon';
 import MathText from '../components/MathText';
-import PrimaryButton from '../components/PrimaryButton';
 import ProgressBar from '../components/ProgressBar';
+import ProgressRing from '../components/ProgressRing';
 import {
-  AskTutorLink,
-  cardStyle,
+  AnswerPanel,
+  BookmarkButton,
   QuestionMeta,
 } from '../components/QuestionCard';
-import ScreenHeader from '../components/ScreenHeader';
+import { TopBar } from '../components/Screen';
 import { getCourse, getQuestions, topicTitle } from '../content';
 import { isTutorConfigured } from '../services/ai';
 import { useStudy } from '../study/StudyContext';
-import { colors } from '../theme';
+import { continuous, gutter, makeStyles, radius } from '../theme';
 
-function Panel({ label, content }) {
-  return (
-    <View style={styles.panel}>
-      <Text style={styles.panelLabel}>{label}</Text>
-      <MathText content={content} />
-    </View>
-  );
+const formatTime = seconds =>
+  `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`;
+
+// Seconds left until `endsAt`, updated every second; null without a time limit.
+function useCountdown(endsAt, running) {
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    if (!endsAt || !running) {
+      return undefined;
+    }
+    const timer = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(timer);
+  }, [endsAt, running]);
+  return endsAt ? Math.max(0, Math.ceil((endsAt - now) / 1000)) : null;
 }
 
-function Summary({ results, onRetry, onDone }) {
+function Summary({ results, total, timeUp, onRetry, onDone }) {
+  const styles = useStyles();
   const right = results.filter(result => result.gotIt).length;
   const missed = results.length - right;
   let message = 'You skipped every question. Come back when you are ready.';
@@ -42,52 +48,82 @@ function Summary({ results, onRetry, onDone }) {
             missed === 1 ? '' : 's'
           } will come back for review tomorrow.`;
   }
+  if (timeUp) {
+    message = `Time's up: you answered ${results.length} of ${total}. ${message}`;
+  }
   return (
     <View style={styles.summary}>
-      <Text style={styles.summaryTitle} accessibilityRole="header">
-        Session complete
-      </Text>
       {results.length > 0 ? (
-        <Text style={styles.score}>
-          {right} / {results.length}
-        </Text>
+        <ProgressRing
+          size={160}
+          strokeWidth={16}
+          value={right / results.length}
+          gradient={['green', 'teal']}
+          accessibilityLabel={`${right} of ${results.length} right`}
+        >
+          <AppText variant="largeTitle">
+            {right} / {results.length}
+          </AppText>
+          <AppText variant="footnote" color="secondaryLabel">
+            got it
+          </AppText>
+        </ProgressRing>
       ) : null}
-      {results.length > 0 ? (
-        <Text style={styles.scoreLabel}>got it</Text>
-      ) : null}
-      <Text style={styles.summaryText}>{message}</Text>
-      {missed > 0 ? (
-        <PrimaryButton
-          title={`Try the ${missed} I missed again`}
-          onPress={onRetry}
-          style={styles.summaryButton}
+      <AppText
+        variant="title1"
+        align="center"
+        accessibilityRole="header"
+        style={styles.summaryTitle}
+      >
+        {timeUp ? "Time's up" : 'Session complete'}
+      </AppText>
+      <AppText variant="body" color="secondaryLabel" align="center">
+        {message}
+      </AppText>
+      <View style={styles.summaryButtons}>
+        {missed > 0 ? (
+          <Button
+            title={`Try the ${missed} I missed again`}
+            onPress={onRetry}
+          />
+        ) : null}
+        <Button
+          title="Done"
+          variant={missed > 0 ? 'gray' : 'filled'}
+          onPress={onDone}
         />
-      ) : null}
-      <PrimaryButton
-        title="Done"
-        variant={missed > 0 ? 'secondary' : 'primary'}
-        onPress={onDone}
-        style={styles.summaryButton}
-      />
+      </View>
     </View>
   );
 }
 
 // Practice one question at a time: try it, reveal the answer, then mark it "Got it" or
 // "Not yet". Marked questions are scheduled for review (see study/progress.js).
-// Params: { title, questionIds }.
+// Params: { title, questionIds, timeLimit? } with timeLimit in seconds.
 const PracticeScreen = ({ route, navigation }) => {
-  const { title = 'Practice', questionIds = [] } = route.params ?? {};
+  const styles = useStyles();
+  const insets = useSafeAreaInsets();
+  const {
+    title = 'Practice',
+    questionIds = [],
+    timeLimit,
+  } = route.params ?? {};
   const questions = useMemo(() => getQuestions(questionIds), [questionIds]);
   const { record } = useStudy();
   const [index, setIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
   const [results, setResults] = useState([]);
+  const [endsAt] = useState(() =>
+    timeLimit ? Date.now() + timeLimit * 1000 : null,
+  );
   const scrollRef = useRef(null);
   const tutorReady = isTutorConfigured();
 
-  const question = questions[index];
   const finished = index >= questions.length;
+  const secondsLeft = useCountdown(endsAt, !finished);
+  const timeUp = secondsLeft === 0;
+  const question = questions[index];
+  const close = () => navigation.goBack();
 
   const goToNext = () => {
     setRevealed(false);
@@ -103,25 +139,39 @@ const PracticeScreen = ({ route, navigation }) => {
 
   if (questions.length === 0) {
     return (
-      <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
-        <ScreenHeader onClose={() => navigation.goBack()} title={title} />
-        <View style={styles.empty}>
-          <Text style={styles.emptyText}>Nothing to practise here yet.</Text>
+      <View style={styles.screen}>
+        <TopBar
+          title={title}
+          onBack={close}
+          backIcon="close"
+          backLabel="Close"
+        />
+        <View style={styles.centered}>
+          <AppText variant="body" color="secondaryLabel" align="center">
+            Nothing to practise here yet.
+          </AppText>
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 
-  if (finished) {
+  if (finished || timeUp) {
     const missedIds = results
       .filter(result => !result.gotIt)
       .map(result => result.id);
     return (
-      <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
-        <ScreenHeader onClose={() => navigation.goBack()} title={title} />
+      <View style={styles.screen}>
+        <TopBar
+          title={title}
+          onBack={close}
+          backIcon="close"
+          backLabel="Close"
+        />
         <Summary
           results={results}
-          onDone={() => navigation.goBack()}
+          total={questions.length}
+          timeUp={timeUp && !finished}
+          onDone={close}
           onRetry={() =>
             navigation.replace('Practice', {
               title: 'Questions to retry',
@@ -129,248 +179,235 @@ const PracticeScreen = ({ route, navigation }) => {
             })
           }
         />
-      </SafeAreaView>
+      </View>
     );
   }
 
   const course = getCourse(question.courseKey);
   return (
-    <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
-      <ScreenHeader
-        onClose={() => navigation.goBack()}
+    <View style={styles.screen}>
+      <TopBar
         title={title}
+        onBack={close}
+        backIcon="close"
+        backLabel="Close"
         right={
-          <Text style={styles.counter}>
-            {index + 1} / {questions.length}
-          </Text>
+          <>
+            <Glass style={styles.bookmarkButton}>
+              <BookmarkButton questionId={question.id} />
+            </Glass>
+            {tutorReady ? (
+              <GlassIconButton
+                icon="sparkles"
+                color="purple"
+                accessibilityLabel="Ask the tutor about this question"
+                onPress={() =>
+                  navigation.navigate('QuestionTutor', {
+                    questionId: question.id,
+                  })
+                }
+              />
+            ) : null}
+          </>
         }
       />
-      <ProgressBar
-        value={index / questions.length}
-        style={styles.progressBar}
-      />
+      <View style={[styles.progress, { marginTop: insets.top + 60 }]}>
+        <ProgressBar
+          value={index / questions.length}
+          style={styles.progressBar}
+        />
+        <AppText variant="footnote" color="secondaryLabel" weight="600">
+          {index + 1} / {questions.length}
+        </AppText>
+        {secondsLeft !== null ? (
+          <View
+            style={[styles.timer, secondsLeft <= 60 && styles.timerLow]}
+            accessibilityLabel={`${formatTime(secondsLeft)} left`}
+          >
+            <Icon
+              name="timer"
+              size={14}
+              color={secondsLeft <= 60 ? 'red' : 'secondaryLabel'}
+              strokeWidth={2.2}
+            />
+            <AppText
+              variant="footnote"
+              weight="600"
+              color={secondsLeft <= 60 ? 'red' : 'secondaryLabel'}
+              style={styles.timerText}
+            >
+              {formatTime(secondsLeft)}
+            </AppText>
+          </View>
+        ) : null}
+      </View>
       <ScrollView
         ref={scrollRef}
-        contentContainerStyle={styles.content}
-        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={[
+          styles.content,
+          { paddingBottom: insets.bottom + 120 },
+        ]}
+        showsVerticalScrollIndicator={false}
       >
         <View style={styles.card}>
           <QuestionMeta
             question={question}
             heading={`${course?.title ?? ''} · ${topicTitle(question)}`}
           />
-          <MathText content={question.prompt} textStyle={styles.prompt} />
+          <MathText content={question.prompt} />
+        </View>
+        {revealed ? (
+          <>
+            {question.answer ? (
+              <AnswerPanel
+                label="Answer"
+                content={question.answer}
+                tone="answer"
+              />
+            ) : null}
+            <AnswerPanel
+              label={question.solutionLabel}
+              content={question.solution}
+            />
+          </>
+        ) : (
+          <AppText
+            variant="footnote"
+            color="tertiaryLabel"
+            align="center"
+            style={styles.hint}
+          >
+            Work it out on paper first, then check your answer.
+          </AppText>
+        )}
+      </ScrollView>
+      <View style={[styles.dock, { bottom: Math.max(insets.bottom, 12) }]}>
+        <Glass style={styles.actions}>
           {revealed ? (
             <>
-              {question.answer ? (
-                <Panel label="Answer" content={question.answer} />
-              ) : null}
-              <Panel
-                label={question.solutionLabel}
-                content={question.solution}
+              <Button
+                title="Not yet"
+                variant="tinted"
+                color="orange"
+                style={styles.action}
+                accessibilityLabel="Not yet"
+                onPress={() => mark(false)}
+              />
+              <Button
+                title="Got it"
+                variant="filled"
+                color="green"
+                style={styles.action}
+                accessibilityLabel="Got it"
+                onPress={() => mark(true)}
               />
             </>
           ) : (
-            <Text style={styles.hint}>
-              Work it out on paper first, then check your answer.
-            </Text>
+            <>
+              <Button
+                title="Skip"
+                variant="gray"
+                style={styles.action}
+                onPress={goToNext}
+              />
+              <Button
+                title="Show answer"
+                style={styles.action}
+                onPress={() => setRevealed(true)}
+              />
+            </>
           )}
-          {tutorReady ? (
-            <AskTutorLink
-              onPress={() =>
-                navigation.navigate('QuestionTutor', {
-                  questionId: question.id,
-                })
-              }
-            />
-          ) : null}
-        </View>
-      </ScrollView>
-      <View style={styles.actions}>
-        {revealed ? (
-          <>
-            <Text style={styles.actionsPrompt}>How did you do?</Text>
-            <View style={styles.actionRow}>
-              <TouchableOpacity
-                style={[styles.actionButton, styles.notYet]}
-                onPress={() => mark(false)}
-                accessibilityRole="button"
-                accessibilityHint="It will come back tomorrow"
-              >
-                <Text style={styles.actionText}>Not yet</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.actionButton, styles.gotIt]}
-                onPress={() => mark(true)}
-                accessibilityRole="button"
-                accessibilityHint="It will come back later for review"
-              >
-                <Text style={styles.actionText}>Got it</Text>
-              </TouchableOpacity>
-            </View>
-          </>
-        ) : (
-          <View style={styles.actionRow}>
-            <TouchableOpacity
-              style={[styles.actionButton, styles.skip]}
-              onPress={goToNext}
-              accessibilityRole="button"
-            >
-              <Text style={styles.actionText}>Skip</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.actionButton, styles.reveal]}
-              onPress={() => setRevealed(true)}
-              accessibilityRole="button"
-            >
-              <Text style={styles.actionText}>Show answer</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+        </Glass>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
-const actionButton = {
-  flex: 1,
-  alignItems: 'center',
-  justifyContent: 'center',
-  borderRadius: 16,
-  paddingVertical: 16,
-  borderWidth: 1,
-};
-
-const styles = StyleSheet.create({
-  container: {
+const useStyles = makeStyles(theme => ({
+  screen: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: theme.colors.background,
   },
-  counter: {
-    fontSize: 15,
-    fontWeight: '600',
-    color: colors.textMuted,
+  centered: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 32,
+  },
+  bookmarkButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  progress: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: gutter + 4,
+    marginBottom: 8,
+    gap: 12,
   },
   progressBar: {
-    marginHorizontal: 20,
-    marginBottom: 8,
+    flex: 1,
+  },
+  timer: {
+    ...continuous,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 8,
+    height: 24,
+    borderRadius: radius.capsule,
+    backgroundColor: theme.colors.secondaryFill,
+  },
+  timerLow: {
+    backgroundColor: theme.colors.redFill,
+  },
+  timerText: {
+    marginLeft: 4,
+    fontVariant: ['tabular-nums'],
   },
   content: {
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 12,
-    paddingBottom: 24,
+    paddingHorizontal: gutter,
+    paddingTop: 8,
   },
-  card: cardStyle,
-  prompt: {
-    fontSize: 17,
-    lineHeight: 25,
+  card: {
+    ...continuous,
+    backgroundColor: theme.colors.surface,
+    borderRadius: radius.large,
+    padding: 20,
   },
   hint: {
     marginTop: 16,
-    fontSize: 14,
-    color: colors.textFaint,
-    textAlign: 'center',
   },
-  panel: {
-    backgroundColor: colors.surfaceSubtle,
-    borderRadius: 16,
-    padding: 16,
-    marginTop: 16,
-    borderWidth: 1,
-    borderColor: colors.surfaceSubtleBorder,
-  },
-  panelLabel: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: colors.text,
-    marginBottom: 8,
+  dock: {
+    position: 'absolute',
+    left: gutter,
+    right: gutter,
   },
   actions: {
-    paddingHorizontal: 20,
-    paddingTop: 12,
-    paddingBottom: 8,
-    borderTopWidth: 1,
-    borderTopColor: colors.surfaceSubtleBorder,
-  },
-  actionsPrompt: {
-    fontSize: 14,
-    color: colors.textMuted,
-    textAlign: 'center',
-    marginBottom: 10,
-  },
-  actionRow: {
     flexDirection: 'row',
-    gap: 12,
+    gap: 8,
+    padding: 8,
+    borderRadius: radius.capsule,
   },
-  actionButton,
-  skip: {
-    backgroundColor: colors.surfaceSubtle,
-    borderColor: colors.surfaceSubtleBorder,
-  },
-  reveal: {
-    backgroundColor: colors.primaryStrong,
-    borderColor: colors.surfaceSubtleBorder,
-  },
-  notYet: {
-    backgroundColor: colors.warningSurface,
-    borderColor: colors.warningBorder,
-  },
-  gotIt: {
-    backgroundColor: colors.successSurface,
-    borderColor: colors.successBorder,
-  },
-  actionText: {
-    color: colors.text,
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  empty: {
+  action: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  emptyText: {
-    fontSize: 17,
-    color: colors.textMuted,
-    textAlign: 'center',
   },
   summary: {
     flex: 1,
+    alignItems: 'center',
     justifyContent: 'center',
-    alignItems: 'stretch',
     paddingHorizontal: 32,
   },
   summaryTitle: {
-    fontSize: 28,
-    fontWeight: '700',
-    color: colors.text,
-    textAlign: 'center',
-    marginBottom: 16,
+    marginTop: 28,
+    marginBottom: 8,
   },
-  score: {
-    fontSize: 56,
-    fontWeight: '700',
-    color: colors.success,
-    textAlign: 'center',
+  summaryButtons: {
+    alignSelf: 'stretch',
+    gap: 10,
+    marginTop: 32,
   },
-  scoreLabel: {
-    fontSize: 16,
-    color: colors.textMuted,
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-  summaryText: {
-    fontSize: 16,
-    lineHeight: 23,
-    color: colors.textSecondary,
-    textAlign: 'center',
-    marginBottom: 24,
-  },
-  summaryButton: {
-    marginTop: 12,
-  },
-});
+}));
 
 export default PracticeScreen;

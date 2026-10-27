@@ -3,6 +3,8 @@ import { questionStatus } from './progress';
 
 export const SESSION_SIZE = 10;
 export const REVIEW_SESSION_SIZE = 20;
+// About 1.5 minutes a question, close to exam pace for these courses.
+export const TIMED_TEST_MINUTES = 15;
 
 export function shuffle(items, random = Math.random) {
   const result = [...items];

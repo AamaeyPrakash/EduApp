@@ -17,7 +17,9 @@ import {
   fitToLimit,
   mistakeIds,
   normalizeStudy,
+  noteTopic,
   recordResult,
+  setGoal,
   todayCount,
   toggleBookmark,
 } from './progress';
@@ -56,8 +58,12 @@ function StudyStore({ userId, initialStudy, updatePrefs, children }) {
 
   const update = useCallback(
     change => {
-      studyRef.current = change(studyRef.current);
-      setStudy(studyRef.current);
+      const next = change(studyRef.current);
+      if (next === studyRef.current) {
+        return;
+      }
+      studyRef.current = next;
+      setStudy(next);
       unsaved.current = true;
       clearTimeout(timer.current);
       timer.current = setTimeout(save, SAVE_DELAY_MS);
@@ -98,6 +104,11 @@ function StudyStore({ userId, initialStudy, updatePrefs, children }) {
       record: (id, gotIt) =>
         update(current => recordResult(current, id, gotIt, dayNumber())),
       toggleBookmark: id => update(current => toggleBookmark(current, id)),
+      dailyGoal: study.g,
+      setDailyGoal: goal => update(current => setGoal(current, goal)),
+      lastTopic: study.l,
+      noteTopic: (courseKey, topicKey) =>
+        update(current => noteTopic(current, courseKey, topicKey)),
       isBookmarked: id => study.b.includes(id),
       // Call before signing out so the last answers aren't lost.
       flush: save,

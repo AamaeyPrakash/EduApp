@@ -1,14 +1,15 @@
 import React, { useRef, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useAuth } from '../auth/AuthContext';
+import AppMark from '../components/AppMark';
+import AppText from '../components/AppText';
 import Banner from '../components/Banner';
-import FormScreen from '../components/FormScreen';
-import PrimaryButton from '../components/PrimaryButton';
+import Button from '../components/Button';
+import FormScreen, { formStyles } from '../components/FormScreen';
 import TextField from '../components/TextField';
 import config from '../config';
 import { getErrorMessage } from '../lib/errors';
 import { validateEmail } from '../lib/validation';
-import { colors } from '../theme';
 
 const SignInScreen = ({ navigation }) => {
   const { signIn, notice, clearNotice } = useAuth();
@@ -49,12 +50,23 @@ const SignInScreen = ({ navigation }) => {
   };
 
   return (
-    <FormScreen contentContainerStyle={styles.content}>
-      <View style={styles.header}>
-        <Text style={styles.title} accessibilityRole="header">
-          Welcome Back
-        </Text>
-        <Text style={styles.subtitle}>Sign in to continue learning</Text>
+    <FormScreen glow>
+      <View style={formStyles.header}>
+        <AppMark />
+        <AppText
+          variant="largeTitle"
+          accessibilityRole="header"
+          style={styles.title}
+        >
+          Welcome back
+        </AppText>
+        <AppText
+          variant="body"
+          color="secondaryLabel"
+          style={formStyles.subtitle}
+        >
+          Sign in to keep practising where you left off.
+        </AppText>
       </View>
 
       <Banner message={notice} tone="info" />
@@ -92,82 +104,41 @@ const SignInScreen = ({ navigation }) => {
       />
 
       {config.passwordResetUrl ? (
-        <TouchableOpacity
-          style={styles.forgotLink}
+        <Button
+          title="Forgot password?"
+          variant="plain"
+          size="small"
           onPress={() => navigation.navigate('ForgotPassword', { email })}
-          accessibilityRole="link"
-        >
-          <Text style={styles.linkTextBold}>Forgot password?</Text>
-        </TouchableOpacity>
+          style={styles.forgot}
+        />
       ) : null}
 
-      <PrimaryButton
+      <Button
         testID="signin-submit"
         title={loading ? 'Signing In...' : 'Sign In'}
         onPress={handleSignIn}
         loading={loading}
-        style={styles.button}
+        style={formStyles.button}
       />
 
-      <TouchableOpacity
+      <Button
+        title="New here? Create an account"
+        variant="plain"
+        size="medium"
         onPress={() => navigation.navigate('SignUp')}
-        style={styles.linkContainer}
-        accessibilityRole="link"
-      >
-        <Text style={styles.linkText}>
-          Don't have an account?{' '}
-          <Text style={[styles.linkTextBold, styles.underline]}>Sign Up</Text>
-        </Text>
-      </TouchableOpacity>
+        style={formStyles.link}
+      />
     </FormScreen>
   );
 };
 
 const styles = StyleSheet.create({
-  content: {
-    justifyContent: 'center',
-  },
-  header: {
-    alignItems: 'center',
-    marginBottom: 40,
-  },
   title: {
-    fontSize: 32,
-    fontWeight: '700',
-    color: colors.text,
-    letterSpacing: -0.5,
-    marginBottom: 8,
+    marginTop: 20,
   },
-  subtitle: {
-    fontSize: 16,
-    color: colors.textMuted,
-    textAlign: 'center',
-  },
-  forgotLink: {
+  forgot: {
     alignSelf: 'flex-end',
-    paddingVertical: 8,
     marginBottom: 8,
-  },
-  button: {
-    marginTop: 8,
-    marginBottom: 24,
-  },
-  linkContainer: {
-    alignItems: 'center',
-    paddingVertical: 12,
-  },
-  linkText: {
-    color: colors.textMuted,
-    fontSize: 14,
-    textAlign: 'center',
-  },
-  linkTextBold: {
-    color: colors.primary,
-    fontWeight: '600',
-    fontSize: 14,
-  },
-  underline: {
-    textDecorationLine: 'underline',
   },
 });
 
