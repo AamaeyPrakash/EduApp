@@ -1,14 +1,14 @@
 import config from '../config';
-import { databases, Permission, Role } from '../lib/appwrite';
+import { Permission, Role, tablesDB } from '../lib/appwrite';
 
-// Each user's profile lives in the UserAccounts collection under their own user ID.
+// Each user's profile is a row in the UserAccounts table, under their own user ID.
 
 export function fetchProfile(userId) {
-  return databases.getDocument(
-    config.databaseId,
-    config.userAccountsCollectionId,
-    userId,
-  );
+  return tablesDB.getRow({
+    databaseId: config.databaseId,
+    tableId: config.userAccountsTableId,
+    rowId: userId,
+  });
 }
 
 export function toProfileData(user, details) {
@@ -23,7 +23,7 @@ export function toProfileData(user, details) {
   };
 }
 
-// Creates the profile, or updates it if a document for this user already exists.
+// Creates the profile, or updates it if a row for this user already exists.
 // Only the owner can read or change their profile; nobody else gets access.
 export async function saveProfile(user, details) {
   const data = toProfileData(user, details);
@@ -32,22 +32,22 @@ export async function saveProfile(user, details) {
     Permission.update(Role.user(user.$id)),
   ];
   try {
-    return await databases.createDocument(
-      config.databaseId,
-      config.userAccountsCollectionId,
-      user.$id,
+    return await tablesDB.createRow({
+      databaseId: config.databaseId,
+      tableId: config.userAccountsTableId,
+      rowId: user.$id,
       data,
       permissions,
-    );
+    });
   } catch (error) {
-    if (error?.type !== 'document_already_exists') {
+    if (error?.type !== 'row_already_exists') {
       throw error;
     }
-    return databases.updateDocument(
-      config.databaseId,
-      config.userAccountsCollectionId,
-      user.$id,
+    return tablesDB.updateRow({
+      databaseId: config.databaseId,
+      tableId: config.userAccountsTableId,
+      rowId: user.$id,
       data,
-    );
+    });
   }
 }

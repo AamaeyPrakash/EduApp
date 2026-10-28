@@ -4,7 +4,7 @@ Checklist for shipping to Google Play and the App Store. App identity: **EduApp*
 
 ## 1. Before the first release
 
-- [ ] Appwrite is configured as described in the README: collection permissions, both functions deployed, function IDs in `.env`.
+- [ ] Appwrite is configured as described in the README: table permissions, both functions deployed, function IDs in `.env`.
 - [ ] Existing profiles migrated with `scripts/migrate-profile-permissions.mjs`.
 - [ ] The password reset page is hosted, registered as a Web platform, and `PASSWORD_RESET_URL` is set.
 - [ ] A public **privacy policy** exists and `PRIVACY_POLICY_URL` is set. It must say that chat messages (and the student's board and grade) are sent to OpenAI to generate tutor answers, and how to delete an account.

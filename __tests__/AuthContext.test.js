@@ -7,7 +7,7 @@ import {
   useAuth,
 } from '../src/auth/AuthContext';
 import config from '../src/config';
-import { account, databases, functions } from '../src/lib/appwrite';
+import { account, functions, tablesDB } from '../src/lib/appwrite';
 import {
   appwriteError,
   networkError,
@@ -52,7 +52,7 @@ async function renderSignedOut() {
 
 async function renderSignedIn() {
   account.get.mockResolvedValue(USER);
-  databases.getDocument.mockResolvedValue(PROFILE);
+  tablesDB.getRow.mockResolvedValue(PROFILE);
   const result = await renderAuth();
   await waitFor(() =>
     expect(result.current.profileStatus).toBe(PROFILE_STATUS.READY),
@@ -80,7 +80,7 @@ describe('restoring the session on launch', () => {
     );
 
     account.get.mockResolvedValue(USER);
-    databases.getDocument.mockResolvedValue(PROFILE);
+    tablesDB.getRow.mockResolvedValue(PROFILE);
     await act(() => result.current.restoreSession());
     expect(result.current.status).toBe(AUTH_STATUS.SIGNED_IN);
     expect(result.current.profile).toEqual(PROFILE);
@@ -90,17 +90,17 @@ describe('restoring the session on launch', () => {
     const result = await renderSignedIn();
     expect(result.current.status).toBe(AUTH_STATUS.SIGNED_IN);
     expect(result.current.user).toEqual(USER);
-    expect(databases.getDocument).toHaveBeenCalledWith(
-      'db',
-      'profiles',
-      'user-1',
-    );
+    expect(tablesDB.getRow).toHaveBeenCalledWith({
+      databaseId: 'db',
+      tableId: 'profiles',
+      rowId: 'user-1',
+    });
   });
 
-  it('asks for profile details when the profile document is missing', async () => {
+  it('asks for profile details when the profile row is missing', async () => {
     account.get.mockResolvedValue(USER);
-    databases.getDocument.mockRejectedValue(
-      appwriteError(404, 'document_not_found'),
+    tablesDB.getRow.mockRejectedValue(
+      appwriteError(404, 'row_not_found'),
     );
     const result = await renderAuth();
     await waitFor(() =>
@@ -111,14 +111,14 @@ describe('restoring the session on launch', () => {
 
   it('keeps the user signed in when the profile fails to load', async () => {
     account.get.mockResolvedValue(USER);
-    databases.getDocument.mockRejectedValue(networkError());
+    tablesDB.getRow.mockRejectedValue(networkError());
     const result = await renderAuth();
     await waitFor(() =>
       expect(result.current.profileStatus).toBe(PROFILE_STATUS.ERROR),
     );
     expect(result.current.status).toBe(AUTH_STATUS.SIGNED_IN);
 
-    databases.getDocument.mockResolvedValue(PROFILE);
+    tablesDB.getRow.mockResolvedValue(PROFILE);
     await act(() => result.current.reloadProfile());
     expect(result.current.profileStatus).toBe(PROFILE_STATUS.READY);
   });
@@ -129,7 +129,7 @@ describe('signIn', () => {
     const result = await renderSignedOut();
     account.createEmailPasswordSession.mockResolvedValue({});
     account.get.mockResolvedValue(USER);
-    databases.getDocument.mockResolvedValue(PROFILE);
+    tablesDB.getRow.mockResolvedValue(PROFILE);
 
     await act(() => result.current.signIn('  Sam@Example.com ', 'secret123'));
 
@@ -148,7 +148,7 @@ describe('signIn', () => {
       .mockResolvedValueOnce({});
     account.deleteSession.mockResolvedValue({});
     account.get.mockResolvedValue(USER);
-    databases.getDocument.mockResolvedValue(PROFILE);
+    tablesDB.getRow.mockResolvedValue(PROFILE);
 
     await act(() => result.current.signIn('sam@example.com', 'secret123'));
 
@@ -176,7 +176,7 @@ describe('signUp', () => {
     account.create.mockResolvedValue(USER);
     account.createEmailPasswordSession.mockResolvedValue({});
     account.get.mockResolvedValue(USER);
-    databases.createDocument.mockResolvedValue(PROFILE);
+    tablesDB.createRow.mockResolvedValue(PROFILE);
 
     await act(() => result.current.signUp(SIGN_UP_DETAILS));
 
@@ -190,11 +190,11 @@ describe('signUp', () => {
       'sam@example.com',
       'secret123',
     );
-    expect(databases.createDocument).toHaveBeenCalledWith(
-      'db',
-      'profiles',
-      'user-1',
-      {
+    expect(tablesDB.createRow).toHaveBeenCalledWith({
+      databaseId: 'db',
+      tableId: 'profiles',
+      rowId: 'user-1',
+      data: {
         userId: 'user-1',
         email: 'sam@example.com',
         name: 'Sam Lee',
@@ -203,8 +203,8 @@ describe('signUp', () => {
         school: 'Springfield High',
         educationBoard: '5',
       },
-      ['read("user:user-1")', 'update("user:user-1")'],
-    );
+      permissions: ['read("user:user-1")', 'update("user:user-1")'],
+    });
     expect(result.current.status).toBe(AUTH_STATUS.SIGNED_IN);
     expect(result.current.profileStatus).toBe(PROFILE_STATUS.READY);
   });
@@ -214,7 +214,7 @@ describe('signUp', () => {
     account.create.mockResolvedValue(USER);
     account.createEmailPasswordSession.mockResolvedValue({});
     account.get.mockResolvedValue(USER);
-    databases.createDocument.mockRejectedValue(networkError());
+    tablesDB.createRow.mockRejectedValue(networkError());
 
     await act(() => result.current.signUp(SIGN_UP_DETAILS));
 
@@ -248,24 +248,24 @@ describe('signUp', () => {
 });
 
 describe('saveProfileDetails', () => {
-  it('updates the profile document when it already exists', async () => {
+  it('updates the profile row when it already exists', async () => {
     const result = await renderSignedIn();
-    databases.createDocument.mockRejectedValue(
-      appwriteError(409, 'document_already_exists'),
+    tablesDB.createRow.mockRejectedValue(
+      appwriteError(409, 'row_already_exists'),
     );
     const updated = { ...PROFILE, school: 'New School' };
-    databases.updateDocument.mockResolvedValue(updated);
+    tablesDB.updateRow.mockResolvedValue(updated);
 
     await act(() =>
       result.current.saveProfileDetails({ ...PROFILE, school: 'New School' }),
     );
 
-    expect(databases.updateDocument).toHaveBeenCalledWith(
-      'db',
-      'profiles',
-      'user-1',
-      expect.objectContaining({ school: 'New School' }),
-    );
+    expect(tablesDB.updateRow).toHaveBeenCalledWith({
+      databaseId: 'db',
+      tableId: 'profiles',
+      rowId: 'user-1',
+      data: expect.objectContaining({ school: 'New School' }),
+    });
     expect(result.current.profile).toEqual(updated);
   });
 });
@@ -429,7 +429,7 @@ describe('grantAiConsent', () => {
 
   it('keeps other preferences when saving consent', async () => {
     account.get.mockResolvedValue({ ...USER, prefs: { theme: 'dark' } });
-    databases.getDocument.mockResolvedValue(PROFILE);
+    tablesDB.getRow.mockResolvedValue(PROFILE);
     const result = await renderAuth();
     await waitFor(() =>
       expect(result.current.profileStatus).toBe(PROFILE_STATUS.READY),

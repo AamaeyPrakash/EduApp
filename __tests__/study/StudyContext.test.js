@@ -7,7 +7,7 @@ import {
   useAuth,
 } from '../../src/auth/AuthContext';
 import { courseQuestions } from '../../src/content';
-import { account, databases } from '../../src/lib/appwrite';
+import { account, tablesDB } from '../../src/lib/appwrite';
 import { StudyProvider, useStudy } from '../../src/study/StudyContext';
 import { networkError, PROFILE, USER } from '../helpers/appwrite';
 
@@ -40,7 +40,7 @@ beforeEach(() => {
       return { remove() {} };
     });
   account.get.mockResolvedValue(USER);
-  databases.getDocument.mockResolvedValue(PROFILE);
+  tablesDB.getRow.mockResolvedValue(PROFILE);
   account.updatePrefs.mockImplementation(async prefs => ({ ...USER, prefs }));
 });
 
