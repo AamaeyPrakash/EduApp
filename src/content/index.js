@@ -121,6 +121,7 @@ function buildCBSECourse() {
     key: 'cbse',
     board: '1',
     icon: 'Σ',
+    color: 'orange',
     title: 'CBSE Maths',
     subtitle: 'Classes 11 & 12 · NCERT examples',
     description: 'Worked examples for every chapter, with full solutions',
@@ -154,6 +155,7 @@ export const COURSES = [
   buildIBCourse('ib-aa', 'a', aaTopics, {
     board: '5',
     icon: '∫',
+    color: 'indigo',
     title: 'Mathematics AA',
     subtitle: 'IB · Analysis & Approaches',
     description: 'Calculus, algebra and proof for SL and HL',
@@ -161,6 +163,7 @@ export const COURSES = [
   buildIBCourse('ib-ai', 'i', aiTopics, {
     board: '5',
     icon: 'π',
+    color: 'teal',
     title: 'Mathematics AI',
     subtitle: 'IB · Applications & Interpretation',
     description: 'Modelling, statistics and real-world problems',
@@ -202,10 +205,33 @@ export function coursesForBoard(board) {
   ];
 }
 
-// Plain words from text with TeX, for searching: "$\frac{dy}{dx}$" → "dy dx".
+// TeX commands that only lay maths out, so they aren't worth searching for.
+const LAYOUT_COMMANDS = new Set([
+  'left',
+  'right',
+  'frac',
+  'dfrac',
+  'tfrac',
+  'big',
+  'bigg',
+  'text',
+  'mathrm',
+  'mathbf',
+  'displaystyle',
+  'begin',
+  'end',
+  'quad',
+  'qquad',
+  'limits',
+]);
+
+// Plain words from text with TeX, for searching: "$\frac{dy}{dx}$" → "dy dx" and
+// "$\int x\,dx$" → "int x dx", so searching for "\int" or "int" finds integrals.
 function searchableText(text) {
   return String(text || '')
-    .replace(/\\[A-Za-z]+/g, ' ')
+    .replace(/\\([A-Za-z]+)/g, (match, name) =>
+      LAYOUT_COMMANDS.has(name) ? ' ' : ` ${name} `,
+    )
     .replace(/[$\\{}^_&]/g, ' ')
     .toLowerCase();
 }
@@ -221,24 +247,43 @@ const searchIndex = [...questionsById.values()].map(question => ({
   solution: searchableText(`${question.answer} ${question.solution}`),
 }));
 
+const searchWords = query => searchableText(query).split(/\s+/).filter(Boolean);
+
 // Questions where every word of the query appears. Matches in the topic or question
-// come before matches found only in the solution.
-export function searchQuestions(query, limit = 50) {
-  const words = searchableText(query).split(/\s+/).filter(Boolean);
+// come before matches found only in the solution, and the courses for the student's
+// `board` come first within each group.
+export function searchQuestions(query, { limit = 50, board } = {}) {
+  const words = searchWords(query);
   if (words.length === 0) {
     return [];
   }
-  const strong = [];
-  const weak = [];
+  const groups = [[], [], [], []];
   for (const entry of searchIndex) {
     const main = `${entry.heading} ${entry.prompt}`;
+    const other = getCourse(entry.question.courseKey).board !== board ? 1 : 0;
     if (words.every(word => main.includes(word))) {
-      strong.push(entry.question);
+      groups[other].push(entry.question);
     } else if (
       words.every(word => main.includes(word) || entry.solution.includes(word))
     ) {
-      weak.push(entry.question);
+      groups[2 + other].push(entry.question);
     }
   }
-  return [...strong, ...weak].slice(0, limit);
+  return groups.flat().slice(0, limit);
+}
+
+// Topics whose name or label contains every word of the query, the student's board
+// first: searching "probability" offers the Probability topic itself.
+export function searchTopics(query, { limit = 5, board } = {}) {
+  const words = searchWords(query);
+  if (words.length === 0) {
+    return [];
+  }
+  return coursesForBoard(board)
+    .flatMap(course => course.topics)
+    .filter(topic => {
+      const text = searchableText(`${topic.title} ${topic.label ?? ''}`);
+      return words.every(word => text.includes(word));
+    })
+    .slice(0, limit);
 }

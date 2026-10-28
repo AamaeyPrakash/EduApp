@@ -26,3 +26,19 @@ jest.mock('./src/components/MathView', () => {
 // need app-state changes replace it with jest.spyOn.
 const { AppState } = require('react-native');
 AppState.addEventListener = () => ({ remove() {} });
+
+// The preset has no mock for Switch's native component; this keeps its props so tests
+// can find it by label and flip it with fireEvent(switch, 'valueChange', true).
+jest.mock('react-native/Libraries/Components/Switch/Switch', () => {
+  const { View } = require('react-native');
+  function MockSwitch({ value, ...props }) {
+    return (
+      <View
+        accessibilityRole="switch"
+        accessibilityState={{ checked: Boolean(value) }}
+        {...props}
+      />
+    );
+  }
+  return { __esModule: true, default: MockSwitch };
+});

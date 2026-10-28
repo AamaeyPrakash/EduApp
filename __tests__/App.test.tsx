@@ -39,6 +39,18 @@ function startSignedIn(user = USER) {
   mocked(tablesDB.getRow).mockResolvedValue(PROFILE);
 }
 
+// Practice ignores a second tap within moments of the first (a double tap), so
+// practice tests run on a clock that moves on between taps.
+let clock = 0;
+function startTestClock() {
+  clock = Date.now();
+  return jest.spyOn(Date, 'now').mockImplementation(() => clock);
+}
+async function tap(element: Parameters<typeof fireEvent.press>[0]) {
+  clock += 1000;
+  await fireEvent.press(element);
+}
+
 async function pressAlertButton(alert: jest.SpyInstance, text: string) {
   const buttons = alert.mock.calls[alert.mock.calls.length - 1][2] ?? [];
   const button = buttons.find((item: { text: string }) => item.text === text);
@@ -55,7 +67,7 @@ describe('signing in', () => {
   it('shows the sign-in screen when there is no session', async () => {
     startSignedOut();
     await render(<App />);
-    expect(await screen.findByText('Welcome Back')).toBeOnTheScreen();
+    expect(await screen.findByText('Welcome back')).toBeOnTheScreen();
     expect(screen.getByText('Forgot password?')).toBeOnTheScreen();
   });
 
@@ -133,20 +145,44 @@ describe('signing in', () => {
   });
 });
 
+// Navigates from Home to a topic of a course.
+async function openTopic(course: string, topic: string) {
+  await fireEvent.press(await screen.findByText(course));
+  // Topic rows are labelled "<title>, <class>, <n> questions, <k> of <n> mastered".
+  await fireEvent.press(
+    await screen.findByLabelText(new RegExp(`^${topic}, `)),
+  );
+}
+
 describe('studying', () => {
   const probability = getTopic('cbse', 'Probability')!;
   const sets = getTopic('cbse', 'Sets')!;
 
-  it('opens CBSE revision with solutions already shown', async () => {
+  it('opens a topic with solutions hidden until asked, or all at once', async () => {
     startSignedIn();
     await render(<App />);
+    await openTopic('CBSE Maths', 'Sets');
 
-    await fireEvent.press(await screen.findByText('CBSE Maths'));
-    await fireEvent.press(await screen.findByLabelText('Revise Sets'));
+    expect(await screen.findByText('Questions')).toBeOnTheScreen();
+    expect(screen.queryByLabelText('Hide Solution')).toBeNull();
+    await fireEvent.press(screen.getAllByLabelText('Show Solution')[0]);
+    expect(screen.getAllByLabelText('Hide Solution')).toHaveLength(1);
 
-    expect(await screen.findByText('Revision')).toBeOnTheScreen();
-    expect(screen.getAllByText('Hide Solution').length).toBeGreaterThan(0);
+    await fireEvent(
+      screen.getByLabelText('Show all solutions'),
+      'valueChange',
+      true,
+    );
+    expect(screen.getAllByLabelText('Hide Solution').length).toBeGreaterThan(1);
+    expect(screen.queryByLabelText('Show Solution')).toBeNull();
   });
+
+  let restoreClock: () => void;
+  beforeEach(() => {
+    const spy = startTestClock();
+    restoreClock = () => spy.mockRestore();
+  });
+  afterEach(() => restoreClock());
 
   it('quizzes one question at a time and saves the results', async () => {
     startSignedIn();
@@ -156,41 +192,46 @@ describe('studying', () => {
     }));
     mocked(account.deleteSession).mockResolvedValue({});
     await render(<App />);
+    await openTopic('CBSE Maths', 'Sets');
+    await fireEvent.press(await screen.findByText('Practise'));
 
-    await fireEvent.press(await screen.findByText('CBSE Maths'));
-    await fireEvent.press(await screen.findByLabelText('Quiz on Sets'));
-    expect(
-      await screen.findByText(`1 / ${sets.questions.length}`),
-    ).toBeOnTheScreen();
+    const total = sets.questions.length;
+    expect(await screen.findByText(`1 / ${total}`)).toBeOnTheScreen();
     expect(screen.queryByText('Got it')).toBeNull();
 
-    await fireEvent.press(screen.getByText('Show answer'));
-    expect(screen.getByText('Solution')).toBeOnTheScreen();
-    await fireEvent.press(screen.getByText('Got it'));
+    await tap(screen.getByText('Show answer'));
+    expect(screen.getByText('SOLUTION')).toBeOnTheScreen();
+    expect(screen.getByText('Back in 7 days')).toBeOnTheScreen();
+    expect(screen.getByText('Back tomorrow')).toBeOnTheScreen();
+    await tap(screen.getByText('Got it'));
+    expect(await screen.findByText(`2 / ${total}`)).toBeOnTheScreen();
+
+    await tap(screen.getByText('Show answer'));
+    await tap(screen.getByText('Not yet'));
+    expect(await screen.findByText(`3 / ${total}`)).toBeOnTheScreen();
+
+    // Leaving part-way shows what was done, then the answers are saved on sign-out.
+    await tap(screen.getByLabelText('Close'));
+    expect(await screen.findByText('Session ended')).toBeOnTheScreen();
+    expect(screen.getByText('1 right · 1 not yet')).toBeOnTheScreen();
+    await tap(screen.getByText('Done'));
+    await fireEvent.press(screen.getAllByLabelText('Back').at(-1)!);
+    await fireEvent.press(screen.getAllByLabelText('Back').at(-1)!);
     expect(
-      await screen.findByText(`2 / ${sets.questions.length}`),
+      await screen.findByLabelText('2 of 10 questions today'),
     ).toBeOnTheScreen();
-
-    await fireEvent.press(screen.getByText('Show answer'));
-    await fireEvent.press(screen.getByText('Not yet'));
-    expect(
-      await screen.findByText(`3 / ${sets.questions.length}`),
-    ).toBeOnTheScreen();
-
-    // Leave the quiz and log out: the answers are saved first.
-    await fireEvent.press(screen.getByLabelText('Close'));
-    await fireEvent.press(screen.getByLabelText('Close'));
-    expect(await screen.findByLabelText('2/10 done today')).toBeOnTheScreen();
-    await fireEvent.press(screen.getByText('Profile'));
-    await fireEvent.press(await screen.findByText('Logout'));
+    expect(screen.getByText('Continue: Sets')).toBeOnTheScreen();
+    await fireEvent.press(screen.getByLabelText('Profile'));
+    await fireEvent.press(await screen.findByText('Sign Out'));
 
     expect(
-      await screen.findByText('You have been logged out.'),
+      await screen.findByText('You have been signed out.'),
     ).toBeOnTheScreen();
     const [first, second] = sets.questions;
     const saved = mocked(account.updatePrefs).mock.calls.at(-1)[0];
     expect(saved.study.q[first.id][0]).toBeGreaterThan(0);
     expect(saved.study.q[second.id][0]).toBe(0);
+    expect(saved.study.l).toEqual(['cbse', 'Sets']);
     expect(account.updatePrefs.mock.invocationCallOrder[0]).toBeLessThan(
       mocked(account.deleteSession).mock.invocationCallOrder[0],
     );
@@ -199,30 +240,71 @@ describe('studying', () => {
   it('shows a summary at the end and offers the missed questions again', async () => {
     startSignedIn();
     await render(<App />);
-    await fireEvent.press(await screen.findByText('Mathematics AA'));
-    await fireEvent.press(
-      await screen.findByLabelText('Quiz on Number and Algebra'),
-    );
+    await openTopic('Mathematics AA', 'Number and Algebra');
+    await fireEvent.press(await screen.findByText('Practise'));
 
     for (const result of ['Got it', 'Not yet', 'Got it']) {
-      await fireEvent.press(await screen.findByText('Show answer'));
-      await fireEvent.press(screen.getByText(result));
+      await tap(await screen.findByText('Show answer'));
+      await tap(screen.getByText(result));
     }
 
     expect(await screen.findByText('Session complete')).toBeOnTheScreen();
     expect(screen.getByText('2 / 3')).toBeOnTheScreen();
-    await fireEvent.press(screen.getByText('Try the 1 I missed again'));
+    expect(screen.getByText('2 right · 1 not yet')).toBeOnTheScreen();
+    expect(screen.getByText('1-day streak')).toBeOnTheScreen();
+    await tap(screen.getByText('Retry the missed question'));
     expect(await screen.findByText('1 / 1')).toBeOnTheScreen();
+  });
+
+  it('ignores the second tap of a double tap', async () => {
+    startSignedIn();
+    await render(<App />);
+    await openTopic('Mathematics AA', 'Number and Algebra');
+    await fireEvent.press(await screen.findByText('Practise'));
+
+    // Both taps land at once: the second hits "Got it", which replaced "Show answer".
+    await tap(await screen.findByText('Show answer'));
+    await fireEvent.press(screen.getByText('Got it'));
+    expect(screen.getByText('1 / 3')).toBeOnTheScreen();
+    expect(screen.getByText('ANSWER')).toBeOnTheScreen();
+  });
+
+  it('runs a timed test that ends when time is up', async () => {
+    startSignedIn();
+    await render(<App />);
+    await fireEvent.press(await screen.findByText('CBSE Maths'));
+    await fireEvent.press(await screen.findByLabelText('Timed test'));
+
+    expect(await screen.findByLabelText('15 minutes left')).toBeOnTheScreen();
+    expect(screen.getByText('15:00')).toBeOnTheScreen();
+    // A timed test is a mock exam: no tutor until it's over.
+    expect(
+      screen.queryByLabelText('Ask the tutor about this question'),
+    ).toBeNull();
+    await tap(screen.getByText('Show answer'));
+    await tap(screen.getByText('Got it'));
+
+    // Jump the clock past the 15 minutes; the countdown checks it every second.
+    clock += 16 * 60 * 1000;
+    expect(
+      await screen.findByText("Time's up", {}, { timeout: 3000 }),
+    ).toBeOnTheScreen();
+    expect(screen.getByText(/You answered 1 of 10/)).toBeOnTheScreen();
   });
 
   it('opens an IB topic quiz with the calculator rule shown', async () => {
     startSignedIn();
     await render(<App />);
-
     await fireEvent.press(await screen.findByText('Mathematics AA'));
+    // The course has fewer questions than a full session, and says so.
+    expect(
+      await screen.findByText('7 questions mixed across topics'),
+    ).toBeOnTheScreen();
+    expect(screen.getByText('7 questions in 11 minutes')).toBeOnTheScreen();
     await fireEvent.press(
-      await screen.findByLabelText('Quiz on Number and Algebra'),
+      await screen.findByLabelText(/^Number and Algebra, /),
     );
+    await fireEvent.press(await screen.findByText('Practise'));
 
     expect(
       await screen.findByText('Mathematics AA · Number and Algebra'),
@@ -232,7 +314,7 @@ describe('studying', () => {
     ).toBeOnTheScreen();
   });
 
-  it('brings back saved progress: reviews due and the streak', async () => {
+  it('brings back saved progress: reviews due, the streak and the goal', async () => {
     const [question] = probability.questions;
     const yesterday = dayNumber() - 1;
     startSignedIn({
@@ -243,6 +325,8 @@ describe('studying', () => {
           b: [question.id],
           s: [3, 5, yesterday],
           t: [yesterday, 4],
+          g: 20,
+          l: ['cbse', 'Probability'],
         },
       },
     });
@@ -250,8 +334,10 @@ describe('studying', () => {
 
     expect(await screen.findByLabelText('3 day streak')).toBeOnTheScreen();
     expect(screen.getByLabelText('1 to review')).toBeOnTheScreen();
-    expect(screen.getByText('Saved (1)')).toBeOnTheScreen();
-    expect(screen.getByText('Mistakes (1)')).toBeOnTheScreen();
+    expect(screen.getByLabelText('0 of 20 questions today')).toBeOnTheScreen();
+    expect(screen.getByLabelText('Saved (1)')).toBeOnTheScreen();
+    expect(screen.getByLabelText('Mistakes (1)')).toBeOnTheScreen();
+    expect(screen.getByText('Continue: Probability')).toBeOnTheScreen();
 
     await fireEvent.press(screen.getByText('Review 1 question'));
     expect(await screen.findByText('1 / 1')).toBeOnTheScreen();
@@ -264,7 +350,7 @@ describe('studying', () => {
 
     await fireEvent.press(await screen.findByLabelText('Search questions'));
     await fireEvent.changeText(
-      await screen.findByLabelText('Search questions'),
+      await screen.findByPlaceholderText('Topics and questions'),
       'bayes',
     );
     const [first] = await screen.findAllByText('CBSE Maths · Probability');
@@ -275,8 +361,23 @@ describe('studying', () => {
     expect(screen.getByLabelText('Remove from saved')).toBeOnTheScreen();
 
     await fireEvent.press(screen.getByLabelText('Close'));
-    await fireEvent.press(screen.getByLabelText('Close'));
-    expect(await screen.findByText('Saved (1)')).toBeOnTheScreen();
+    await fireEvent.press(screen.getAllByLabelText('Back').at(-1)!);
+    expect(await screen.findByLabelText('Saved (1)')).toBeOnTheScreen();
+  });
+
+  it('lets the student change their daily goal', async () => {
+    startSignedIn();
+    await render(<App />);
+
+    await fireEvent.press(await screen.findByLabelText('Profile'));
+    await fireEvent.press(
+      await screen.findByLabelText('Daily goal: 20 questions'),
+    );
+    await fireEvent.press(screen.getByLabelText('Home'));
+
+    expect(
+      await screen.findByLabelText('0 of 20 questions today'),
+    ).toBeOnTheScreen();
   });
 });
 
@@ -286,7 +387,7 @@ describe('AI tutor', () => {
     mocked(account.updatePrefs).mockResolvedValue(CONSENTED_USER);
     await render(<App />);
 
-    await fireEvent.press(await screen.findByText('AskGPT'));
+    await fireEvent.press(await screen.findByLabelText('Tutor'));
     expect(await screen.findByText('Before you start')).toBeOnTheScreen();
     expect(screen.queryByLabelText('Message')).toBeNull();
 
@@ -307,7 +408,7 @@ describe('AI tutor', () => {
     });
     await render(<App />);
 
-    await fireEvent.press(await screen.findByText('AskGPT'));
+    await fireEvent.press(await screen.findByLabelText('Tutor'));
     await fireEvent.changeText(
       await screen.findByLabelText('Message'),
       'What is 2+2?',
@@ -337,7 +438,7 @@ describe('AI tutor', () => {
     const alert = jest.spyOn(Alert, 'alert');
     await render(<App />);
 
-    await fireEvent.press(await screen.findByText('AskGPT'));
+    await fireEvent.press(await screen.findByLabelText('Tutor'));
     await fireEvent.changeText(await screen.findByLabelText('Message'), 'Hi');
     await fireEvent.press(screen.getByLabelText('Send message'));
     await fireEvent.press(await screen.findByLabelText('Report this answer'));
@@ -358,12 +459,10 @@ describe('AI tutor', () => {
     const [question] = getTopic('ib-aa', 'Topic 1')!.questions;
     await render(<App />);
 
-    await fireEvent.press(await screen.findByText('Mathematics AA'));
+    await openTopic('Mathematics AA', 'Number and Algebra');
+    await fireEvent.press(await screen.findByText('Practise'));
     await fireEvent.press(
-      await screen.findByLabelText('Quiz on Number and Algebra'),
-    );
-    await fireEvent.press(
-      await screen.findByText('Stuck? Ask the tutor about this'),
+      await screen.findByLabelText('Ask the tutor about this question'),
     );
     expect(
       await screen.findByText('Stuck on this question?'),
@@ -392,6 +491,30 @@ describe('AI tutor', () => {
     });
   });
 
+  it('opens a topic overview over the topic and closes back to it', async () => {
+    startSignedIn(CONSENTED_USER);
+    mocked(functions.createExecution).mockResolvedValue({
+      responseStatusCode: 200,
+      responseBody: JSON.stringify({ reply: 'Sets are collections.' }),
+    });
+    await render(<App />);
+    await openTopic('CBSE Maths', 'Sets');
+    await fireEvent.press(
+      await screen.findByLabelText('Ask the tutor about this topic'),
+    );
+
+    expect(await screen.findByText('Sets are collections.')).toBeOnTheScreen();
+    const body = JSON.parse(mocked(functions.createExecution).mock.calls[0][1]);
+    expect(body.messages[0].content).toMatch(
+      /^Give me a short overview of Sets \(CBSE Maths\)/,
+    );
+    expect(screen.getByText('Common mistakes')).toBeOnTheScreen();
+
+    await fireEvent.press(screen.getByLabelText('Close'));
+    expect(await screen.findByText('Practise')).toBeOnTheScreen();
+    expect(mocked(functions.createExecution)).toHaveBeenCalledTimes(1);
+  });
+
   it('lets the student try again after a failed message', async () => {
     startSignedIn(CONSENTED_USER);
     mocked(functions.createExecution)
@@ -402,7 +525,7 @@ describe('AI tutor', () => {
       });
     await render(<App />);
 
-    await fireEvent.press(await screen.findByText('AskGPT'));
+    await fireEvent.press(await screen.findByLabelText('Tutor'));
     await fireEvent.changeText(await screen.findByLabelText('Message'), 'Hi');
     await fireEvent.press(screen.getByLabelText('Send message'));
     await fireEvent.press(await screen.findByText('Try again'));
@@ -422,7 +545,7 @@ describe('AI tutor', () => {
       appwriteError(401, 'user_unauthorized'),
     );
     await render(<App />);
-    await fireEvent.press(await screen.findByText('AskGPT'));
+    await fireEvent.press(await screen.findByLabelText('Tutor'));
 
     mocked(account.get).mockRejectedValue(unauthorized());
     await fireEvent.changeText(await screen.findByLabelText('Message'), 'Hi');
@@ -442,13 +565,13 @@ describe('profile', () => {
     mocked(account.deleteSession).mockResolvedValue({});
     await render(<App />);
 
-    await fireEvent.press(await screen.findByText('Profile'));
-    expect(await screen.findByText('Springfield High')).toBeOnTheScreen();
+    await fireEvent.press(await screen.findByLabelText('Profile'));
+    expect(await screen.findByText('sam@example.com')).toBeOnTheScreen();
     expect(screen.getByText('IB')).toBeOnTheScreen();
 
-    await fireEvent.press(screen.getByText('Logout'));
+    await fireEvent.press(screen.getByText('Sign Out'));
     expect(
-      await screen.findByText('You have been logged out.'),
+      await screen.findByText('You have been signed out.'),
     ).toBeOnTheScreen();
   });
 
@@ -461,7 +584,7 @@ describe('profile', () => {
     const alert = jest.spyOn(Alert, 'alert');
     await render(<App />);
 
-    await fireEvent.press(await screen.findByText('Profile'));
+    await fireEvent.press(await screen.findByLabelText('Profile'));
     await fireEvent.press(await screen.findByText('Delete Account'));
     await pressAlertButton(alert, 'Delete');
 
@@ -486,6 +609,6 @@ describe('profile', () => {
     mocked(tablesDB.createRow).mockResolvedValue(PROFILE);
     await render(<App />);
 
-    expect(await screen.findByText('Complete Your Profile')).toBeOnTheScreen();
+    expect(await screen.findByText('Complete your profile')).toBeOnTheScreen();
   });
 });

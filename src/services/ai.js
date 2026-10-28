@@ -71,9 +71,10 @@ export async function askTutor({ messages, student, question }) {
 
 // Flags an AI reply as inappropriate or wrong. Google Play requires apps that
 // generate AI content to let people report it without leaving the app.
-export async function reportTutorReply({ question, reply }) {
+// `context` says which practice question the chat was about, if any.
+export async function reportTutorReply({ question, reply, context }) {
   const { statusCode, body } = await callTutorFunction({
-    report: { question, reply },
+    report: { question, reply, context },
   });
   if (statusCode !== 200 || !body.reported) {
     throw new AppError(

@@ -5,6 +5,9 @@
 //   b: [questionId, ...]                bookmarked questions, newest first
 //   s: [streak, bestStreak, lastDay]    days in a row with at least one answer marked
 //   t: [day, count]                     questions marked on that day
+//   d: [questionId, ...]                the questions counted in t (each counts once)
+//   g: number                           daily goal (questions a day)
+//   l: [courseKey, topicKey] | null     the topic studied most recently
 // Days are whole days since 1970-01-01 on the device's calendar (see dayNumber).
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -15,6 +18,7 @@ export const REVIEW_INTERVALS = [1, 3, 7, 16, 35, 90];
 // A question answered correctly the first time comes back after a week.
 const FIRST_CORRECT_BOX = 2;
 export const DAILY_GOAL = 10;
+export const GOAL_OPTIONS = [5, 10, 20, 30];
 // Leaves room in the 64 kB prefs for everything else stored there.
 export const MAX_SAVED_BYTES = 56000;
 
@@ -23,6 +27,9 @@ export const EMPTY_STUDY = Object.freeze({
   b: [],
   s: [0, 0, -1],
   t: [-1, 0],
+  d: [],
+  g: DAILY_GOAL,
+  l: null,
 });
 
 export function dayNumber(date = new Date()) {
@@ -62,34 +69,84 @@ export function normalizeStudy(raw) {
     Array.isArray(raw.t) && raw.t.length === 2 && raw.t.every(isWholeNumber)
       ? raw.t
       : EMPTY_STUDY.t;
-  return { q, b, s, t };
+  const d =
+    t !== EMPTY_STUDY.t && Array.isArray(raw.d)
+      ? [...new Set(raw.d.filter(id => typeof id === 'string'))]
+      : [];
+  const g = GOAL_OPTIONS.includes(raw.g) ? raw.g : DAILY_GOAL;
+  const l =
+    Array.isArray(raw.l) &&
+    raw.l.length === 2 &&
+    raw.l.every(part => typeof part === 'string')
+      ? raw.l
+      : null;
+  return { q, b, s, t, d, g, l };
+}
+
+// The [box, dueDay] a question gets for "Got it" or "Not yet". Only a correct answer
+// on a review that's due moves it to a longer interval; getting it right again
+// before then (say, straight after reading the solution) keeps the schedule.
+export function nextReview(study, id, gotIt, today) {
+  const previous = study.q[id];
+  if (!gotIt) {
+    return [0, today + REVIEW_INTERVALS[0]];
+  }
+  if (!previous) {
+    return [FIRST_CORRECT_BOX, today + REVIEW_INTERVALS[FIRST_CORRECT_BOX]];
+  }
+  if (previous[1] > today) {
+    return previous;
+  }
+  const box = Math.min(previous[0] + 1, REVIEW_INTERVALS.length - 1);
+  return [box, today + REVIEW_INTERVALS[box]];
 }
 
 // Records whether the student got a question right ("Got it") or not ("Not yet"),
 // schedules its next review and updates the streak and today's count.
 export function recordResult(study, id, gotIt, today) {
-  const previous = study.q[id];
-  let box;
-  if (!gotIt) {
-    box = 0;
-  } else if (!previous) {
-    box = FIRST_CORRECT_BOX;
-  } else {
-    box = Math.min(previous[0] + 1, REVIEW_INTERVALS.length - 1);
-  }
   const [streak, best, lastDay] = study.s;
   let nextStreak = 1;
-  if (lastDay === today) {
+  // A clock that moved backwards (time zones, a corrected date) keeps the streak.
+  if (lastDay >= today) {
     nextStreak = streak;
   } else if (lastDay === today - 1) {
     nextStreak = streak + 1;
   }
+  // Each question counts once a day towards the daily goal.
+  const sameDay = study.t[0] === today;
+  const counted = sameDay ? study.d : [];
+  const isNew = !counted.includes(id);
   return {
     ...study,
-    q: { ...study.q, [id]: [box, today + REVIEW_INTERVALS[box]] },
-    s: [nextStreak, Math.max(best, nextStreak), today],
-    t: [today, study.t[0] === today ? study.t[1] + 1 : 1],
+    q: { ...study.q, [id]: nextReview(study, id, gotIt, today) },
+    s: [nextStreak, Math.max(best, nextStreak), Math.max(lastDay, today)],
+    t: [today, (sameDay ? study.t[1] : 0) + (isNew ? 1 : 0)],
+    d: isNew ? [...counted, id] : counted,
   };
+}
+
+// "tomorrow", "in 3 days", "in 2 weeks", "in 3 months".
+export function reviewDelay(dueDay, today) {
+  const days = dueDay - today;
+  if (days <= 1) {
+    return 'tomorrow';
+  }
+  if (days < 14) {
+    return `in ${days} days`;
+  }
+  if (days < 60) {
+    return `in ${Math.round(days / 7)} weeks`;
+  }
+  return `in ${Math.round(days / 30)} months`;
+}
+
+export function setGoal(study, goal) {
+  return GOAL_OPTIONS.includes(goal) ? { ...study, g: goal } : study;
+}
+
+export function noteTopic(study, courseKey, topicKey) {
+  const same = study.l && study.l[0] === courseKey && study.l[1] === topicKey;
+  return same ? study : { ...study, l: [courseKey, topicKey] };
 }
 
 export function toggleBookmark(study, id) {

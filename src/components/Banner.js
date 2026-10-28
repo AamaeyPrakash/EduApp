@@ -1,52 +1,63 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { colors } from '../theme';
+import React, { useEffect } from 'react';
+import { AccessibilityInfo, Platform, View } from 'react-native';
+import { continuous, makeStyles, radius } from '../theme';
+import AppText from './AppText';
+import Icon from './Icon';
 
 const TONES = {
-  error: {
-    backgroundColor: colors.dangerSurface,
-    borderColor: colors.dangerBorder,
-    color: colors.danger,
-  },
-  success: {
-    backgroundColor: colors.successSurface,
-    borderColor: colors.successBorder,
-    color: colors.success,
-  },
-  info: {
-    backgroundColor: colors.primaryTint,
-    borderColor: 'rgba(10, 132, 255, 0.35)',
-    color: colors.textSecondary,
-  },
+  error: { color: 'red', fill: 'redFill', icon: 'info' },
+  success: { color: 'green', fill: 'greenFill', icon: 'check' },
+  info: { color: 'tint', fill: 'tintFill', icon: 'info' },
+  warning: { color: 'orange', fill: 'orangeFill', icon: 'info' },
 };
 
-// Inline message box for form errors and notices.
+// An inline message, e.g. a form error or a notice.
 export default function Banner({ message, tone = 'error', style }) {
+  const styles = useStyles();
+  // Android reads the live region below; iOS needs an announcement.
+  useEffect(() => {
+    if (message && Platform.OS === 'ios') {
+      AccessibilityInfo.announceForAccessibility(message);
+    }
+  }, [message]);
   if (!message) {
     return null;
   }
-  const { color, ...box } = TONES[tone];
+  const { color, fill, icon } = TONES[tone];
   return (
     <View
-      style={[styles.container, box, style]}
+      style={[styles.banner, styles[fill], style]}
       accessibilityRole={tone === 'error' ? 'alert' : undefined}
       accessibilityLiveRegion="polite"
     >
-      <Text style={[styles.text, { color }]}>{message}</Text>
+      <View style={styles.icon}>
+        <Icon name={icon} size={18} color={color} strokeWidth={2} />
+      </View>
+      <AppText variant="subheadline" style={styles.text}>
+        {message}
+      </AppText>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    borderWidth: 1,
-    borderRadius: 12,
+const useStyles = makeStyles(theme => ({
+  banner: {
+    ...continuous,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    borderRadius: radius.medium,
     padding: 12,
     marginBottom: 16,
   },
-  text: {
-    fontSize: 14,
-    fontWeight: '500',
-    lineHeight: 20,
+  redFill: { backgroundColor: theme.colors.redFill },
+  greenFill: { backgroundColor: theme.colors.greenFill },
+  tintFill: { backgroundColor: theme.colors.tintFill },
+  orangeFill: { backgroundColor: theme.colors.orangeFill },
+  icon: {
+    marginRight: 10,
+    marginTop: 1,
   },
-});
+  text: {
+    flex: 1,
+  },
+}));

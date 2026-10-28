@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { View } from 'react-native';
 import { useAuth } from '../auth/AuthContext';
+import AppText from '../components/AppText';
 import Banner from '../components/Banner';
-import FormScreen from '../components/FormScreen';
-import PrimaryButton from '../components/PrimaryButton';
+import Button from '../components/Button';
+import FormScreen, { formStyles } from '../components/FormScreen';
 import ProfileFields from '../components/ProfileFields';
-import ScreenHeader from '../components/ScreenHeader';
 import { getErrorMessage } from '../lib/errors';
 import { validateProfile } from '../lib/validation';
-import { colors } from '../theme';
 
 const asText = value =>
   value === null || value === undefined ? '' : String(value);
@@ -17,14 +16,20 @@ const asText = value =>
 // mode "edit": opened from the Profile tab.
 const ProfileFormScreen = ({ navigation, route }) => {
   const isEditing = route.params?.mode === 'edit';
-  const { user, profile, profileError, saveProfileDetails, signOut } =
-    useAuth();
+  const {
+    user,
+    profile,
+    profileError,
+    pendingDetails,
+    saveProfileDetails,
+    signOut,
+  } = useAuth();
+  // After an interrupted sign-up, start from what the student had chosen.
+  const draft = profile ?? pendingDetails;
   const [values, setValues] = useState(() => ({
-    name: asText(profile?.name ?? user?.name),
-    age: asText(profile?.age),
-    grade: asText(profile?.grade),
-    school: asText(profile?.school),
-    educationBoard: asText(profile?.educationBoard),
+    name: asText(draft?.name ?? user?.name),
+    grade: asText(draft?.grade),
+    educationBoard: asText(draft?.educationBoard),
   }));
   const [fieldErrors, setFieldErrors] = useState({});
   const [formError, setFormError] = useState(null);
@@ -33,6 +38,7 @@ const ProfileFormScreen = ({ navigation, route }) => {
 
   const handleChange = (field, value) => {
     setValues(current => ({ ...current, [field]: value }));
+    setFormError(null);
     if (fieldErrors[field]) {
       setFieldErrors(current => ({ ...current, [field]: undefined }));
     }
@@ -82,21 +88,27 @@ const ProfileFormScreen = ({ navigation, route }) => {
     ? null
     : profileError
     ? "We couldn't save your details when you signed up. Please check them and try again."
-    : 'Tell us a little about yourself so we can tailor your practice.';
+    : 'Tell us your board and grade so we can show the right courses.';
 
   return (
-    <FormScreen>
-      {isEditing ? (
-        <ScreenHeader
-          onClose={() => navigation.goBack()}
-          style={styles.closeHeader}
-        />
-      ) : null}
-      <View style={styles.header}>
-        <Text style={styles.title} accessibilityRole="header">
-          {isEditing ? 'Edit Profile' : 'Complete Your Profile'}
-        </Text>
-        {user?.email ? <Text style={styles.subtitle}>{user.email}</Text> : null}
+    <FormScreen
+      onBack={isEditing ? () => navigation.goBack() : undefined}
+      backIcon="close"
+      backLabel="Close"
+    >
+      <View style={formStyles.header}>
+        <AppText variant="largeTitle" accessibilityRole="header">
+          {isEditing ? 'Edit details' : 'Complete your profile'}
+        </AppText>
+        {user?.email ? (
+          <AppText
+            variant="body"
+            color="secondaryLabel"
+            style={formStyles.subtitle}
+          >
+            {user.email}
+          </AppText>
+        ) : null}
       </View>
 
       <Banner message={intro} tone={profileError ? 'error' : 'info'} />
@@ -107,69 +119,27 @@ const ProfileFormScreen = ({ navigation, route }) => {
         onChange={handleChange}
       />
 
-      <Banner message={formError} style={styles.banner} />
+      <Banner message={formError} />
 
-      <PrimaryButton
+      <Button
         title={isEditing ? 'Save Changes' : 'Continue'}
         onPress={handleSave}
         loading={saving}
-        style={styles.button}
+        style={formStyles.button}
       />
 
       {isEditing ? null : (
-        <TouchableOpacity
+        <Button
+          title={signingOut ? 'Signing Out...' : 'Not you? Sign out'}
+          variant="plain"
+          size="medium"
           onPress={handleSignOut}
           disabled={signingOut}
-          style={styles.linkContainer}
-          accessibilityRole="button"
-        >
-          <Text style={styles.linkText}>
-            {signingOut ? 'Signing out...' : 'Not you? Sign out'}
-          </Text>
-        </TouchableOpacity>
+          style={formStyles.link}
+        />
       )}
     </FormScreen>
   );
 };
-
-const styles = StyleSheet.create({
-  closeHeader: {
-    paddingHorizontal: 0,
-  },
-  header: {
-    alignItems: 'center',
-    marginTop: 12,
-    marginBottom: 24,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: '700',
-    color: colors.text,
-    letterSpacing: -0.5,
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 15,
-    color: colors.textMuted,
-    textAlign: 'center',
-  },
-  banner: {
-    marginTop: 12,
-  },
-  button: {
-    marginTop: 8,
-    marginBottom: 16,
-  },
-  linkContainer: {
-    alignItems: 'center',
-    paddingVertical: 12,
-  },
-  linkText: {
-    color: colors.primary,
-    fontSize: 14,
-    fontWeight: '600',
-  },
-});
 
 export default ProfileFormScreen;

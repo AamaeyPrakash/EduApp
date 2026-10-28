@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { useAuth } from '../auth/AuthContext';
+import AppText from '../components/AppText';
 import Banner from '../components/Banner';
-import FormScreen from '../components/FormScreen';
-import PrimaryButton from '../components/PrimaryButton';
+import Button from '../components/Button';
+import FormScreen, { formStyles } from '../components/FormScreen';
 import ProfileFields from '../components/ProfileFields';
 import TextField from '../components/TextField';
 import config from '../config';
 import { getErrorMessage } from '../lib/errors';
 import { openLink } from '../lib/links';
 import { LIMITS, validateSignUp } from '../lib/validation';
-import { colors } from '../theme';
 
 const EMPTY_FORM = {
   name: '',
-  age: '',
   email: '',
   password: '',
   educationBoard: '',
   grade: '',
-  school: '',
 };
+
+const ACCOUNT_EXISTS = ['user_already_exists', 'user_email_already_exists'];
 
 const SignUpScreen = ({ navigation }) => {
   const { signUp } = useAuth();
@@ -28,9 +28,14 @@ const SignUpScreen = ({ navigation }) => {
   const [fieldErrors, setFieldErrors] = useState({});
   const [formError, setFormError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [accountExists, setAccountExists] = useState(false);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
 
   const handleChange = (field, value) => {
     setValues(current => ({ ...current, [field]: value }));
+    setFormError(null);
+    setAccountExists(false);
     if (fieldErrors[field]) {
       setFieldErrors(current => ({ ...current, [field]: undefined }));
     }
@@ -59,32 +64,44 @@ const SignUpScreen = ({ navigation }) => {
           "We couldn't create your account. Please try again.",
         ),
       );
+      setAccountExists(ACCOUNT_EXISTS.includes(error?.type));
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <FormScreen>
-      <View style={styles.header}>
-        <Text style={styles.title} accessibilityRole="header">
-          Join Our Community
-        </Text>
-        <Text style={styles.subtitle}>
-          Create your account to start your learning journey
-        </Text>
-        <Text style={styles.welcomeText}>Master concepts at your own pace</Text>
+    <FormScreen onBack={() => navigation.popTo('SignIn')}>
+      <View style={formStyles.header}>
+        <AppText variant="largeTitle" accessibilityRole="header">
+          Create account
+        </AppText>
+        <AppText
+          variant="body"
+          color="secondaryLabel"
+          style={formStyles.subtitle}
+        >
+          Your board and grade pick the right courses and help the tutor pitch
+          its answers.
+        </AppText>
       </View>
 
       <ProfileFields
         values={values}
         errors={fieldErrors}
         onChange={handleChange}
+        nameProps={{
+          returnKeyType: 'next',
+          submitBehavior: 'submit',
+          onSubmitEditing: () => emailRef.current?.focus(),
+        }}
         accountFields={
           <>
             <TextField
+              ref={emailRef}
               testID="signup-email"
-              placeholder="Email Address"
+              label="Email"
+              placeholder="you@example.com"
               value={values.email}
               onChangeText={text => handleChange('email', text)}
               error={fieldErrors.email}
@@ -93,10 +110,15 @@ const SignUpScreen = ({ navigation }) => {
               autoComplete="email"
               textContentType="emailAddress"
               keyboardType="email-address"
+              returnKeyType="next"
+              submitBehavior="submit"
+              onSubmitEditing={() => passwordRef.current?.focus()}
             />
             <TextField
+              ref={passwordRef}
               testID="signup-password"
-              placeholder={`Password (min ${LIMITS.passwordMin} characters)`}
+              label="Password"
+              hint={`At least ${LIMITS.passwordMin} characters.`}
               value={values.password}
               onChangeText={text => handleChange('password', text)}
               error={fieldErrors.password}
@@ -106,107 +128,62 @@ const SignUpScreen = ({ navigation }) => {
               autoComplete="new-password"
               textContentType="newPassword"
               maxLength={LIMITS.passwordMax}
+              returnKeyType="done"
             />
           </>
         }
       />
 
-      <Banner message={formError} style={styles.banner} />
+      <Banner message={formError} />
+      {accountExists ? (
+        <Button
+          title="Sign in with this email"
+          variant="tinted"
+          size="medium"
+          onPress={() =>
+            navigation.popTo('SignIn', { email: values.email.trim() })
+          }
+          style={styles.signInInstead}
+        />
+      ) : null}
 
       {config.privacyPolicyUrl ? (
-        <Text style={styles.legal}>
+        <AppText variant="footnote" color="secondaryLabel" align="center">
           By creating an account you agree to our{' '}
-          <Text
-            style={styles.legalLink}
+          <AppText
+            variant="footnote"
+            color="tint"
             accessibilityRole="link"
             onPress={() => openLink(config.privacyPolicyUrl)}
           >
             Privacy Policy
-          </Text>
+          </AppText>
           .
-        </Text>
+        </AppText>
       ) : null}
 
-      <PrimaryButton
+      <Button
         testID="signup-submit"
         title={loading ? 'Creating Account...' : 'Create Account'}
         onPress={handleSignUp}
         loading={loading}
-        style={styles.button}
+        style={formStyles.button}
       />
 
-      <TouchableOpacity
+      <Button
+        title="Already have an account? Sign in"
+        variant="plain"
+        size="medium"
         onPress={() => navigation.popTo('SignIn')}
-        style={styles.linkContainer}
-        accessibilityRole="link"
-      >
-        <Text style={styles.linkText}>
-          Already have an account?{' '}
-          <Text style={styles.linkTextBold}>Sign In</Text>
-        </Text>
-      </TouchableOpacity>
+        style={formStyles.link}
+      />
     </FormScreen>
   );
 };
 
 const styles = StyleSheet.create({
-  header: {
-    alignItems: 'center',
-    marginBottom: 32,
-    paddingTop: 20,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: '700',
-    color: colors.text,
-    letterSpacing: -0.5,
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 16,
-    color: colors.textMuted,
-    textAlign: 'center',
-    marginBottom: 12,
-    lineHeight: 22,
-  },
-  welcomeText: {
-    fontSize: 14,
-    color: colors.primary,
-    fontWeight: '500',
-    textAlign: 'center',
-  },
-  banner: {
-    marginTop: 12,
-  },
-  legal: {
-    color: colors.textMuted,
-    fontSize: 13,
-    textAlign: 'center',
-    marginTop: 4,
-    marginBottom: 12,
-  },
-  legalLink: {
-    color: colors.primary,
-    textDecorationLine: 'underline',
-  },
-  button: {
-    marginTop: 8,
-    marginBottom: 24,
-  },
-  linkContainer: {
-    alignItems: 'center',
-    paddingVertical: 12,
-  },
-  linkText: {
-    color: colors.textMuted,
-    fontSize: 14,
-    textAlign: 'center',
-  },
-  linkTextBold: {
-    color: colors.primary,
-    fontWeight: '600',
-    textDecorationLine: 'underline',
+  signInInstead: {
+    marginBottom: 16,
   },
 });
 

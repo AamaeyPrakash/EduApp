@@ -9,6 +9,7 @@ import {
   getTopic,
   hashText,
   searchQuestions,
+  searchTopics,
 } from '../src/content';
 
 const allQuestions = COURSES.flatMap(course => courseQuestions(course.key));
@@ -94,7 +95,27 @@ describe('searchQuestions', () => {
   });
 
   it('limits the number of results', () => {
-    expect(searchQuestions('the', 5)).toHaveLength(5);
+    expect(searchQuestions('the', { limit: 5 })).toHaveLength(5);
+  });
+
+  it('finds questions by the TeX commands they use', () => {
+    const integrals = searchQuestions('\\int');
+    expect(integrals.length).toBeGreaterThan(0);
+    expect(searchQuestions('int')).toEqual(integrals);
+  });
+
+  it("puts the student's board first", () => {
+    const [first] = searchQuestions('x', { board: '1' });
+    expect(first.courseKey).toBe('cbse');
+  });
+});
+
+describe('searchTopics', () => {
+  it('finds topics by name', () => {
+    const [topic] = searchTopics('probability', { board: '1' });
+    expect(topic.title).toBe('Probability');
+    expect(topic.courseKey).toBe('cbse');
+    expect(searchTopics('zebra')).toEqual([]);
   });
 });
 

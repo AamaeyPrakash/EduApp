@@ -1,86 +1,112 @@
 import React, { forwardRef, useState } from 'react';
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { colors } from '../theme';
+import { Pressable, TextInput, View } from 'react-native';
+import { continuous, makeStyles, radius, type, useTheme } from '../theme';
+import AppText from './AppText';
 
-// Text input in the app's style, with an inline error message and an optional
-// show/hide toggle for passwords.
+// A text field with a label above it, an inline error (or `hint`) below it and, for
+// passwords, a Show/Hide toggle. The label stays visible while typing, unlike the
+// placeholder, which can hold an example.
 const TextField = forwardRef(function TextField(
-  { error, secureTextEntry, placeholder, style, ...inputProps },
+  { label, hint, error, secureTextEntry, placeholder, style, ...inputProps },
   ref,
 ) {
+  const theme = useTheme();
+  const styles = useStyles();
   const [revealed, setRevealed] = useState(false);
   const hidden = Boolean(secureTextEntry) && !revealed;
   return (
     <View style={[styles.container, style]}>
-      <View style={[styles.inputRow, error && styles.inputRowError]}>
+      {label ? (
+        <AppText
+          variant="footnote"
+          color="secondaryLabel"
+          style={styles.label}
+          importantForAccessibility="no"
+          accessibilityElementsHidden
+        >
+          {label}
+        </AppText>
+      ) : null}
+      <View style={[styles.field, error && styles.fieldError]}>
         <TextInput
           ref={ref}
           placeholder={placeholder}
-          accessibilityLabel={inputProps.accessibilityLabel || placeholder}
-          placeholderTextColor={colors.placeholder}
+          accessibilityLabel={
+            inputProps.accessibilityLabel || label || placeholder
+          }
+          accessibilityHint={error || hint}
+          placeholderTextColor={theme.colors.placeholder}
+          selectionColor={theme.colors.tint}
+          keyboardAppearance={theme.dark ? 'dark' : 'light'}
           secureTextEntry={hidden}
           style={styles.input}
-          keyboardAppearance="dark"
           {...inputProps}
         />
         {secureTextEntry ? (
-          <TouchableOpacity
+          <Pressable
             accessibilityRole="button"
             accessibilityLabel={revealed ? 'Hide password' : 'Show password'}
             onPress={() => setRevealed(value => !value)}
             style={styles.toggle}
           >
-            <Text style={styles.toggleText}>{revealed ? 'Hide' : 'Show'}</Text>
-          </TouchableOpacity>
+            <AppText variant="subheadline" color="tint" weight="600">
+              {revealed ? 'Hide' : 'Show'}
+            </AppText>
+          </Pressable>
         ) : null}
       </View>
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+      {error ? (
+        <AppText variant="footnote" color="red" style={styles.error}>
+          {error}
+        </AppText>
+      ) : hint ? (
+        <AppText variant="footnote" color="secondaryLabel" style={styles.error}>
+          {hint}
+        </AppText>
+      ) : null}
     </View>
   );
 });
 
 export default TextField;
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles(theme => ({
   container: {
-    marginBottom: 12,
+    marginBottom: 14,
   },
-  inputRow: {
+  label: {
+    marginBottom: 6,
+    marginLeft: 4,
+    textTransform: 'uppercase',
+  },
+  field: {
+    ...continuous,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.surface,
+    backgroundColor: theme.colors.surface,
+    borderRadius: radius.medium,
     borderWidth: 1,
-    borderColor: colors.surfaceBorder,
-    borderRadius: 15,
+    borderColor: 'transparent',
   },
-  inputRowError: {
-    borderColor: colors.danger,
+  fieldError: {
+    borderColor: theme.colors.red,
   },
   input: {
+    ...type.body,
     flex: 1,
-    padding: 16,
-    fontSize: 16,
-    color: colors.text,
+    minWidth: 0,
+    minHeight: 52,
+    paddingHorizontal: 16,
+    color: theme.colors.label,
   },
   toggle: {
+    alignSelf: 'stretch',
+    justifyContent: 'center',
     paddingHorizontal: 16,
-    paddingVertical: 12,
-  },
-  toggleText: {
-    color: colors.primary,
-    fontSize: 14,
-    fontWeight: '600',
+    minWidth: 64,
   },
   error: {
-    color: colors.danger,
-    fontSize: 13,
     marginTop: 6,
     marginLeft: 4,
   },
-});
+}));

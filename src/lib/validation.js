@@ -4,11 +4,8 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export const LIMITS = {
   nameMax: 80,
-  schoolMax: 100,
   passwordMin: 8,
   passwordMax: 256,
-  ageMin: 5,
-  ageMax: 99,
   gradeMin: 1,
   gradeMax: 13,
 };
@@ -42,9 +39,10 @@ export function validatePassword(password) {
 }
 
 function validateWholeNumber(value, min, max, label) {
-  const text = (value || '').trim();
+  const text = String(value ?? '').trim();
   if (!text) {
-    return `Enter your ${label}.`;
+    // The grade is picked from a list, so "select" rather than "enter".
+    return `Select your ${label}.`;
   }
   const number = Number(text);
   if (!/^\d+$/.test(text) || number < min || number > max) {
@@ -53,23 +51,16 @@ function validateWholeNumber(value, min, max, label) {
   return null;
 }
 
-// Profile fields shared by sign-up and the "complete your profile" screen.
-export function validateProfile({ name, age, grade, school, educationBoard }) {
+// Profile fields shared by sign-up and the "complete your profile" screen. Only what
+// the app uses is asked for: a name for greetings, and the board and grade that pick
+// courses and pitch the tutor's answers.
+export function validateProfile({ name, grade, educationBoard }) {
   const errors = {};
   const trimmedName = (name || '').trim();
   if (!trimmedName) {
     errors.name = 'Enter your name.';
   } else if (trimmedName.length > LIMITS.nameMax) {
     errors.name = `Name must be at most ${LIMITS.nameMax} characters.`;
-  }
-  const ageError = validateWholeNumber(
-    age,
-    LIMITS.ageMin,
-    LIMITS.ageMax,
-    'age',
-  );
-  if (ageError) {
-    errors.age = ageError;
   }
   const gradeError = validateWholeNumber(
     grade,
@@ -79,12 +70,6 @@ export function validateProfile({ name, age, grade, school, educationBoard }) {
   );
   if (gradeError) {
     errors.grade = gradeError;
-  }
-  const trimmedSchool = (school || '').trim();
-  if (!trimmedSchool) {
-    errors.school = 'Enter your school name.';
-  } else if (trimmedSchool.length > LIMITS.schoolMax) {
-    errors.school = `School name must be at most ${LIMITS.schoolMax} characters.`;
   }
   if (!educationBoard) {
     errors.educationBoard = 'Select your education board.';

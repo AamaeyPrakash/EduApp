@@ -1,153 +1,257 @@
-import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import CalculatorIcon from '../assets/CalculatorIconWhite.png';
-import NoCalculatorIcon from '../assets/NonCalculatorIconWhite.png';
+import React, { memo } from 'react';
+import { Pressable, View } from 'react-native';
 import { useStudy } from '../study/StudyContext';
-import { colors } from '../theme';
+import { continuous, makeStyles, radius } from '../theme';
+import AppText from './AppText';
+import Icon from './Icon';
 import MathText from './MathText';
-import RevealSection from './RevealSection';
+import PressableScale from './PressableScale';
 
-// Where a question is from, its concept, whether a calculator is allowed (IB), and a
-// star to save it for later.
-export function QuestionMeta({ question, heading }) {
-  const { isBookmarked, toggleBookmark } = useStudy();
-  const saved = isBookmarked(question.id);
+// "Calculator" / "No calculator" for IB questions (Paper 2 and Paper 1 style).
+export function CalculatorBadge({ allowed }) {
+  const styles = useStyles();
   return (
-    <View style={styles.meta}>
-      {question.calculator === null ? null : (
-        <Image
-          source={question.calculator ? CalculatorIcon : NoCalculatorIcon}
-          style={styles.calculatorIcon}
-          accessibilityLabel={
-            question.calculator ? 'Calculator allowed' : 'No calculator'
-          }
-        />
-      )}
-      <View style={styles.metaText}>
-        <Text style={styles.heading}>{heading}</Text>
-        {question.label ? (
-          <Text style={styles.label}>{question.label}</Text>
-        ) : null}
-      </View>
-      <TouchableOpacity
-        onPress={() => toggleBookmark(question.id)}
-        accessibilityRole="button"
-        accessibilityLabel={saved ? 'Remove from saved' : 'Save question'}
-        accessibilityState={{ selected: saved }}
-        hitSlop={10}
+    <View
+      style={styles.badge}
+      accessible
+      accessibilityLabel={allowed ? 'Calculator allowed' : 'No calculator'}
+    >
+      <Icon
+        name={allowed ? 'calculator' : 'noCalculator'}
+        size={14}
+        color="secondaryLabel"
+        strokeWidth={2}
+      />
+      <AppText
+        variant="caption"
+        color="secondaryLabel"
+        weight="500"
+        style={styles.badgeText}
       >
-        <Text style={[styles.star, saved && styles.starSaved]}>
-          {saved ? '★' : '☆'}
-        </Text>
-      </TouchableOpacity>
+        {allowed ? 'Calculator' : 'No calculator'}
+      </AppText>
     </View>
   );
 }
 
-export function AskTutorLink({ onPress }) {
+export function BookmarkButton({ questionId, size = 22 }) {
+  const { isBookmarked, toggleBookmark } = useStudy();
+  const saved = isBookmarked(questionId);
   return (
-    <TouchableOpacity
-      style={styles.askTutor}
-      onPress={onPress}
+    <Pressable
+      onPress={() => toggleBookmark(questionId)}
       accessibilityRole="button"
-      hitSlop={6}
+      accessibilityLabel={saved ? 'Remove from saved' : 'Save question'}
+      accessibilityState={{ selected: saved }}
+      hitSlop={11}
     >
-      <Text style={styles.askTutorText}>Stuck? Ask the tutor about this</Text>
-    </TouchableOpacity>
+      <Icon
+        name={saved ? 'bookmarkFill' : 'bookmark'}
+        size={size}
+        color={saved ? 'orange' : 'secondaryLabel'}
+      />
+    </Pressable>
   );
 }
 
-// A question with "Show Answer" and "Show Solution/Working" buttons. Which parts are
-// open is kept by the screen (`isShown`/`onToggle`), so it survives list scrolling.
-export default function QuestionCard({
+// Where a question is from, its concept and, for IB, whether a calculator is allowed.
+export function QuestionMeta({ question, heading, right }) {
+  const styles = useStyles();
+  return (
+    <View style={styles.meta}>
+      <View style={styles.metaText}>
+        <AppText variant="footnote" color="secondaryLabel" weight="600">
+          {heading}
+        </AppText>
+        {question.label ? (
+          <AppText variant="footnote" color="secondaryLabel">
+            {question.label}
+          </AppText>
+        ) : null}
+        {question.calculator === null ? null : (
+          <CalculatorBadge allowed={question.calculator} />
+        )}
+      </View>
+      {right}
+    </View>
+  );
+}
+
+// A titled block revealed under a question, e.g. the answer or worked solution.
+export function AnswerPanel({ label, content, tone = 'neutral' }) {
+  const styles = useStyles();
+  return (
+    <View style={[styles.panel, tone === 'answer' && styles.answerPanel]}>
+      <AppText
+        variant="footnote"
+        weight="600"
+        color={tone === 'answer' ? 'greenText' : 'secondaryLabel'}
+        style={styles.panelLabel}
+      >
+        {label.toUpperCase()}
+      </AppText>
+      <MathText content={content} />
+    </View>
+  );
+}
+
+function Disclosure({ label, open, onPress }) {
+  const styles = useStyles();
+  return (
+    <PressableScale
+      onPress={onPress}
+      scaleTo={0.97}
+      accessibilityRole="button"
+      accessibilityState={{ expanded: open }}
+      accessibilityLabel={`${open ? 'Hide' : 'Show'} ${label}`}
+      hitSlop={6}
+      style={styles.disclosure}
+    >
+      <AppText variant="subheadline" color="tintText" weight="600">
+        {label}
+      </AppText>
+      <Icon
+        name={open ? 'chevronUp' : 'chevronDown'}
+        size={14}
+        color="tintText"
+        strokeWidth={2.4}
+      />
+    </PressableScale>
+  );
+}
+
+// A question in a topic's list, with its answer and solution behind disclosures. Which
+// parts are open is kept by the screen, so it survives scrolling: `onToggle` gets
+// "<id>:answer" or "<id>:solution", and `onAskTutor` the question's id. Memoised, so
+// opening one card doesn't redraw the maths in all the others.
+const QuestionCard = memo(function QuestionCard({
   question,
   heading,
-  isShown,
+  answerOpen: answerShown,
+  solutionOpen,
   onToggle,
   onAskTutor,
 }) {
+  const styles = useStyles();
   const answerKey = `${question.id}:answer`;
   const solutionKey = `${question.id}:solution`;
+  const answerOpen = Boolean(question.answer) && answerShown;
   return (
     <View style={styles.card}>
-      <QuestionMeta question={question} heading={heading} />
-      <MathText content={question.prompt} textStyle={styles.prompt} />
-      {question.answer ? (
-        <RevealSection
-          label="Answer"
-          content={question.answer}
-          shown={isShown(answerKey)}
-          onToggle={() => onToggle(answerKey)}
+      <QuestionMeta
+        question={question}
+        heading={heading}
+        right={<BookmarkButton questionId={question.id} />}
+      />
+      <MathText content={question.prompt} />
+      {answerOpen ? (
+        <AnswerPanel label="Answer" content={question.answer} tone="answer" />
+      ) : null}
+      {solutionOpen ? (
+        <AnswerPanel
+          label={question.solutionLabel}
+          content={question.solution}
         />
       ) : null}
-      <RevealSection
-        label={question.solutionLabel}
-        content={question.solution}
-        shown={isShown(solutionKey)}
-        onToggle={() => onToggle(solutionKey)}
-      />
-      {onAskTutor ? <AskTutorLink onPress={onAskTutor} /> : null}
+      <View style={styles.actions}>
+        {question.answer ? (
+          <Disclosure
+            label="Answer"
+            open={answerOpen}
+            onPress={() => onToggle(answerKey)}
+          />
+        ) : null}
+        <Disclosure
+          label={question.solutionLabel}
+          open={solutionOpen}
+          onPress={() => onToggle(solutionKey)}
+        />
+        {onAskTutor ? (
+          <Pressable
+            onPress={() => onAskTutor(question.id)}
+            accessibilityRole="button"
+            accessibilityLabel="Ask the tutor about this question"
+            style={styles.tutor}
+          >
+            <Icon name="sparkles" size={20} color="purple" />
+          </Pressable>
+        ) : null}
+      </View>
     </View>
   );
-}
+});
 
-export const cardStyle = {
-  backgroundColor: colors.surface,
-  borderRadius: 24,
-  padding: 24,
-  width: '100%',
-  maxWidth: 500,
-  marginBottom: 20,
-  borderWidth: 1,
-  borderColor: colors.surfaceBorder,
-};
+export default QuestionCard;
 
-const styles = StyleSheet.create({
-  card: cardStyle,
+const useStyles = makeStyles(theme => ({
+  card: {
+    ...continuous,
+    backgroundColor: theme.colors.surface,
+    borderRadius: radius.card,
+    padding: 18,
+    marginBottom: 12,
+  },
   meta: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginBottom: 16,
-  },
-  calculatorIcon: {
-    width: 30,
-    height: 30,
-    marginRight: 12,
+    marginBottom: 12,
   },
   metaText: {
     flex: 1,
+    gap: 2,
   },
-  heading: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: colors.textSecondary,
-    opacity: 0.8,
+  badge: {
+    ...continuous,
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    marginTop: 6,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: radius.capsule,
+    backgroundColor: theme.colors.secondaryFill,
   },
-  label: {
-    fontSize: 13,
-    color: colors.textFaint,
-    marginTop: 2,
+  badgeText: {
+    marginLeft: 4,
   },
-  star: {
-    fontSize: 24,
-    lineHeight: 26,
-    color: colors.textFaint,
-    marginLeft: 12,
+  panel: {
+    ...continuous,
+    marginTop: 14,
+    padding: 14,
+    borderRadius: radius.medium,
+    backgroundColor: theme.colors.secondaryFill,
   },
-  starSaved: {
-    color: colors.warning,
+  answerPanel: {
+    backgroundColor: theme.colors.greenFill,
   },
-  prompt: {
-    fontSize: 17,
-    lineHeight: 25,
+  panelLabel: {
+    marginBottom: 6,
   },
-  askTutor: {
-    marginTop: 16,
-    alignSelf: 'center',
+  actions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 8,
+    marginTop: 14,
   },
-  askTutorText: {
-    color: colors.primary,
-    fontSize: 15,
-    fontWeight: '600',
+  disclosure: {
+    ...continuous,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: 14,
+    paddingVertical: 6,
+    minHeight: 32,
+    borderRadius: radius.capsule,
+    backgroundColor: theme.colors.tintFill,
   },
-});
+  tutor: {
+    marginLeft: 'auto',
+    width: 44,
+    height: 44,
+    marginVertical: -6,
+    marginRight: -10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+}));

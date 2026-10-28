@@ -1,22 +1,28 @@
 import React from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View } from 'react-native';
 import { useAuth } from '../auth/AuthContext';
+import AppText from '../components/AppText';
 import Banner from '../components/Banner';
-import PrimaryButton from '../components/PrimaryButton';
-import ProgressBar from '../components/ProgressBar';
+import Button from '../components/Button';
+import CourseTile from '../components/CourseTile';
+import { GlassIconButton } from '../components/Glass';
+import Icon from '../components/Icon';
+import { IconTile, Row, Section } from '../components/List';
+import PressableScale from '../components/PressableScale';
+import ProgressRing from '../components/ProgressRing';
+import Screen from '../components/Screen';
 import { getBoardLabel } from '../constants/educationBoards';
-import { COURSES, coursesForBoard } from '../content';
-import { DAILY_GOAL } from '../study/progress';
-import { REVIEW_SESSION_SIZE } from '../study/sessions';
+import {
+  COURSES,
+  courseQuestions,
+  coursesForBoard,
+  getCourse,
+  getTopic,
+} from '../content';
+import { progressFor } from '../study/progress';
+import { mixedPracticeIds, REVIEW_SESSION_SIZE } from '../study/sessions';
 import { useStudy } from '../study/StudyContext';
-import { colors } from '../theme';
+import { continuous, makeStyles, radius } from '../theme';
 
 export function greetingFor(hour) {
   if (hour < 12) {
@@ -30,336 +36,317 @@ export function greetingFor(hour) {
 
 const plural = (count, word) => `${count} ${word}${count === 1 ? '' : 's'}`;
 
-function Stat({ value, label }) {
+function StatLine({ icon, color, label }) {
+  const styles = useStyles();
   return (
-    <View
-      style={styles.stat}
-      accessible
-      accessibilityLabel={`${value} ${label}`}
-    >
-      <Text style={styles.statValue}>{value}</Text>
-      <Text style={styles.statLabel}>{label}</Text>
+    <View style={styles.statLine} accessible accessibilityLabel={label}>
+      <Icon name={icon} size={18} color={color} strokeWidth={2.2} />
+      <AppText variant="subheadline" weight="500" style={styles.statText}>
+        {label}
+      </AppText>
     </View>
   );
 }
 
-function ListLink({ label, count, onPress }) {
-  return (
-    <TouchableOpacity
-      style={[styles.listLink, count === 0 && styles.listLinkEmpty]}
-      onPress={onPress}
-      disabled={count === 0}
-      accessibilityRole="button"
-      accessibilityState={{ disabled: count === 0 }}
-    >
-      <Text style={styles.listLinkText}>
-        {label} ({count})
-      </Text>
-    </TouchableOpacity>
-  );
-}
-
-// Streak, today's goal, reviews that are due, and the saved/mistakes lists.
-function TodayPanel({ navigation }) {
+// Today's goal as an Activity-style ring, the streak and reviews due, and one button
+// for the most useful thing to do next.
+function TodayCard({ navigation, board }) {
+  const styles = useStyles();
   const {
+    study,
     streak,
     todayCount,
+    dailyGoal,
     dueIds,
-    savedIds,
-    mistakeIds,
+    knownCount,
     attemptedCount,
-    saveFailed,
   } = useStudy();
-  const practise = (title, questionIds) =>
-    navigation.navigate('Practice', { title, questionIds });
+  const firstCourse = coursesForBoard(board)[0];
+  const goalMet = todayCount >= dailyGoal;
+  const isNew = attemptedCount === 0;
 
   return (
-    <View style={styles.today}>
-      <Text style={styles.sectionTitle} accessibilityRole="header">
-        Today
-      </Text>
-      <View style={styles.stats}>
-        <Stat value={streak} label="day streak" />
-        <Stat
-          value={`${Math.min(todayCount, 999)}/${DAILY_GOAL}`}
-          label="done today"
-        />
-        <Stat value={dueIds.length} label="to review" />
+    <View style={styles.card}>
+      <View style={styles.today}>
+        <ProgressRing
+          size={108}
+          strokeWidth={14}
+          value={todayCount / dailyGoal}
+          gradient={['teal', 'tint']}
+          accessibilityLabel={`${todayCount} of ${dailyGoal} questions today${
+            goalMet ? ', goal met' : ''
+          }`}
+        >
+          <AppText variant="title2" maxFontSizeMultiplier={1.4}>
+            {todayCount}
+          </AppText>
+          <AppText
+            variant="caption"
+            color={goalMet ? 'greenText' : 'secondaryLabel'}
+            weight={goalMet ? '600' : undefined}
+            maxFontSizeMultiplier={1.4}
+          >
+            {goalMet ? 'goal met' : `of ${dailyGoal}`}
+          </AppText>
+        </ProgressRing>
+        <View style={styles.stats}>
+          <StatLine
+            icon="flame"
+            color="orange"
+            label={streak > 0 ? `${streak} day streak` : 'Start a streak today'}
+          />
+          <StatLine
+            icon="clock"
+            color="tint"
+            label={
+              dueIds.length > 0
+                ? `${dueIds.length} to review`
+                : 'Nothing to review'
+            }
+          />
+          <StatLine
+            icon="check"
+            color="green"
+            label={`${knownCount} mastered`}
+          />
+        </View>
       </View>
-      <ProgressBar value={todayCount / DAILY_GOAL} style={styles.goalBar} />
       {dueIds.length > 0 ? (
-        <PrimaryButton
+        <Button
           title={`Review ${plural(
             Math.min(dueIds.length, REVIEW_SESSION_SIZE),
             'question',
           )}`}
+          icon="retry"
           onPress={() =>
-            practise('Review', dueIds.slice(0, REVIEW_SESSION_SIZE))
+            navigation.navigate('Practice', {
+              title: 'Review',
+              questionIds: dueIds.slice(0, REVIEW_SESSION_SIZE),
+            })
           }
         />
       ) : (
-        <Text style={styles.todayText}>
-          {attemptedCount === 0
-            ? 'Take a quiz from a course below. Your streak and the questions to review will show up here.'
-            : "You're all caught up. Questions come back here when they're due for review."}
-        </Text>
+        <Button
+          title={isNew ? 'Start practising' : 'Practise something new'}
+          icon="play"
+          variant={isNew ? 'filled' : 'tinted'}
+          onPress={() =>
+            navigation.navigate('Practice', {
+              title: `${firstCourse.title}: mixed`,
+              questionIds: mixedPracticeIds(study, firstCourse.key),
+            })
+          }
+        />
       )}
-      <View style={styles.listLinks}>
-        <ListLink
-          label="Saved"
-          count={savedIds.length}
-          onPress={() => practise('Saved questions', savedIds)}
-        />
-        <ListLink
-          label="Mistakes"
-          count={mistakeIds.length}
-          onPress={() => practise('Mistakes', mistakeIds)}
-        />
+    </View>
+  );
+}
+
+function ContinueCard({ navigation }) {
+  const { lastTopic, study } = useStudy();
+  const topic = lastTopic && getTopic(lastTopic[0], lastTopic[1]);
+  if (!topic) {
+    return null;
+  }
+  const course = getCourse(topic.courseKey);
+  const { known, total } = progressFor(
+    study,
+    topic.questions.map(question => question.id),
+  );
+  return (
+    <Section>
+      <Row
+        leading={<CourseTile course={course} size={30} />}
+        title={`Continue: ${topic.title}`}
+        subtitle={`${course.title} · ${known} of ${total} mastered`}
+        onPress={() =>
+          navigation.navigate('Topic', {
+            courseKey: topic.courseKey,
+            topicKey: topic.key,
+          })
+        }
+      />
+    </Section>
+  );
+}
+
+// Saved or Mistakes. When empty it says how questions get there instead.
+function ListTile({ icon, color, title, count, emptyHint, onPress }) {
+  const styles = useStyles();
+  if (count === 0) {
+    return (
+      <View
+        style={[styles.tileWrap, styles.tile]}
+        accessible
+        accessibilityLabel={`${title}: ${emptyHint}`}
+      >
+        <IconTile name={icon} color={color} />
+        <AppText variant="headline" style={styles.tileCount}>
+          {title}
+        </AppText>
+        <AppText variant="footnote" color="secondaryLabel">
+          {emptyHint}
+        </AppText>
       </View>
+    );
+  }
+  return (
+    <PressableScale
+      style={styles.tileWrap}
+      onPress={onPress}
+      accessibilityRole="button"
+      accessibilityLabel={`${title} (${count})`}
+    >
+      <View style={styles.tile}>
+        <IconTile name={icon} color={color} />
+        <AppText variant="title2" style={styles.tileCount}>
+          {count}
+        </AppText>
+        <AppText variant="subheadline" color="secondaryLabel" weight="500">
+          {title}
+        </AppText>
+      </View>
+    </PressableScale>
+  );
+}
+
+const HomeScreen = ({ navigation }) => {
+  const styles = useStyles();
+  const { user, profile } = useAuth();
+  const { study, savedIds, mistakeIds, saveFailed } = useStudy();
+  const firstName = (profile?.name || user?.name || '').trim().split(/\s+/)[0];
+  const greeting = greetingFor(new Date().getHours());
+  const board = profile?.educationBoard;
+  const courses = coursesForBoard(board);
+  const boardHasCourses = COURSES.some(course => course.board === board);
+  const practise = (title, questionIds) =>
+    navigation.navigate('Practice', { title, questionIds });
+
+  return (
+    <Screen
+      title="Today"
+      eyebrow={firstName ? `${greeting}, ${firstName}` : greeting}
+      glow
+      tabBar
+      right={
+        <GlassIconButton
+          icon="search"
+          accessibilityLabel="Search questions"
+          onPress={() => navigation.navigate('Search')}
+        />
+      }
+    >
+      <TodayCard navigation={navigation} board={board} />
       <Banner
-        tone="info"
-        style={styles.saveBanner}
+        tone="warning"
         message={
           saveFailed
             ? "Your latest progress isn't saved yet. It will be saved when you're back online."
             : null
         }
       />
-    </View>
-  );
-}
+      <ContinueCard navigation={navigation} />
 
-const HomeScreen = ({ navigation }) => {
-  const { user, profile } = useAuth();
-  const firstName = (profile?.name || user?.name || '').trim().split(/\s+/)[0];
-  const greeting = greetingFor(new Date().getHours());
-  const board = profile?.educationBoard;
-  const courses = coursesForBoard(board);
-  const boardHasCourses = COURSES.some(course => course.board === board);
+      <View style={styles.tiles}>
+        <ListTile
+          icon="bookmarkFill"
+          color="orange"
+          title="Saved"
+          count={savedIds.length}
+          emptyHint="Tap the bookmark on a question to keep it here."
+          onPress={() => practise('Saved questions', savedIds)}
+        />
+        <ListTile
+          icon="mistake"
+          color="red"
+          title="Mistakes"
+          count={mistakeIds.length}
+          emptyHint="Questions you mark “Not yet” collect here."
+          onPress={() => practise('Mistakes', mistakeIds)}
+        />
+      </View>
 
-  return (
-    <SafeAreaView style={styles.container} edges={['top']}>
-      <ScrollView contentContainerStyle={styles.content}>
-        <View style={styles.header}>
-          <Text style={styles.greeting}>
-            {firstName ? `${greeting}, ${firstName}` : greeting}
-          </Text>
-          <Text style={styles.title} accessibilityRole="header">
-            Mathematics
-          </Text>
-        </View>
-
-        <TouchableOpacity
-          style={styles.search}
-          onPress={() => navigation.navigate('Search')}
-          accessibilityRole="search"
-          accessibilityLabel="Search questions"
-        >
-          <Text style={styles.searchText}>Search topics and questions</Text>
-        </TouchableOpacity>
-
-        <TodayPanel navigation={navigation} />
-
-        <Text style={styles.sectionTitle} accessibilityRole="header">
-          Courses
-        </Text>
-        {board && !boardHasCourses ? (
-          <Banner
-            tone="info"
-            message={`Courses for ${getBoardLabel(
-              board,
-            )} are on the way. Until then, AskGPT can help with any topic from your syllabus.`}
-          />
-        ) : null}
-        {courses.map(course => (
-          <TouchableOpacity
-            key={course.key}
-            style={styles.card}
-            onPress={() =>
-              navigation.navigate('Course', { courseKey: course.key })
-            }
-            activeOpacity={0.8}
-            accessibilityRole="button"
-            accessibilityLabel={`${course.title}, ${course.subtitle}`}
-          >
-            <View style={styles.cardIcon}>
-              <Text style={styles.iconText}>{course.icon}</Text>
-            </View>
-            <View style={styles.cardContent}>
-              <Text style={styles.cardTitle}>{course.title}</Text>
-              <Text style={styles.cardSubtitle}>{course.subtitle}</Text>
-              <Text style={styles.cardDescription}>{course.description}</Text>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
-    </SafeAreaView>
+      {board && !boardHasCourses ? (
+        <Banner
+          tone="info"
+          message={`Courses for ${getBoardLabel(
+            board,
+          )} are on the way. Until then, the Tutor can help with any topic from your syllabus.`}
+        />
+      ) : null}
+      <Section title="Courses">
+        {courses.map(course => {
+          const ids = courseQuestions(course.key).map(question => question.id);
+          const { known, review, total } = progressFor(study, ids);
+          return (
+            <Row
+              key={course.key}
+              leading={<CourseTile course={course} />}
+              title={course.title}
+              subtitle={course.subtitle}
+              accessibilityLabel={`${course.title}, ${course.subtitle}, ${known} of ${total} mastered`}
+              accessory={
+                <ProgressRing
+                  size={30}
+                  strokeWidth={4}
+                  value={known / total}
+                  secondary={review / total}
+                  accessibilityLabel={`${known} of ${total} mastered`}
+                />
+              }
+              onPress={() =>
+                navigation.navigate('Course', { courseKey: course.key })
+              }
+            />
+          );
+        })}
+      </Section>
+    </Screen>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.background,
-  },
-  content: {
-    paddingHorizontal: 20,
-    paddingTop: 32,
-    paddingBottom: 20,
-  },
-  header: {
+const useStyles = makeStyles(theme => ({
+  card: {
+    ...continuous,
+    backgroundColor: theme.colors.surface,
+    borderRadius: radius.large,
+    padding: 20,
     marginBottom: 20,
-    paddingHorizontal: 4,
-  },
-  search: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    marginBottom: 20,
-  },
-  searchText: {
-    fontSize: 16,
-    color: colors.placeholder,
-  },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: colors.text,
-    marginBottom: 12,
-    paddingHorizontal: 4,
   },
   today: {
-    marginBottom: 28,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
   },
   stats: {
-    flexDirection: 'row',
-    gap: 10,
-    marginBottom: 12,
-  },
-  stat: {
     flex: 1,
-    backgroundColor: colors.surfaceSubtle,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: colors.surfaceSubtleBorder,
-    paddingVertical: 14,
+    marginLeft: 20,
+    gap: 12,
+  },
+  statLine: {
+    flexDirection: 'row',
     alignItems: 'center',
   },
-  statValue: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: colors.text,
+  statText: {
+    marginLeft: 8,
   },
-  statLabel: {
-    fontSize: 12,
-    color: colors.textFaint,
-    marginTop: 2,
-  },
-  goalBar: {
-    marginBottom: 16,
-  },
-  todayText: {
-    fontSize: 15,
-    lineHeight: 21,
-    color: colors.textMuted,
-  },
-  listLinks: {
+  tiles: {
     flexDirection: 'row',
-    gap: 10,
+    gap: 12,
+    marginBottom: 28,
+  },
+  tileWrap: {
+    flex: 1,
+  },
+  tile: {
+    ...continuous,
+    backgroundColor: theme.colors.surface,
+    borderRadius: radius.card,
+    padding: 16,
+  },
+  tileCount: {
     marginTop: 12,
   },
-  listLink: {
-    flex: 1,
-    alignItems: 'center',
-    borderRadius: 14,
-    paddingVertical: 12,
-    backgroundColor: colors.surfaceSubtle,
-    borderWidth: 1,
-    borderColor: colors.surfaceSubtleBorder,
-  },
-  listLinkEmpty: {
-    opacity: 0.5,
-  },
-  listLinkText: {
-    color: colors.text,
-    fontSize: 15,
-    fontWeight: '600',
-  },
-  saveBanner: {
-    marginTop: 12,
-    marginBottom: 0,
-  },
-  greeting: {
-    fontSize: 17,
-    fontWeight: '400',
-    color: colors.textFaint,
-    marginBottom: 4,
-    letterSpacing: -0.24,
-  },
-  title: {
-    fontSize: 34,
-    fontWeight: '700',
-    color: colors.text,
-    marginBottom: 12,
-    letterSpacing: -0.34,
-    lineHeight: 40,
-  },
-  card: {
-    borderRadius: 24,
-    padding: 24,
-    marginBottom: 16,
-    minHeight: 140,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.surfaceBorder,
-  },
-  cardIcon: {
-    width: 60,
-    height: 60,
-    borderRadius: 18,
-    backgroundColor: colors.primaryStrong,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 20,
-    borderWidth: 1,
-    borderColor: colors.surfaceSubtleBorder,
-  },
-  iconText: {
-    fontSize: 28,
-    fontWeight: '300',
-    color: colors.text,
-  },
-  cardContent: {
-    flex: 1,
-  },
-  cardTitle: {
-    fontSize: 22,
-    fontWeight: '600',
-    color: colors.text,
-    marginBottom: 4,
-    letterSpacing: -0.26,
-  },
-  cardSubtitle: {
-    fontSize: 15,
-    fontWeight: '500',
-    color: colors.textSecondary,
-    marginBottom: 6,
-    letterSpacing: -0.24,
-    opacity: 0.8,
-  },
-  cardDescription: {
-    fontSize: 13,
-    fontWeight: '400',
-    color: colors.textSecondary,
-    lineHeight: 18,
-    letterSpacing: -0.08,
-    opacity: 0.6,
-  },
-});
+}));
 
 export default HomeScreen;

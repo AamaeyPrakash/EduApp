@@ -1,69 +1,82 @@
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { colors } from '../theme';
-import PrimaryButton from './PrimaryButton';
+import { ActivityIndicator, View } from 'react-native';
+import { makeStyles, useTheme } from '../theme';
+import AmbientGlow from './AmbientGlow';
+import AppText from './AppText';
+import Button from './Button';
+import { IconTile } from './List';
 
 // Full-screen spinner or message, used while the app starts or when it can't continue.
 export default function StatusScreen({
   loading = false,
+  icon = 'info',
   title,
   message,
   actions = [],
 }) {
+  const styles = useStyles();
+  const { colors } = useTheme();
   return (
-    <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
+    <View style={styles.container}>
+      <AmbientGlow />
       <View style={styles.content}>
         {loading ? (
           <ActivityIndicator
             size="large"
-            color={colors.primary}
+            color={colors.secondaryLabel}
             accessibilityLabel="Loading"
           />
+        ) : (
+          <IconTile name={icon} color="tint" size={64} />
+        )}
+        {title ? (
+          <AppText variant="title2" align="center" style={styles.title}>
+            {title}
+          </AppText>
         ) : null}
-        {title ? <Text style={styles.title}>{title}</Text> : null}
-        {message ? <Text style={styles.message}>{message}</Text> : null}
+        {message ? (
+          <AppText
+            variant="body"
+            color="secondaryLabel"
+            align="center"
+            style={styles.message}
+          >
+            {message}
+          </AppText>
+        ) : null}
         {actions.map(action => (
-          <PrimaryButton
+          <Button
             key={action.title}
             title={action.title}
             onPress={action.onPress}
             loading={action.loading}
-            variant={action.variant}
             style={styles.action}
           />
         ))}
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
-const styles = StyleSheet.create({
+const useStyles = makeStyles(theme => ({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: theme.colors.background,
   },
   content: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'stretch',
+    alignItems: 'center',
     paddingHorizontal: 32,
   },
   title: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: colors.text,
-    textAlign: 'center',
-    marginBottom: 12,
+    marginTop: 20,
   },
   message: {
-    fontSize: 16,
-    lineHeight: 22,
-    color: colors.textMuted,
-    textAlign: 'center',
-    marginBottom: 24,
+    marginTop: 8,
   },
   action: {
-    marginBottom: 12,
+    marginTop: 28,
+    alignSelf: 'stretch',
   },
-});
+}));

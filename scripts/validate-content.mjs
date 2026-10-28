@@ -116,6 +116,13 @@ cbse.forEach((question, index) => {
   if (INCOMPLETE_QUESTION.test(question.Example || '')) {
     warnings.push(`${where}: the question looks cut off`);
   }
+  // The next NCERT example running on into this solution ("... Example 8 Show
+  // that ..."); references like "(see Example 2)" are fine.
+  if (
+    /(?<![(]|see |In )\bExample\s+\d+\s+(?=[A-Z])/.test(question.Solution || '')
+  ) {
+    errors.push(`${where}: the solution runs on into another example`);
+  }
   const key = `${question.Title}\n${question.Example}`;
   if (seenQuestions.has(key)) {
     warnings.push(`${where}: duplicate of #${seenQuestions.get(key)}`);

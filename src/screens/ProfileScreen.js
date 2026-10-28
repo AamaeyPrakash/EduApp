@@ -1,69 +1,61 @@
-import React, { useState } from 'react';
-import {
-  ActivityIndicator,
-  Alert,
-  ScrollView,
-  Share,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useId, useState } from 'react';
+import { ActivityIndicator, Alert, StyleSheet, View } from 'react-native';
+import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
 import { PROFILE_STATUS, useAuth } from '../auth/AuthContext';
+import AppText from '../components/AppText';
 import Banner from '../components/Banner';
-import PrimaryButton from '../components/PrimaryButton';
+import Button from '../components/Button';
+import Chip from '../components/Chip';
+import { Row, Section } from '../components/List';
+import Screen from '../components/Screen';
 import config from '../config';
 import { getBoardLabel } from '../constants/educationBoards';
 import { getErrorMessage } from '../lib/errors';
 import { openLink } from '../lib/links';
+import { GOAL_OPTIONS } from '../study/progress';
 import { useStudy } from '../study/StudyContext';
-import { colors } from '../theme';
+import { continuous, makeStyles, radius, useTheme } from '../theme';
 
-function ProgressCard() {
-  const { attemptedCount, knownCount, bestStreak } = useStudy();
-  const share = () =>
-    Share.share({
-      message: `I've practised ${attemptedCount} maths question${
-        attemptedCount === 1 ? '' : 's'
-      } on EduApp and got ${knownCount} right, with a best streak of ${bestStreak} day${
-        bestStreak === 1 ? '' : 's'
-      }.`,
-    }).catch(() => {});
+function Avatar({ initial }) {
+  const styles = useStyles();
+  const { colors } = useTheme();
+  const id = useId().replace(/:/g, '');
   return (
-    <View style={styles.progressCard}>
-      <Text style={styles.progressTitle} accessibilityRole="header">
-        Your progress
-      </Text>
-      <View style={styles.progressStats}>
-        {[
-          ['Practised', attemptedCount],
-          ['Got it', knownCount],
-          ['Best streak', bestStreak],
-        ].map(([label, value]) => (
-          <View
-            key={label}
-            style={styles.progressStat}
-            accessible
-            accessibilityLabel={`${label}: ${value}`}
-          >
-            <Text style={styles.infoValue}>{value}</Text>
-            <Text style={styles.progressLabel}>{label}</Text>
-          </View>
-        ))}
-      </View>
-      {attemptedCount > 0 ? (
-        <PrimaryButton
-          title="Share my progress"
-          variant="secondary"
-          onPress={share}
-        />
-      ) : null}
+    <View style={styles.avatar}>
+      <Svg width={72} height={72} style={StyleSheet.absoluteFill}>
+        <Defs>
+          <LinearGradient id={`avatar${id}`} x1="0" y1="0" x2="1" y2="1">
+            <Stop offset="0" stopColor={colors.teal} />
+            <Stop offset="1" stopColor={colors.indigo} />
+          </LinearGradient>
+        </Defs>
+        <Rect width={72} height={72} rx={36} fill={`url(#avatar${id})`} />
+      </Svg>
+      <AppText variant="title1" color="onTint">
+        {initial}
+      </AppText>
+    </View>
+  );
+}
+
+function Stat({ value, label }) {
+  const styles = useStyles();
+  return (
+    <View
+      style={styles.stat}
+      accessible
+      accessibilityLabel={`${label}: ${value}`}
+    >
+      <AppText variant="title2">{value}</AppText>
+      <AppText variant="footnote" color="secondaryLabel">
+        {label}
+      </AppText>
     </View>
   );
 }
 
 const ProfileScreen = ({ navigation }) => {
+  const styles = useStyles();
   const {
     user,
     profile,
@@ -73,7 +65,14 @@ const ProfileScreen = ({ navigation }) => {
     signOut,
     deleteAccount,
   } = useAuth();
-  const { flush } = useStudy();
+  const {
+    flush,
+    attemptedCount,
+    knownCount,
+    bestStreak,
+    dailyGoal,
+    setDailyGoal,
+  } = useStudy();
   const [busyAction, setBusyAction] = useState(null);
   const [actionError, setActionError] = useState(null);
 
@@ -93,20 +92,44 @@ const ProfileScreen = ({ navigation }) => {
   };
 
   // Saves the latest answers first; they are lost once the session ends.
-  const handleLogout = () =>
+  const handleSignOut = () =>
     runAction(
-      'logout',
+      'signOut',
       async () => {
         await flush();
         await signOut();
       },
-      "We couldn't log you out. Check your connection and try again.",
+      "We couldn't sign you out. Check your connection and try again.",
     );
 
-  const confirmDeleteAccount = () =>
+  const confirmDeleteAccount = () => {
+    // Without the delete function, say how to ask for deletion before anything else.
+    if (!config.deleteAccountFunctionId) {
+      Alert.alert(
+        'Delete your account',
+        config.supportEmail
+          ? `Email ${config.supportEmail} and we'll delete your account, profile and progress.`
+          : "Contact support and we'll delete your account, profile and progress.",
+        config.supportEmail
+          ? [
+              { text: 'Cancel', style: 'cancel' },
+              {
+                text: 'Email Support',
+                onPress: () =>
+                  openLink(
+                    `mailto:${config.supportEmail}?subject=${encodeURIComponent(
+                      'Delete my EduApp account',
+                    )}`,
+                  ),
+              },
+            ]
+          : [{ text: 'OK' }],
+      );
+      return;
+    }
     Alert.alert(
       'Delete your account?',
-      'This permanently deletes your account and profile details. This cannot be undone.',
+      'This permanently deletes your account, profile and progress. This cannot be undone.',
       [
         { text: 'Cancel', style: 'cancel' },
         {
@@ -121,348 +144,187 @@ const ProfileScreen = ({ navigation }) => {
         },
       ],
     );
-
-  const renderDetails = () => {
-    if (profile) {
-      return (
-        <>
-          <View style={styles.infoGrid}>
-            <View style={styles.infoCard}>
-              <Text style={styles.infoLabel}>Grade</Text>
-              <Text style={styles.infoValue}>{profile.grade}</Text>
-            </View>
-            <View style={styles.infoCard}>
-              <Text style={styles.infoLabel}>Board</Text>
-              <Text style={styles.infoValue}>
-                {getBoardLabel(profile.educationBoard)}
-              </Text>
-            </View>
-          </View>
-          <View style={styles.schoolCard}>
-            <Text style={styles.infoLabel}>School</Text>
-            <Text style={styles.schoolValue}>{profile.school}</Text>
-          </View>
-          <PrimaryButton
-            title="Edit Profile"
-            variant="secondary"
-            onPress={() => navigation.navigate('EditProfile')}
-            style={styles.wideButton}
-          />
-        </>
-      );
-    }
-    if (profileStatus === PROFILE_STATUS.ERROR) {
-      return (
-        <View style={styles.statusCard}>
-          <Text style={styles.statusText}>
-            {getErrorMessage(profileError, "We couldn't load your profile.")}
-          </Text>
-          <PrimaryButton
-            title="Try Again"
-            onPress={reloadProfile}
-            style={styles.retryButton}
-          />
-        </View>
-      );
-    }
-    return (
-      <View style={styles.statusCard}>
-        <ActivityIndicator color={colors.primary} />
-        <Text style={[styles.statusText, styles.loadingText]}>
-          Loading your profile...
-        </Text>
-      </View>
-    );
   };
 
-  return (
-    <SafeAreaView style={styles.container} edges={['top']}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Text style={styles.title} accessibilityRole="header">
-          Profile
-        </Text>
-
-        <View style={styles.profileCard}>
-          <View style={styles.avatarContainer}>
-            <Text style={styles.avatarText}>{initial}</Text>
-          </View>
-          {name ? <Text style={styles.nameText}>{name}</Text> : null}
-          <Text style={styles.emailText}>{email}</Text>
-        </View>
-
-        {renderDetails()}
-
-        <ProgressCard />
-
-        <Banner message={actionError} style={styles.wideBanner} />
-
-        <TouchableOpacity
-          style={[styles.logoutButton, busyAction && styles.disabled]}
-          onPress={handleLogout}
-          disabled={Boolean(busyAction)}
-          activeOpacity={0.8}
-          accessibilityRole="button"
-        >
-          {busyAction === 'logout' ? (
-            <ActivityIndicator color={colors.text} />
-          ) : (
-            <Text style={styles.logoutButtonText}>Logout</Text>
+  let details;
+  if (profile) {
+    details = [
+      <Row
+        key="board"
+        icon="graduation"
+        iconColor="indigo"
+        title="Board"
+        value={getBoardLabel(profile.educationBoard)}
+        onPress={() => navigation.navigate('EditProfile')}
+      />,
+      <Row
+        key="grade"
+        icon="chart"
+        iconColor="teal"
+        title="Grade"
+        value={profile.grade}
+        onPress={() => navigation.navigate('EditProfile')}
+      />,
+      <Row
+        key="edit"
+        icon="pencil"
+        iconColor="tint"
+        title="Edit Details"
+        onPress={() => navigation.navigate('EditProfile')}
+      />,
+    ];
+  } else if (profileStatus === PROFILE_STATUS.ERROR) {
+    details = (
+      <View style={styles.status}>
+        <Banner
+          message={getErrorMessage(
+            profileError,
+            "We couldn't load your profile.",
           )}
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.deleteButton}
-          onPress={confirmDeleteAccount}
-          disabled={Boolean(busyAction)}
-          accessibilityRole="button"
+        />
+        <Button title="Try Again" size="medium" onPress={reloadProfile} />
+      </View>
+    );
+  } else {
+    details = (
+      <View style={styles.status}>
+        <ActivityIndicator />
+        <AppText
+          variant="subheadline"
+          color="secondaryLabel"
+          style={styles.loading}
         >
-          <Text style={styles.deleteText}>
-            {busyAction === 'delete' ? 'Deleting account...' : 'Delete Account'}
-          </Text>
-        </TouchableOpacity>
+          Loading your profile...
+        </AppText>
+      </View>
+    );
+  }
 
-        <View style={styles.footer}>
+  return (
+    <Screen title="Profile" tabBar glow>
+      <View style={styles.header}>
+        <Avatar initial={initial} />
+        <View style={styles.identity}>
+          {name ? <AppText variant="title3">{name}</AppText> : null}
+          <AppText variant="subheadline" color="secondaryLabel">
+            {email}
+          </AppText>
+        </View>
+      </View>
+
+      <View style={styles.stats}>
+        <Stat value={attemptedCount} label="Practised" />
+        <View style={styles.statDivider} />
+        <Stat value={knownCount} label="Mastered" />
+        <View style={styles.statDivider} />
+        <Stat value={bestStreak} label="Best streak" />
+      </View>
+
+      <Section title="Learning">{details}</Section>
+
+      <Section
+        title="Daily goal"
+        footer="Questions to answer each day. The ring on Today fills as you go."
+      >
+        <View style={styles.goals}>
+          {GOAL_OPTIONS.map(goal => (
+            <Chip
+              key={goal}
+              label={String(goal)}
+              selected={goal === dailyGoal}
+              onPress={() => setDailyGoal(goal)}
+              accessibilityLabel={`Daily goal: ${goal} questions`}
+            />
+          ))}
+        </View>
+      </Section>
+
+      {config.privacyPolicyUrl || config.supportEmail ? (
+        <Section title="Help">
           {config.privacyPolicyUrl ? (
-            <Text
-              style={styles.footerLink}
-              accessibilityRole="link"
+            <Row
+              icon="lock"
+              iconColor="green"
+              title="Privacy Policy"
               onPress={() => openLink(config.privacyPolicyUrl)}
-            >
-              Privacy Policy
-            </Text>
+            />
           ) : null}
           {config.supportEmail ? (
-            <Text
-              style={styles.footerLink}
-              accessibilityRole="link"
+            <Row
+              icon="envelope"
+              iconColor="orange"
+              title="Contact Support"
               onPress={() => openLink(`mailto:${config.supportEmail}`)}
-            >
-              Contact Support
-            </Text>
+            />
           ) : null}
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+        </Section>
+      ) : null}
+
+      <Banner message={actionError} />
+      <Section>
+        <Row
+          title={busyAction === 'signOut' ? 'Signing Out...' : 'Sign Out'}
+          destructive
+          onPress={busyAction ? undefined : handleSignOut}
+        />
+        <Row
+          title={
+            busyAction === 'delete' ? 'Deleting Account...' : 'Delete Account'
+          }
+          destructive
+          onPress={busyAction ? undefined : confirmDeleteAccount}
+        />
+      </Section>
+    </Screen>
   );
 };
 
-const card = {
-  backgroundColor: colors.surface,
-  borderWidth: 1,
-  borderColor: colors.surfaceBorder,
-  width: '100%',
-  maxWidth: 400,
-};
-
-const styles = StyleSheet.create({
-  container: {
+const useStyles = makeStyles(theme => ({
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  avatar: {
+    width: 72,
+    height: 72,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  identity: {
     flex: 1,
-    backgroundColor: colors.background,
+    marginLeft: 16,
   },
-  scrollContent: {
-    flexGrow: 1,
-    alignItems: 'center',
-    paddingTop: 40,
-    paddingBottom: 32,
-    paddingHorizontal: 20,
-  },
-  title: {
-    fontSize: 34,
-    fontWeight: '700',
-    color: colors.text,
-    marginBottom: 32,
-    textAlign: 'center',
-    letterSpacing: -0.34,
-  },
-  profileCard: {
-    ...card,
-    borderRadius: 24,
-    padding: 32,
-    alignItems: 'center',
-    marginBottom: 24,
-  },
-  avatarContainer: {
-    backgroundColor: 'rgba(10, 132, 255, 0.2)',
-    borderWidth: 2,
-    borderColor: 'rgba(10, 132, 255, 0.4)',
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 24,
-  },
-  avatarText: {
-    fontSize: 42,
-    fontWeight: '700',
-    color: colors.text,
-    letterSpacing: -0.42,
-  },
-  nameText: {
-    fontSize: 28,
-    fontWeight: '600',
-    color: colors.text,
-    marginBottom: 8,
-    textAlign: 'center',
-    letterSpacing: -0.28,
-  },
-  emailText: {
-    fontSize: 16,
-    color: colors.textSecondary,
-    opacity: 0.8,
-    textAlign: 'center',
-    letterSpacing: -0.16,
-  },
-  infoGrid: {
+  stats: {
+    ...continuous,
     flexDirection: 'row',
-    width: '100%',
-    maxWidth: 400,
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  infoCard: {
-    backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.surfaceBorder,
-    borderRadius: 20,
-    padding: 20,
-    flex: 0.48,
     alignItems: 'center',
-  },
-  schoolCard: {
-    ...card,
-    borderRadius: 20,
-    padding: 24,
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  infoLabel: {
-    fontSize: 14,
-    color: colors.textSecondary,
-    opacity: 0.7,
-    marginBottom: 8,
-    textAlign: 'center',
-    letterSpacing: -0.14,
-    fontWeight: '500',
-  },
-  infoValue: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: colors.text,
-    textAlign: 'center',
-    letterSpacing: -0.2,
-  },
-  schoolValue: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: colors.text,
-    textAlign: 'center',
-    letterSpacing: -0.18,
-  },
-  wideButton: {
-    width: '100%',
-    maxWidth: 400,
-    marginBottom: 24,
-  },
-  progressCard: {
-    ...card,
-    borderRadius: 20,
-    padding: 20,
-    marginBottom: 24,
-  },
-  progressTitle: {
-    fontSize: 17,
-    fontWeight: '700',
-    color: colors.text,
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  progressStats: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 16,
-  },
-  progressStat: {
-    alignItems: 'center',
-  },
-  progressLabel: {
-    fontSize: 13,
-    color: colors.textFaint,
-    marginTop: 4,
-  },
-  statusCard: {
-    ...card,
-    borderRadius: 24,
-    padding: 24,
-    alignItems: 'center',
-    marginBottom: 24,
-  },
-  statusText: {
-    fontSize: 16,
-    color: colors.textSecondary,
-    opacity: 0.8,
-    textAlign: 'center',
-  },
-  loadingText: {
-    marginTop: 12,
-  },
-  retryButton: {
-    marginTop: 16,
-    alignSelf: 'stretch',
-  },
-  wideBanner: {
-    width: '100%',
-    maxWidth: 400,
-  },
-  logoutButton: {
-    backgroundColor: colors.dangerStrong,
-    borderRadius: 18,
+    backgroundColor: theme.colors.surface,
+    borderRadius: radius.card,
     paddingVertical: 16,
-    paddingHorizontal: 60,
-    minWidth: 200,
+    marginBottom: 28,
+  },
+  stat: {
+    flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1.5,
-    borderTopColor: 'rgba(255, 255, 255, 0.3)',
-    borderLeftColor: 'rgba(255, 255, 255, 0.3)',
-    borderRightColor: 'rgba(255, 69, 58, 0.4)',
-    borderBottomColor: 'rgba(255, 69, 58, 0.4)',
-    shadowColor: colors.danger,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.4,
-    shadowRadius: 20,
-    elevation: 12,
   },
-  disabled: {
-    opacity: 0.6,
+  statDivider: {
+    width: StyleSheet.hairlineWidth,
+    alignSelf: 'stretch',
+    backgroundColor: theme.colors.separator,
   },
-  logoutButtonText: {
-    color: colors.text,
-    fontSize: 16,
-    fontWeight: '600',
-    letterSpacing: -0.16,
+  status: {
+    padding: 16,
+    alignItems: 'center',
   },
-  deleteButton: {
-    marginTop: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 16,
+  loading: {
+    marginTop: 8,
   },
-  deleteText: {
-    color: colors.danger,
-    fontSize: 15,
-    fontWeight: '600',
-  },
-  footer: {
+  goals: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    gap: 24,
-    marginTop: 24,
+    gap: 8,
+    padding: 12,
   },
-  footerLink: {
-    color: colors.textMuted,
-    fontSize: 14,
-    textDecorationLine: 'underline',
-  },
-});
+}));
 
 export default ProfileScreen;

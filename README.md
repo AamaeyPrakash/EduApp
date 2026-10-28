@@ -2,24 +2,31 @@
 
 A React Native maths study app for IB, CBSE and other secondary-school students.
 
-- **IB Mathematics AA and AI** – topic quizzes with answers, worked solutions and calculator / non-calculator markers.
+- **IB Mathematics AA and AI** – topic questions with answers, worked solutions and calculator / no-calculator markers.
 - **CBSE Grade 12** – worked examples by chapter, rendered with proper maths typesetting (LaTeX), plus final answers.
-- **Quiz and Revision modes** – "Quiz" hides solutions until you ask; "Revisions" opens the same questions with every solution shown, for reading through.
-- **AskGPT** – an AI maths tutor that knows the student's board and grade and writes maths in LaTeX. Students agree once before anything is sent to OpenAI, and can report any answer.
-- **Accounts** – sign up, sign in, forgot password, view and edit profile, log out, delete account.
+- **Topics** – each topic shows how much is mastered, a Practise button (unmastered questions first), a "Review missed" set, and every question with its answer and solution a tap away. "Show solutions" opens them all for reading through.
+- **Practice sessions** – one question at a time: try it, reveal the answer, mark "Got it" or "Not yet". Missed questions come back for review (spaced repetition). Courses also offer mixed practice across topics, a 15-minute timed test and, for IB, a no-calculator set.
+- **Today** – a daily-goal ring (5, 10, 20 or 30 questions), streak, questions due for review, "Continue" for the last topic, saved questions and mistakes, and search across topics and questions.
+- **Tutor** – an AI maths tutor that knows the student's board and grade and writes maths in LaTeX. It can also be opened on a specific question or topic. Students agree once before anything is sent to OpenAI, and can report any answer.
+- **Accounts** – sign up, sign in, forgot password, view and edit profile, sign out, delete account. Only name, grade and board are collected.
+- **Design** – follows Apple's Human Interface Guidelines: large titles, grouped lists, capsule controls and Liquid Glass-style floating controls (tab bar, toolbar buttons, action bars). The app follows the phone's light or dark appearance.
 
 Built with React Native 0.88 (New Architecture), React Navigation 7 and [Appwrite](https://appwrite.io) for accounts, data and server functions. The AI tutor calls OpenAI from an Appwrite Function, so no secret key ships inside the app.
 
 ## Project layout
 
 ```
-App.tsx                      Providers (safe area, auth) and navigation
+App.tsx                      Providers (safe area, auth, study progress) and navigation
 src/
   auth/AuthContext.js        Session, sign in/up/out, profile, password reset, account deletion
-  navigation/                Root stack (switches on auth state) and bottom tabs
-  screens/                   Sign in/up, forgot password, profile form, home, AskGPT, profile, topics, quizzes
-  components/                Shared UI, including MathText (text with $...$ / $$...$$ formulas)
-  services/                  Profile documents and the AI tutor client
+  navigation/                Root stack (switches on auth state) and the glass tab bar
+  screens/                   Sign in/up, forgot password, profile form, home, course, topic, practice,
+                             search, tutor, question tutor, profile
+  components/                Shared UI (glass, lists, buttons, rings, icons) and MathText
+                             (text with $...$ / $$...$$ formulas)
+  study/                     Progress, spaced repetition, streaks and daily goal (saved to the account)
+  theme.js                   Light and dark colours, text styles and corner radii
+  services/                  Profile rows and the AI tutor client
   content/                   Loads and groups the question data
   lib/                       Appwrite client, error messages, validation, maths parsing
   mathTopics/                Question data (JSON)
@@ -64,7 +71,7 @@ All settings live in `.env` (never committed). They are compiled into the app, s
 | `APPWRITE_PROJECT_ID` | yes | Appwrite console → Overview |
 | `APPWRITE_DATABASE_ID` | yes | Databases → your database (was `database1Id` in the old `constants.js`) |
 | `APPWRITE_USER_ACCOUNTS_TABLE_ID` | yes | The `UserAccounts` table (was `UserAccountsId`) |
-| `APPWRITE_AI_FUNCTION_ID` | for AskGPT | ID of the deployed `ask-ai` function |
+| `APPWRITE_AI_FUNCTION_ID` | for the Tutor | ID of the deployed `ask-ai` function |
 | `APPWRITE_DELETE_ACCOUNT_FUNCTION_ID` | for account deletion | ID of the deployed `delete-account` function |
 | `PASSWORD_RESET_URL` | for "Forgot password?" | Where you host `web/reset-password/index.html` |
 | `PRIVACY_POLICY_URL` | for the stores | Your public privacy policy page |
@@ -87,10 +94,14 @@ The app uses Appwrite's TablesDB API (Appwrite 1.8+), where collections are call
 | `userId` | 36 |
 | `email` | 254 |
 | `name` | 128 |
-| `age` | 3 |
+| `age` | 3, not required |
 | `grade` | 3 |
-| `school` | 128 |
+| `school` | 128, not required |
 | `educationBoard` | 2 (stores `1`–`6`, see `src/constants/educationBoards.js`) |
+
+The app no longer asks for `age` or `school`; it saves them empty, which clears values left by older versions. Keep both columns (untick **Required** if it's set): Appwrite rejects fields a table doesn't define, so deleting them would make profile saves fail.
+
+Study progress (mastered questions, review queue, streak, daily goal) is saved in the user's account preferences, so it needs no table.
 
 Permissions, so students can only see their own profile:
 

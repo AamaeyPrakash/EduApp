@@ -337,6 +337,89 @@ const MANUAL_FIXES = [
     replace:
       '(i) order 1, degree 1 (ii) order 2, degree 1 (iii) order 3, degree not defined',
   },
+  // Answers that came from the next NCERT example, which had run on into the
+  // solution (see section 8), or that were missing, cut off or mistyped.
+  {
+    index: 151,
+    field: 'Final_answer',
+    replace:
+      'Domain of $f$ is $\\mathbf{R}$; range of $f$ is $\\left\\{x^{2}: x \\in \\mathbf{R}\\right\\}$, the non-negative real numbers.',
+  },
+  {
+    index: 214,
+    field: 'Final_answer',
+    replace: '$f$ is one-one but not onto.',
+  },
+  {
+    index: 238,
+    field: 'Final_answer',
+    replace:
+      '$f$ is continuous at every point of its domain, so $f$ is a continuous function.',
+  },
+  {
+    index: 241,
+    field: 'Final_answer',
+    replace:
+      '$f$ is continuous at every real number, so $f$ is a continuous function.',
+  },
+  {
+    index: 269,
+    field: 'Final_answer',
+    from: '7 & -3 & -3 \\\\ n-1 & 1 & 0 \\\\ n-1 & 0 & 1',
+    to: '7 & -3 & -3 \\\\ -1 & 1 & 0 \\\\ -1 & 0 & 1',
+  },
+  {
+    index: 270,
+    field: 'Final_answer',
+    replace:
+      '$$\\displaystyle (AB)^{-1}=B^{-1}A^{-1}=\\frac{1}{11}\\left[\\begin{array}{cc}14 & 5 \\\\ 5 & 1\\end{array}\\right]$$',
+  },
+  {
+    index: 397,
+    field: 'Final_answer',
+    replace: 'The area of the triangle is $\\frac{1}{2} \\sqrt{21}$.',
+  },
+  {
+    index: 159,
+    field: 'Solution',
+    from: 'x^2+\\frac{3}{x}{ }^4 & =',
+    to: '\\left(x^2+\\frac{3}{x}\\right)^4 & =',
+  },
+  {
+    index: 159,
+    field: 'Final_answer',
+    replace:
+      '$\\displaystyle x^8+12 x^5+54 x^2+\\frac{108}{x}+\\frac{81}{x^4}$',
+  },
+  {
+    index: 2,
+    field: 'Example',
+    from: '$S = {ω_1, ω_2, ω_3, ω_4, ω_5, ω_6}$Which',
+    to: '$S = \\{\\omega_1, \\omega_2, \\omega_3, \\omega_4, \\omega_5, \\omega_6\\}$. Which',
+  },
+  {
+    index: 2,
+    field: 'Final_answer',
+    replace: '(a) and (b) are valid; (c), (d) and (e) are not.',
+  },
+  {
+    index: 402,
+    field: 'Example',
+    from: '(i) $\\int{cos(2x)dx}$',
+    to: '(i) $\\int \\cos(2x)\\,dx$',
+  },
+  {
+    index: 409,
+    field: 'Solution',
+    replace:
+      '(ii) $\\int{\\frac{\\sin(x)}{\\sin(x + a)}\\;dx}$\nWrite $\\sin x=\\sin((x+a)-a)=\\sin(x+a) \\cos a-\\cos(x+a) \\sin a$, so\n$$\\displaystyle \\frac{\\sin x}{\\sin(x+a)}=\\cos a-\\sin a \\cot(x+a)$$\nTherefore\n$$\\displaystyle \\int \\frac{\\sin x}{\\sin(x+a)}\\,dx=x \\cos a-\\sin a \\ln |\\sin(x+a)|+C$$\nwhere $C$ is an arbitrary constant.',
+  },
+  {
+    index: 409,
+    field: 'Final_answer',
+    replace:
+      '(ii) $\\displaystyle \\int \\frac{\\sin x}{\\sin (x+a)}\\,dx = x \\cos a - \\sin a \\ln |\\sin (x+a)| + C$',
+  },
   // Probability solutions written as bare TeX between sentences.
   ...[331, 332, 333, 334, 335, 336, 337, 338].flatMap(index =>
     ['Solution', 'Final_answer'].map(field => ({
@@ -660,6 +743,17 @@ function splitQuestion(entry, index) {
   entry.Example = entry.Example.slice(0, marker.index).trim();
 }
 
+// --- 8. Solutions that ran on into the next NCERT example --------------------------
+// "... Hence, f is not onto. Example 8 Show that ..." The next example's statement
+// starts with a capital letter; references such as "(see Example 2)" or "In Example
+// 21, ..." don't, and stay.
+const NEXT_EXAMPLE = /\s*(?<![(]|see |In )\bExample\s+\d+\s+(?=[A-Z])/;
+
+function trimNextExample(text) {
+  const match = NEXT_EXAMPLE.exec(text);
+  return match ? text.slice(0, match.index) : text;
+}
+
 // --- 6. Final answers stored as numbers or objects under "FinalAnswer" ------------
 function finalAnswerText(value) {
   if (value === null || value === undefined || value === '') {
@@ -713,6 +807,7 @@ data.forEach((entry, index) => {
   for (const field of TEXT_FIELDS) {
     entry[field] = repairText(entry[field] || '');
   }
+  entry.Solution = trimNextExample(entry.Solution);
   if (typeof entry.chapter === 'string') {
     entry.chapter = entry.Title;
   }

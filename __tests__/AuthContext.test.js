@@ -28,9 +28,7 @@ jest.mock('../src/lib/appwrite', () =>
 
 const SIGN_UP_DETAILS = {
   name: ' Sam Lee ',
-  age: '16',
   grade: '11',
-  school: 'Springfield High',
   educationBoard: '5',
   email: ' Sam@Example.com ',
   password: 'secret123',
@@ -99,9 +97,7 @@ describe('restoring the session on launch', () => {
 
   it('asks for profile details when the profile row is missing', async () => {
     account.get.mockResolvedValue(USER);
-    tablesDB.getRow.mockRejectedValue(
-      appwriteError(404, 'row_not_found'),
-    );
+    tablesDB.getRow.mockRejectedValue(appwriteError(404, 'row_not_found'));
     const result = await renderAuth();
     await waitFor(() =>
       expect(result.current.profileStatus).toBe(PROFILE_STATUS.MISSING),
@@ -118,9 +114,26 @@ describe('restoring the session on launch', () => {
     );
     expect(result.current.status).toBe(AUTH_STATUS.SIGNED_IN);
 
-    tablesDB.getRow.mockResolvedValue(PROFILE);
-    await act(() => result.current.reloadProfile());
+    // While retrying, the last error stays so the app doesn't swap to its loader.
+    let finishLoading;
+    tablesDB.getRow.mockReturnValue(
+      new Promise(resolve => {
+        finishLoading = () => resolve(PROFILE);
+      }),
+    );
+    let retry;
+    await act(async () => {
+      retry = result.current.reloadProfile();
+    });
+    expect(result.current.profileStatus).toBe(PROFILE_STATUS.LOADING);
+    expect(result.current.profileError).toBeTruthy();
+
+    await act(async () => {
+      finishLoading();
+      await retry;
+    });
     expect(result.current.profileStatus).toBe(PROFILE_STATUS.READY);
+    expect(result.current.profileError).toBeNull();
   });
 });
 
@@ -198,9 +211,10 @@ describe('signUp', () => {
         userId: 'user-1',
         email: 'sam@example.com',
         name: 'Sam Lee',
-        age: '16',
+        // No longer asked for; saved empty so older tables keep working.
+        age: '',
         grade: '11',
-        school: 'Springfield High',
+        school: '',
         educationBoard: '5',
       },
       permissions: ['read("user:user-1")', 'update("user:user-1")'],
@@ -221,6 +235,11 @@ describe('signUp', () => {
     expect(result.current.status).toBe(AUTH_STATUS.SIGNED_IN);
     expect(result.current.profileStatus).toBe(PROFILE_STATUS.MISSING);
     expect(result.current.profileError).toBeTruthy();
+    // Kept so the "complete your profile" form can start from them.
+    expect(result.current.pendingDetails).toMatchObject({
+      grade: SIGN_UP_DETAILS.grade,
+      educationBoard: SIGN_UP_DETAILS.educationBoard,
+    });
   });
 
   it('explains when the account was created but signing in failed', async () => {
@@ -253,20 +272,37 @@ describe('saveProfileDetails', () => {
     tablesDB.createRow.mockRejectedValue(
       appwriteError(409, 'row_already_exists'),
     );
-    const updated = { ...PROFILE, school: 'New School' };
+    const updated = { ...PROFILE, grade: '12' };
     tablesDB.updateRow.mockResolvedValue(updated);
 
     await act(() =>
-      result.current.saveProfileDetails({ ...PROFILE, school: 'New School' }),
+      result.current.saveProfileDetails({ ...PROFILE, grade: '12' }),
     );
 
     expect(tablesDB.updateRow).toHaveBeenCalledWith({
       databaseId: 'db',
       tableId: 'profiles',
       rowId: 'user-1',
-      data: expect.objectContaining({ school: 'New School' }),
+      data: expect.objectContaining({ grade: '12' }),
     });
     expect(result.current.profile).toEqual(updated);
+  });
+
+  it('clears the age and school that older versions stored', async () => {
+    const result = await renderSignedIn();
+    tablesDB.createRow.mockRejectedValue(
+      appwriteError(409, 'row_already_exists'),
+    );
+    tablesDB.updateRow.mockResolvedValue(PROFILE);
+
+    await act(() => result.current.saveProfileDetails(PROFILE));
+
+    expect(tablesDB.updateRow).toHaveBeenCalledWith({
+      databaseId: 'db',
+      tableId: 'profiles',
+      rowId: 'user-1',
+      data: expect.objectContaining({ age: '', school: '' }),
+    });
   });
 });
 

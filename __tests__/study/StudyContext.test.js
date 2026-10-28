@@ -139,3 +139,28 @@ it('loads saved progress and ignores questions that no longer exist', async () =
   expect(result.current.study.dueIds).toEqual([first.id]);
   expect(result.current.study.savedIds).toEqual([]);
 });
+
+it('moves to the new day at midnight while the app stays open', async () => {
+  jest.setSystemTime(new Date(2026, 9, 27, 23, 58));
+  const result = await renderStudy();
+  await act(async () => {
+    result.current.study.record(first.id, true);
+  });
+  expect(result.current.study.todayCount).toBe(1);
+
+  await act(async () => {
+    jest.advanceTimersByTime(3 * 60 * 1000);
+  });
+  expect(result.current.study.todayCount).toBe(0);
+  expect(result.current.study.streak).toBe(1);
+});
+
+it('leaves out progress on questions that no longer exist', async () => {
+  account.get.mockResolvedValue({
+    ...USER,
+    prefs: { study: { q: { [first.id]: [2, 1], gone: [3, 1] } } },
+  });
+  const result = await renderStudy();
+  expect(result.current.study.attemptedCount).toBe(1);
+  expect(result.current.study.knownCount).toBe(1);
+});

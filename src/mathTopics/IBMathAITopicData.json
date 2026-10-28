@@ -8,8 +8,8 @@
       {
         "subtopic": "Volume Calculations",
         "question": "The volume of a hemisphere, V, is given by the formula:\n\nV = √((4 * S³) / (243 * π))\n\nwhere S is the total surface area.\n\nThe total surface area of a given hemisphere is 350 cm².\n\na) Calculate the volume of this hemisphere in cm³.\n\nGive your answer correct to one decimal place.",
-        "answer": "474 cm³",
-        "working": "Substitute S = 350 into the formula:\n\nV = √((4 * 350^3) / (243 * π))\n\nSimplify the calculation:\n4 * 350^3 = 171500000\n243 * π ≈ 763.407\n\nDivide:\n171500000 / 763.407 ≈ 224710.76\n\nTake the square root:\n√224710.76 ≈ 473.973\n\nRound to one decimal place:\nV ≈ 474 cm³.",
+        "answer": "474.0 cm³",
+        "working": "Substitute S = 350 into the formula:\n\nV = √((4 * 350^3) / (243 * π))\n\nSimplify the calculation:\n4 * 350^3 = 171500000\n243 * π ≈ 763.407\n\nDivide:\n171500000 / 763.407 ≈ 224650.80\n\nTake the square root:\n√224650.80 ≈ 473.973\n\nRound to one decimal place:\nV ≈ 474.0 cm³.",
         "calculator": "yes"
       },
       {
@@ -58,7 +58,7 @@
         "subtopic": "Trigonometric Identities and Equations",
         "question": "a) Show that sin 2x + cos 2x - 1 = 2 sin x (cos x - sin x).\n\nb) Hence or otherwise, solve sin 2x + cos 2x - 1 + cos x - sin x = 0 for 0 < x < 2π.",
         "answer": "a) sin 2x + cos 2x - 1 = 2 sin x (cos x - sin x)\nb) x = 7π/6, 11π/6, π/4, 5π/4",
-        "working": "a) Use double angle formula for sin 2x:\nLHS = sin 2x + cos 2x - 1.\nSubstitute sin 2x = 2 sin x cos x:\nLHS = 2 sin x cos x + cos x - 1.\nFactorize:\nLHS = 2 sin x (cos x - sin x).\nThus, LHS = RHS.\n\nb) Solve sin 2x + cos 2x - 1 + cos x - sin x = 0:\nSubstitute sin 2x + cos 2x - 1 = 2 sin x (cos x - sin x):\n2 sin x (cos x - sin x) + cos x - sin x = 0.\nFactorize:\n(cos x - sin x)(2 sin x + 1) = 0.\nCase 1: cos x - sin x = 0:\ncos x = sin x.\nThis implies tan x = 1.\nSolutions: x = π/4, 5π/4.\n\nCase 2: 2 sin x + 1 = 0:\nsin x = -1/2.\nSolutions: x = 7π/6, 11π/6.\n\nThus, the solutions are x = 7π/6, 11π/6, π/4, 5π/4.",
+        "working": "a) Use double angle formula for sin 2x:\nLHS = sin 2x + cos 2x - 1.\nSubstitute sin 2x = 2 sin x cos x and cos 2x = 1 - 2 sin² x:\nLHS = 2 sin x cos x + 1 - 2 sin² x - 1 = 2 sin x cos x - 2 sin² x.\nFactorize:\nLHS = 2 sin x (cos x - sin x).\nThus, LHS = RHS.\n\nb) Solve sin 2x + cos 2x - 1 + cos x - sin x = 0:\nSubstitute sin 2x + cos 2x - 1 = 2 sin x (cos x - sin x):\n2 sin x (cos x - sin x) + cos x - sin x = 0.\nFactorize:\n(cos x - sin x)(2 sin x + 1) = 0.\nCase 1: cos x - sin x = 0:\ncos x = sin x.\nThis implies tan x = 1.\nSolutions: x = π/4, 5π/4.\n\nCase 2: 2 sin x + 1 = 0:\nsin x = -1/2.\nSolutions: x = 7π/6, 11π/6.\n\nThus, the solutions are x = 7π/6, 11π/6, π/4, 5π/4.",
         "calculator": "no"
       }
     ]
