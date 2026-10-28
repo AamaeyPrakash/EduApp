@@ -34,7 +34,7 @@ export const PROFILE_STATUS = {
 };
 
 export const NOTICES = {
-  signedOut: 'You have been logged out.',
+  signedOut: 'You have been signed out.',
   sessionExpired: 'Your session has expired. Please sign in again.',
   accountDeleted: 'Your account and its data have been deleted.',
 };
@@ -113,17 +113,20 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
+  // A retry keeps the last error until it succeeds, so the app stays on the screen
+  // the student retried from instead of showing the full-screen loader.
   const loadProfile = useCallback(
-    async user => {
+    async (user, { retry = false } = {}) => {
       updateForUser(user.$id, {
         profileStatus: PROFILE_STATUS.LOADING,
-        profileError: null,
+        ...(retry ? null : { profileError: null }),
       });
       try {
         const profile = await fetchProfile(user.$id);
         updateForUser(user.$id, {
           profile,
           profileStatus: PROFILE_STATUS.READY,
+          profileError: null,
         });
       } catch (error) {
         if (isNotFoundError(error) && error.type === 'document_not_found') {
@@ -211,10 +214,11 @@ export function AuthProvider({ children }) {
         });
       } catch (error) {
         // The account exists, so keep the person signed in and let the
-        // "complete your profile" screen retry saving their details.
+        // "complete your profile" screen retry saving the details they chose.
         updateForUser(user.$id, {
           profileStatus: PROFILE_STATUS.MISSING,
           profileError: error,
+          pendingDetails: details,
         });
       }
     },
@@ -249,7 +253,7 @@ export function AuthProvider({ children }) {
 
   const reloadProfile = useCallback(async () => {
     if (currentUser) {
-      await loadProfile(currentUser);
+      await loadProfile(currentUser, { retry: true });
     }
   }, [currentUser, loadProfile]);
 

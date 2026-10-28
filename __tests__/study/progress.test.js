@@ -6,12 +6,14 @@ import {
   EMPTY_STUDY,
   fitToLimit,
   mistakeIds,
+  nextReview,
   normalizeStudy,
   noteTopic,
   progressFor,
   questionStatus,
   recordResult,
   REVIEW_INTERVALS,
+  reviewDelay,
   setGoal,
   todayCount,
   toggleBookmark,
@@ -40,10 +42,50 @@ describe('recordResult', () => {
     expect(study.q.c1).toEqual([2, DAY + REVIEW_INTERVALS[2]]);
     study = recordResult(study, 'c1', true, DAY + 7);
     expect(study.q.c1).toEqual([3, DAY + 7 + REVIEW_INTERVALS[3]]);
-    for (let day = 0; day < 10; day += 1) {
-      study = recordResult(study, 'c1', true, DAY + 100 + day);
+    for (let round = 0; round < 10; round += 1) {
+      study = recordResult(study, 'c1', true, study.q.c1[1]);
     }
     expect(study.q.c1[0]).toBe(REVIEW_INTERVALS.length - 1);
+  });
+
+  it('keeps the schedule when a question is answered again before it is due', () => {
+    let study = recordResult(EMPTY_STUDY, 'c1', true, DAY);
+    const scheduled = study.q.c1;
+    study = recordResult(study, 'c1', true, DAY + 1);
+    expect(study.q.c1).toEqual(scheduled);
+
+    // Getting a missed question right straight after reading its solution
+    // still brings it back tomorrow.
+    study = recordResult(study, 'c2', false, DAY);
+    study = recordResult(study, 'c2', true, DAY);
+    expect(study.q.c2).toEqual([0, DAY + 1]);
+    expect(nextReview(study, 'c2', true, DAY + 1)).toEqual([
+      1,
+      DAY + 1 + REVIEW_INTERVALS[1],
+    ]);
+  });
+
+  it('counts each question once a day towards the goal', () => {
+    let study = recordResult(EMPTY_STUDY, 'a', true, DAY);
+    study = recordResult(study, 'a', true, DAY);
+    study = recordResult(study, 'b', false, DAY);
+    expect(todayCount(study, DAY)).toBe(2);
+    study = recordResult(study, 'a', true, DAY + 1);
+    expect(todayCount(study, DAY + 1)).toBe(1);
+    expect(study.d).toEqual(['a']);
+  });
+
+  it("carries on today's count saved before questions were tracked", () => {
+    const study = recordResult({ ...EMPTY_STUDY, t: [DAY, 5] }, 'a', true, DAY);
+    expect(todayCount(study, DAY)).toBe(6);
+  });
+
+  it('keeps the streak if the clock moves backwards', () => {
+    let study = recordResult(EMPTY_STUDY, 'a', true, DAY);
+    study = recordResult(study, 'b', true, DAY + 1);
+    study = recordResult(study, 'c', true, DAY);
+    expect(study.s).toEqual([2, 2, DAY + 1]);
+    expect(currentStreak(study, DAY)).toBe(2);
   });
 
   it('starts again from the first box after a miss', () => {
@@ -132,9 +174,18 @@ describe('normalizeStudy', () => {
       b: ['a', 'b'],
       s: [2, 4, DAY],
       t: EMPTY_STUDY.t,
+      d: [],
       g: DAILY_GOAL,
       l: null,
     });
+  });
+
+  it("keeps today's counted questions only with a valid day", () => {
+    expect(normalizeStudy({ t: [DAY, 2], d: ['a', 'a', 'b', 4] }).d).toEqual([
+      'a',
+      'b',
+    ]);
+    expect(normalizeStudy({ t: 'x', d: ['a'] }).d).toEqual([]);
   });
 
   it('keeps a valid daily goal and last topic', () => {
@@ -145,6 +196,15 @@ describe('normalizeStudy', () => {
       g: DAILY_GOAL,
       l: null,
     });
+  });
+});
+
+describe('reviewDelay', () => {
+  it('describes when a question comes back', () => {
+    expect(reviewDelay(DAY + 1, DAY)).toBe('tomorrow');
+    expect(reviewDelay(DAY + 7, DAY)).toBe('in 7 days');
+    expect(reviewDelay(DAY + 16, DAY)).toBe('in 2 weeks');
+    expect(reviewDelay(DAY + 90, DAY)).toBe('in 3 months');
   });
 });
 

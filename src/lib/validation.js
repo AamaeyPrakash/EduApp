@@ -41,7 +41,8 @@ export function validatePassword(password) {
 function validateWholeNumber(value, min, max, label) {
   const text = String(value ?? '').trim();
   if (!text) {
-    return `Enter your ${label}.`;
+    // The grade is picked from a list, so "select" rather than "enter".
+    return `Select your ${label}.`;
   }
   const number = Number(text);
   if (!/^\d+$/.test(text) || number < min || number > max) {

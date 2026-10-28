@@ -16,9 +16,11 @@ import {
   dueIds,
   fitToLimit,
   mistakeIds,
+  nextReview,
   normalizeStudy,
   noteTopic,
   recordResult,
+  reviewDelay,
   setGoal,
   todayCount,
   toggleBookmark,
@@ -31,6 +33,16 @@ const StudyContext = createContext(null);
 
 // Ids that still match a bundled question (an edited question gets a new id).
 const existing = ids => ids.filter(id => getQuestion(id));
+
+function msUntilTomorrow() {
+  const now = new Date();
+  const tomorrow = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate() + 1,
+  );
+  return tomorrow - now + 1000;
+}
 
 function StudyStore({ userId, initialStudy, updatePrefs, children }) {
   const [study, setStudy] = useState(() => normalizeStudy(initialStudy));
@@ -85,10 +97,17 @@ function StudyStore({ userId, initialStudy, updatePrefs, children }) {
     };
   }, [save]);
 
+  // The date also changes while the app is open (revising past midnight).
+  useEffect(() => {
+    const midnight = setTimeout(() => setToday(dayNumber()), msUntilTomorrow());
+    return () => clearTimeout(midnight);
+  }, [today]);
+
   const value = useMemo(() => {
     const due = existing(dueIds(study, today));
     const mistakes = existing(mistakeIds(study));
     const saved = existing(study.b);
+    const attempted = existing(Object.keys(study.q));
     return {
       study,
       today,
@@ -98,11 +117,17 @@ function StudyStore({ userId, initialStudy, updatePrefs, children }) {
       streak: currentStreak(study, today),
       bestStreak: study.s[1],
       todayCount: todayCount(study, today),
-      attemptedCount: Object.keys(study.q).length,
-      knownCount: Object.values(study.q).filter(([box]) => box > 0).length,
+      attemptedCount: attempted.length,
+      knownCount: attempted.filter(id => study.q[id][0] > 0).length,
       saveFailed,
-      record: (id, gotIt) =>
-        update(current => recordResult(current, id, gotIt, dayNumber())),
+      record: (id, gotIt) => {
+        const day = dayNumber();
+        setToday(day);
+        update(current => recordResult(current, id, gotIt, day));
+      },
+      // When a question would come back after "Got it" / "Not yet", e.g. "in 7 days".
+      reviewAfter: (id, gotIt) =>
+        reviewDelay(nextReview(study, id, gotIt, today)[1], today),
       toggleBookmark: id => update(current => toggleBookmark(current, id)),
       dailyGoal: study.g,
       setDailyGoal: goal => update(current => setGoal(current, goal)),

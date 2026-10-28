@@ -14,24 +14,29 @@ const GRADES = Array.from(
 );
 
 // Name, board and grade, shared by sign-up and the profile form. `accountFields`
-// (email and password on sign-up) go after the name.
+// (email and password on sign-up) go after the name; `nameProps` go to the name field
+// (e.g. what its return key does).
 export default function ProfileFields({
   values,
   errors,
   onChange,
   accountFields,
+  nameProps,
 }) {
   return (
     <View>
       <TextField
         testID="profile-name"
-        placeholder="Name"
+        label="Name"
+        placeholder="Your first name or full name"
         value={values.name}
         onChangeText={text => onChange('name', text)}
         error={errors.name}
         autoComplete="name"
         textContentType="name"
         maxLength={LIMITS.nameMax}
+        returnKeyType="done"
+        {...nameProps}
       />
       {accountFields}
       <View style={styles.gap} />

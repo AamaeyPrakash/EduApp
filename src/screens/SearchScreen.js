@@ -1,20 +1,29 @@
 import React, { useMemo, useState } from 'react';
-import { TextInput, View } from 'react-native';
+import { Pressable, TextInput, View } from 'react-native';
+import { useAuth } from '../auth/AuthContext';
 import AppText from '../components/AppText';
 import CourseTile from '../components/CourseTile';
 import Icon from '../components/Icon';
+import { Row, Section } from '../components/List';
 import PressableScale from '../components/PressableScale';
 import Screen from '../components/Screen';
-import { getCourse, searchQuestions, topicTitle } from '../content';
+import {
+  getCourse,
+  searchQuestions,
+  searchTopics,
+  topicTitle,
+} from '../content';
+import { texToPlain } from '../lib/mathSpeech';
 import { continuous, makeStyles, radius, type, useTheme } from '../theme';
 
-// Readable one-line preview of a question that may contain TeX.
+const RESULT_LIMIT = 50;
+
+// Readable one-line preview of a question that may contain TeX: "∫ x cos x dx".
 function preview(text) {
   return text
-    .replace(/\$+/g, '')
-    .replace(/\\(?:frac|dfrac)\{([^{}]*)\}\{([^{}]*)\}/g, '$1/$2')
-    .replace(/\\[A-Za-z]+/g, ' ')
-    .replace(/[{}]/g, '')
+    .replace(/\$\$([\s\S]+?)\$\$|\$([^$]+)\$/g, (match, display, inline) =>
+      texToPlain(display ?? inline),
+    )
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -30,9 +39,16 @@ const SUGGESTIONS = [
 const SearchScreen = ({ navigation }) => {
   const styles = useStyles();
   const theme = useTheme();
+  const { profile } = useAuth();
+  const board = profile?.educationBoard;
   const [query, setQuery] = useState('');
-  const results = useMemo(() => searchQuestions(query), [query]);
+  const results = useMemo(
+    () => searchQuestions(query, { limit: RESULT_LIMIT, board }),
+    [query, board],
+  );
+  const topics = useMemo(() => searchTopics(query, { board }), [query, board]);
   const searched = query.trim().length > 0;
+  const nothingFound = searched && results.length === 0 && topics.length === 0;
 
   const header = (
     <View>
@@ -49,14 +65,75 @@ const SearchScreen = ({ navigation }) => {
           autoFocus
           autoCorrect={false}
           returnKeyType="search"
+          clearButtonMode="never"
           accessibilityLabel="Search questions"
         />
+        {query ? (
+          <Pressable
+            onPress={() => setQuery('')}
+            accessibilityRole="button"
+            accessibilityLabel="Clear search"
+            style={styles.clear}
+          >
+            <View style={styles.clearCircle}>
+              <Icon name="close" size={12} color="background" strokeWidth={3} />
+            </View>
+          </Pressable>
+        ) : null}
       </View>
-      {searched ? (
-        <AppText variant="footnote" color="secondaryLabel" style={styles.count}>
-          {results.length === 50 ? '50+' : results.length} result
-          {results.length === 1 ? '' : 's'}
-        </AppText>
+      {nothingFound ? (
+        <View style={styles.empty}>
+          <AppText variant="headline" align="center">
+            No matches for “{query.trim()}”
+          </AppText>
+          <AppText
+            variant="subheadline"
+            color="secondaryLabel"
+            align="center"
+            style={styles.emptyHint}
+          >
+            Try a topic name such as Probability, fewer words, or a different
+            spelling.
+          </AppText>
+        </View>
+      ) : searched ? (
+        <>
+          {topics.length > 0 ? (
+            <Section title="Topics">
+              {topics.map(topic => {
+                const course = getCourse(topic.courseKey);
+                return (
+                  <Row
+                    key={`${topic.courseKey}:${topic.key}`}
+                    leading={<CourseTile course={course} size={28} />}
+                    title={topic.title}
+                    subtitle={`${course.title} · ${
+                      topic.questions.length
+                    } question${topic.questions.length === 1 ? '' : 's'}`}
+                    onPress={() =>
+                      navigation.navigate('Topic', {
+                        courseKey: topic.courseKey,
+                        topicKey: topic.key,
+                      })
+                    }
+                  />
+                );
+              })}
+            </Section>
+          ) : null}
+          {results.length > 0 ? (
+            <AppText
+              variant="footnote"
+              color="secondaryLabel"
+              style={styles.count}
+              accessibilityRole="header"
+            >
+              {results.length === RESULT_LIMIT
+                ? `QUESTIONS · FIRST ${RESULT_LIMIT}, ADD A WORD TO NARROW THEM DOWN`
+                : `QUESTIONS · ${results.length}`}
+            </AppText>
+          ) : null}
+        </>
       ) : (
         <View style={styles.suggestions}>
           <AppText
@@ -89,6 +166,8 @@ const SearchScreen = ({ navigation }) => {
       list={{
         data: results,
         keyExtractor: question => question.id,
+        keyboardDismissMode: 'on-drag',
+        automaticallyAdjustKeyboardInsets: true,
         renderItem: ({ item }) => {
           const course = getCourse(item.courseKey);
           return (
@@ -147,6 +226,28 @@ const useStyles = makeStyles(theme => ({
     minHeight: 44,
     marginLeft: 8,
     color: theme.colors.label,
+  },
+  clear: {
+    width: 44,
+    height: 44,
+    marginRight: -12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  clearCircle: {
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: theme.colors.tertiaryLabel,
+  },
+  empty: {
+    paddingVertical: 40,
+    paddingHorizontal: 16,
+  },
+  emptyHint: {
+    marginTop: 6,
   },
   count: {
     marginBottom: 8,

@@ -18,9 +18,9 @@
   {
     "Title": "Probability",
     "Subtitle": "",
-    "Example": "Let the sample space be $S = {ω_1, ω_2, ω_3, ω_4, ω_5, ω_6}$Which of the following assignments of probabilities are valid?\n(a) 1/6, 1/6, 1/6, 1/6, 1/6, 1/6\n(b) 1, 0, 0, 0, 0, 0\n(c) 1/8, 2/3, 1/3, 1/3, -1/4, -1/3\n(d) 1/12, 1/12, 1/6, 1/6, 1/6, 3/2\n(e) 0.1, 0.2, 0.3, 0.4, 0.5, 0.6",
+    "Example": "Let the sample space be $S = \\{\\omega_1, \\omega_2, \\omega_3, \\omega_4, \\omega_5, \\omega_6\\}$. Which of the following assignments of probabilities are valid?\n(a) 1/6, 1/6, 1/6, 1/6, 1/6, 1/6\n(b) 1, 0, 0, 0, 0, 0\n(c) 1/8, 2/3, 1/3, 1/3, -1/4, -1/3\n(d) 1/12, 1/12, 1/6, 1/6, 1/6, 3/2\n(e) 0.1, 0.2, 0.3, 0.4, 0.5, 0.6",
     "Solution": "(a) Valid, since all probabilities are positive and sum to 1.\n(b) Valid, as the probabilities are 0 or 1 and sum to 1.\n(c) Not valid, due to negative values.\n(d) Not valid, since one probability exceeds 1.\n(e) Not valid, as the sum exceeds 1.",
-    "Final_answer": "",
+    "Final_answer": "(a) and (b) are valid; (c), (d) and (e) are not.",
     "chapter": "Probability"
   },
   {
@@ -1211,8 +1211,8 @@
     "Title": "Relations And Functions",
     "Subtitle": "",
     "Example": "Define the function $f: \\mathbf{R} \\rightarrow \\mathbf{R}$ by $y=f(x)=x^{2}, x \\in \\mathbf{R}$. Complete the Table given below by using this definition. What is the domain and range of this function? Draw the graph of $f$.\n$$\\begin{array}{|l|l|l|l|l|l|l|l|l|l|}\n\\hline x & \\text{-4} & \\text{-3} & \\text{-2} & \\text{-1} & \\text{0} & \\text{1} & \\text{2} & \\text{3} & \\text{4} \\\\\n\\hline y=f(x)=x^{2} &  &  &  &  &  &  &  &  &  \\\\\n\\hline\n\\end{array}$$",
-    "Solution": "The completed Table is given below:\n$$\\begin{array}{|l|r|r|r|r|r|r|r|r|r|}\n\\hline x & \\text{-4} & \\text{-3} & \\text{-2} & \\text{-1} & \\text{0} & \\text{1} & \\text{2} & \\text{3} & \\text{4} \\\\\n\\hline y=f(x)=x^{2} & \\text{16} & \\text{9} & \\text{4} & \\text{1} & \\text{0} & \\text{1} & \\text{4} & \\text{9} & \\text{16} \\\\\n\\hline\n\\end{array}$$\nDomain of $f=\\{x: x \\in \\mathbf{R}\\}$. Range of $f=\\left\\{x^{2}: x \\in \\mathbf{R}\\right\\}$. The graph of $f$ is given by Fig 2.10\n$f(x)=x^{2} \\quad$ Fig 2.10 Example 14 Draw the graph of the function $\\displaystyle \\boldsymbol{f}: \\mathbf{R} \\rightarrow \\mathbf{R}$ defined by $f(x)=x^{3}, x \\in \\mathbf{R}$.\nWe have\n$\\displaystyle f(0)=0, f(1)=1, f(-1)=-1, f(2)=8, f(-2)=-8, f(3)=27 ; f(-3)=-27$, etc.\nTherefore, $\\displaystyle f=\\left\\{\\left(x, x^{3}\\right): x \\in \\mathbf{R}\\right\\}$.\nThe graph of $f$ is given in Fig 2.11.\n(iv) Rational functions are functions of the type $\\frac{f(x)}{g(x)}$, where $f(x)$ and $g(x)$ are polynomial functions of $x$ defined in a domain, where $g(x)\\neq 0$.",
-    "Final_answer": "",
+    "Solution": "The completed Table is given below:\n$$\\begin{array}{|l|r|r|r|r|r|r|r|r|r|}\n\\hline x & \\text{-4} & \\text{-3} & \\text{-2} & \\text{-1} & \\text{0} & \\text{1} & \\text{2} & \\text{3} & \\text{4} \\\\\n\\hline y=f(x)=x^{2} & \\text{16} & \\text{9} & \\text{4} & \\text{1} & \\text{0} & \\text{1} & \\text{4} & \\text{9} & \\text{16} \\\\\n\\hline\n\\end{array}$$\nDomain of $f=\\{x: x \\in \\mathbf{R}\\}$. Range of $f=\\left\\{x^{2}: x \\in \\mathbf{R}\\right\\}$. The graph of $f$ is given by Fig 2.10\n$f(x)=x^{2} \\quad$ Fig 2.10",
+    "Final_answer": "Domain of $f$ is $\\mathbf{R}$; range of $f$ is $\\left\\{x^{2}: x \\in \\mathbf{R}\\right\\}$, the non-negative real numbers.",
     "chapter": "Relations And Functions"
   },
   {
@@ -1275,8 +1275,8 @@
     "Title": "Binomial Theorem",
     "Subtitle": "",
     "Example": "Expand $\\left(x^2+\\frac{3}{x}\\right)^4, x\\neq 0$",
-    "Solution": "By using binomial theorem, we have\n$$\\displaystyle\n\\begin{aligned}\nx^2+\\frac{3}{x}{ }^4 & ={ }^4 {C}_0\\left(x^2\\right)^4+{ }^4 {C}_1\\left(x^2\\right)^3\\left(\\frac{3}{x}\\right)+{ }^4 {C}_2\\left(x^2\\right)^2\\left(\\frac{3}{x}\\right)^2+{ }^4 {C}_3\\left(x^2\\right)\\left(\\frac{3}{x}\\right)^3+{ }^4 {C}_4\\left(\\frac{3}{x}\\right)^4 \\\\\n& =x^8+4 \\cdot x^6 \\cdot \\frac{3}{x}+6 \\cdot x^4 \\cdot \\frac{9}{x^2}+4 \\cdot x^2 \\cdot \\frac{27}{x^3}+\\frac{81}{x^4} \\\\\n& =x^8+12 x^5+54 x^2+\\frac{108}{x}+\\frac{81}{x^4} .\n\\end{aligned}\n$$",
-    "Final_answer": "",
+    "Solution": "By using binomial theorem, we have\n$$\\displaystyle\n\\begin{aligned}\n\\left(x^2+\\frac{3}{x}\\right)^4 & ={ }^4 {C}_0\\left(x^2\\right)^4+{ }^4 {C}_1\\left(x^2\\right)^3\\left(\\frac{3}{x}\\right)+{ }^4 {C}_2\\left(x^2\\right)^2\\left(\\frac{3}{x}\\right)^2+{ }^4 {C}_3\\left(x^2\\right)\\left(\\frac{3}{x}\\right)^3+{ }^4 {C}_4\\left(\\frac{3}{x}\\right)^4 \\\\\n& =x^8+4 \\cdot x^6 \\cdot \\frac{3}{x}+6 \\cdot x^4 \\cdot \\frac{9}{x^2}+4 \\cdot x^2 \\cdot \\frac{27}{x^3}+\\frac{81}{x^4} \\\\\n& =x^8+12 x^5+54 x^2+\\frac{108}{x}+\\frac{81}{x^4} .\n\\end{aligned}\n$$",
+    "Final_answer": "$\\displaystyle x^8+12 x^5+54 x^2+\\frac{108}{x}+\\frac{81}{x^4}$",
     "chapter": "Binomial Theorem"
   },
   {
@@ -1715,8 +1715,8 @@
     "Title": "Relations And Functions",
     "Subtitle": "",
     "Example": "Let A be the set of all 50 students of Class X in a school. Let $f: {A} \\rightarrow \\mathbf{N}$ be function defined by $f(x)=$ roll number of the student $x$. Show that $f$ is one-one but not onto.",
-    "Solution": "No two different students of the class can have same roll number. Therefore, $f$ must be one-one. We can assume without any loss of generality that roll numbers of students are from 1 to 50 . This implies that 51 in $\\mathbf{N}$ is not roll number of any student of the class, so that 51 can not be image of any element of ${X}$ under $f$. Hence, $f$ is not onto. Example 8 Show that the function $f: \\mathbf{N} \\rightarrow \\mathbf{N}$, given by $f(x)=2 x$, is one-one but not onto.\nThe function $f$ is one-one, for $\\displaystyle f\\left(x_{1}\\right)=f\\left(x_{2}\\right) \\Rightarrow 2 x_{1}=2 x_{2} \\Rightarrow x_{1}=x_{2}$. Further, $f$ is not onto, as for $1 \\in \\mathbf{N}$, there does not exist any $x$ in $\\mathbf{N}$ such that $f(x)=2 x=1$. Example 9 Prove that the function $f: \\mathbf{R} \\rightarrow \\mathbf{R}$, given by $f(x)=2 x$, is one-one and onto. Solution $f$ is one-one, as $\\displaystyle f\\left(x_{1}\\right)=f\\left(x_{2}\\right) \\Rightarrow 2 x_{1}=2 x_{2} \\Rightarrow x_{1}=x_{2}$. Also, given any real number $y$ in ${R}$, there exists $\\frac{y}{2}$ in R such that $\\displaystyle f\\left(\\frac{y}{2}\\right)=2 .\\left(\\frac{y}{2}\\right)=y$. Hence, $f$ is onto.",
-    "Final_answer": "there exists $\\frac{y}{2}$ in R such that $f\\left(\\frac{y}{2}\\right)=2$ $\\left(\\frac{y}{2}\\right)=y$. Hence, $f$ is onto.",
+    "Solution": "No two different students of the class can have same roll number. Therefore, $f$ must be one-one. We can assume without any loss of generality that roll numbers of students are from 1 to 50 . This implies that 51 in $\\mathbf{N}$ is not roll number of any student of the class, so that 51 can not be image of any element of ${X}$ under $f$. Hence, $f$ is not onto.",
+    "Final_answer": "$f$ is one-one but not onto.",
     "chapter": "Relations And Functions"
   },
   {
@@ -1907,8 +1907,8 @@
     "Title": "Continuity and Differentiability",
     "Subtitle": "",
     "Example": "Discuss the continuity of the function $f$ defined by $f(x)=\\frac{1}{x}, x\\neq 0$.",
-    "Solution": "Fix any non zero real number $c$, we have\n$$\\displaystyle\n\\lim _{x \\rightarrow c} f(x)=\\lim _{x \\rightarrow c} \\frac{1}{x}=\\frac{1}{c}\n$$\nAlso, since for $c\\neq 0, f(c)=\\frac{1}{c}$, we have $\\lim _{x \\rightarrow c} f(x)=f(c)$ and hence, $f$is continuous at every point in the domain of $f$. Thus $f$is a continuous function. Example 10 Discuss the continuity of the function $f$ defined by\n$$\\displaystyle\nf(x)=\\left\\{\\begin{array}{l}\nx+2, \\text { if } x \\leq 1 \\\\\nx-2, \\text { if } x>1\n\\end{array}\\right.\n$$\nThe function $f$ is defined at all points of the real line.\nCase 1 If $c<1$, then $f(c)=c+2$. Therefore, $\\displaystyle \\lim _{x \\rightarrow c} f(x)=\\lim _{x \\rightarrow c}(x+2)=c+2$\nThus, $f$ is continuous at all real numbers less than 1 .\nCase 2 If $c>1$, then $f(c)=c-2$. Therefore,\n$$\\displaystyle\n\\lim _{x \\rightarrow c} f(x)=\\lim _{x \\rightarrow c}(x-2)=c-2=f(c)\n$$\nThus, $f$ is continuous at all points $x>1$.\nCase 3 If $c=1$, then the left hand limit of $f$ at $x=1$ is\n$$\\displaystyle\n\\lim _{x \\rightarrow 1^{-}} f(x)=\\lim _{x \\rightarrow 1^{-}}(x+2)=1+2=3\n$$\nThe right hand limit of $f$ at $x=1$ is\n$$\\displaystyle\n\\lim _{x \\rightarrow 1^{+}} f(x)=\\lim _{x \\rightarrow 1^{+}}(x-2)=1-2=-1\n$$\nSince the left and right hand limits of $f$ at $x=1$ do not coincide, $f$ is not continuous at $x=1$. Hence $x=1$ is the only point of discontinuity of $f$.",
-    "Final_answer": "$x=1$ is the only point of discontinuity of $f$.",
+    "Solution": "Fix any non zero real number $c$, we have\n$$\\displaystyle\n\\lim _{x \\rightarrow c} f(x)=\\lim _{x \\rightarrow c} \\frac{1}{x}=\\frac{1}{c}\n$$\nAlso, since for $c\\neq 0, f(c)=\\frac{1}{c}$, we have $\\lim _{x \\rightarrow c} f(x)=f(c)$ and hence, $f$is continuous at every point in the domain of $f$. Thus $f$is a continuous function.",
+    "Final_answer": "$f$ is continuous at every point of its domain, so $f$ is a continuous function.",
     "chapter": "Continuity and Differentiability"
   },
   {
@@ -1931,8 +1931,8 @@
     "Title": "Continuity and Differentiability",
     "Subtitle": "",
     "Example": "Discuss the continuity of the function $f$ given by\n$$\\displaystyle\nf(x)= \\begin{cases}x, & \\text { if } x \\geq 0 \\\\ x^{2}, & \\text { if } x<0\\end{cases}\n$$",
-    "Solution": "Clearly the function is defined at every real number. By inspection, it seems prudent to partition the domain of definition of $f$ into three disjoint subsets of the real line.\nLet $\\displaystyle {D}_{1}=\\{x \\in \\mathbf{R}: x<0\\}, {D}_{2}=\\{0\\}$ and\n$$\\displaystyle\n{D}_{3}=\\{x \\in \\mathbf{R}: x>0\\}\n$$\nCase 1 At any point in ${D}_{1}$, we have $f(x)=x^{2}$ and it is easy to see that it is continuous there (see Example 2).\nCase 2 At any point in ${D}_{3}$, we have $f(x)=x$ and it is easy to see that it is continuous there (see Example 6). Case 3 Now we analyse the function at $x=0$. The value of the function at 0 is $f(0)=0$. The left hand limit of $f$ at 0 is\n$$\\displaystyle\n\\lim _{x \\rightarrow 0^{-}} f(x)=\\lim _{x \\rightarrow 0^{-}} x^{2}=0^{2}=0\n$$\nThe right hand limit of $f$ at 0 is\n$$\\displaystyle\n\\lim _{x \\rightarrow 0^{+}} f(x)=\\lim _{x \\rightarrow 0^{+}} x=0\n$$\nThus $\\lim _{x \\rightarrow 0} f(x)=0=f(0)$ and hence $f$ is continuous at 0 . This means that $f$ is continuous at every point in its domain and hence, $f$ is a continuous function. Example 14 Show that every polynomial function is continuous.\nRecall that a function $p$ is a polynomial function if it is defined by $p(x)=a_{0}+a_{1} x+\\ldots+a_{n} x^{n}$ for some natural number $n, a_{n}\\neq 0$ and $a_{i} \\in \\mathbf{R}$. Clearly this function is defined for every real number. For a fixed real number $c$, we have\n$$\\displaystyle\n\\lim _{x \\rightarrow c} p(x)=p(c)\n$$\nBy definition, $p$ is continuous at $c$. Since $c$ is any real number, $p$ is continuous at every real number and hence $p$ is a continuous function.",
-    "Final_answer": "$p$ is continuous at every real number and hence $p$ is a continuous function.",
+    "Solution": "Clearly the function is defined at every real number. By inspection, it seems prudent to partition the domain of definition of $f$ into three disjoint subsets of the real line.\nLet $\\displaystyle {D}_{1}=\\{x \\in \\mathbf{R}: x<0\\}, {D}_{2}=\\{0\\}$ and\n$$\\displaystyle\n{D}_{3}=\\{x \\in \\mathbf{R}: x>0\\}\n$$\nCase 1 At any point in ${D}_{1}$, we have $f(x)=x^{2}$ and it is easy to see that it is continuous there (see Example 2).\nCase 2 At any point in ${D}_{3}$, we have $f(x)=x$ and it is easy to see that it is continuous there (see Example 6). Case 3 Now we analyse the function at $x=0$. The value of the function at 0 is $f(0)=0$. The left hand limit of $f$ at 0 is\n$$\\displaystyle\n\\lim _{x \\rightarrow 0^{-}} f(x)=\\lim _{x \\rightarrow 0^{-}} x^{2}=0^{2}=0\n$$\nThe right hand limit of $f$ at 0 is\n$$\\displaystyle\n\\lim _{x \\rightarrow 0^{+}} f(x)=\\lim _{x \\rightarrow 0^{+}} x=0\n$$\nThus $\\lim _{x \\rightarrow 0} f(x)=0=f(0)$ and hence $f$ is continuous at 0 . This means that $f$ is continuous at every point in its domain and hence, $f$ is a continuous function.",
+    "Final_answer": "$f$ is continuous at every real number, so $f$ is a continuous function.",
     "chapter": "Continuity and Differentiability"
   },
   {
@@ -2156,15 +2156,15 @@
     "Subtitle": "",
     "Example": "If $\\displaystyle A=\\left[\\begin{array}{lll}1 & 3 & 3 \\\\ 1 & 4 & 3 \\\\ 1 & 3 & 4\\end{array}\\right]$, then verify that ${A}$ adj ${A}=|{A}| {I}$. Also find ${A}^{-1}$.",
     "Solution": "We have $|A|=1(16-9)-3(4-3)+3(3-4)=1\\neq 0$\nNow $\\displaystyle {A}_{11}=7, {~A}_{12}=-1, {~A}_{13}=-1, {~A}_{21}=-3, {~A}_{22}=1, {~A}_{23}=0, {~A}_{31}=-3, {~A}_{32}=0$, ${A}_{33}=1$\nTherefore\n$$\\displaystyle\n\\operatorname{adj} {A}=\\left[\\begin{array}{rrr}\n7 & -3 & -3 \\\\\n-1 & 1 & 0 \\\\\n-1 & 0 & 1\n\\end{array}\\right]\n$$\nNow\n$$\\displaystyle\n\\begin{aligned}\n{A}(\\operatorname{adj} {A}) & =\\left[\\begin{array}{lll}\n1 & 3 & 3 \\\\\n1 & 4 & 3 \\\\\n1 & 3 & 4\n\\end{array}\\right]\\left[\\begin{array}{rrr}\n7 & -3 & -3 \\\\\n-1 & 1 & 0 \\\\\n-1 & 0 & 1\n\\end{array}\\right] \\\\\n& =\\left[\\begin{array}{rrr}\n7-3-3 & -3+3+0 & -3+0+3 \\\\\n7-4-3 & -3+4+0 & -3+0+3 \\\\\n7-3-4 & -3+3+0 & -3+0+4\n\\end{array}\\right] \\\\\n& =\\left[\\begin{array}{rrr}\n1 & 0 & 0 \\\\\n0 & 1 & 0 \\\\\n0 & 0 & 1\n\\end{array}\\right]=(1)\\left[\\begin{array}{rrr}\n1 & 0 & 0 \\\\\n0 & 1 & 0 \\\\\n0 & 0 & 1\n\\end{array}\\right]=|{A}| . {I} \\\\\n{A}^{-1}=\\frac{1}{|{~A}|} \\operatorname{adj} {A} & =\\frac{1}{1}\\left[\\begin{array}{rrr}\n7 & -3 & -3 \\\\\n-1 & 1 & 0 \\\\\n-1 & 0 & 1\n\\end{array}\\right]=\\left[\\begin{array}{rrr}\n7 & -3 & -3 \\\\\n-1 & 1 & 0 \\\\\n-1 & 0 & 1\n\\end{array}\\right]\n\\end{aligned}\n$$",
-    "Final_answer": "$$\\displaystyle \\left[\\begin{array}{rrr} 7 & -3 & -3 \\\\ n-1 & 1 & 0 \\\\ n-1 & 0 & 1 \\end{array}\\right]$$",
+    "Final_answer": "$$\\displaystyle \\left[\\begin{array}{rrr} 7 & -3 & -3 \\\\ -1 & 1 & 0 \\\\ -1 & 0 & 1 \\end{array}\\right]$$",
     "chapter": "Determinants"
   },
   {
     "Title": "Determinants",
     "Subtitle": "",
     "Example": "If $\\displaystyle A=\\left[\\begin{array}{cc}2 & 3 \\\\ 1 & -4\\end{array}\\right]$ and $\\displaystyle B=\\left[\\begin{array}{cc}1 & -2 \\\\ -1 & 3\\end{array}\\right]$, then verify that $(A B)^{-1}=B^{-1} A^{-1}$.",
-    "Solution": "We have $\\displaystyle A B=\\left[\\begin{array}{cc}2 & 3 \\\\ 1 & -4\\end{array}\\right]\\left[\\begin{array}{cc}1 & -2 \\\\ -1 & 3\\end{array}\\right]=\\left[\\begin{array}{cc}-1 & 5 \\\\ 5 & -14\\end{array}\\right]$\nSince, $|{AB}|=-11\\neq 0,({AB})^{-1}$ exists and is given by\n$$\\displaystyle\n({AB})^{-1}=\\frac{1}{|{AB}|} \\operatorname{adj}({AB})=-\\frac{1}{11}\\left[\\begin{array}{cc}\n-14 & -5 \\\\\n-5 & -1\n\\end{array}\\right]=\\frac{1}{11}\\left[\\begin{array}{cc}\n14 & 5 \\\\\n5 & 1\n\\end{array}\\right]\n$$\nFurther, $|{A}|=-11\\neq 0$ and $|{B}|=1\\neq 0$. Therefore, ${A}^{-1}$ and ${B}^{-1}$ both exist and are given by\n$$\\displaystyle\n{A}^{-1}=-\\frac{1}{11}\\left[\\begin{array}{cc}\n-4 & -3 \\\\\n-1 & 2\n\\end{array}\\right], {B}^{-1}=\\left[\\begin{array}{ll}\n3 & 2 \\\\\n1 & 1\n\\end{array}\\right]\n$$\nTherefore $\\displaystyle \\quad {B}^{-1} {~A}^{-1}=-\\frac{1}{11}\\left[\\begin{array}{ll}3 & 2 \\\\ 1 & 1\\end{array}\\right]\\left[\\begin{array}{cc}-4 & -3 \\\\ -1 & 2\\end{array}\\right]=-\\frac{1}{11}\\left[\\begin{array}{cc}-14 & -5 \\\\ -5 & -1\\end{array}\\right]=\\frac{1}{11}\\left[\\begin{array}{cc}14 & 5 \\\\ 5 & 1\\end{array}\\right]$\nHence $({AB})^{-1}={B}^{-1} {~A}^{-1}$ Example 15 Show that the matrix $\\displaystyle A=\\left[\\begin{array}{ll}2 & 3 \\\\ 1 & 2\\end{array}\\right]$ satisfies the equation $A^{2}-4 A+I=O$, where ${I}$ is $2 \\times 2$ identity matrix and ${O}$ is $2 \\times 2$ zero matrix. Using this equation, find ${A}^{-1}$.\nWe have $\\displaystyle A^{2}=A . A=\\left[\\begin{array}{ll}2 & 3 \\\\ 1 & 2\\end{array}\\right]\\left[\\begin{array}{ll}2 & 3 \\\\ 1 & 2\\end{array}\\right]=\\left[\\begin{array}{cc}7 & 12 \\\\ 4 & 7\\end{array}\\right]$\nHence\n$$\\displaystyle\n{A}^{2}-4 {~A}+{I}=\\left[\\begin{array}{cc}\n7 & 12 \\\\\n4 & 7\n\\end{array}\\right]-\\left[\\begin{array}{cc}\n8 & 12 \\\\\n4 & 8\n\\end{array}\\right]+\\left[\\begin{array}{ll}\n1 & 0 \\\\\n0 & 1\n\\end{array}\\right]=\\left[\\begin{array}{ll}\n0 & 0 \\\\\n0 & 0\n\\end{array}\\right]={O}\n$$\nNow\n${A}^{2}-4 {~A}+{I}={O}$\nTherefore\n${A} A-4 {~A}=-{I}$\nor\nA $A\\left(A^{-1}\\right)-4 A^{-1}=-I A^{-1}$ (Post multiplying by $A^{-1}$ because $|A|\\neq 0$ )\nor\n$\\displaystyle {A}\\left({A} {A}^{-1}\\right)-4 {I}=-{A}^{-1}$\nor\n${AI}-4 {I}=-{A}^{-1}$\nor\n$$\\displaystyle\n{A}^{-1}=4 {I}-{A}=\\left[\\begin{array}{ll}\n4 & 0 \\\\\n0 & 4\n\\end{array}\\right]-\\left[\\begin{array}{ll}\n2 & 3 \\\\\n1 & 2\n\\end{array}\\right]=\\left[\\begin{array}{cc}\n2 & -3 \\\\\n-1 & 2\n\\end{array}\\right]\n$$\nHence\n$$\\displaystyle\nA^{-1}=\\left[\\begin{array}{cc}\n2 & -3 \\\\\n-1 & 2\n\\end{array}\\right]\n$$",
-    "Final_answer": "$$\\displaystyle  A^{-1}=\\left[\\begin{array}{cc} 2 & -3 \\\\ -1 & 2 \\end{array}\\right] $$",
+    "Solution": "We have $\\displaystyle A B=\\left[\\begin{array}{cc}2 & 3 \\\\ 1 & -4\\end{array}\\right]\\left[\\begin{array}{cc}1 & -2 \\\\ -1 & 3\\end{array}\\right]=\\left[\\begin{array}{cc}-1 & 5 \\\\ 5 & -14\\end{array}\\right]$\nSince, $|{AB}|=-11\\neq 0,({AB})^{-1}$ exists and is given by\n$$\\displaystyle\n({AB})^{-1}=\\frac{1}{|{AB}|} \\operatorname{adj}({AB})=-\\frac{1}{11}\\left[\\begin{array}{cc}\n-14 & -5 \\\\\n-5 & -1\n\\end{array}\\right]=\\frac{1}{11}\\left[\\begin{array}{cc}\n14 & 5 \\\\\n5 & 1\n\\end{array}\\right]\n$$\nFurther, $|{A}|=-11\\neq 0$ and $|{B}|=1\\neq 0$. Therefore, ${A}^{-1}$ and ${B}^{-1}$ both exist and are given by\n$$\\displaystyle\n{A}^{-1}=-\\frac{1}{11}\\left[\\begin{array}{cc}\n-4 & -3 \\\\\n-1 & 2\n\\end{array}\\right], {B}^{-1}=\\left[\\begin{array}{ll}\n3 & 2 \\\\\n1 & 1\n\\end{array}\\right]\n$$\nTherefore $\\displaystyle \\quad {B}^{-1} {~A}^{-1}=-\\frac{1}{11}\\left[\\begin{array}{ll}3 & 2 \\\\ 1 & 1\\end{array}\\right]\\left[\\begin{array}{cc}-4 & -3 \\\\ -1 & 2\\end{array}\\right]=-\\frac{1}{11}\\left[\\begin{array}{cc}-14 & -5 \\\\ -5 & -1\\end{array}\\right]=\\frac{1}{11}\\left[\\begin{array}{cc}14 & 5 \\\\ 5 & 1\\end{array}\\right]$\nHence $({AB})^{-1}={B}^{-1} {~A}^{-1}$",
+    "Final_answer": "$$\\displaystyle (AB)^{-1}=B^{-1}A^{-1}=\\frac{1}{11}\\left[\\begin{array}{cc}14 & 5 \\\\ 5 & 1\\end{array}\\right]$$",
     "chapter": "Determinants"
   },
   {
@@ -3179,8 +3179,8 @@
     "Title": "Vector Algebra",
     "Subtitle": "",
     "Example": "Find the area of a triangle having the points ${A}(1,1,1), {B}(1,2,3)$ and ${C}(2,3,1)$ as its vertices.",
-    "Solution": "We have $\\overrightarrow{{AB}}=\\hat{j}+2 \\hat{k}$ and $\\overrightarrow{{AC}}=\\hat{i}+2 \\hat{j}$. The area of the given triangle is $\\displaystyle \\frac{1}{2}|\\overrightarrow{{AB}} \\times \\overrightarrow{{AC}}|$.\nNow,\n$$\\displaystyle\n\\overrightarrow{{AB}} \\times \\overrightarrow{{AC}}=\\left|\\begin{array}{ccc}\n\\hat{i} & \\hat{j} & \\hat{k} \\\\\n0 & 1 & 2 \\\\\n1 & 2 & 0\n\\end{array}\\right|=-4 \\hat{i}+2 \\hat{j}-\\hat{k}\n$$\nTherefore\n$$\\displaystyle\n|\\overrightarrow{{AB}} \\times \\overrightarrow{{AC}}|=\\sqrt{16+4+1}=\\sqrt{21}\n$$\nThus, the required area is $\\frac{1}{2} \\sqrt{21}$ Example 25 Find the area of a parallelogram whose adjacent sides are given by the vectors $\\vec{a}=3 \\hat{i}+\\hat{j}+4 \\hat{k}$ and $\\vec{b}=\\hat{i}-\\hat{j}+\\hat{k}$\nThe area of a parallelogram with $\\vec{a}$ and $\\vec{b}$ as its adjacent sides is given by $|\\vec{a} \\times \\vec{b}|$.\nNow\n$$\\displaystyle\n\\vec{a} \\times \\vec{b}=\\left|\\begin{array}{ccc}\n\\hat{i} & \\hat{j} & \\hat{k} \\\\\n3 & 1 & 4 \\\\\n1 & -1 & 1\n\\end{array}\\right|=5 \\hat{i}+\\hat{j}-4 \\hat{k}\n$$\nTherefore\n$$\\displaystyle\n|\\vec{a} \\times \\vec{b}|=\\sqrt{25+1+16}=\\sqrt{42}\n$$\nand hence, the required area is $\\sqrt{42}$.",
-    "Final_answer": "Hence, the required area is $\\sqrt{42}$.",
+    "Solution": "We have $\\overrightarrow{{AB}}=\\hat{j}+2 \\hat{k}$ and $\\overrightarrow{{AC}}=\\hat{i}+2 \\hat{j}$. The area of the given triangle is $\\displaystyle \\frac{1}{2}|\\overrightarrow{{AB}} \\times \\overrightarrow{{AC}}|$.\nNow,\n$$\\displaystyle\n\\overrightarrow{{AB}} \\times \\overrightarrow{{AC}}=\\left|\\begin{array}{ccc}\n\\hat{i} & \\hat{j} & \\hat{k} \\\\\n0 & 1 & 2 \\\\\n1 & 2 & 0\n\\end{array}\\right|=-4 \\hat{i}+2 \\hat{j}-\\hat{k}\n$$\nTherefore\n$$\\displaystyle\n|\\overrightarrow{{AB}} \\times \\overrightarrow{{AC}}|=\\sqrt{16+4+1}=\\sqrt{21}\n$$\nThus, the required area is $\\frac{1}{2} \\sqrt{21}$",
+    "Final_answer": "The area of the triangle is $\\frac{1}{2} \\sqrt{21}$.",
     "chapter": "Vector Algebra"
   },
   {
@@ -3218,7 +3218,7 @@
   {
     "Title": "Integrals",
     "Subtitle": "",
-    "Example": "(i) $\\int{cos(2x)dx}$",
+    "Example": "(i) $\\int \\cos(2x)\\,dx$",
     "Solution": "(i) $\\int \\cos(2x)dx$. We look for a function whose derivative is $\\cos(2x)$. Recall that\n$\\frac{d}{dx} (\\sin(2x)) = 2\\cos(2x)$\nor $\\displaystyle \\cos(2x) = \\frac{1}{2} \\frac{d}{dx}(\\sin(2x)) = \\frac{d}{dx}\\left(\\frac{1}{2}\\sin(2x)\\right)$\nTherefore, an antiderivative of $\\cos(2x)$ is $\\frac{1}{2}\\sin(2x) + C$.",
     "Final_answer": "(i) $\\displaystyle \\int \\cos(2x)dx = \\frac{1}{2}\\sin(2x) + C$",
     "chapter": "Integrals"
@@ -3275,8 +3275,8 @@
     "Title": "Integrals",
     "Subtitle": "",
     "Example": "(ii) $\\int{\\frac{\\sin(x)}{\\sin(x + a)}\\;dx}$",
-    "Solution": "(ii) $\\int{\\frac{\\sin(x)}{\\sin(x + a)}\\;dx}$\n$= x\\cos a + a \\cos a - \\sin(a) \\ln |\\sin (x + a)| + C$where $C$ is another arbitrary constant.",
-    "Final_answer": "(ii) ∫$\\displaystyle \\frac{\\sin x}{\\sin (x + a)} dx = x \\cos a + a \\cos a - \\sin a \\ln |\\sin (x + a)| + C$, where $C$ is another",
+    "Solution": "(ii) $\\int{\\frac{\\sin(x)}{\\sin(x + a)}\\;dx}$\nWrite $\\sin x=\\sin((x+a)-a)=\\sin(x+a) \\cos a-\\cos(x+a) \\sin a$, so\n$$\\displaystyle \\frac{\\sin x}{\\sin(x+a)}=\\cos a-\\sin a \\cot(x+a)$$\nTherefore\n$$\\displaystyle \\int \\frac{\\sin x}{\\sin(x+a)}\\,dx=x \\cos a-\\sin a \\ln |\\sin(x+a)|+C$$\nwhere $C$ is an arbitrary constant.",
+    "Final_answer": "(ii) $\\displaystyle \\int \\frac{\\sin x}{\\sin (x+a)}\\,dx = x \\cos a - \\sin a \\ln |\\sin (x+a)| + C$",
     "chapter": "Integrals"
   },
   {

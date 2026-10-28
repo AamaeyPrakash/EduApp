@@ -3,9 +3,11 @@ import { Pressable, TextInput, View } from 'react-native';
 import { continuous, makeStyles, radius, type, useTheme } from '../theme';
 import AppText from './AppText';
 
-// A text field with an inline error message and, for passwords, a Show/Hide toggle.
+// A text field with a label above it, an inline error (or `hint`) below it and, for
+// passwords, a Show/Hide toggle. The label stays visible while typing, unlike the
+// placeholder, which can hold an example.
 const TextField = forwardRef(function TextField(
-  { error, secureTextEntry, placeholder, style, ...inputProps },
+  { label, hint, error, secureTextEntry, placeholder, style, ...inputProps },
   ref,
 ) {
   const theme = useTheme();
@@ -14,11 +16,25 @@ const TextField = forwardRef(function TextField(
   const hidden = Boolean(secureTextEntry) && !revealed;
   return (
     <View style={[styles.container, style]}>
+      {label ? (
+        <AppText
+          variant="footnote"
+          color="secondaryLabel"
+          style={styles.label}
+          importantForAccessibility="no"
+          accessibilityElementsHidden
+        >
+          {label}
+        </AppText>
+      ) : null}
       <View style={[styles.field, error && styles.fieldError]}>
         <TextInput
           ref={ref}
           placeholder={placeholder}
-          accessibilityLabel={inputProps.accessibilityLabel || placeholder}
+          accessibilityLabel={
+            inputProps.accessibilityLabel || label || placeholder
+          }
+          accessibilityHint={error || hint}
           placeholderTextColor={theme.colors.placeholder}
           selectionColor={theme.colors.tint}
           keyboardAppearance={theme.dark ? 'dark' : 'light'}
@@ -32,7 +48,6 @@ const TextField = forwardRef(function TextField(
             accessibilityLabel={revealed ? 'Hide password' : 'Show password'}
             onPress={() => setRevealed(value => !value)}
             style={styles.toggle}
-            hitSlop={8}
           >
             <AppText variant="subheadline" color="tint" weight="600">
               {revealed ? 'Hide' : 'Show'}
@@ -44,6 +59,10 @@ const TextField = forwardRef(function TextField(
         <AppText variant="footnote" color="red" style={styles.error}>
           {error}
         </AppText>
+      ) : hint ? (
+        <AppText variant="footnote" color="secondaryLabel" style={styles.error}>
+          {hint}
+        </AppText>
       ) : null}
     </View>
   );
@@ -53,7 +72,12 @@ export default TextField;
 
 const useStyles = makeStyles(theme => ({
   container: {
-    marginBottom: 12,
+    marginBottom: 14,
+  },
+  label: {
+    marginBottom: 6,
+    marginLeft: 4,
+    textTransform: 'uppercase',
   },
   field: {
     ...continuous,
@@ -76,7 +100,10 @@ const useStyles = makeStyles(theme => ({
     color: theme.colors.label,
   },
   toggle: {
+    alignSelf: 'stretch',
+    justifyContent: 'center',
     paddingHorizontal: 16,
+    minWidth: 64,
   },
   error: {
     marginTop: 6,

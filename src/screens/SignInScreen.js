@@ -11,14 +11,23 @@ import config from '../config';
 import { getErrorMessage } from '../lib/errors';
 import { validateEmail } from '../lib/validation';
 
-const SignInScreen = ({ navigation }) => {
+const SignInScreen = ({ navigation, route }) => {
   const { signIn, notice, clearNotice } = useAuth();
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(route.params?.email ?? '');
   const [password, setPassword] = useState('');
   const [fieldErrors, setFieldErrors] = useState({});
   const [formError, setFormError] = useState(null);
   const [loading, setLoading] = useState(false);
   const passwordRef = useRef(null);
+
+  // Messages about the old input go away as soon as it changes.
+  const edit = (field, setValue) => text => {
+    setValue(text);
+    setFormError(null);
+    if (fieldErrors[field]) {
+      setFieldErrors(current => ({ ...current, [field]: undefined }));
+    }
+  };
 
   const handleSignIn = async () => {
     if (loading) {
@@ -74,9 +83,10 @@ const SignInScreen = ({ navigation }) => {
 
       <TextField
         testID="signin-email"
-        placeholder="Email"
+        label="Email"
+        placeholder="you@example.com"
         value={email}
-        onChangeText={setEmail}
+        onChangeText={edit('email', setEmail)}
         error={fieldErrors.email}
         autoCapitalize="none"
         autoCorrect={false}
@@ -90,9 +100,9 @@ const SignInScreen = ({ navigation }) => {
       <TextField
         ref={passwordRef}
         testID="signin-password"
-        placeholder="Password"
+        label="Password"
         value={password}
-        onChangeText={setPassword}
+        onChangeText={edit('password', setPassword)}
         error={fieldErrors.password}
         secureTextEntry
         autoCapitalize="none"

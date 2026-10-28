@@ -68,9 +68,15 @@ const ForgotPasswordScreen = ({ navigation, route }) => {
       <Banner message={formError} />
 
       <TextField
-        placeholder="Email"
+        label="Email"
+        placeholder="you@example.com"
         value={email}
-        onChangeText={setEmail}
+        onChangeText={text => {
+          setEmail(text);
+          setEmailError(null);
+          setFormError(null);
+          setSentTo(null);
+        }}
         error={emailError}
         autoCapitalize="none"
         autoCorrect={false}
@@ -81,12 +87,30 @@ const ForgotPasswordScreen = ({ navigation, route }) => {
         onSubmitEditing={handleSubmit}
       />
 
-      <Button
-        title={sentTo ? 'Send Again' : 'Send Reset Link'}
-        onPress={handleSubmit}
-        loading={loading}
-        style={formStyles.button}
-      />
+      {sentTo ? (
+        <>
+          <Button
+            title="Back to Sign In"
+            onPress={() => navigation.popTo('SignIn', { email: sentTo })}
+            style={formStyles.button}
+          />
+          <Button
+            title="Send Again"
+            variant="plain"
+            size="medium"
+            onPress={handleSubmit}
+            loading={loading}
+            style={formStyles.link}
+          />
+        </>
+      ) : (
+        <Button
+          title="Send Reset Link"
+          onPress={handleSubmit}
+          loading={loading}
+          style={formStyles.button}
+        />
+      )}
     </FormScreen>
   );
 };

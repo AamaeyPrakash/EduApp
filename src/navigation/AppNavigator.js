@@ -18,6 +18,7 @@ import SearchScreen from '../screens/SearchScreen';
 import SignInScreen from '../screens/SignInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import TopicScreen from '../screens/TopicScreen';
+import TopicTutorScreen from '../screens/TopicTutorScreen';
 import { useTheme } from '../theme';
 import TabNavigator from './TabNavigator';
 
@@ -30,7 +31,14 @@ const SHEET = { animation: 'slide_from_bottom' };
 // Picks the screens for the current auth state. Switching between them (e.g. after
 // signing in or out) happens automatically when the auth state changes.
 function RootStack() {
-  const { status, profile, profileStatus, error, restoreSession } = useAuth();
+  const {
+    status,
+    profile,
+    profileStatus,
+    profileError,
+    error,
+    restoreSession,
+  } = useAuth();
   const theme = useTheme();
   const screenOptions = useMemo(
     () => ({
@@ -54,7 +62,8 @@ function RootStack() {
     status === AUTH_STATUS.LOADING ||
     (status === AUTH_STATUS.SIGNED_IN &&
       profileStatus === PROFILE_STATUS.LOADING &&
-      !profile)
+      !profile &&
+      !profileError)
   ) {
     return <StatusScreen loading />;
   }
@@ -100,6 +109,11 @@ function RootStack() {
           <Stack.Screen
             name="QuestionTutor"
             component={QuestionTutorScreen}
+            options={SHEET}
+          />
+          <Stack.Screen
+            name="TopicTutor"
+            component={TopicTutorScreen}
             options={SHEET}
           />
           <Stack.Screen

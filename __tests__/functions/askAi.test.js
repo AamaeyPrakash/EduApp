@@ -179,6 +179,25 @@ describe('reports', () => {
     expect(fetch).not.toHaveBeenCalled();
     expect(errors[0]).toContain('REPORTED REPLY from user user-1');
     expect(errors[0]).toContain('"Five."');
+    expect(errors[0]).not.toContain('Practice question');
+  });
+
+  it('logs which practice question a reported chat was about', async () => {
+    const { context, errors } = makeContext({
+      body: {
+        report: {
+          question: 'Give me a hint.',
+          reply: 'Try factorising.',
+          context: 'CBSE Maths · Sets: Show that A = B.',
+        },
+      },
+    });
+
+    await handleAskAi(context, { fetch: jest.fn(), env: {} });
+
+    expect(errors[0]).toContain(
+      'Practice question: "CBSE Maths · Sets: Show that A = B."',
+    );
   });
 
   it('rejects a report without the reply', async () => {

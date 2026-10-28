@@ -2,21 +2,36 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { continuous, radius, useTheme } from '../theme';
 import AppText from './AppText';
+import Glass from './Glass';
 import Icon from './Icon';
 import PressableScale from './PressableScale';
 
-// A capsule that can be selected, for choices and suggestions.
+// A capsule that can be selected, for choices and suggestions. `glass` is for chips
+// floating over content, such as suggestions above the tutor's message box.
 export default function Chip({
   label,
   selected = false,
   onPress,
   icon,
   disabled,
+  glass = false,
   accessibilityLabel,
   testID,
 }) {
   const { colors } = useTheme();
   const foreground = selected ? colors.onTint : colors.label;
+  const content = (
+    <>
+      {icon ? (
+        <View style={styles.icon}>
+          <Icon name={icon} size={15} color={foreground} strokeWidth={2} />
+        </View>
+      ) : null}
+      <AppText variant="subheadline" weight="500" style={{ color: foreground }}>
+        {label}
+      </AppText>
+    </>
+  );
   return (
     <PressableScale
       onPress={onPress}
@@ -24,30 +39,27 @@ export default function Chip({
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel}
       accessibilityState={{ selected, disabled }}
+      hitSlop={HIT_SLOP}
       testID={testID}
     >
-      <View
-        style={[
-          styles.chip,
-          { backgroundColor: selected ? colors.tint : colors.fill },
-        ]}
-      >
-        {icon ? (
-          <View style={styles.icon}>
-            <Icon name={icon} size={15} color={foreground} strokeWidth={2} />
-          </View>
-        ) : null}
-        <AppText
-          variant="subheadline"
-          weight="500"
-          style={{ color: foreground }}
+      {glass && !selected ? (
+        <Glass style={styles.chip}>{content}</Glass>
+      ) : (
+        <View
+          style={[
+            styles.chip,
+            { backgroundColor: selected ? colors.tintSolid : colors.fill },
+          ]}
         >
-          {label}
-        </AppText>
-      </View>
+          {content}
+        </View>
+      )}
     </PressableScale>
   );
 }
+
+// Chips are 36 pt tall; this brings the touch area to 44 pt.
+const HIT_SLOP = { top: 4, bottom: 4, left: 2, right: 2 };
 
 // A labelled set of chips where one option can be chosen, e.g. board or grade.
 export function ChoiceChips({ label, options, value, onChange, error }) {
@@ -85,8 +97,9 @@ const styles = StyleSheet.create({
     ...continuous,
     flexDirection: 'row',
     alignItems: 'center',
-    height: 36,
+    minHeight: 36,
     paddingHorizontal: 14,
+    paddingVertical: 6,
     borderRadius: radius.capsule,
   },
   icon: {

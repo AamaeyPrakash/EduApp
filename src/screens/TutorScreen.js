@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { KeyboardAvoidingView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AmbientGlow from '../components/AmbientGlow';
@@ -36,16 +36,11 @@ const SUGGESTIONS = [
   },
 ];
 
-// The Tutor tab. Other screens can open it with `params.prompt` to send a message
-// straight away (e.g. a topic summary).
-const TutorScreen = ({ navigation, route }) => {
+// The Tutor tab: a general maths chat.
+const TutorScreen = () => {
   const styles = useStyles();
   const insets = useSafeAreaInsets();
   const tabBarTop = useTabBarTop();
-  const clearPrompt = useCallback(
-    () => navigation.setParams({ prompt: undefined }),
-    [navigation],
-  );
 
   return (
     <View style={styles.screen}>
@@ -54,8 +49,6 @@ const TutorScreen = ({ navigation, route }) => {
         <TutorChat
           suggestions={SUGGESTIONS}
           bottomInset={tabBarTop + 10}
-          pendingPrompt={route.params?.prompt}
-          onPendingSent={clearPrompt}
           renderHeader={({ hasMessages, clear, sending }) => (
             <View style={[styles.header, { paddingTop: insets.top + 8 }]}>
               <AppText variant="largeTitle" accessibilityRole="header">

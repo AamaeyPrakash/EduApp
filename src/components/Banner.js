@@ -1,5 +1,5 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { useEffect } from 'react';
+import { AccessibilityInfo, Platform, View } from 'react-native';
 import { continuous, makeStyles, radius } from '../theme';
 import AppText from './AppText';
 import Icon from './Icon';
@@ -14,6 +14,12 @@ const TONES = {
 // An inline message, e.g. a form error or a notice.
 export default function Banner({ message, tone = 'error', style }) {
   const styles = useStyles();
+  // Android reads the live region below; iOS needs an announcement.
+  useEffect(() => {
+    if (message && Platform.OS === 'ios') {
+      AccessibilityInfo.announceForAccessibility(message);
+    }
+  }, [message]);
   if (!message) {
     return null;
   }

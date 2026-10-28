@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Switch, View } from 'react-native';
 import AppText from '../components/AppText';
 import Button from '../components/Button';
@@ -24,6 +24,19 @@ const TopicScreen = ({ route, navigation }) => {
   const [showAll, setShowAll] = useState(false);
   const [overrides, setOverrides] = useState({});
   const tutorReady = isTutorConfigured();
+  // Stable, so memoised question cards only redraw when their own state changes.
+  const toggle = useCallback(
+    key =>
+      setOverrides(current => ({
+        ...current,
+        [key]: !(key in current ? current[key] : showAll),
+      })),
+    [showAll],
+  );
+  const askTutor = useCallback(
+    questionId => navigation.navigate('QuestionTutor', { questionId }),
+    [navigation],
+  );
 
   useEffect(() => {
     if (topic) {
@@ -44,8 +57,6 @@ const TopicScreen = ({ route, navigation }) => {
   }
 
   const isShown = key => (key in overrides ? overrides[key] : showAll);
-  const toggle = key =>
-    setOverrides(current => ({ ...current, [key]: !isShown(key) }));
   const ids = topic.questions.map(question => question.id);
   const { known, review, total } = progressFor(study, ids);
   const reviewIds = ids.filter(id => questionStatus(study, id) === 'review');
@@ -54,14 +65,14 @@ const TopicScreen = ({ route, navigation }) => {
     ...ids.filter(id => questionStatus(study, id) !== 'known'),
     ...ids.filter(id => questionStatus(study, id) === 'known'),
   ];
-  const askTutor = questionId =>
-    navigation.navigate('QuestionTutor', { questionId });
 
   return (
     <Screen
       title={topic.title}
       eyebrow={course.title}
-      subtitle={[topic.label, `${total} questions`].filter(Boolean).join(' · ')}
+      subtitle={[topic.label, `${total} question${total === 1 ? '' : 's'}`]
+        .filter(Boolean)
+        .join(' · ')}
       onBack={() => navigation.goBack()}
       right={
         tutorReady ? (
@@ -70,12 +81,7 @@ const TopicScreen = ({ route, navigation }) => {
             color="purple"
             accessibilityLabel="Ask the tutor about this topic"
             onPress={() =>
-              navigation.navigate('Tabs', {
-                screen: 'Tutor',
-                params: {
-                  prompt: `Give me a short overview of ${topic.title} (${course.title}): the key ideas, the formulas to remember and the most common mistakes.`,
-                },
-              })
+              navigation.navigate('TopicTutor', { courseKey, topicKey })
             }
           />
         ) : null
@@ -87,11 +93,13 @@ const TopicScreen = ({ route, navigation }) => {
           <QuestionCard
             question={item}
             heading={`Question ${item.number}`}
-            isShown={isShown}
+            answerOpen={isShown(`${item.id}:answer`)}
+            solutionOpen={isShown(`${item.id}:solution`)}
             onToggle={toggle}
-            onAskTutor={tutorReady ? () => askTutor(item.id) : null}
+            onAskTutor={tutorReady ? askTutor : null}
           />
         ),
+        extraData: overrides,
       }}
     >
       <View style={styles.progressCard}>

@@ -67,6 +67,12 @@ const QuestionTutorScreen = ({ route, navigation }) => {
 
   return (
     <View style={styles.screen}>
+      <TopBar
+        title="Ask the tutor"
+        onBack={() => navigation.goBack()}
+        backIcon="close"
+        backLabel="Close"
+      />
       <KeyboardAvoidingView style={styles.flex} behavior="padding">
         {question ? (
           <TutorChat
@@ -123,12 +129,6 @@ const QuestionTutorScreen = ({ route, navigation }) => {
           </View>
         )}
       </KeyboardAvoidingView>
-      <TopBar
-        title="Ask the tutor"
-        onBack={() => navigation.goBack()}
-        backIcon="close"
-        backLabel="Close"
-      />
     </View>
   );
 };
@@ -153,6 +153,8 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
+    minHeight: 44,
+    marginVertical: -12,
   },
   questionTitle: {
     flex: 1,
@@ -160,7 +162,7 @@ const useStyles = makeStyles(theme => ({
   },
   questionScroll: {
     maxHeight: 180,
-    marginTop: 10,
+    marginTop: 18,
   },
   missing: {
     flex: 1,

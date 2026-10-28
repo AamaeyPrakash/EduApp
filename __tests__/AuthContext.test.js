@@ -116,9 +116,26 @@ describe('restoring the session on launch', () => {
     );
     expect(result.current.status).toBe(AUTH_STATUS.SIGNED_IN);
 
-    databases.getDocument.mockResolvedValue(PROFILE);
-    await act(() => result.current.reloadProfile());
+    // While retrying, the last error stays so the app doesn't swap to its loader.
+    let finishLoading;
+    databases.getDocument.mockReturnValue(
+      new Promise(resolve => {
+        finishLoading = () => resolve(PROFILE);
+      }),
+    );
+    let retry;
+    await act(async () => {
+      retry = result.current.reloadProfile();
+    });
+    expect(result.current.profileStatus).toBe(PROFILE_STATUS.LOADING);
+    expect(result.current.profileError).toBeTruthy();
+
+    await act(async () => {
+      finishLoading();
+      await retry;
+    });
     expect(result.current.profileStatus).toBe(PROFILE_STATUS.READY);
+    expect(result.current.profileError).toBeNull();
   });
 });
 
@@ -220,6 +237,11 @@ describe('signUp', () => {
     expect(result.current.status).toBe(AUTH_STATUS.SIGNED_IN);
     expect(result.current.profileStatus).toBe(PROFILE_STATUS.MISSING);
     expect(result.current.profileError).toBeTruthy();
+    // Kept so the "complete your profile" form can start from them.
+    expect(result.current.pendingDetails).toMatchObject({
+      grade: SIGN_UP_DETAILS.grade,
+      educationBoard: SIGN_UP_DETAILS.educationBoard,
+    });
   });
 
   it('explains when the account was created but signing in failed', async () => {

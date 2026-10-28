@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Pressable, View } from 'react-native';
 import { useStudy } from '../study/StudyContext';
 import { continuous, makeStyles, radius } from '../theme';
@@ -43,7 +43,7 @@ export function BookmarkButton({ questionId, size = 22 }) {
       accessibilityRole="button"
       accessibilityLabel={saved ? 'Remove from saved' : 'Save question'}
       accessibilityState={{ selected: saved }}
-      hitSlop={10}
+      hitSlop={11}
     >
       <Icon
         name={saved ? 'bookmarkFill' : 'bookmark'}
@@ -64,7 +64,7 @@ export function QuestionMeta({ question, heading, right }) {
           {heading}
         </AppText>
         {question.label ? (
-          <AppText variant="footnote" color="tertiaryLabel">
+          <AppText variant="footnote" color="secondaryLabel">
             {question.label}
           </AppText>
         ) : null}
@@ -85,7 +85,7 @@ export function AnswerPanel({ label, content, tone = 'neutral' }) {
       <AppText
         variant="footnote"
         weight="600"
-        color={tone === 'answer' ? 'green' : 'secondaryLabel'}
+        color={tone === 'answer' ? 'greenText' : 'secondaryLabel'}
         style={styles.panelLabel}
       >
         {label.toUpperCase()}
@@ -104,15 +104,16 @@ function Disclosure({ label, open, onPress }) {
       accessibilityRole="button"
       accessibilityState={{ expanded: open }}
       accessibilityLabel={`${open ? 'Hide' : 'Show'} ${label}`}
+      hitSlop={6}
       style={styles.disclosure}
     >
-      <AppText variant="subheadline" color="tint" weight="600">
-        {open ? `Hide ${label}` : `Show ${label}`}
+      <AppText variant="subheadline" color="tintText" weight="600">
+        {label}
       </AppText>
       <Icon
         name={open ? 'chevronUp' : 'chevronDown'}
         size={14}
-        color="tint"
+        color="tintText"
         strokeWidth={2.4}
       />
     </PressableScale>
@@ -120,19 +121,21 @@ function Disclosure({ label, open, onPress }) {
 }
 
 // A question in a topic's list, with its answer and solution behind disclosures. Which
-// parts are open is kept by the screen (`isShown`/`onToggle`), so it survives scrolling.
-export default function QuestionCard({
+// parts are open is kept by the screen, so it survives scrolling: `onToggle` gets
+// "<id>:answer" or "<id>:solution", and `onAskTutor` the question's id. Memoised, so
+// opening one card doesn't redraw the maths in all the others.
+const QuestionCard = memo(function QuestionCard({
   question,
   heading,
-  isShown,
+  answerOpen: answerShown,
+  solutionOpen,
   onToggle,
   onAskTutor,
 }) {
   const styles = useStyles();
   const answerKey = `${question.id}:answer`;
   const solutionKey = `${question.id}:solution`;
-  const answerOpen = Boolean(question.answer) && isShown(answerKey);
-  const solutionOpen = isShown(solutionKey);
+  const answerOpen = Boolean(question.answer) && answerShown;
   return (
     <View style={styles.card}>
       <QuestionMeta
@@ -165,19 +168,20 @@ export default function QuestionCard({
         />
         {onAskTutor ? (
           <Pressable
-            onPress={onAskTutor}
+            onPress={() => onAskTutor(question.id)}
             accessibilityRole="button"
             accessibilityLabel="Ask the tutor about this question"
-            hitSlop={8}
             style={styles.tutor}
           >
-            <Icon name="sparkles" size={18} color="purple" />
+            <Icon name="sparkles" size={20} color="purple" />
           </Pressable>
         ) : null}
       </View>
     </View>
   );
-}
+});
+
+export default QuestionCard;
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -235,13 +239,19 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    paddingHorizontal: 12,
-    height: 32,
+    paddingHorizontal: 14,
+    paddingVertical: 6,
+    minHeight: 32,
     borderRadius: radius.capsule,
     backgroundColor: theme.colors.tintFill,
   },
   tutor: {
     marginLeft: 'auto',
-    padding: 4,
+    width: 44,
+    height: 44,
+    marginVertical: -6,
+    marginRight: -10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 }));

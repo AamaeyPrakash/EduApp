@@ -2,10 +2,23 @@ import React, { Component, useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { type, useTheme } from '../theme';
 import { parseMathContent } from '../lib/mathContent';
+import { texToSpeech } from '../lib/mathSpeech';
 import MathView from './MathView';
 
 // Words keep their trailing space so they can wrap around inline formulas.
 const splitWords = value => value.match(/\S+\s*|\s+/g) || [];
+
+// Punctuation straight after a formula stays on its line: "$x$, where" never puts
+// the comma at the start of the next line.
+const LEADING_PUNCTUATION = /^[,.;:!?)\]]+\s*/;
+
+// What a screen reader says for a line: its text, with formulas read out in words.
+const spokenLine = tokens =>
+  tokens
+    .map(token =>
+      token.type === 'math' ? texToSpeech(token.value) : token.value,
+    )
+    .join('');
 
 // If anything goes wrong while drawing formulas, show the raw text instead of crashing
 // the whole screen.
@@ -38,27 +51,57 @@ function Line({ tokens, textStyle, color }) {
       </Text>
     );
   }
-  const spoken = tokens.map(token => token.value).join('');
-  return (
-    <View style={styles.inlineRow} accessible accessibilityLabel={spoken}>
-      {tokens.map((token, tokenIndex) =>
-        token.type === 'math' ? (
-          <MathView
-            key={`math-${tokenIndex}`}
-            math={token.value}
-            style={styles.inlineMath}
-          />
-        ) : (
-          splitWords(token.value).map((word, wordIndex) => (
-            <Text
-              key={`text-${tokenIndex}-${wordIndex}`}
-              style={[styles.text, { color }, textStyle]}
-            >
-              {word}
+  const items = [];
+  let carried = '';
+  tokens.forEach((token, tokenIndex) => {
+    if (token.type === 'math') {
+      const next = tokens[tokenIndex + 1];
+      const punctuation =
+        next?.type === 'text'
+          ? next.value.match(LEADING_PUNCTUATION)?.[0]
+          : null;
+      const formula = (
+        <MathView
+          key={`math-${tokenIndex}`}
+          math={token.value}
+          style={styles.inlineMath}
+        />
+      );
+      if (punctuation) {
+        carried = punctuation;
+        items.push(
+          <View key={`math-${tokenIndex}`} style={styles.attached}>
+            {formula}
+            <Text style={[styles.text, { color }, textStyle]}>
+              {punctuation}
             </Text>
-          ))
-        ),
-      )}
+          </View>,
+        );
+      } else {
+        items.push(formula);
+      }
+      return;
+    }
+    const text = token.value.slice(carried.length);
+    carried = '';
+    splitWords(text).forEach((word, wordIndex) =>
+      items.push(
+        <Text
+          key={`text-${tokenIndex}-${wordIndex}`}
+          style={[styles.text, { color }, textStyle]}
+        >
+          {word}
+        </Text>,
+      ),
+    );
+  });
+  return (
+    <View
+      style={styles.inlineRow}
+      accessible
+      accessibilityLabel={spokenLine(tokens)}
+    >
+      {items}
     </View>
   );
 }
@@ -78,8 +121,13 @@ export default function MathText({ content, style, textStyle }) {
       <View style={[styles.container, style]}>
         {blocks.map((block, index) =>
           block.type === 'display' ? (
-            <View key={index} style={styles.displayRow}>
-              <MathView math={block.math} />
+            <View
+              key={index}
+              style={styles.displayRow}
+              accessible
+              accessibilityLabel={texToSpeech(block.math)}
+            >
+              <MathView math={block.math} display />
             </View>
           ) : (
             <Line
@@ -110,6 +158,11 @@ const styles = StyleSheet.create({
   },
   inlineMath: {
     marginHorizontal: 2,
+  },
+  attached: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    maxWidth: '100%',
   },
   displayRow: {
     width: '100%',

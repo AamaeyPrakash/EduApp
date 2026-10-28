@@ -16,12 +16,20 @@ const asText = value =>
 // mode "edit": opened from the Profile tab.
 const ProfileFormScreen = ({ navigation, route }) => {
   const isEditing = route.params?.mode === 'edit';
-  const { user, profile, profileError, saveProfileDetails, signOut } =
-    useAuth();
+  const {
+    user,
+    profile,
+    profileError,
+    pendingDetails,
+    saveProfileDetails,
+    signOut,
+  } = useAuth();
+  // After an interrupted sign-up, start from what the student had chosen.
+  const draft = profile ?? pendingDetails;
   const [values, setValues] = useState(() => ({
-    name: asText(profile?.name ?? user?.name),
-    grade: asText(profile?.grade),
-    educationBoard: asText(profile?.educationBoard),
+    name: asText(draft?.name ?? user?.name),
+    grade: asText(draft?.grade),
+    educationBoard: asText(draft?.educationBoard),
   }));
   const [fieldErrors, setFieldErrors] = useState({});
   const [formError, setFormError] = useState(null);
@@ -30,6 +38,7 @@ const ProfileFormScreen = ({ navigation, route }) => {
 
   const handleChange = (field, value) => {
     setValues(current => ({ ...current, [field]: value }));
+    setFormError(null);
     if (fieldErrors[field]) {
       setFieldErrors(current => ({ ...current, [field]: undefined }));
     }
@@ -121,7 +130,7 @@ const ProfileFormScreen = ({ navigation, route }) => {
 
       {isEditing ? null : (
         <Button
-          title={signingOut ? 'Signing out...' : 'Not you? Sign out'}
+          title={signingOut ? 'Signing Out...' : 'Not you? Sign out'}
           variant="plain"
           size="medium"
           onPress={handleSignOut}

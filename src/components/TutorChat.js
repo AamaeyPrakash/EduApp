@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
+  AccessibilityInfo,
   ActivityIndicator,
   Alert,
   FlatList,
@@ -143,7 +144,9 @@ function AiConsent({ onAgree }) {
 //   question       a practice question; the tutor then knows it and its official
 //                  solution, and guides with hints instead of answering outright
 //   suggestions    [{ label, text, icon, send }] starters; `send: false` puts the text
-//                  in the message box to finish instead of sending it
+//                  in the message box to finish instead of sending it. Shown as cards
+//                  in the empty chat, or as chips above the message box with
+//                  `chips` (always for a question)
 //   renderHeader   ({ hasMessages, clear, sending }) => header element
 //   bottomInset    space to keep below the message box (e.g. for the tab bar)
 //   pendingPrompt  a message to send once the chat is ready (e.g. "summarise this
@@ -157,6 +160,7 @@ export default function TutorChat({
   bottomInset = 0,
   pendingPrompt,
   onPendingSent,
+  chips = Boolean(question),
 }) {
   const styles = useStyles();
   const theme = useTheme();
@@ -164,7 +168,11 @@ export default function TutorChat({
   const [prompt, setPrompt] = useState('');
   const [messages, setMessages] = useState([]);
   const [sending, setSending] = useState(false);
+  // The list keeps this much space at the end so the newest message isn't hidden
+  // behind the message box floating over it.
+  const [dockHeight, setDockHeight] = useState(chips ? 112 : 60);
   const listRef = useRef(null);
+  const listHeight = useRef(0);
   const inputRef = useRef(null);
   const nextId = useRef(0);
   const keyboardShown = useKeyboardShown();
@@ -201,20 +209,17 @@ export default function TutorChat({
         ...current,
         createMessage('assistant', reply, { question: asked }),
       ]);
+      AccessibilityInfo.announceForAccessibility('The tutor replied.');
     } catch (error) {
       if (isUnauthorizedError(error) && !(await verifySession())) {
         return; // The session ended; the app returns to the sign-in screen.
       }
-      setMessages(current => [
-        ...current,
-        createMessage(
-          'error',
-          getErrorMessage(
-            error,
-            'Sorry, something went wrong. Please try again.',
-          ),
-        ),
-      ]);
+      const message = getErrorMessage(
+        error,
+        'Sorry, something went wrong. Please try again.',
+      );
+      setMessages(current => [...current, createMessage('error', message)]);
+      AccessibilityInfo.announceForAccessibility(message);
     } finally {
       setSending(false);
     }
@@ -272,6 +277,10 @@ export default function TutorChat({
       await reportTutorReply({
         question: message.question,
         reply: message.content,
+        // Which practice question the chat was about, for whoever reviews it.
+        context: question
+          ? `${question.course} · ${question.topic}: ${question.text}`
+          : undefined,
       });
       setMessages(current =>
         current.map(item =>
@@ -359,10 +368,10 @@ export default function TutorChat({
           accessibilityLabel={
             item.reported ? 'Answer reported' : 'Report this answer'
           }
-          hitSlop={8}
+          hitSlop={6}
           style={styles.report}
         >
-          <AppText variant="caption" color="tertiaryLabel">
+          <AppText variant="caption" color="secondaryLabel">
             {item.reported ? 'Reported - thank you' : 'Report'}
           </AppText>
         </Pressable>
@@ -372,6 +381,7 @@ export default function TutorChat({
 
   const canSend = tutorReady && !sending && prompt.trim().length > 0;
   const dockBottom = keyboardShown ? 8 : bottomInset;
+  const charactersLeft = MAX_MESSAGE_LENGTH - prompt.length;
 
   return (
     <View style={styles.flex}>
@@ -382,14 +392,19 @@ export default function TutorChat({
         data={messages}
         keyExtractor={item => item.id}
         renderItem={renderMessage}
-        contentContainerStyle={[
-          styles.chat,
-          { paddingBottom: dockBottom + (question ? 128 : 84) },
-        ]}
+        contentContainerStyle={styles.chat}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
-        onContentSizeChange={() =>
-          listRef.current?.scrollToEnd({ animated: true })
+        onLayout={event => {
+          listHeight.current = event.nativeEvent.layout.height;
+        }}
+        // Scrolls by the measured content height: scrollToEnd works from cached item
+        // sizes that lag behind replies whose maths has just been drawn.
+        onContentSizeChange={(width, height) =>
+          listRef.current?.scrollToOffset({
+            offset: Math.max(0, height - listHeight.current),
+            animated: true,
+          })
         }
         ListEmptyComponent={
           <View style={styles.empty}>
@@ -438,31 +453,35 @@ export default function TutorChat({
           </View>
         }
         ListFooterComponent={
-          sending ? (
-            <View
-              style={[styles.bubble, styles.assistantBubble, styles.typing]}
-            >
-              <ActivityIndicator
-                color={theme.colors.secondaryLabel}
-                size="small"
-              />
-              <AppText
-                variant="subheadline"
-                color="secondaryLabel"
-                style={styles.typingText}
+          <>
+            {sending ? (
+              <View
+                style={[styles.bubble, styles.assistantBubble, styles.typing]}
               >
-                Thinking...
-              </AppText>
-            </View>
-          ) : null
+                <ActivityIndicator
+                  color={theme.colors.secondaryLabel}
+                  size="small"
+                />
+                <AppText
+                  variant="subheadline"
+                  color="secondaryLabel"
+                  style={styles.typingText}
+                >
+                  Thinking...
+                </AppText>
+              </View>
+            ) : null}
+            <View style={{ height: dockBottom + dockHeight + 12 }} />
+          </>
         }
       />
 
       <View
         style={[styles.dock, { bottom: dockBottom }]}
         pointerEvents="box-none"
+        onLayout={event => setDockHeight(event.nativeEvent.layout.height)}
       >
-        {question && tutorReady ? (
+        {chips && tutorReady ? (
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -474,11 +493,25 @@ export default function TutorChat({
                 key={item.label}
                 label={item.label}
                 icon={item.icon}
+                glass
                 disabled={sending}
                 onPress={() => pickSuggestion(item)}
               />
             ))}
           </ScrollView>
+        ) : null}
+        {charactersLeft <= 100 ? (
+          <AppText
+            variant="caption"
+            color={charactersLeft <= 0 ? 'red' : 'secondaryLabel'}
+            align="right"
+            style={styles.counter}
+            accessibilityLiveRegion="polite"
+          >
+            {charactersLeft <= 0
+              ? 'Message limit reached'
+              : `${charactersLeft} characters left`}
+          </AppText>
         ) : null}
         <Glass style={styles.inputBar}>
           <TextInput
@@ -503,6 +536,7 @@ export default function TutorChat({
             disabled={!canSend}
             accessibilityRole="button"
             accessibilityLabel="Send message"
+            hitSlop={6}
             style={[styles.send, canSend ? styles.sendActive : styles.sendIdle]}
           >
             <Icon
@@ -605,8 +639,9 @@ const useStyles = makeStyles(theme => ({
     borderBottomLeftRadius: 6,
   },
   report: {
-    marginLeft: 10,
-    marginBottom: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    marginBottom: 2,
   },
   errorBubble: {
     alignSelf: 'flex-start',
@@ -633,7 +668,12 @@ const useStyles = makeStyles(theme => ({
   chips: {
     gap: 8,
     paddingHorizontal: gutter,
+    paddingTop: 4,
     paddingBottom: 10,
+  },
+  counter: {
+    marginHorizontal: gutter + 8,
+    marginBottom: 6,
   },
   inputBar: {
     flexDirection: 'row',

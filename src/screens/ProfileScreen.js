@@ -102,7 +102,31 @@ const ProfileScreen = ({ navigation }) => {
       "We couldn't sign you out. Check your connection and try again.",
     );
 
-  const confirmDeleteAccount = () =>
+  const confirmDeleteAccount = () => {
+    // Without the delete function, say how to ask for deletion before anything else.
+    if (!config.deleteAccountFunctionId) {
+      Alert.alert(
+        'Delete your account',
+        config.supportEmail
+          ? `Email ${config.supportEmail} and we'll delete your account, profile and progress.`
+          : "Contact support and we'll delete your account, profile and progress.",
+        config.supportEmail
+          ? [
+              { text: 'Cancel', style: 'cancel' },
+              {
+                text: 'Email Support',
+                onPress: () =>
+                  openLink(
+                    `mailto:${config.supportEmail}?subject=${encodeURIComponent(
+                      'Delete my EduApp account',
+                    )}`,
+                  ),
+              },
+            ]
+          : [{ text: 'OK' }],
+      );
+      return;
+    }
     Alert.alert(
       'Delete your account?',
       'This permanently deletes your account, profile and progress. This cannot be undone.',
@@ -120,6 +144,7 @@ const ProfileScreen = ({ navigation }) => {
         },
       ],
     );
+  };
 
   let details;
   if (profile) {

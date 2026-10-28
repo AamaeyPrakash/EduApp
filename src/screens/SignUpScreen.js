@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { useAuth } from '../auth/AuthContext';
 import AppText from '../components/AppText';
 import Banner from '../components/Banner';
@@ -20,15 +20,22 @@ const EMPTY_FORM = {
   grade: '',
 };
 
+const ACCOUNT_EXISTS = ['user_already_exists', 'user_email_already_exists'];
+
 const SignUpScreen = ({ navigation }) => {
   const { signUp } = useAuth();
   const [values, setValues] = useState(EMPTY_FORM);
   const [fieldErrors, setFieldErrors] = useState({});
   const [formError, setFormError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [accountExists, setAccountExists] = useState(false);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
 
   const handleChange = (field, value) => {
     setValues(current => ({ ...current, [field]: value }));
+    setFormError(null);
+    setAccountExists(false);
     if (fieldErrors[field]) {
       setFieldErrors(current => ({ ...current, [field]: undefined }));
     }
@@ -57,6 +64,7 @@ const SignUpScreen = ({ navigation }) => {
           "We couldn't create your account. Please try again.",
         ),
       );
+      setAccountExists(ACCOUNT_EXISTS.includes(error?.type));
     } finally {
       setLoading(false);
     }
@@ -82,11 +90,18 @@ const SignUpScreen = ({ navigation }) => {
         values={values}
         errors={fieldErrors}
         onChange={handleChange}
+        nameProps={{
+          returnKeyType: 'next',
+          submitBehavior: 'submit',
+          onSubmitEditing: () => emailRef.current?.focus(),
+        }}
         accountFields={
           <>
             <TextField
+              ref={emailRef}
               testID="signup-email"
-              placeholder="Email"
+              label="Email"
+              placeholder="you@example.com"
               value={values.email}
               onChangeText={text => handleChange('email', text)}
               error={fieldErrors.email}
@@ -95,10 +110,15 @@ const SignUpScreen = ({ navigation }) => {
               autoComplete="email"
               textContentType="emailAddress"
               keyboardType="email-address"
+              returnKeyType="next"
+              submitBehavior="submit"
+              onSubmitEditing={() => passwordRef.current?.focus()}
             />
             <TextField
+              ref={passwordRef}
               testID="signup-password"
-              placeholder={`Password (${LIMITS.passwordMin}+ characters)`}
+              label="Password"
+              hint={`At least ${LIMITS.passwordMin} characters.`}
               value={values.password}
               onChangeText={text => handleChange('password', text)}
               error={fieldErrors.password}
@@ -108,12 +128,24 @@ const SignUpScreen = ({ navigation }) => {
               autoComplete="new-password"
               textContentType="newPassword"
               maxLength={LIMITS.passwordMax}
+              returnKeyType="done"
             />
           </>
         }
       />
 
       <Banner message={formError} />
+      {accountExists ? (
+        <Button
+          title="Sign in with this email"
+          variant="tinted"
+          size="medium"
+          onPress={() =>
+            navigation.popTo('SignIn', { email: values.email.trim() })
+          }
+          style={styles.signInInstead}
+        />
+      ) : null}
 
       {config.privacyPolicyUrl ? (
         <AppText variant="footnote" color="secondaryLabel" align="center">
@@ -148,5 +180,11 @@ const SignUpScreen = ({ navigation }) => {
     </FormScreen>
   );
 };
+
+const styles = StyleSheet.create({
+  signInInstead: {
+    marginBottom: 16,
+  },
+});
 
 export default SignUpScreen;

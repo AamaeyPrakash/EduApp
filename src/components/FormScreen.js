@@ -1,10 +1,5 @@
-import React from 'react';
-import {
-  KeyboardAvoidingView,
-  ScrollView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import React, { useRef } from 'react';
+import { Animated, KeyboardAvoidingView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { gutter, makeStyles } from '../theme';
 import AmbientGlow from './AmbientGlow';
@@ -12,7 +7,8 @@ import { TopBar } from './Screen';
 
 // A scrolling form that keeps the focused field above the keyboard. Android draws
 // edge-to-edge, so the window no longer resizes for the keyboard and both platforms use
-// padding. `onBack` adds a back button; `glow` the ambient colour wash.
+// padding. `onBack` adds a back button, whose bar gains a background once the form
+// scrolls under it; `glow` adds the ambient colour wash.
 export default function FormScreen({
   children,
   onBack,
@@ -23,11 +19,22 @@ export default function FormScreen({
 }) {
   const styles = useStyles();
   const insets = useSafeAreaInsets();
+  const scrollY = useRef(new Animated.Value(0)).current;
+  const backgroundOpacity = scrollY.interpolate({
+    inputRange: [0, 20],
+    outputRange: [0, 1],
+    extrapolate: 'clamp',
+  });
   return (
     <View style={styles.container}>
       {glow ? <AmbientGlow height={460} /> : null}
       <KeyboardAvoidingView style={styles.flex} behavior="padding">
-        <ScrollView
+        <Animated.ScrollView
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+            { useNativeDriver: true },
+          )}
+          scrollEventThrottle={16}
           contentContainerStyle={[
             styles.content,
             {
@@ -40,10 +47,15 @@ export default function FormScreen({
           showsVerticalScrollIndicator={false}
         >
           {children}
-        </ScrollView>
+        </Animated.ScrollView>
       </KeyboardAvoidingView>
       {onBack ? (
-        <TopBar onBack={onBack} backIcon={backIcon} backLabel={backLabel} />
+        <TopBar
+          onBack={onBack}
+          backIcon={backIcon}
+          backLabel={backLabel}
+          backgroundOpacity={backgroundOpacity}
+        />
       ) : null}
     </View>
   );

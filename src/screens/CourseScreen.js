@@ -44,15 +44,22 @@ const CourseScreen = ({ navigation, route }) => {
   const styles = useStyles();
   const course = getCourse(route.params?.courseKey) || COURSES[0];
   const { study } = useStudy();
-  const hasNoCalculatorQuestions = course.topics.some(topic =>
-    topic.questions.some(question => question.calculator === false),
+  const questions = course.topics.flatMap(topic => topic.questions);
+  const noCalculatorCount = questions.filter(
+    question => question.calculator === false,
+  ).length;
+  // Courses smaller than a session get every question, and a shorter timed test.
+  const sessionSize = Math.min(SESSION_SIZE, questions.length);
+  const testMinutes = Math.max(
+    1,
+    Math.round((sessionSize * TIMED_TEST_MINUTES) / SESSION_SIZE),
   );
 
   const start = (title, options = {}) =>
     navigation.navigate('Practice', {
       title,
       questionIds: mixedPracticeIds(study, course.key, options),
-      timeLimit: options.timed ? TIMED_TEST_MINUTES * 60 : undefined,
+      timeLimit: options.timed ? testMinutes * 60 : undefined,
     });
 
   return (
@@ -66,24 +73,26 @@ const CourseScreen = ({ navigation, route }) => {
           icon="shuffle"
           color="tint"
           title="Mixed practice"
-          caption={`${SESSION_SIZE} questions from every topic`}
+          caption={`${countLabel(sessionSize)} mixed across topics`}
           onPress={() => start(`${course.title}: mixed`)}
         />
         <ActionTile
           icon="timer"
           color="purple"
           title="Timed test"
-          caption={`${SESSION_SIZE} questions in ${TIMED_TEST_MINUTES} minutes`}
+          caption={`${countLabel(sessionSize)} in ${testMinutes} minutes`}
           onPress={() => start('Timed test', { timed: true })}
         />
       </View>
-      {hasNoCalculatorQuestions ? (
+      {noCalculatorCount > 0 ? (
         <Section>
           <Row
             icon="noCalculator"
             iconColor="indigo"
             title="No-calculator set"
-            subtitle="Paper 1 style questions only"
+            subtitle={`Paper 1 style · ${countLabel(
+              Math.min(SESSION_SIZE, noCalculatorCount),
+            )}`}
             onPress={() => start('No-calculator set', { noCalculator: true })}
           />
         </Section>
@@ -102,7 +111,14 @@ const CourseScreen = ({ navigation, route }) => {
               subtitle={[topic.label, countLabel(total)]
                 .filter(Boolean)
                 .join(' · ')}
-              accessibilityLabel={`Open ${topic.title}`}
+              accessibilityLabel={[
+                topic.title,
+                topic.label,
+                countLabel(total),
+                `${known} of ${total} mastered`,
+              ]
+                .filter(Boolean)
+                .join(', ')}
               accessory={
                 <ProgressRing
                   size={28}

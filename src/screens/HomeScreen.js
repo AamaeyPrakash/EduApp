@@ -62,6 +62,8 @@ function TodayCard({ navigation, board }) {
     attemptedCount,
   } = useStudy();
   const firstCourse = coursesForBoard(board)[0];
+  const goalMet = todayCount >= dailyGoal;
+  const isNew = attemptedCount === 0;
 
   return (
     <View style={styles.card}>
@@ -71,23 +73,36 @@ function TodayCard({ navigation, board }) {
           strokeWidth={14}
           value={todayCount / dailyGoal}
           gradient={['teal', 'tint']}
-          accessibilityLabel={`${todayCount} of ${dailyGoal} questions today`}
+          accessibilityLabel={`${todayCount} of ${dailyGoal} questions today${
+            goalMet ? ', goal met' : ''
+          }`}
         >
-          <AppText variant="title2">{todayCount}</AppText>
-          <AppText variant="caption" color="secondaryLabel">
-            of {dailyGoal}
+          <AppText variant="title2" maxFontSizeMultiplier={1.4}>
+            {todayCount}
+          </AppText>
+          <AppText
+            variant="caption"
+            color={goalMet ? 'greenText' : 'secondaryLabel'}
+            weight={goalMet ? '600' : undefined}
+            maxFontSizeMultiplier={1.4}
+          >
+            {goalMet ? 'goal met' : `of ${dailyGoal}`}
           </AppText>
         </ProgressRing>
         <View style={styles.stats}>
           <StatLine
             icon="flame"
             color="orange"
-            label={`${streak} day streak`}
+            label={streak > 0 ? `${streak} day streak` : 'Start a streak today'}
           />
           <StatLine
             icon="clock"
             color="tint"
-            label={`${dueIds.length} to review`}
+            label={
+              dueIds.length > 0
+                ? `${dueIds.length} to review`
+                : 'Nothing to review'
+            }
           />
           <StatLine
             icon="check"
@@ -112,11 +127,9 @@ function TodayCard({ navigation, board }) {
         />
       ) : (
         <Button
-          title={
-            attemptedCount === 0 ? 'Start practising' : 'Practise something new'
-          }
+          title={isNew ? 'Start practising' : 'Practise something new'}
           icon="play"
-          variant="tinted"
+          variant={isNew ? 'filled' : 'tinted'}
           onPress={() =>
             navigation.navigate('Practice', {
               title: `${firstCourse.title}: mixed`,
@@ -157,13 +170,30 @@ function ContinueCard({ navigation }) {
   );
 }
 
-function ListTile({ icon, color, title, count, onPress }) {
+// Saved or Mistakes. When empty it says how questions get there instead.
+function ListTile({ icon, color, title, count, emptyHint, onPress }) {
   const styles = useStyles();
+  if (count === 0) {
+    return (
+      <View
+        style={[styles.tileWrap, styles.tile]}
+        accessible
+        accessibilityLabel={`${title}: ${emptyHint}`}
+      >
+        <IconTile name={icon} color={color} />
+        <AppText variant="headline" style={styles.tileCount}>
+          {title}
+        </AppText>
+        <AppText variant="footnote" color="secondaryLabel">
+          {emptyHint}
+        </AppText>
+      </View>
+    );
+  }
   return (
     <PressableScale
       style={styles.tileWrap}
       onPress={onPress}
-      disabled={count === 0}
       accessibilityRole="button"
       accessibilityLabel={`${title} (${count})`}
     >
@@ -223,6 +253,7 @@ const HomeScreen = ({ navigation }) => {
           color="orange"
           title="Saved"
           count={savedIds.length}
+          emptyHint="Tap the bookmark on a question to keep it here."
           onPress={() => practise('Saved questions', savedIds)}
         />
         <ListTile
@@ -230,6 +261,7 @@ const HomeScreen = ({ navigation }) => {
           color="red"
           title="Mistakes"
           count={mistakeIds.length}
+          emptyHint="Questions you mark “Not yet” collect here."
           onPress={() => practise('Mistakes', mistakeIds)}
         />
       </View>
@@ -252,7 +284,7 @@ const HomeScreen = ({ navigation }) => {
               leading={<CourseTile course={course} />}
               title={course.title}
               subtitle={course.subtitle}
-              accessibilityLabel={`${course.title}, ${course.subtitle}`}
+              accessibilityLabel={`${course.title}, ${course.subtitle}, ${known} of ${total} mastered`}
               accessory={
                 <ProgressRing
                   size={30}

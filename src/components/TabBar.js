@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Keyboard, Pressable, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import useReduceMotion from '../hooks/useReduceMotion';
 import { continuous, radius, useTheme } from '../theme';
 import AppText from './AppText';
 import Glass from './Glass';
@@ -38,23 +39,31 @@ function useKeyboardShown() {
   return shown;
 }
 
-// The tab bar as a floating glass capsule (iOS 26). A lighter "lens" slides to the
+// The tab bar as a floating glass capsule (iOS 26). A tinted "lens" slides to the
 // selected tab. Each tab's icon comes from its `tabBarIcon` option (an icon name).
+// Tapping the selected tab again scrolls its screen to the top (see Screen).
 export default function TabBar({ state, descriptors, navigation }) {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   const keyboardShown = useKeyboardShown();
+  const reduceMotion = useReduceMotion();
   const itemWidth = (BAR_WIDTH - ITEM_INSET * 2) / state.routes.length;
   const position = useRef(new Animated.Value(state.index)).current;
 
   useEffect(() => {
+    if (reduceMotion) {
+      position.setValue(state.index);
+      return;
+    }
     Animated.spring(position, {
       toValue: state.index,
       useNativeDriver: true,
       speed: 18,
       bounciness: 8,
+      // The lens stays inside the bar instead of bouncing past its ends.
+      overshootClamping: true,
     }).start();
-  }, [position, state.index]);
+  }, [position, state.index, reduceMotion]);
 
   if (keyboardShown) {
     return null;
@@ -72,7 +81,7 @@ export default function TabBar({ state, descriptors, navigation }) {
             styles.lens,
             {
               width: itemWidth,
-              backgroundColor: colors.fill,
+              backgroundColor: colors.tintFill,
               transform: [
                 {
                   translateX: position.interpolate({
@@ -88,7 +97,7 @@ export default function TabBar({ state, descriptors, navigation }) {
           const { options } = descriptors[route.key];
           const label = options.title ?? route.name;
           const focused = state.index === index;
-          const color = focused ? 'tint' : 'label';
+          const color = focused ? 'tintText' : 'label';
           const onPress = () => {
             const event = navigation.emit({
               type: 'tabPress',
@@ -110,7 +119,13 @@ export default function TabBar({ state, descriptors, navigation }) {
               testID={`tab-${route.name}`}
             >
               <Icon name={options.tabBarIcon} size={24} color={color} />
-              <AppText variant="caption2" color={color} style={styles.label}>
+              <AppText
+                variant="caption2"
+                color={color}
+                weight={focused ? '600' : '500'}
+                style={styles.label}
+                maxFontSizeMultiplier={1.3}
+              >
                 {label}
               </AppText>
             </Pressable>

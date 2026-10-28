@@ -9,7 +9,7 @@
 // variables, so it never ships inside the app. Only signed-in users can run this
 // function (set Execute access to "Users" in the Appwrite console).
 //
-// Students can also flag a reply: { report: { question, reply } } returns
+// Students can also flag a reply: { report: { question, reply, context? } } returns
 // { reported: true } and writes the report to this function's error log, where it
 // shows up under Functions → ask-ai → Executions in the Appwrite console.
 //
@@ -153,7 +153,8 @@ function parseRequest(bodyText) {
   };
 }
 
-// Returns null when the body isn't a report, otherwise { question, reply } or { error }.
+// Returns null when the body isn't a report, otherwise { question, reply, context } or
+// { error }.
 function parseReport(bodyText) {
   let payload;
   try {
@@ -164,7 +165,7 @@ function parseReport(bodyText) {
   if (!payload || typeof payload.report !== 'object' || !payload.report) {
     return null;
   }
-  const { question, reply } = payload.report;
+  const { question, reply, context } = payload.report;
   if (
     typeof reply !== 'string' ||
     !reply.trim() ||
@@ -178,6 +179,10 @@ function parseReport(bodyText) {
         ? question.slice(0, MAX_USER_MESSAGE_LENGTH)
         : '',
     reply,
+    context:
+      typeof context === 'string'
+        ? context.slice(0, MAX_USER_MESSAGE_LENGTH)
+        : '',
   };
 }
 
@@ -199,6 +204,9 @@ async function handleAskAi({ req, res, log, error }, { fetch, env }) {
     // Logged as an error so reports stand out in the execution logs.
     error(
       `REPORTED REPLY from user ${userId}\n` +
+        (report.context
+          ? `Practice question: ${JSON.stringify(report.context)}\n`
+          : '') +
         `Question: ${JSON.stringify(report.question)}\n` +
         `Reply: ${JSON.stringify(report.reply)}`,
     );
