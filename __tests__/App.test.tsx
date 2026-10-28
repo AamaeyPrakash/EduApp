@@ -8,7 +8,7 @@ import { Alert } from 'react-native';
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
 import App from '../App';
 import { getTopic } from '../src/content';
-import { account, databases, functions } from '../src/lib/appwrite';
+import { account, functions, tablesDB } from '../src/lib/appwrite';
 import { dayNumber } from '../src/study/progress';
 import {
   appwriteError,
@@ -36,7 +36,7 @@ function startSignedOut() {
 
 function startSignedIn(user = USER) {
   mocked(account.get).mockResolvedValue(user);
-  mocked(databases.getDocument).mockResolvedValue(PROFILE);
+  mocked(tablesDB.getRow).mockResolvedValue(PROFILE);
 }
 
 // Practice ignores a second tap within moments of the first (a double tap), so
@@ -85,7 +85,7 @@ describe('signing in', () => {
     startSignedOut();
     mocked(account.get).mockResolvedValue(USER);
     mocked(account.createEmailPasswordSession).mockResolvedValue({});
-    mocked(databases.getDocument).mockResolvedValue(PROFILE);
+    mocked(tablesDB.getRow).mockResolvedValue(PROFILE);
     await render(<App />);
 
     await fireEvent.changeText(
@@ -603,10 +603,10 @@ describe('profile', () => {
 
   it('asks for missing details before entering the app', async () => {
     mocked(account.get).mockResolvedValue(USER);
-    mocked(databases.getDocument).mockRejectedValue(
-      appwriteError(404, 'document_not_found'),
+    mocked(tablesDB.getRow).mockRejectedValue(
+      appwriteError(404, 'row_not_found'),
     );
-    mocked(databases.createDocument).mockResolvedValue(PROFILE);
+    mocked(tablesDB.createRow).mockResolvedValue(PROFILE);
     await render(<App />);
 
     expect(await screen.findByText('Complete your profile')).toBeOnTheScreen();

@@ -1,11 +1,11 @@
 import {
   Account,
   Client,
-  Databases,
   Functions,
   ID,
   Permission,
   Role,
+  TablesDB,
 } from 'appwrite';
 import config, { missingConfigKeys } from '../config';
 
@@ -20,7 +20,7 @@ if (missingConfigKeys.length === 0) {
 }
 
 export const account = new Account(client);
-export const databases = new Databases(client);
+export const tablesDB = new TablesDB(client);
 export const functions = new Functions(client);
 
 export { ID, Permission, Role };

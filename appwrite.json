@@ -22,7 +22,7 @@
       "runtime": "node-22",
       "execute": ["users"],
       "events": [],
-      "scopes": ["users.write", "documents.write"],
+      "scopes": ["users.write", "rows.write"],
       "schedule": "",
       "timeout": 15,
       "enabled": true,

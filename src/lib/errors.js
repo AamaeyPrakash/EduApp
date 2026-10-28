@@ -38,14 +38,14 @@ const MESSAGES_BY_TYPE = {
     "Email sending isn't set up yet, so we can't send that email. Please contact support.",
   general_service_disabled: 'This feature is currently unavailable.',
   general_server_error: 'The server ran into a problem. Please try again.',
-  document_invalid_structure:
+  row_invalid_structure:
     'Some of your details are too long or not valid. Please check them and try again.',
   project_not_found:
     'The app is pointing at an Appwrite project that does not exist. Check APPWRITE_PROJECT_ID.',
   database_not_found:
     'The app database is not set up correctly. Check APPWRITE_DATABASE_ID.',
-  collection_not_found:
-    'The app database is not set up correctly. Check APPWRITE_USER_ACCOUNTS_COLLECTION_ID.',
+  table_not_found:
+    'The app database is not set up correctly. Check APPWRITE_USER_ACCOUNTS_TABLE_ID.',
   function_not_found: 'This feature is not set up on the server yet.',
   function_execute_permission_missing:
     'This feature is not set up on the server yet.',

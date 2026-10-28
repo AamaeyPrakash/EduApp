@@ -7,6 +7,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import { SvgFromXml } from 'react-native-svg';
+import '../lib/mathjaxVersion';
 import { mathViewRender } from 'react-native-math-view/src/hooks';
 import { useTheme } from '../theme';
 

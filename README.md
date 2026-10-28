@@ -26,7 +26,7 @@ src/
                              (text with $...$ / $$...$$ formulas)
   study/                     Progress, spaced repetition, streaks and daily goal (saved to the account)
   theme.js                   Light and dark colours, text styles and corner radii
-  services/                  Profile documents and the AI tutor client
+  services/                  Profile rows and the AI tutor client
   content/                   Loads and groups the question data
   lib/                       Appwrite client, error messages, validation, maths parsing
   mathTopics/                Question data (JSON)
@@ -70,14 +70,14 @@ All settings live in `.env` (never committed). They are compiled into the app, s
 | `APPWRITE_ENDPOINT` | yes | Appwrite console → Overview (e.g. `https://fra.cloud.appwrite.io/v1`) |
 | `APPWRITE_PROJECT_ID` | yes | Appwrite console → Overview |
 | `APPWRITE_DATABASE_ID` | yes | Databases → your database (was `database1Id` in the old `constants.js`) |
-| `APPWRITE_USER_ACCOUNTS_COLLECTION_ID` | yes | The `UserAccounts` collection (was `UserAccountsId`) |
+| `APPWRITE_USER_ACCOUNTS_TABLE_ID` | yes | The `UserAccounts` table (was `UserAccountsId`) |
 | `APPWRITE_AI_FUNCTION_ID` | for the Tutor | ID of the deployed `ask-ai` function |
 | `APPWRITE_DELETE_ACCOUNT_FUNCTION_ID` | for account deletion | ID of the deployed `delete-account` function |
 | `PASSWORD_RESET_URL` | for "Forgot password?" | Where you host `web/reset-password/index.html` |
 | `PRIVACY_POLICY_URL` | for the stores | Your public privacy policy page |
 | `SUPPORT_EMAIL` | optional | Shown on the profile screen |
 
-> Upgrading from the old `constants.js`: copy the endpoint, project, database and collection IDs into `.env`, move the OpenAI key to the `ask-ai` function (below), revoke the old OpenAI key (it was compiled into earlier builds), then delete `constants.js`.
+> Upgrading from the old `constants.js`: copy the endpoint, project, database and table IDs into `.env`, move the OpenAI key to the `ask-ai` function (below), revoke the old OpenAI key (it was compiled into earlier builds), then delete `constants.js`.
 
 ## Appwrite setup
 
@@ -85,11 +85,11 @@ All settings live in `.env` (never committed). They are compiled into the app, s
 
 In **Auth → Settings**, make sure **Email/Password** is enabled. Recommended: turn on password dictionary and personal-data checks. Appwrite Cloud sends recovery emails out of the box; self-hosted servers need SMTP configured.
 
-### 2. Profiles collection
+### 2. Profiles table
 
-The `UserAccounts` collection stores one document per user, using the user's ID as the document ID. It needs these **string** attributes:
+The app uses Appwrite's TablesDB API (Appwrite 1.8+), where collections are called tables, attributes columns and documents rows. Create a **TablesDB** database, then a `UserAccounts` table in it. The table stores one row per user, using the user's ID as the row ID. It needs these **string** columns:
 
-| Attribute | Suggested size |
+| Column | Suggested size |
 | --- | --- |
 | `userId` | 36 |
 | `email` | 254 |
@@ -99,20 +99,20 @@ The `UserAccounts` collection stores one document per user, using the user's ID 
 | `school` | 128, not required |
 | `educationBoard` | 2 (stores `1`–`6`, see `src/constants/educationBoards.js`) |
 
-The app no longer asks for `age` or `school`; it saves them empty, which clears values left by older versions. Keep both attributes (untick **Required** if it's set): Appwrite rejects fields a collection doesn't define, so deleting them would make profile saves fail.
+The app no longer asks for `age` or `school`; it saves them empty, which clears values left by older versions. Keep both columns (untick **Required** if it's set): Appwrite rejects fields a table doesn't define, so deleting them would make profile saves fail.
 
-Study progress (mastered questions, review queue, streak, daily goal) is saved in the user's account preferences, so it needs no collection.
+Study progress (mastered questions, review queue, streak, daily goal) is saved in the user's account preferences, so it needs no table.
 
 Permissions, so students can only see their own profile:
 
-1. Collection **Settings → Document security**: **on**.
-2. Collection **Permissions**: role **Users** with **Create** only. Remove any `Any` or `Users` read/update permissions.
+1. Table **Settings → Row security**: **on**.
+2. Table **Permissions**: role **Users** with **Create** only. Remove any `Any` or `Users` read/update permissions.
 
 The app gives each new profile read and update access for its owner only. Profiles created by older versions of the app have no per-user permissions; grant them once with:
 
 ```bash
 APPWRITE_ENDPOINT=... APPWRITE_PROJECT_ID=... APPWRITE_DATABASE_ID=... \
-APPWRITE_USER_ACCOUNTS_COLLECTION_ID=... APPWRITE_API_KEY=<documents.read + documents.write> \
+APPWRITE_USER_ACCOUNTS_TABLE_ID=... APPWRITE_API_KEY=<rows.read + rows.write> \
 node scripts/migrate-profile-permissions.mjs          # dry run; add --apply to save
 ```
 
@@ -130,8 +130,8 @@ Both functions are plain Node.js with no dependencies. Create them in **Function
 **`delete-account`** (folder `appwrite/functions/delete-account`)
 - Runtime Node.js 22, entrypoint `src/main.js`, timeout 15 seconds
 - Execute access: **Users**
-- Scopes: `users.write` and `documents.write`
-- Environment variables: `APPWRITE_DATABASE_ID`, `APPWRITE_USER_ACCOUNTS_COLLECTION_ID` (same values as `.env`)
+- Scopes: `users.write` and `rows.write`
+- Environment variables: `APPWRITE_DATABASE_ID`, `APPWRITE_USER_ACCOUNTS_TABLE_ID` (same values as `.env`)
 
 Put the two function IDs in `.env`.
 

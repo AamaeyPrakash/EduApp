@@ -9,7 +9,7 @@ const ENV = {
   APPWRITE_FUNCTION_API_ENDPOINT: 'https://appwrite.test/v1/',
   APPWRITE_FUNCTION_PROJECT_ID: 'project',
   APPWRITE_DATABASE_ID: 'db',
-  APPWRITE_USER_ACCOUNTS_COLLECTION_ID: 'profiles',
+  APPWRITE_USER_ACCOUNTS_TABLE_ID: 'profiles',
 };
 
 function makeContext({
@@ -57,7 +57,7 @@ describe('delete-account function', () => {
     ).toEqual([
       [
         'DELETE',
-        'https://appwrite.test/v1/databases/db/collections/profiles/documents/user-1',
+        'https://appwrite.test/v1/tablesdb/db/tables/profiles/rows/user-1',
       ],
       ['DELETE', 'https://appwrite.test/v1/users/user-1'],
     ]);

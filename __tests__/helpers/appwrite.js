@@ -54,10 +54,10 @@ export function createAppwriteMock() {
       createRecovery: jest.fn(),
       updatePrefs: jest.fn(),
     },
-    databases: {
-      getDocument: jest.fn(),
-      createDocument: jest.fn(),
-      updateDocument: jest.fn(),
+    tablesDB: {
+      getRow: jest.fn(),
+      createRow: jest.fn(),
+      updateRow: jest.fn(),
     },
     functions: {
       createExecution: jest.fn(),
@@ -75,7 +75,7 @@ export const TEST_CONFIG = {
   appwriteEndpoint: 'https://appwrite.test/v1',
   appwriteProjectId: 'project',
   databaseId: 'db',
-  userAccountsCollectionId: 'profiles',
+  userAccountsTableId: 'profiles',
   aiFunctionId: 'ask-ai',
   deleteAccountFunctionId: 'delete-account',
   passwordResetUrl: 'https://example.com/reset',

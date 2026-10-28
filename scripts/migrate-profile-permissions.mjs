@@ -1,17 +1,17 @@
 #!/usr/bin/env node
 // One-time migration for profiles created by older versions of the app.
 //
-// Older versions created each profile document before the user was signed in, so the
-// documents have no permissions and could only be read through collection-wide access.
+// Older versions created each profile row before the user was signed in, so the
+// rows have no permissions and could only be read through table-wide access.
 // The app now gives every profile owner-only access. This script adds the same
-// permissions (read + update for the owner) to existing profile documents, so you can
-// remove the collection-wide Read/Update/Create("Any") permissions afterwards.
+// permissions (read + update for the owner) to existing profile rows, so you can
+// remove the table-wide Read/Update/Create("Any") permissions afterwards.
 //
 // Usage (prints the changes; add --apply to save them):
 //   APPWRITE_ENDPOINT=https://cloud.appwrite.io/v1 \
 //   APPWRITE_PROJECT_ID=... APPWRITE_DATABASE_ID=... \
-//   APPWRITE_USER_ACCOUNTS_COLLECTION_ID=... \
-//   APPWRITE_API_KEY=<key with documents.read and documents.write> \
+//   APPWRITE_USER_ACCOUNTS_TABLE_ID=... \
+//   APPWRITE_API_KEY=<key with rows.read and rows.write> \
 //   node scripts/migrate-profile-permissions.mjs [--apply]
 
 const apply = process.argv.includes('--apply');
@@ -25,11 +25,9 @@ const env = name => {
 };
 
 const endpoint = env('APPWRITE_ENDPOINT').replace(/\/+$/, '');
-const collectionPath = `/databases/${encodeURIComponent(
+const tablePath = `/tablesdb/${encodeURIComponent(
   env('APPWRITE_DATABASE_ID'),
-)}/collections/${encodeURIComponent(
-  env('APPWRITE_USER_ACCOUNTS_COLLECTION_ID'),
-)}/documents`;
+)}/tables/${encodeURIComponent(env('APPWRITE_USER_ACCOUNTS_TABLE_ID'))}/rows`;
 const headers = {
   'Content-Type': 'application/json',
   'X-Appwrite-Project': env('APPWRITE_PROJECT_ID'),
@@ -51,7 +49,7 @@ async function call(method, path, body) {
   return data;
 }
 
-async function* allDocuments() {
+async function* allRows() {
   let cursor = null;
   for (;;) {
     const queries = [JSON.stringify({ method: 'limit', values: [100] })];
@@ -61,22 +59,22 @@ async function* allDocuments() {
     const query = queries
       .map(item => `queries[]=${encodeURIComponent(item)}`)
       .join('&');
-    const { documents } = await call('GET', `${collectionPath}?${query}`);
-    yield* documents;
-    if (documents.length < 100) {
+    const { rows } = await call('GET', `${tablePath}?${query}`);
+    yield* rows;
+    if (rows.length < 100) {
       return;
     }
-    cursor = documents[documents.length - 1].$id;
+    cursor = rows[rows.length - 1].$id;
   }
 }
 
 let checked = 0;
 let updated = 0;
-for await (const document of allDocuments()) {
+for await (const row of allRows()) {
   checked += 1;
-  const owner = document.$id;
+  const owner = row.$id;
   const wanted = [`read("user:${owner}")`, `update("user:${owner}")`];
-  const permissions = document.$permissions || [];
+  const permissions = row.$permissions || [];
   const missing = wanted.filter(
     permission => !permissions.includes(permission),
   );
@@ -90,7 +88,7 @@ for await (const document of allDocuments()) {
     )}`,
   );
   if (apply) {
-    await call('PATCH', `${collectionPath}/${encodeURIComponent(owner)}`, {
+    await call('PATCH', `${tablePath}/${encodeURIComponent(owner)}`, {
       permissions: [...permissions, ...missing],
     });
   }

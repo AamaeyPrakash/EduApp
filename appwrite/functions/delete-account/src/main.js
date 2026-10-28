@@ -4,15 +4,15 @@
 //
 // App Store and Google Play require apps with sign-up to offer account deletion. The
 // client SDK can't delete users, so the app calls this function, which removes the
-// caller's profile document and then the account itself (ending all its sessions).
+// caller's profile row and then the account itself (ending all its sessions).
 // It only ever acts on the user who ran it.
 //
-// Console settings: Execute access "Users"; scopes users.write and documents.write.
+// Console settings: Execute access "Users"; scopes users.write and rows.write.
 // Environment variables:
-//   APPWRITE_DATABASE_ID                   required (same value as the app's .env)
-//   APPWRITE_USER_ACCOUNTS_COLLECTION_ID   required (same value as the app's .env)
-//   APPWRITE_API_KEY                       only for Appwrite versions before 1.6,
-//                                          which don't give functions a dynamic key
+//   APPWRITE_DATABASE_ID              required (same value as the app's .env)
+//   APPWRITE_USER_ACCOUNTS_TABLE_ID   required (same value as the app's .env)
+//   APPWRITE_API_KEY                  only for Appwrite versions before 1.6,
+//                                     which don't give functions a dynamic key
 
 async function handleDeleteAccount({ req, res, log, error }, { fetch, env }) {
   if (req.method !== 'POST') {
@@ -32,11 +32,11 @@ async function handleDeleteAccount({ req, res, log, error }, { fetch, env }) {
   const projectId = env.APPWRITE_FUNCTION_PROJECT_ID;
   const apiKey = req.headers['x-appwrite-key'] || env.APPWRITE_API_KEY;
   const databaseId = env.APPWRITE_DATABASE_ID;
-  const collectionId = env.APPWRITE_USER_ACCOUNTS_COLLECTION_ID;
-  if (!endpoint || !projectId || !apiKey || !databaseId || !collectionId) {
+  const tableId = env.APPWRITE_USER_ACCOUNTS_TABLE_ID;
+  if (!endpoint || !projectId || !apiKey || !databaseId || !tableId) {
     error(
       'delete-account is missing configuration: check APPWRITE_DATABASE_ID, ' +
-        'APPWRITE_USER_ACCOUNTS_COLLECTION_ID and the function scopes.',
+        'APPWRITE_USER_ACCOUNTS_TABLE_ID and the function scopes.',
     );
     return res.json(
       {
@@ -59,9 +59,7 @@ async function handleDeleteAccount({ req, res, log, error }, { fetch, env }) {
   // The profile goes first: if deleting the account then fails, the user can retry
   // and nothing about them is left behind. A missing profile is fine.
   const profile = await remove(
-    `/databases/${id(databaseId)}/collections/${id(
-      collectionId,
-    )}/documents/${id(userId)}`,
+    `/tablesdb/${id(databaseId)}/tables/${id(tableId)}/rows/${id(userId)}`,
   );
   if (!profile.ok && profile.status !== 404) {
     error(

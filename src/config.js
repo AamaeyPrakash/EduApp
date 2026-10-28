@@ -2,7 +2,7 @@ import {
   APPWRITE_ENDPOINT,
   APPWRITE_PROJECT_ID,
   APPWRITE_DATABASE_ID,
-  APPWRITE_USER_ACCOUNTS_COLLECTION_ID,
+  APPWRITE_USER_ACCOUNTS_TABLE_ID,
   APPWRITE_AI_FUNCTION_ID,
   APPWRITE_DELETE_ACCOUNT_FUNCTION_ID,
   PASSWORD_RESET_URL,
@@ -17,7 +17,7 @@ const config = {
   appwriteEndpoint: clean(APPWRITE_ENDPOINT).replace(/\/+$/, ''),
   appwriteProjectId: clean(APPWRITE_PROJECT_ID),
   databaseId: clean(APPWRITE_DATABASE_ID),
-  userAccountsCollectionId: clean(APPWRITE_USER_ACCOUNTS_COLLECTION_ID),
+  userAccountsTableId: clean(APPWRITE_USER_ACCOUNTS_TABLE_ID),
   aiFunctionId: clean(APPWRITE_AI_FUNCTION_ID),
   deleteAccountFunctionId: clean(APPWRITE_DELETE_ACCOUNT_FUNCTION_ID),
   passwordResetUrl: clean(PASSWORD_RESET_URL),
@@ -31,7 +31,7 @@ const required = {
   APPWRITE_ENDPOINT: config.appwriteEndpoint,
   APPWRITE_PROJECT_ID: config.appwriteProjectId,
   APPWRITE_DATABASE_ID: config.databaseId,
-  APPWRITE_USER_ACCOUNTS_COLLECTION_ID: config.userAccountsCollectionId,
+  APPWRITE_USER_ACCOUNTS_TABLE_ID: config.userAccountsTableId,
 };
 
 export const missingConfigKeys = Object.keys(required).filter(

@@ -28,7 +28,7 @@ export const AUTH_STATUS = {
 export const PROFILE_STATUS = {
   LOADING: 'loading',
   READY: 'ready',
-  // Signed in, but no profile document exists yet (e.g. sign-up was interrupted).
+  // Signed in, but no profile row exists yet (e.g. sign-up was interrupted).
   MISSING: 'missing',
   ERROR: 'error',
 };
@@ -129,7 +129,7 @@ export function AuthProvider({ children }) {
           profileError: null,
         });
       } catch (error) {
-        if (isNotFoundError(error) && error.type === 'document_not_found') {
+        if (isNotFoundError(error) && error.type === 'row_not_found') {
           updateForUser(user.$id, {
             profile: null,
             profileStatus: PROFILE_STATUS.MISSING,
