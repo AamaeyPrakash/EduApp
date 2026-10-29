@@ -41,6 +41,7 @@
     "@types/jest": "^30.0.0",
     "@types/react": "^19.2.0",
     "eslint": "^9.39.5",
+    "globals": "^17.13.0",
     "jest": "^30.5.2",
     "prettier": "3.9.10",
     "react-native-dotenv": "^5.0.0",
