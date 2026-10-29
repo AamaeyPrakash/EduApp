@@ -1,10 +1,13 @@
-// `$$display$$` is matched before `$inline$`; both may span several lines.
-const MATH_SPANS = /(\$\$[\s\S]+?\$\$|\$[^$]+?\$)/;
+// `$$display$$` is matched before `$inline$`; both may span several lines. LaTeX's
+// own `\[display\]` and `\(inline\)` work too (the tutor is asked for dollars, but
+// may not always use them).
+const MATH_SPANS =
+  /(\$\$[\s\S]+?\$\$|\\\[[\s\S]+?\\\]|\$[^$]+?\$|\\\([\s\S]+?\\\))/;
 
-const isWrapped = (value, marker) =>
-  value.length > marker.length * 2 &&
-  value.startsWith(marker) &&
-  value.endsWith(marker);
+const isWrapped = (value, start, end = start) =>
+  value.length > start.length + end.length &&
+  value.startsWith(start) &&
+  value.endsWith(end);
 
 // Splits text containing `$inline$` and `$$display$$` TeX into renderable lines.
 // Returns blocks of `{ type: 'display', math }` or `{ type: 'line', tokens }`, where
@@ -24,7 +27,7 @@ export function parseMathContent(content) {
       if (!part) {
         return;
       }
-      if (isWrapped(part, '$$')) {
+      if (isWrapped(part, '$$') || isWrapped(part, '\\[', '\\]')) {
         if (tokens.length > 0) {
           endLine();
         }
@@ -32,9 +35,14 @@ export function parseMathContent(content) {
         afterDisplay = true;
         return;
       }
-      if (isWrapped(part, '$')) {
+      const inline = isWrapped(part, '$')
+        ? part.slice(1, -1)
+        : isWrapped(part, '\\(', '\\)')
+          ? part.slice(2, -2)
+          : null;
+      if (inline !== null) {
         // Line breaks inside a formula are just spacing to TeX.
-        const math = part.slice(1, -1).replace(/\s+/g, ' ').trim();
+        const math = inline.replace(/\s+/g, ' ').trim();
         if (math) {
           tokens.push({ type: 'math', value: math });
         }

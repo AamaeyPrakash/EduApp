@@ -22,6 +22,7 @@ import { TEXCLASS } from '@mathjax/src/cjs/core/MmlTree/MmlNode.js';
 import '@mathjax/src/cjs/input/tex/base/BaseConfiguration.js';
 import '@mathjax/src/cjs/input/tex/ams/AmsConfiguration.js';
 import '@mathjax/src/cjs/input/tex/newcommand/NewcommandConfiguration.js';
+import '@mathjax/src/cjs/input/tex/configmacros/ConfigMacrosConfiguration.js';
 import '@mathjax/src/cjs/input/tex/boldsymbol/BoldsymbolConfiguration.js';
 import '@mathjax/src/cjs/input/tex/cancel/CancelConfiguration.js';
 import '@mathjax/src/cjs/input/tex/color/ColorConfiguration.js';
@@ -38,6 +39,7 @@ export const TEX_PACKAGES = [
   'base',
   'ams',
   'newcommand',
+  'configmacros',
   'boldsymbol',
   'cancel',
   'color',
@@ -104,6 +106,17 @@ const BREAK_SPACES = {
   3: 0.222,
   4: 0.278,
   5: 0.333,
+};
+
+// Shorthands that are common in notes and tutor replies but aren't standard LaTeX.
+export const MACROS = {
+  R: '\\mathbb{R}',
+  N: '\\mathbb{N}',
+  Z: '\\mathbb{Z}',
+  Q: '\\mathbb{Q}',
+  C: '\\mathbb{C}',
+  abs: ['\\left\\lvert #1 \\right\\rvert', 1],
+  norm: ['\\left\\lVert #1 \\right\\rVert', 1],
 };
 
 export class MathError extends Error {}
@@ -286,26 +299,41 @@ function markRows(node, strict) {
 export const sizeKey = (tex, display) =>
   hashText(`${display ? 'D' : 'I'}|${tex}`);
 
+// A character whose font file isn't available has no shape: MathJax draws it as
+// plain text. (MathJax itself would look it up again and again: the placeholder it
+// deletes before loading the file is inherited from another variant, so it stays.)
+const getChar = MathJaxNewcmFont.prototype.getChar;
+MathJaxNewcmFont.prototype.getChar = function (name, n) {
+  const chars = this.variant[name].chars;
+  const char = chars[n];
+  if (char && !Array.isArray(char) && char.failed) {
+    chars[n] = undefined;
+    return undefined;
+  }
+  return getChar.call(this, name, n);
+};
+
 // `loadFontFile(name)` synchronously loads one of the font's on-demand files (e.g.
 // "arrows"), if it's available.
 export function createMathEngine({ loadFontFile }) {
   let document = null;
   let adaptor = null;
+  let input = null;
   // Whether display maths may only break between clauses (see markBreaks).
   let strictClauses = true;
 
   const setup = () => {
     mathjax.asyncLoad = path => {
       const name = path.split('/').pop().replace(/\.js$/, '');
-      // A file that isn't available leaves its characters undefined; MathJax then
-      // draws them as plain text.
+      // MathJax marks a file that isn't available as failed (see getChar above).
       loadFontFile(name);
     };
     mathjax.asyncIsSynchronous = true;
     adaptor = liteAdaptor();
     RegisterHTMLHandler(adaptor);
-    const input = new TeX({
+    input = new TeX({
       packages: TEX_PACKAGES,
+      macros: MACROS,
       formatError: (jax, error) => {
         throw new MathError(error.message);
       },
@@ -540,6 +568,8 @@ export function createMathEngine({ loadFontFile }) {
 
   function convertOnce(tex, { display = false, widthEm, block = false }) {
     const asDisplay = display || block;
+    // Each formula stands alone: \label names and equation numbers don't carry over.
+    input.reset();
     const container = document.convert(
       block ? `\\textstyle ${tex}` : String(tex),
       {

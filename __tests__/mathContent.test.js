@@ -23,6 +23,18 @@ describe('parseMathContent', () => {
     ]);
   });
 
+  it("also reads LaTeX's \\(inline\\) and \\[display\\] delimiters", () => {
+    expect(
+      parseMathContent(
+        'Use \\(x^2\\) here:\n\\[\\int_0^1 x\\,dx\\]\nDone, \\(y\\).',
+      ),
+    ).toEqual([
+      line(text('Use '), math('x^2'), text(' here:')),
+      { type: 'display', math: '\\int_0^1 x\\,dx' },
+      line(text('Done, '), math('y'), text('.')),
+    ]);
+  });
+
   it('puts display formulas on their own block without extra gaps', () => {
     expect(
       parseMathContent(

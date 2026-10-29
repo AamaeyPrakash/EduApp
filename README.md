@@ -173,7 +173,16 @@ Put the two function IDs in `.env`.
 - Inline formulas sit on the text baseline. One that doesn't fit at the end of a line moves to the next line whole; one wider than a line breaks between its parts (between clauses such as `x = 1, y = 2`, after the commas of a list, before `=` or `+`, never inside brackets), and one that can't break like that is set on lines of its own.
 - Display formulas a little too wide are drawn slightly smaller; wider ones are broken into lines (between clauses where they fit), and anything that still doesn't fit (such as a large matrix) is drawn a little smaller again or, failing that, scrolls sideways.
 - Formulas follow the system text size. Each one is converted a moment after it first appears (a few milliseconds each, a few at a time) and kept for reuse; the bundled questions' sizes are known in advance, so the page doesn't jump while they are drawn.
-- The font's extra character files (arrows, script and double-struck letters, ...) are bundled; other scripts and monospace letters would fall back to plain text, which the content check reports.
+- The font's extra character files (arrows, script, double-struck, sans-serif and monospace letters, ...) are bundled. Characters from files that aren't (accented or Greek letters typed in `\text{}`, other scripts) are drawn in the system font; the content check reports any in the questions.
+- Besides `$...$` and `$$...$$`, `\(...\)` and `\[...\]` work, as do the shorthands `\R`, `\N`, `\Z`, `\Q`, `\C`, `\abs{x}` and `\norm{v}`, since tutor replies may use them. A formula that can't be drawn (e.g. chemistry's `\ce{}`) is shown as plain text.
+
+## Tooling versions
+
+Lint, tests and builds run on the newest versions React Native 0.88 supports: ESLint 9 (with React Native's flat config, `eslint.config.js`), Prettier 3 and Jest 30. Three newer majors don't work with it yet (each was tried):
+
+- **Babel 8**: React Native's Babel preset, Metro and babel-jest all depend on Babel 7 and keep using their own copy, so Babel 8 would only be an unused extra.
+- **ESLint 10**: `@react-native/eslint-config` supports ESLint 8 and 9 only; with 10, linting fails (`scopeManager.addGlobals is not a function`) and npm refuses further installs.
+- **TypeScript 7**: it no longer ships the JavaScript API that typescript-eslint (`<6.1`) uses, so linting `App.tsx` fails. TypeScript isn't used to build the app (Babel strips types).
 
 ## Releasing
 

@@ -401,6 +401,20 @@ function convert(source, speech) {
         } else {
           say(`the square root of ${inner},`, `√${wrap(inner)}`);
         }
+      } else if (name === 'abs' || name === 'norm') {
+        // Shorthands the app's maths engine defines (see math/engine.js).
+        const [body, after] = readArgument(source, index);
+        index = after;
+        const inner = convert(body, speech).trim();
+        const bar = name === 'abs' ? '|' : '‖';
+        say(
+          `the ${name === 'abs' ? 'absolute value' : 'norm'} of ${inner},`,
+          `${bar}${inner}${bar}`,
+        );
+      } else if (BLACKBOARD[name]) {
+        // \R for \mathbb{R}, and so on.
+        const symbol = SYMBOLS[BLACKBOARD[name]];
+        say(symbol ? symbol[0] : name, symbol ? symbol[1] : name);
       } else if (name === 'mathbb') {
         const [body, after] = readArgument(source, index);
         index = after;
@@ -485,6 +499,15 @@ function convert(source, speech) {
           FUNCTIONS[name],
           `${/[^\s([{+\-=×÷·/]$/.test(out) ? ' ' : ''}${name} `,
         );
+      } else if (source[index] === '{') {
+        // A command this doesn't know, e.g. \ce{H2O}: keep what it's applied to.
+        const parts = [];
+        while (source[index] === '{') {
+          const [body, after] = readArgument(source, index);
+          parts.push(convert(body, speech).trim());
+          index = after;
+        }
+        out += ` ${parts.join(' ')} `;
       } else {
         say(name, name);
       }

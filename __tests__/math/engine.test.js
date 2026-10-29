@@ -120,6 +120,34 @@ it('loads extra font files only when a character needs them', () => {
   expect(BUNDLED_FONT_FILES).toContain('double-struck');
 });
 
+it('draws sans-serif and monospace letters, and plain text for scripts it lacks', () => {
+  // These used to send MathJax round in circles until the stack ran out.
+  for (const tex of ['\\mathsf{A}', '\\mathtt{x}', '\\texttt{print}']) {
+    const layout = engine.convert(tex, { display: true });
+    expect(findAll(layout.nodes, 'text')).toEqual([]);
+  }
+  // Accented text letters aren't bundled: they're drawn in the system font.
+  const accented = engine.convert('\\text{café}', { display: true });
+  expect(findAll(accented.nodes, 'text').map(node => node.text)).toEqual(['é']);
+});
+
+it('treats every formula on its own, so labels can repeat', () => {
+  const tex = 'x = 1 \\label{eq}';
+  expect(() => engine.convert(tex, { display: true })).not.toThrow();
+  expect(() => engine.convert(tex, { display: true })).not.toThrow();
+});
+
+it('knows common shorthands such as \\R and \\abs', () => {
+  for (const tex of [
+    'x \\in \\R',
+    '\\abs{x - 1}',
+    '\\norm{v}',
+    '\\N \\subset \\Z',
+  ]) {
+    expect(() => engine.convert(tex)).not.toThrow();
+  }
+});
+
 it('throws a MathError for TeX that does not parse', () => {
   expect(() => engine.convert('\\frac{1}{')).toThrow(MathError);
   expect(() => engine.convert('\\notacommand x')).toThrow(

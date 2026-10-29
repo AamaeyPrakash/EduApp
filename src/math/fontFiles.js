@@ -1,8 +1,9 @@
 // The font's on-demand files that the app bundles: maths symbols, arrows, accents and
-// maths alphabets (script, fraktur, double-struck...), which tutor replies may use. The
-// bundled questions only need the font's base set. Other scripts, monospace and
-// sans-serif files are left out to keep the app small; their characters would be drawn
-// as plain text. Each require is written out so the bundler can find it.
+// maths alphabets (script, fraktur, double-struck, sans-serif, monospace...), which
+// tutor replies may use. The bundled questions only need the font's base set. Other
+// scripts (Greek and Latin text letters, Cyrillic...) and bold or italic sans-serif
+// are left out to keep the app small; their characters are drawn as plain text in the
+// system font. Each require is written out so the bundler can find it.
 const FILES = {
   accents: () =>
     require('@mathjax/mathjax-newcm-font/cjs/svg/dynamic/accents.js'),
@@ -17,8 +18,12 @@ const FILES = {
   marrows: () =>
     require('@mathjax/mathjax-newcm-font/cjs/svg/dynamic/marrows.js'),
   math: () => require('@mathjax/mathjax-newcm-font/cjs/svg/dynamic/math.js'),
+  monospace: () =>
+    require('@mathjax/mathjax-newcm-font/cjs/svg/dynamic/monospace.js'),
   mshapes: () =>
     require('@mathjax/mathjax-newcm-font/cjs/svg/dynamic/mshapes.js'),
+  'sans-serif': () =>
+    require('@mathjax/mathjax-newcm-font/cjs/svg/dynamic/sans-serif.js'),
   script: () =>
     require('@mathjax/mathjax-newcm-font/cjs/svg/dynamic/script.js'),
   shapes: () =>

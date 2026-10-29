@@ -12,6 +12,8 @@ describe('texToSpeech', () => {
     ['\\sqrt{1-x^2}', 'the square root of 1 minus x squared'],
     ['\\sqrt[3]{27}', 'the cube root of 27'],
     ['30^{\\circ}', '30 degrees'],
+    ['\\abs{x-1} < 2', 'the absolute value of x minus 1, is less than 2'],
+    ['x \\in \\R', 'x in the real numbers'],
     ['\\sin^{-1} x', 'sine inverse x'],
     ['\\int_{-1}^{2}x\\,dx', 'the integral from minus 1 to 2 of x dx'],
     [
@@ -35,6 +37,9 @@ describe('texToPlain', () => {
     ['\\sin^{-1} x', 'sin⁻¹ x'],
     ['A = \\{1,2,3\\}', 'A = {1,2,3}'],
     ['\\mathbb{R}', 'ℝ'],
+    ['\\abs{x}', '|x|'],
+    // Commands it doesn't know keep what they apply to.
+    ['\\ce{H2O}', 'H2O'],
   ])('writes %s', (tex, plain) => {
     expect(texToPlain(tex)).toBe(plain);
   });
