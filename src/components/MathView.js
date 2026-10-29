@@ -23,8 +23,10 @@ import { type, useTheme } from '../theme';
 const EM = 17;
 const MAX_FONT_SCALE = 3;
 // A display formula a little too wide for the space is drawn smaller, down to this
-// scale, rather than broken into lines or scrolled.
+// scale, rather than broken into lines; one that is still too wide when broken, such
+// as a table, down to the second, rather than scrolled.
 const MIN_SCALE = 0.85;
+const MIN_SCALE_BROKEN = 0.8;
 // Inline maths that reaches beyond the line of text it sits in (in ems above and
 // below the baseline) gets a little space on that side, so it doesn't touch the
 // lines next to it, as TeX's \lineskip does.
@@ -143,7 +145,8 @@ function Piece({ layout, size, em, maxWidth, color, inline, style }) {
 }
 
 const fits = (size, em, maxWidth) => !maxWidth || size.width * em <= maxWidth;
-const fitsSmaller = (size, em, maxWidth) => fits(size, em * MIN_SCALE, maxWidth);
+const fitsSmaller = (size, em, maxWidth, minScale = MIN_SCALE) =>
+  fits(size, em * minScale, maxWidth);
 
 // One TeX formula. Display formulas are drawn smaller or broken into lines to fit
 // `maxWidth`. An inline
@@ -213,8 +216,9 @@ export default function MathView({
     const drawn = layout && !layout.pieces ? layout : null;
     const size = drawn ??
       (display ? prepared : null) ?? { width: 1, height: 1.2, depth: 0.3 };
+    const minScale = options.widthEm ? MIN_SCALE_BROKEN : MIN_SCALE;
     const scale =
-      !fits(size, em, maxWidth) && fitsSmaller(size, em, maxWidth)
+      !fits(size, em, maxWidth) && fitsSmaller(size, em, maxWidth, minScale)
         ? maxWidth / (size.width * em)
         : 1;
     const piece = (

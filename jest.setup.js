@@ -1,5 +1,3 @@
-/* eslint-env jest */
-
 jest.mock('react-native-safe-area-context', () => {
   const { useContext } = require('react');
   const mock = require('react-native-safe-area-context/jest/mock').default;

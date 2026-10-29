@@ -1,5 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { AccessibilityInfo, ScrollView, View } from 'react-native';
+import {
+  AccessibilityInfo,
+  ScrollView,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AppText from '../components/AppText';
 import Button from '../components/Button';
@@ -205,6 +210,11 @@ const PracticeScreen = ({ route, navigation }) => {
     timeLimit ? Date.now() + timeLimit * 1000 : null,
   );
   const scrollRef = useRef(null);
+  // The buttons at the bottom float over the question, so it scrolls clear of them;
+  // with large text they are taller, and side by side only while they fit.
+  const [dockHeight, setDockHeight] = useState(66);
+  const stackActions = useWindowDimensions().fontScale >= 1.6;
+  const actionStyle = stackActions ? null : styles.action;
   const lastPress = useRef(0);
   const markedIndex = useRef(-1);
   // A timed test is a mock exam, so the tutor waits until it's over.
@@ -373,7 +383,7 @@ const PracticeScreen = ({ route, navigation }) => {
         ref={scrollRef}
         contentContainerStyle={[
           styles.content,
-          { paddingBottom: insets.bottom + 120 },
+          { paddingBottom: Math.max(insets.bottom, 12) + dockHeight + 54 },
         ]}
         showsVerticalScrollIndicator={false}
       >
@@ -409,8 +419,11 @@ const PracticeScreen = ({ route, navigation }) => {
           </AppText>
         )}
       </ScrollView>
-      <View style={[styles.dock, { bottom: Math.max(insets.bottom, 12) }]}>
-        <Glass style={styles.actions}>
+      <View
+        style={[styles.dock, { bottom: Math.max(insets.bottom, 12) }]}
+        onLayout={event => setDockHeight(event.nativeEvent.layout.height)}
+      >
+        <Glass style={[styles.actions, stackActions && styles.actionsStacked]}>
           {revealed ? (
             <>
               <Button
@@ -418,7 +431,7 @@ const PracticeScreen = ({ route, navigation }) => {
                 detail={`Back ${reviewAfter(question.id, false)}`}
                 variant="tinted"
                 color="orange"
-                style={styles.action}
+                style={actionStyle}
                 accessibilityLabel="Not yet"
                 onPress={once(() => mark(false))}
               />
@@ -427,7 +440,7 @@ const PracticeScreen = ({ route, navigation }) => {
                 detail={`Back ${reviewAfter(question.id, true)}`}
                 variant="filled"
                 color="green"
-                style={styles.action}
+                style={actionStyle}
                 accessibilityLabel="Got it"
                 onPress={once(() => mark(true))}
               />
@@ -437,7 +450,7 @@ const PracticeScreen = ({ route, navigation }) => {
               <Button
                 title="Skip"
                 variant="gray"
-                style={styles.action}
+                style={actionStyle}
                 onPress={once(() => {
                   setSkipped(count => count + 1);
                   goToNext();
@@ -445,7 +458,7 @@ const PracticeScreen = ({ route, navigation }) => {
               />
               <Button
                 title="Show answer"
-                style={styles.action}
+                style={actionStyle}
                 onPress={once(() => setRevealed(true))}
               />
             </>
@@ -522,6 +535,10 @@ const useStyles = makeStyles(theme => ({
     gap: 8,
     padding: 8,
     borderRadius: radius.capsule,
+  },
+  actionsStacked: {
+    flexDirection: 'column',
+    borderRadius: radius.large,
   },
   action: {
     flex: 1,

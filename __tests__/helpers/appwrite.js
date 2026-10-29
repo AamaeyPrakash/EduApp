@@ -1,5 +1,3 @@
-/* eslint-env jest */
-
 // Builds errors shaped like the Appwrite SDK's AppwriteException.
 export function appwriteError(code, type, message = type) {
   return Object.assign(new Error(message), {

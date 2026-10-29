@@ -46,7 +46,8 @@ export function preparedSize(tex, display) {
   const depth = Math.max(...pieces.map(piece => piece.depth));
   return {
     width: pieces.reduce((sum, piece) => sum + piece.width + piece.gap, 0),
-    height: Math.max(...pieces.map(piece => piece.height - piece.depth)) + depth,
+    height:
+      Math.max(...pieces.map(piece => piece.height - piece.depth)) + depth,
     depth,
     pieces,
   };

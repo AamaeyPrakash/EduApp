@@ -10,6 +10,7 @@ Checklist for shipping to Google Play and the App Store. App identity: **EduApp*
 - [ ] A public **privacy policy** exists and `PRIVACY_POLICY_URL` is set. It must say that chat messages (and the student's board and grade) are sent to OpenAI to generate tutor answers, and how to delete an account.
 - [ ] The OpenAI key that was in the old `constants.js` has been **revoked** (it was compiled into earlier builds and can be extracted). Use a new key in the `ask-ai` function only, with a monthly budget limit.
 - [ ] `npm run lint`, `npm test` and `npm run validate:content` pass.
+- [ ] `npm audit` shows nothing that reaches the app. (Known: a low-severity `deepmerge` advisory, GHSA-gcqx-w48m-w2h4, which has no fixed release yet. `deepmerge` is used only by the React Native CLI and Jest to merge local config files, and isn't part of the app bundle.)
 - [ ] Replace the placeholder icon if you have branding: `python3 scripts/generate-app-icons.py your-icon-1024.png`.
 - [ ] Decide the youngest age you support (see "Children's privacy" below).
 - [ ] Create a **demo account** for app reviewers (both stores ask for one because the app requires sign-in).

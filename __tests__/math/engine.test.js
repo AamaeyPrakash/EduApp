@@ -52,6 +52,21 @@ it('breaks inline lists between their items, not inside them', () => {
   expect(pieces('\\{1, 2, 3\\}')).toHaveLength(1);
 });
 
+it('breaks a row of clauses between them, not inside one', () => {
+  const pieces = tex => engine.convert(tex).pieces.length;
+  expect(pieces('x = 2, y = 3')).toBe(2);
+  expect(pieces('x+3=0, \\quad z+4=6, \\quad 2y-7=3y-2')).toBe(3);
+  // Not at the thin space of "\\,dx".
+  expect(pieces('x\\,dx + y')).toBe(2);
+});
+
+it('breaks inside a clause when the clause alone is too wide', () => {
+  const tex =
+    '\\int_0^1 \\frac{\\sin^2 x}{\\sin x + \\cos x}\\,dx = \\frac{1}{2}\\int_0^1 \\frac{dx}{\\sin x+\\cos x}, \\quad x \\neq 0';
+  const layout = engine.convert(tex, { display: true, widthEm: 14 });
+  expect(layout.width).toBeLessThanOrEqual(14);
+});
+
 it('sets inline maths on lines of its own when asked (block)', () => {
   const tex = 'y = \\left(a+b+c+d+e+f+g+h+i+j+k+l+m+n+o+p+q\\right)';
   const inline = engine.convert(tex);

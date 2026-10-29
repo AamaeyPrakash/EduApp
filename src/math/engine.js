@@ -78,13 +78,13 @@ function viewportTransform({ x, y, width, height }, viewBox, aspect) {
   const alignX = /xMin/.test(aspect || '')
     ? 0
     : /xMax/.test(aspect || '')
-    ? 1
-    : 0.5;
+      ? 1
+      : 0.5;
   const alignY = /YMin/.test(aspect || '')
     ? 0
     : /YMax/.test(aspect || '')
-    ? 1
-    : 0.5;
+      ? 1
+      : 0.5;
   const tx = x + (width - vw * sx) * alignX - vx * sx;
   const ty = y + (height - vh * sy) * alignY - vy * sy;
   return `translate(${tx},${ty}) scale(${sx},${sy})`;
@@ -109,12 +109,34 @@ const BREAK_SPACES = {
 export class MathError extends Error {}
 
 const COMMA_BREAK = 'data-comma-break';
-const isMo = (node, texClass) => node?.isKind('mo') && node.texClass === texClass;
+const isMo = (node, texClass) =>
+  node?.isKind('mo') && node.texClass === texClass;
 const isComma = node => isMo(node, TEXCLASS.PUNCT) && node.getText() === ',';
 // |x| and ‖x‖ bars, which TeX treats as ordinary symbols, not brackets.
 const isBar = node =>
   node.isKind('mo') && ['|', '\u2016', '\u2225'].includes(node.getText());
 const isWords = node => node.isKind('mtext') && /\s/.test(node.getText());
+// Something multiplied by what follows it, as ½ in ½∫...
+const isOperand = node =>
+  Boolean(node) &&
+  !node.isKind('mspace') &&
+  !(node.isKind('mtext') && /\s$/.test(node.getText())) &&
+  !(
+    node.isKind('mo') &&
+    [TEXCLASS.REL, TEXCLASS.BIN, TEXCLASS.OPEN, TEXCLASS.PUNCT].includes(
+      node.texClass,
+    )
+  );
+// The width of a space in ems, if it's given in ems.
+const spaceWidth = node => {
+  const width = node.isKind('mspace') ? node.attributes.get('width') : null;
+  return /^\s*-?\d*\.?\d+em\s*$/.test(width || '') ? parseFloat(width) : null;
+};
+// A space of at least \quad.
+const isWideSpace = node => spaceWidth(node) >= 0.9;
+// A thin space, as in "x\,dx", which is part of an expression.
+const isThinSpace = node =>
+  spaceWidth(node) !== null && spaceWidth(node) < 0.25;
 
 // MathJax breaks lines at relations and operators, and (in display maths) at any comma
 // or closing bracket. This steers line breaks in a formula's rows to where a reader
@@ -125,8 +147,12 @@ const isWords = node => node.isKind('mtext') && /\s/.test(node.getText());
 //   - not inside brackets: never for inline maths (a formula that can only break there
 //     is set on lines of its own, as display maths), and only as a last resort for
 //     display maths; never inside or next to |x| bars
-//   - never between a closing bracket and the punctuation after it.
-function markBreaks(row, inline) {
+//   - in a row of clauses, such as "x = 1, \quad y + 2 = 3", between the clauses
+//     rather than inside one: never for inline maths, and for display maths only if
+//     `strict` is false (convert tries that when the clauses alone don't fit)
+//   - never between a closing bracket and the punctuation after it, at a thin space,
+//     or inside a product such as ½∫...
+function markBreaks(row, inline, strict) {
   const children = row.childNodes;
   const depths = [];
   const inBars = [];
@@ -159,6 +185,32 @@ function markBreaks(row, inline) {
       node.attributes.set('linebreak', linebreak);
     }
   };
+  // Whether the comma at `index` separates list items.
+  const betweenItems = index => {
+    if (
+      isMo(children[index - 1], TEXCLASS.CLOSE) &&
+      isMo(children[index + 1], TEXCLASS.OPEN)
+    ) {
+      return true;
+    }
+    if (depths[index] > 0) {
+      return false;
+    }
+    const before = item(index - 1, -1);
+    const after = item(index + 1, 1);
+    return (
+      after.some(node => isMo(node, TEXCLASS.REL)) ||
+      (before.length > 1 && after.length > 1)
+    );
+  };
+  // Separate clauses: list items, \quad spaces or words between them.
+  const clauses = children.some(
+    (child, index) =>
+      depths[index] === 0 &&
+      ((isComma(child) && betweenItems(index)) ||
+        isWideSpace(child) ||
+        isWords(child)),
+  );
 
   children.forEach((child, index) => {
     const next = children[index + 1];
@@ -168,27 +220,29 @@ function markBreaks(row, inline) {
       child.childNodes.length === 1 &&
       !child.attributes.get('style')
     ) {
-      markBreaks(child.childNodes[0], inline);
+      markBreaks(child.childNodes[0], inline, strict);
+    } else if (
+      child.isEmbellished &&
+      child.coreMO().texClass === TEXCLASS.OP &&
+      isOperand(children[index - 1])
+    ) {
+      // A product such as ½∫...: not between the factors.
+      setBreak(child.coreMO(), 'nobreak');
+      if (!inline && !child.isToken) {
+        markRows(child, strict);
+      }
     } else if (!inline && !child.isToken) {
       // Display maths may break inside \left( ... \right), the cells of aligned
       // equations and arrays, and so on.
-      markRows(child);
-    } else if (isBar(child)) {
+      markRows(child, strict);
+    } else if (isBar(child) || isThinSpace(child)) {
       setBreak(child, 'nobreak');
     } else if (isMo(child, TEXCLASS.CLOSE)) {
       if (isMo(next, TEXCLASS.PUNCT)) {
         setBreak(child, 'nobreak');
       }
     } else if (isComma(child)) {
-      let between =
-        isMo(children[index - 1], TEXCLASS.CLOSE) && isMo(next, TEXCLASS.OPEN);
-      if (!between && depths[index] === 0) {
-        const before = item(index - 1, -1);
-        const after = item(index + 1, 1);
-        between =
-          after.some(node => isMo(node, TEXCLASS.REL)) ||
-          (before.length > 1 && after.length > 1);
-      }
+      const between = betweenItems(index);
       if (between && next && inline) {
         if (
           next.isKind('mspace') ||
@@ -209,21 +263,22 @@ function markBreaks(row, inline) {
         setBreak(child, 'badbreak');
       }
     } else if (
-      depths[index] > 0 &&
+      (depths[index] > 0 || clauses) &&
       (isMo(child, TEXCLASS.REL) || isMo(child, TEXCLASS.BIN))
     ) {
       // MathJax itself makes breaks inside brackets (but not bars) less likely.
-      setBreak(child, inline || inBars[index] ? 'nobreak' : 'badbreak');
+      const lastResort = depths[index] > 0 ? !inBars[index] : !strict;
+      setBreak(child, !inline && lastResort ? 'badbreak' : 'nobreak');
     }
   });
 }
 
 // Marks the breaks in every row of a display formula.
-function markRows(node) {
+function markRows(node, strict) {
   if (node.isKind('mrow') || node.isInferred) {
-    markBreaks(node, false);
+    markBreaks(node, false, strict);
   } else if (!node.isToken) {
-    node.childNodes.forEach(child => child && markRows(child));
+    node.childNodes.forEach(child => child && markRows(child, strict));
   }
 }
 
@@ -236,6 +291,8 @@ export const sizeKey = (tex, display) =>
 export function createMathEngine({ loadFontFile }) {
   let document = null;
   let adaptor = null;
+  // Whether display maths may only break between clauses (see markBreaks).
+  let strictClauses = true;
 
   const setup = () => {
     mathjax.asyncLoad = path => {
@@ -256,7 +313,7 @@ export function createMathEngine({ loadFontFile }) {
     input.postFilters.add(({ math, data }) => {
       const row = data.root.childNodes[0];
       if (row?.isInferred) {
-        markBreaks(row, !math.display);
+        markBreaks(row, !math.display, strictClauses);
       }
       if (!math.display) {
         // Have the output split inline maths even where only commas break it.
@@ -309,8 +366,8 @@ export function createMathEngine({ loadFontFile }) {
     const dashes = classes.includes('mjx-dashed')
       ? { strokeDasharray: '140' }
       : classes.includes('mjx-dotted')
-      ? { strokeDasharray: '0,140', strokeLinecap: 'round' }
-      : null;
+        ? { strokeDasharray: '0,140', strokeLinecap: 'round' }
+        : null;
 
     switch (kind) {
       case 'g':
@@ -462,10 +519,26 @@ export function createMathEngine({ loadFontFile }) {
   // wrap with the surrounding words: { width, height, depth, pieces }. `block` sets
   // inline maths on lines of its own at text size, for formulas whose pieces don't fit
   // on a line. Throws MathError for TeX that doesn't parse.
-  function convert(tex, { display = false, widthEm, block = false } = {}) {
+  function convert(tex, options = {}) {
     if (!document) {
       setup();
     }
+    const layout = convertOnce(tex, options);
+    const { display, block, widthEm } = options;
+    if ((display || block) && widthEm && layout.width > widthEm) {
+      // The clauses don't fit on lines of their own: let them break inside too.
+      strictClauses = false;
+      try {
+        const relaxed = convertOnce(tex, options);
+        return relaxed.width < layout.width ? relaxed : layout;
+      } finally {
+        strictClauses = true;
+      }
+    }
+    return layout;
+  }
+
+  function convertOnce(tex, { display = false, widthEm, block = false }) {
     const asDisplay = display || block;
     const container = document.convert(
       block ? `\\textstyle ${tex}` : String(tex),

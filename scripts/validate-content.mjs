@@ -99,7 +99,9 @@ function checkContent(where, content) {
         errors.push(`${where}: ${problem} in "${math.slice(0, 80)}"`);
       }
       if (!display && INLINE_LINE_BREAK.test(outsideEnvironments(math))) {
-        errors.push(`${where}: line break "\\\\" in inline maths "${math.slice(0, 80)}"`);
+        errors.push(
+          `${where}: line break "\\\\" in inline maths "${math.slice(0, 80)}"`,
+        );
       }
       const word = withoutTextAndCommands(math).match(MATHS_WORD)?.[0];
       if (word) {

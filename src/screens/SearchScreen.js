@@ -223,6 +223,7 @@ const useStyles = makeStyles(theme => ({
   input: {
     ...type.body,
     flex: 1,
+    minWidth: 0,
     minHeight: 44,
     marginLeft: 8,
     color: theme.colors.label,

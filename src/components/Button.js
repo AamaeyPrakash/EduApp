@@ -84,7 +84,7 @@ export default function Button({
       <View style={styles.titles}>
         <AppText
           style={[metrics.text, styles.label, { color: foreground }]}
-          numberOfLines={1}
+          numberOfLines={2}
         >
           {title}
         </AppText>
@@ -137,9 +137,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  // With large text the label wraps rather than spilling out of the button.
   content: {
     flexDirection: 'row',
     alignItems: 'center',
+    maxWidth: '100%',
   },
   icon: {
     marginRight: 8,
@@ -150,6 +152,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontWeight: '600',
+    textAlign: 'center',
   },
   detail: {
     opacity: 0.85,

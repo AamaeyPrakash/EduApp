@@ -170,8 +170,8 @@ Put the two function IDs in `.env`.
 
 `src/math/engine.js` turns TeX into drawing instructions with [MathJax 4](https://www.mathjax.org/) (SVG output, New Computer Modern font), and `MathView` draws them with `react-native-svg`, so formulas look the same on every device and need no web view. The same engine runs in Node for `prepare:math` and `validate:content`, so what the check passes is what the app shows.
 
-- Inline formulas sit on the text baseline. One that doesn't fit at the end of a line moves to the next line whole; one wider than a line breaks between its parts (before `=` or `+`, after the commas of a list, never inside brackets), and one that can't break like that is set on lines of its own.
-- Display formulas a little too wide are drawn slightly smaller; wider ones are broken into lines, and anything that still doesn't fit (such as a large matrix) scrolls sideways.
+- Inline formulas sit on the text baseline. One that doesn't fit at the end of a line moves to the next line whole; one wider than a line breaks between its parts (between clauses such as `x = 1, y = 2`, after the commas of a list, before `=` or `+`, never inside brackets), and one that can't break like that is set on lines of its own.
+- Display formulas a little too wide are drawn slightly smaller; wider ones are broken into lines (between clauses where they fit), and anything that still doesn't fit (such as a large matrix) is drawn a little smaller again or, failing that, scrolls sideways.
 - Formulas follow the system text size. Each one is converted a moment after it first appears (a few milliseconds each, a few at a time) and kept for reuse; the bundled questions' sizes are known in advance, so the page doesn't jump while they are drawn.
 - The font's extra character files (arrows, script and double-struck letters, ...) are bundled; other scripts and monospace letters would fall back to plain text, which the content check reports.
 

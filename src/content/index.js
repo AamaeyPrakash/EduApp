@@ -87,8 +87,8 @@ function buildIBCourse(key, idPrefix, topics, details) {
               question.calculator === 'yes'
                 ? true
                 : question.calculator === 'no'
-                ? false
-                : null,
+                  ? false
+                  : null,
           },
           idPrefix,
           `${topic.topicNumber}\n${question.question}`,

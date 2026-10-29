@@ -87,8 +87,8 @@ const ProfileFormScreen = ({ navigation, route }) => {
   const intro = isEditing
     ? null
     : profileError
-    ? "We couldn't save your details when you signed up. Please check them and try again."
-    : 'Tell us your board and grade so we can show the right courses.';
+      ? "We couldn't save your details when you signed up. Please check them and try again."
+      : 'Tell us your board and grade so we can show the right courses.';
 
   return (
     <FormScreen

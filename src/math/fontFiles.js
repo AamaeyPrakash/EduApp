@@ -6,7 +6,8 @@
 const FILES = {
   accents: () =>
     require('@mathjax/mathjax-newcm-font/cjs/svg/dynamic/accents.js'),
-  arrows: () => require('@mathjax/mathjax-newcm-font/cjs/svg/dynamic/arrows.js'),
+  arrows: () =>
+    require('@mathjax/mathjax-newcm-font/cjs/svg/dynamic/arrows.js'),
   calligraphic: () =>
     require('@mathjax/mathjax-newcm-font/cjs/svg/dynamic/calligraphic.js'),
   'double-struck': () =>
@@ -18,8 +19,10 @@ const FILES = {
   math: () => require('@mathjax/mathjax-newcm-font/cjs/svg/dynamic/math.js'),
   mshapes: () =>
     require('@mathjax/mathjax-newcm-font/cjs/svg/dynamic/mshapes.js'),
-  script: () => require('@mathjax/mathjax-newcm-font/cjs/svg/dynamic/script.js'),
-  shapes: () => require('@mathjax/mathjax-newcm-font/cjs/svg/dynamic/shapes.js'),
+  script: () =>
+    require('@mathjax/mathjax-newcm-font/cjs/svg/dynamic/script.js'),
+  shapes: () =>
+    require('@mathjax/mathjax-newcm-font/cjs/svg/dynamic/shapes.js'),
   symbols: () =>
     require('@mathjax/mathjax-newcm-font/cjs/svg/dynamic/symbols.js'),
   variants: () =>

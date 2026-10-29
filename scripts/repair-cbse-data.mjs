@@ -531,8 +531,8 @@ function joinMath(parts) {
       type === 'display'
         ? `$$${value}$$`
         : type === 'inline'
-        ? `$${value}$`
-        : value,
+          ? `$${value}$`
+          : value,
     )
     .join('');
 }

@@ -123,8 +123,8 @@ const TopicScreen = ({ route, navigation }) => {
               {review > 0
                 ? `${review} to review`
                 : known === 0
-                ? 'Not started yet'
-                : 'Nothing to review'}
+                  ? 'Not started yet'
+                  : 'Nothing to review'}
             </AppText>
           </View>
         </View>
@@ -201,18 +201,23 @@ const useStyles = makeStyles(theme => ({
   secondaryButton: {
     marginTop: 10,
   },
+  // With large text the switch moves under the heading rather than off the screen.
   listHeader: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'space-between',
+    rowGap: 6,
     marginBottom: 12,
     paddingHorizontal: 4,
   },
   switchRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    flexShrink: 1,
   },
   switchLabel: {
+    flexShrink: 1,
     marginRight: 8,
   },
 }));
