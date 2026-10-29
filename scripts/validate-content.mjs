@@ -1,50 +1,44 @@
 #!/usr/bin/env node
 // Checks the bundled question data the way the app renders it:
 //   - every question has the fields the screens need
-//   - every $...$ / $$...$$ formula parses with MathJax (the renderer the app uses)
-//   - no TeX or JSON-escape debris is left in the plain text around formulas
+//   - every $...$ / $$...$$ formula draws with the app's maths engine (MathJax 4) and
+//     font, and its prepared size (src/math/sizes.json) is up to date
+//   - no TeX or JSON-escape debris is left in the plain text around formulas, and
+//     formulas aren't run into the words next to them
 // Usage: npm run validate:content   (exits with code 1 when errors are found)
 
-import { createRequire } from 'node:module';
 import { readFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import {
+  computeSizes,
+  createNodeMathEngine,
+  readJson,
+  SIZES_FILE,
+} from './math-tools.mjs';
 import { parseMathContent } from '../src/lib/mathContent.js';
 
-const require = createRequire(import.meta.url);
-const { mathjax } = require('mathjax-full/js/mathjax.js');
-const { TeX } = require('mathjax-full/js/input/tex.js');
-const { SVG } = require('mathjax-full/js/output/svg.js');
-const { liteAdaptor } = require('mathjax-full/js/adaptors/liteAdaptor.js');
-const { RegisterHTMLHandler } = require('mathjax-full/js/handlers/html.js');
-const { AllPackages } = require('mathjax-full/js/input/tex/AllPackages.js');
+const { engine, missingFontFiles } = createNodeMathEngine();
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const readJson = file =>
-  JSON.parse(readFileSync(join(root, 'src/mathTopics', file), 'utf8'));
+const hasText = nodes =>
+  nodes.some(node => node.type === 'text' || hasText(node.children || []));
 
-RegisterHTMLHandler(liteAdaptor());
-let texError = null;
-const tex = new TeX({
-  packages: AllPackages,
-  formatError: (jax, error) => {
-    texError = error;
-    return jax.formatError(error);
-  },
-});
-const document = mathjax.document('', {
-  InputJax: tex,
-  OutputJax: new SVG({ fontCache: 'none' }),
-});
-
+// What's wrong with a formula as the app would draw it, or null.
 function texProblem(math, display) {
-  texError = null;
+  missingFontFiles.clear();
+  let layout;
   try {
-    document.convert(math, { display });
+    layout = engine.convert(math, { display });
   } catch (error) {
     return error.message;
   }
-  return texError ? texError.message : null;
+  if (missingFontFiles.size > 0) {
+    return `needs font files the app doesn't bundle (${[
+      ...missingFontFiles,
+    ].join(', ')})`;
+  }
+  if (hasText(layout.pieces?.flatMap(piece => piece.nodes) ?? layout.nodes)) {
+    return 'uses a character the maths font does not have';
+  }
+  return null;
 }
 
 const errors = [];
@@ -60,10 +54,28 @@ const TEXT_DEBRIS = [
   [/\\\$/, 'escaped dollar sign'],
   [/^\s*\\\\\s*$/, 'stray "\\\\" line break'],
   [/\\[A-Za-z]+|\\[{}()[\]]|\\ /, 'TeX outside $...$'],
+  // Typed as text, these don't line up with the maths around them.
+  [/[∫√∑∏≤≥≠±×÷∞∈∉⊂⊆∪∩]/, 'maths symbol outside $...$'],
 ];
 // "\\frac" inside a formula is a line break followed by the word "frac".
 const DOUBLE_ESCAPED =
   /\\\\(?:frac|sqrt|left|right|cos|sin|tan|log|prime|cdot|times|int)\b/;
+// "\\" in inline maths, outside an environment such as a matrix, breaks the line in
+// the middle of a sentence; usually "\\{" written for "\{".
+const INLINE_LINE_BREAK = /\\\\/;
+const outsideEnvironments = math =>
+  math.replace(/\\begin\{([A-Za-z]+\*?)\}[\s\S]*?\\end\{\1\}/g, '');
+// Words typed in maths are set in italics without their spaces ("P(notace)"); they
+// belong in \text{...}. Environment names, text, fonts and commands are left out.
+const MATHS_WORD = /(?<![A-Za-z])[a-z][A-Za-z]{3,}/;
+const withoutTextAndCommands = math =>
+  math
+    .replace(/\\(?:begin|end)\s*\{[^{}]*\}(?:\{[^{}]*\})?/g, ' ')
+    .replace(
+      /\\(?:text\w*|math\w+|operatorname|mbox|hbox|rm|bf|it)\s*\{[^{}]*\}/g,
+      ' ',
+    )
+    .replace(/\\[A-Za-z]+/g, ' ');
 const INCOMPLETE_QUESTION = /(\.\.\.|…|:|\bgiven by)\s*$/;
 
 function checkContent(where, content) {
@@ -86,11 +98,41 @@ function checkContent(where, content) {
       if (problem) {
         errors.push(`${where}: ${problem} in "${math.slice(0, 80)}"`);
       }
+      if (!display && INLINE_LINE_BREAK.test(outsideEnvironments(math))) {
+        errors.push(`${where}: line break "\\\\" in inline maths "${math.slice(0, 80)}"`);
+      }
+      const word = withoutTextAndCommands(math).match(MATHS_WORD)?.[0];
+      if (word) {
+        errors.push(
+          `${where}: the word "${word}" is typed as maths in "${math.slice(0, 80)}"`,
+        );
+      }
       if (DOUBLE_ESCAPED.test(math)) {
         errors.push(`${where}: double-escaped TeX in "${math.slice(0, 80)}"`);
       }
     }
     if (block.type === 'line') {
+      block.tokens.forEach((token, index) => {
+        const next = block.tokens[index + 1];
+        if (
+          token.type === 'math' &&
+          next?.type === 'text' &&
+          /^[A-Za-z]/.test(next.value)
+        ) {
+          errors.push(
+            `${where}: no space after "$${token.value.slice(-30)}$${next.value.slice(0, 15)}"`,
+          );
+        }
+        if (
+          token.type === 'text' &&
+          next?.type === 'math' &&
+          /[A-Za-z]$/.test(token.value)
+        ) {
+          errors.push(
+            `${where}: no space before "${token.value.slice(-15)}$${next.value.slice(0, 30)}$"`,
+          );
+        }
+      });
       const text = block.tokens
         .filter(token => token.type === 'text')
         .map(token => token.value)
@@ -158,10 +200,23 @@ for (const file of ['IBMathAATopicData.json', 'IBMathAITopicData.json']) {
       for (const field of ['question', 'answer', 'working']) {
         if (typeof question[field] !== 'string' || !question[field].trim()) {
           errors.push(`${where} question #${questionIndex}: missing ${field}`);
+        } else {
+          checkContent(
+            `${where} question #${questionIndex} ${field}`,
+            question[field],
+          );
         }
       }
     });
   });
+}
+
+// The sizes the app uses to keep space for formulas must match the questions.
+const saved = readFileSync(SIZES_FILE, 'utf8');
+if (saved !== `${JSON.stringify(computeSizes(engine))}\n`) {
+  errors.push(
+    'src/math/sizes.json is out of date: run `npm run prepare:math` after editing questions',
+  );
 }
 
 for (const warning of warnings) {

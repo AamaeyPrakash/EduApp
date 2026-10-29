@@ -13,7 +13,7 @@ jest.mock('react-native-safe-area-context', () => {
   };
 });
 
-// Formulas are drawn as SVG by react-native-math-view; tests only need the TeX.
+// Screen tests only need a formula's TeX; the maths tests use the real renderer.
 jest.mock('./src/components/MathView', () => {
   const { Text } = require('react-native');
   return function MockMathView({ math }) {

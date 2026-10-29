@@ -32,6 +32,15 @@ describe('courses', () => {
     expect(question.id).toBe(`c${hashText(`Sets\n${question.prompt}`)}`);
   });
 
+  it('keeps the id of a question whose wording was corrected', () => {
+    // Made from the question's earlier plain-text wording; the data keeps it.
+    const question = getQuestion('a12ty4pn');
+    expect(question.prompt).toMatch(/^The volume of a hemisphere, \$V\$/);
+    expect(question.id).not.toBe(
+      `a${hashText(`${question.topicKey}\n${question.prompt}`)}`,
+    );
+  });
+
   it('shows every Probability question in its quiz', () => {
     // The quiz used to filter by `chapter`, where 20 of these were spelled
     // "probability", so only 10 of the 30 listed questions appeared.

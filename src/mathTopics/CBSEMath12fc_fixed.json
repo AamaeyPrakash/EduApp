@@ -27,16 +27,16 @@
     "Title": "Probability",
     "Subtitle": "",
     "Example": "One card is drawn from a well-shuffled deck of 52 cards. Calculate the probability that the card will be:\n(i) a diamond\n(ii) not an ace\n(iii) a black card\n(iv) not a diamond\n(v) not a black card.",
-    "Solution": "(i) Diamonds: 13 cards, so $P(diamond) = 13/52 = 1/4$\n(ii) Not an ace: $P(not ace) = 1 - 4/52 = 12/13$\n(iii) Black card: 26 cards, so $P(black) = 26/52 = 1/2$\n(iv) Not a diamond: $P(not diamond) = 1 - 1/4 = 3/4$\n(v) Not a black card: $P(not black) = 1 - 1/2 = 1/2$",
-    "Final_answer": "",
+    "Solution": "(i) Diamonds: 13 cards, so $P(\\text{diamond}) = \\frac{13}{52} = \\frac{1}{4}$\n(ii) Not an ace: $P(\\text{not an ace}) = 1 - \\frac{4}{52} = \\frac{12}{13}$\n(iii) Black card: 26 cards, so $P(\\text{black card}) = \\frac{26}{52} = \\frac{1}{2}$\n(iv) Not a diamond: $P(\\text{not a diamond}) = 1 - \\frac{1}{4} = \\frac{3}{4}$\n(v) Not a black card: $P(\\text{not a black card}) = 1 - \\frac{1}{2} = \\frac{1}{2}$",
+    "Final_answer": "(i) $\\frac{1}{4}$, (ii) $\\frac{12}{13}$, (iii) $\\frac{1}{2}$, (iv) $\\frac{3}{4}$, (v) $\\frac{1}{2}$",
     "chapter": "Probability"
   },
   {
     "Title": "Probability",
     "Subtitle": "",
     "Example": "A bag contains 9 discs: 4 red, 3 blue, and 2 yellow. A disc is drawn at random. Calculate the probability that it will be:\n(i) red\n(ii) yellow\n(iii) blue\n(iv) not blue\n(v) either red or blue.",
-    "Solution": "Total discs = 9.\n(i) $P(red) = 4/9$\n(ii) $P(yellow) = 2/9$\n(iii) $P(blue) = 3/9 = 1/3$\n(iv) $P(not blue) = 1 - 1/3 = 2/3$\n(v) $P(red or blue) = 4/9 + 1/3 = 7/9$",
-    "Final_answer": "",
+    "Solution": "Total discs $= 9$.\n(i) $P(\\text{red}) = \\frac{4}{9}$\n(ii) $P(\\text{yellow}) = \\frac{2}{9}$\n(iii) $P(\\text{blue}) = \\frac{3}{9} = \\frac{1}{3}$\n(iv) $P(\\text{not blue}) = 1 - \\frac{1}{3} = \\frac{2}{3}$\n(v) $P(\\text{red or blue}) = \\frac{4}{9} + \\frac{1}{3} = \\frac{7}{9}$",
+    "Final_answer": "(i) $\\frac{4}{9}$, (ii) $\\frac{2}{9}$, (iii) $\\frac{1}{3}$, (iv) $\\frac{2}{3}$, (v) $\\frac{7}{9}$",
     "chapter": "Probability"
   },
   {
@@ -75,8 +75,8 @@
     "Title": "Probability",
     "Subtitle": "",
     "Example": "In a relay race with five teams (A, B, C, D, and E):\n(a) What is the probability that A, B, and C finish first, second, and third respectively?\n(b) What is the probability that A, B, and C are the first three finishers (in any order)?",
-    "Solution": "Total ways to choose the first three positions = P(5, 3) = 5 × 4 × 3 = 60.\n(a) Only one arrangement gives A first,\nB second, C third: $1/60$.\n(b) The teams can be arranged in\n3! = 6 ways: $6/60 = 1/10$.",
-    "Final_answer": "",
+    "Solution": "Total ways to choose the first three positions $= {}^{5}P_{3} = 5 \\times 4 \\times 3 = 60$.\n(a) Only one arrangement gives A first, B second and C third, so the probability is $\\dfrac{1}{60}$.\n(b) A, B and C can be arranged in $3! = 6$ ways, so the probability is $\\dfrac{6}{60} = \\dfrac{1}{10}$.",
+    "Final_answer": "(a) $\\frac{1}{60}$, (b) $\\frac{1}{10}$",
     "chapter": "Probability"
   },
   {
@@ -267,7 +267,7 @@
     "Title": "Sequence And Series",
     "Subtitle": "",
     "Example": "If there are $(2n+1)$ terms in an A.P., prove\nthat the ratio of the sum of odd terms to the\nsum of even terms is $(n+1):n$",
-    "Solution": "Let the first term be a and common\ndifference $d$\nThe sum of odd terms is:\n$S_{odd} = (n+1)(a+nd)$\nThe sum of even terms is:\n$S_{even} = n(a+nd)$\nThus, the ratio is $\\frac{n+1}{n}$.",
+    "Solution": "Let the first term be $a$ and the common difference $d$.\nThe sum of odd terms is:\n$S_{\\text{odd}} = (n+1)(a+nd)$\nThe sum of even terms is:\n$S_{\\text{even}} = n(a+nd)$\nThus, the ratio is $\\frac{n+1}{n}$.",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
@@ -291,7 +291,7 @@
     "Title": "Sequence And Series",
     "Subtitle": "",
     "Example": "The product of three numbers in A.P. is\n$224$, and the largest number is $7$ times\nthe smallest. Find the numbers.",
-    "Solution": "Let the numbers be $a-d$, $a$, and $a+d$Then, $a(a^2-d^2)=224$ and $a+d = 7(a-d)$\nSolving gives: $a = 8$ and $d = 6$\nSo the numbers are $2$, $8$, and $14$.",
+    "Solution": "Let the numbers be $a-d$, $a$, and $a+d$ Then, $a(a^2-d^2)=224$ and $a+d = 7(a-d)$\nSolving gives: $a = 8$ and $d = 6$\nSo the numbers are $2$, $8$, and $14$.",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
@@ -331,7 +331,7 @@
     "Title": "Sequence And Series",
     "Subtitle": "",
     "Example": "In a G.P. of positive terms, if any term is equal to the sum of the next two terms. Then the common ratio of the G.P. is\n(A) $\\sin 18^{\\circ}$\n(B) $2 \\cos 18^{\\circ}$\n(C) $\\cos 18^{\\circ}$\n(D) $2 \\sin 18^{\\circ}$",
-    "Solution": "(D) is the correct answer\nSince $t_n = ar^{n-1}$ and the condition is\n$t_n = t_{n+1}+t_{n+2}.$We have:\n$ar^{n-1}=ar^{n}+ar^{n+1} \\Longrightarrow 1=r+r^{2}$\nSolving $r^{2}+r-1=0$ and keeping\nthe positive root (terms are positive)\ngives $r=\\dfrac{\\sqrt{5}-1}{2}=2\\sin18^{\\circ}$",
+    "Solution": "(D) is the correct answer\nSince $t_n = ar^{n-1}$ and the condition is\n$t_n = t_{n+1}+t_{n+2}.$ We have:\n$ar^{n-1}=ar^{n}+ar^{n+1} \\Longrightarrow 1=r+r^{2}$\nSolving $r^{2}+r-1=0$ and keeping\nthe positive root (terms are positive)\ngives $r=\\dfrac{\\sqrt{5}-1}{2}=2\\sin18^{\\circ}$",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
@@ -339,7 +339,7 @@
     "Title": "Sequence And Series",
     "Subtitle": "",
     "Example": "In an A.P. the $p$ th term is $q$ and the $(p+q)^{\\text {th }}$ term is 0 . Then the $q$ th term is\n(A) $-p$\n(B $p$\n(C) $p+q$\n(D) $p-q$",
-    "Solution": "(B) is the correct answer\nLet $a, d$ be the first term and common\ndifference respectively.\nTherefore$T_{p}=a+(p-1)d=q \\quad(1)$\nAnd$T_{p+q}=a+(p+q-1) d=0 \\quad(2)$\nSubtracting (1), from (2) we get $q d=-q$\nSubstituting in (1) we get:\n$a=q-(p-1)(-1)=q+p-1$\nNow\n${T}_{q}=a+(q-1) d=q+p-1+(q-1)(-1)$\n$\\therefore T_q=q+p-1-q+1=p$",
+    "Solution": "(B) is the correct answer\nLet $a, d$ be the first term and common\ndifference respectively.\nTherefore $T_{p}=a+(p-1)d=q \\quad(1)$\nAnd $T_{p+q}=a+(p+q-1) d=0 \\quad(2)$\nSubtracting (1), from (2) we get $q d=-q$\nSubstituting in (1) we get:\n$a=q-(p-1)(-1)=q+p-1$\nNow\n${T}_{q}=a+(q-1) d=q+p-1+(q-1)(-1)$\n$\\therefore T_q=q+p-1-q+1=p$",
     "Final_answer": "",
     "chapter": "Sequence And Series"
   },
@@ -435,7 +435,7 @@
     "Title": "Conic Sections",
     "Subtitle": "",
     "Example": "Find the equation of the ellipse whose vertices\nare $(\\pm 13,0)$ and foci are $(\\pm 5,0)$.",
-    "Solution": "Vertices give $a=13$, foci give $c=5$\nUsing $c^{2}=a^{2}-b^{2}$:\n$\n25 = 169 - b^{2} \\;\\Rightarrow\\; b^{2}=144$\nHence$\\frac{x^{2}}{169}+\\frac{y^{2}}{144}=1$",
+    "Solution": "Vertices give $a=13$, foci give $c=5$\nUsing $c^{2}=a^{2}-b^{2}$:\n$\n25 = 169 - b^{2} \\;\\Rightarrow\\; b^{2}=144$\nHence $\\frac{x^{2}}{169}+\\frac{y^{2}}{144}=1$",
     "Final_answer": "Equation: $\\displaystyle \\frac{x^{2}}{169}+\\frac{y^{2}}{144}=1$.",
     "chapter": "Conic Sections"
   },
@@ -443,7 +443,7 @@
     "Title": "Conic Sections",
     "Subtitle": "",
     "Example": "Find the equation of the ellipse whose major\naxis length is $20$ and foci are $(0,\\pm 5)$.",
-    "Solution": "Major axis along $y$ so $a=10,\\;c=5$\nThen $b^{2}=a^{2}-c^{2}=100-25=75$\nThus$\\frac{x^{2}}{75}+\\frac{y^{2}}{100}=1$",
+    "Solution": "Major axis along $y$ so $a=10,\\;c=5$\nThen $b^{2}=a^{2}-c^{2}=100-25=75$\nThus $\\frac{x^{2}}{75}+\\frac{y^{2}}{100}=1$",
     "Final_answer": "Equation: $\\displaystyle \\frac{x^{2}}{75}+\\frac{y^{2}}{100}=1$.",
     "chapter": "Conic Sections"
   },
@@ -547,7 +547,7 @@
     "Title": "Permutation and Combination",
     "Subtitle": "",
     "Example": "Find the number of permutations of the letters of the word ALLAHABAD.",
-    "Solution": "Here, there are $9$ objects (letters) of which there are $4$A's, $2$ L's and rest are all different. Therefore, the required number of arrangements $ = \\frac{9!}{4! \\times 2!} =7560$",
+    "Solution": "Here, there are $9$ objects (letters) of which there are $4$ A's, $2$ L's and rest are all different. Therefore, the required number of arrangements $ = \\frac{9!}{4! \\times 2!} =7560$",
     "Final_answer": "The number of permutations of the letters of the word ALLAHABAD is 7560.",
     "chapter": "Permutation and Combination"
   },
@@ -1008,10 +1008,11 @@
     "chapter": "Sets"
   },
   {
+    "id": "c1a1kpxd",
     "Title": "Sets",
     "Subtitle": "",
-    "Example": "Consider the sets $\\phi$, A = $\\{ 1, 3 \\}$, B = $\\{1, 5, 9\\}$, C = $\\{1, 3, 5, 7, 9\\}$. Insert the symbol $\\subseteq$ or $\\not\\subset$between each of the following pair of sets: (i) $\\phi$ . . . B (ii) A . . . B (iii) A . . . C (iv) B . . . C",
-    "Solution": "(i) $\\phi$ $\\subseteq$ B as $\\phi$ is a subset of every set. (ii) A $\\not\\subset$ B as 3 $\\in$ A and 3 $\\notin$ B. (iii) A $\\subseteq$C as 1, 3 in A also belongs to C. (iv) B $\\subseteq$ C as each element of B is also an element of C.",
+    "Example": "Consider the sets $\\phi$, A = $\\{ 1, 3 \\}$, B = $\\{1, 5, 9\\}$, C = $\\{1, 3, 5, 7, 9\\}$. Insert the symbol $\\subseteq$ or $\\not\\subset$ between each of the following pair of sets: (i) $\\phi$ . . . B (ii) A . . . B (iii) A . . . C (iv) B . . . C",
+    "Solution": "(i) $\\phi$ $\\subseteq$ B as $\\phi$ is a subset of every set. (ii) A $\\not\\subset$ B as 3 $\\in$ A and 3 $\\notin$ B. (iii) A $\\subseteq$ C as 1, 3 in A also belongs to C. (iv) B $\\subseteq$ C as each element of B is also an element of C.",
     "Final_answer": "(i) $\\phi$ $\\subseteq$ B, (ii) A $\\not\\subset$ B, (iii) A $\\subseteq$ C, (iv) B $\\subseteq$ C",
     "chapter": "Sets"
   },
@@ -1147,7 +1148,7 @@
     "Title": "Relations And Functions",
     "Subtitle": "",
     "Example": "Let ${A}=\\{1,2,3\\}, {B}=\\{3,4\\}$ and ${C}=\\{4,5,6\\}$. Find\n(i) ${A} \\times({B} \\cap {C})$\n(ii) $({A} \\times {B}) \\cap({A} \\times {C})$\n(iii) ${A} \\times({B} \\cup {C})$\n(iv) $({A} \\times {B}) \\cup({A} \\times {C})$",
-    "Solution": "(i) By the definition of the intersection of two sets, $(B \\cap C)=\\{4\\}$.\nTherefore, $\\displaystyle {A} \\times({B} \\cap {C})=\\{(1,4),(2,4),(3,4)\\}$.\n(ii) Now $\\displaystyle ({A} \\times {B})=\\{(1,3),(1,4),(2,3),(2,4),(3,3),(3,4)\\}$\nand $\\displaystyle ({A} \\times {C})=\\{(1,4),(1,5),(1,6),(2,4),(2,5),(2,6),(3,4),(3,5),(3,6)\\}$\nTherefore, $\\displaystyle ({A} \\times {B}) \\cap({A} \\times {C})=\\{(1,4),(2,4),(3,4)\\}$.\n(iii) Since, $\\quad(B \\cup C)=\\{3,4,5,6\\}$, we have\n$$\\displaystyle\n\\begin{aligned}\n& {A} \\times({B} \\cup {C})=\\{(1,3),(1,4),(1,5),(1,6),(2,3),(2,4),(2,5),(2,6),(3,3), \\\\\n& (3,4),(3,5),(3,6)\\} .\n\\end{aligned}\n$$\n(iv) Using the sets ${A} \\times {B}$ and ${A} \\times {C}$ from part (ii) above, we obtain\n$$\\displaystyle\n\\begin{aligned}\n& (A \\times B) \\cup(A \\times C)=\\{(1,3),(1,4),(1,5),(1,6),(2,3),(2,4),(2,5),(2,6), \\\\\n& (3,3),(3,4),(3,5),(3,6)\\} .\n\\end{aligned}\n$$",
+    "Solution": "(i) By the definition of the intersection of two sets, $(B \\cap C)=\\{4\\}$.\nTherefore, $\\displaystyle {A} \\times({B} \\cap {C})=\\{(1,4),(2,4),(3,4)\\}$.\n(ii) Now $\\displaystyle ({A} \\times {B})=\\{(1,3),(1,4),(2,3),(2,4),(3,3),(3,4)\\}$\nand $\\displaystyle ({A} \\times {C})=\\{(1,4),(1,5),(1,6),(2,4),(2,5),(2,6),(3,4),(3,5),(3,6)\\}$\nTherefore, $\\displaystyle ({A} \\times {B}) \\cap({A} \\times {C})=\\{(1,4),(2,4),(3,4)\\}$.\n(iii) Since, $\\quad(B \\cup C)=\\{3,4,5,6\\}$, we have\n$$\\displaystyle\n{A} \\times({B} \\cup {C})=\\{(1,3),(1,4),(1,5),(1,6),(2,3),(2,4),(2,5),(2,6),(3,3),(3,4),(3,5),(3,6)\\} .\n$$\n(iv) Using the sets ${A} \\times {B}$ and ${A} \\times {C}$ from part (ii) above, we obtain\n$$\\displaystyle\n(A \\times B) \\cup(A \\times C)=\\{(1,3),(1,4),(1,5),(1,6),(2,3),(2,4),(2,5),(2,6),(3,3),(3,4),(3,5),(3,6)\\} .\n$$",
     "Final_answer": "",
     "chapter": "Relations And Functions"
   },
@@ -1155,7 +1156,7 @@
     "Title": "Relations And Functions",
     "Subtitle": "",
     "Example": "If ${P}=\\{1,2\\}$, form the set ${P} \\times {P} \\times {P}$.",
-    "Solution": "We have, $\\displaystyle {P} \\times {P} \\times {P}=\\{(1,1,1),(1,1,2),(1,2,1),(1,2,2),(2,1,1),(2,1,2),(2,2,1)$, $(2,2,2)\\}$.",
+    "Solution": "We have, $\\displaystyle {P} \\times {P} \\times {P}=\\{(1,1,1),(1,1,2),(1,2,1),(1,2,2),(2,1,1),(2,1,2),(2,2,1),(2,2,2)\\}$.",
     "Final_answer": "",
     "chapter": "Relations And Functions"
   },
@@ -1304,18 +1305,19 @@
     "chapter": "Binomial Theorem"
   },
   {
+    "id": "c10ihqxy",
     "Title": "Straight Lines",
     "Subtitle": "",
-    "Example": "Find the slope of the lines:\n(a) Passing through the points (3, - 2) and (-1, 4),\n(b) Passing through the points (3, - 2) and (7, - 2),\n(c) Passing through the points (3, - 2) and (3, 4),\n(d) Making inclination of 60° with the positive direction of x-axis.",
-    "Solution": "(a) The slope of the line through (3, - 2) and (- 1, 4) is $$\\displaystyle m = \\frac{4 - (-2)}{-1 -3} = \\frac{6}{-4} = \\frac{-3}{2}$$(b) The slope of the line through the points (3, - 2) and (7, - 2) is $$\\displaystyle m = \\frac{-2 -(-2)}{7 - 3} = \\frac{0}{4} = 0$$(c) The slope of the line through the points (3, - 2) and (3, 4) is $$m = \\frac{4 - (-2)}{3 -3} = \\frac{6}{0}$$, which is not defined.\n(d) Here inclination of the line $\\alpha= 60^\\circ$. Therefore, slope of the line is $m = \\tan 60^\\circ = 3$ .",
-    "Final_answer": "(a) $\\frac{-3}{2}$, (b) 0, (c) Not defined, (d) 3",
+    "Example": "Find the slope of the lines:\n(a) Passing through the points $(3, -2)$ and $(-1, 4)$,\n(b) Passing through the points $(3, -2)$ and $(7, -2)$,\n(c) Passing through the points $(3, -2)$ and $(3, 4)$,\n(d) Making inclination of $60^\\circ$ with the positive direction of $x$-axis.",
+    "Solution": "(a) The slope of the line through $(3, -2)$ and $(-1, 4)$ is\n$$m = \\frac{4 - (-2)}{-1 - 3} = \\frac{6}{-4} = -\\frac{3}{2}$$\n(b) The slope of the line through the points $(3, -2)$ and $(7, -2)$ is\n$$m = \\frac{-2 - (-2)}{7 - 3} = \\frac{0}{4} = 0$$\n(c) The slope of the line through the points $(3, -2)$ and $(3, 4)$ is\n$$m = \\frac{4 - (-2)}{3 - 3} = \\frac{6}{0},$$\nwhich is not defined.\n(d) Here the inclination of the line is $\\alpha = 60^\\circ$. Therefore, the slope of the line is $m = \\tan 60^\\circ = \\sqrt{3}$.",
+    "Final_answer": "(a) $-\\frac{3}{2}$, (b) $0$, (c) not defined, (d) $\\sqrt{3}$",
     "chapter": "Straight Lines"
   },
   {
     "Title": "Straight Lines",
     "Subtitle": "",
     "Example": "The angle between two lines is $\\frac{\\pi}{4}$ and slope of one of the lines is $\\frac{1}{2}$ find the slope of the other line.",
-    "Solution": "We know that the acute angle $\\theta$ between two lines with slopes m1 and m2 is given by $$\\displaystyle \\tan\\theta = \\left| \\frac{m_{2} - m_{1}}{1 + m_{1}m_{2}} \\right|$$Let $m_{1} = \\frac{1}{2}$ , $m_{2} = m$ and $\\theta = \\frac{\\pi}{4}$\nnow putting these values we get,\n$$\\displaystyle \\tan\\frac{\\pi}{4} =\\left| \\frac{m-\\frac{1}{2}}{1 + \\frac{1}{2}m }\\right|$$\n$1 = \\frac{m - \\frac{1}{2}}{a + \\frac{1}{2}m} $ or $\\frac{m - \\frac{1}{2}}{1 + \\frac{1}{2}m} = -1$\ntherefore $m = 3$ or $m=\\frac{-1}{3}$ . Hence the slope of the line is $3$ or $\\frac{-1}{3}$.",
+    "Solution": "We know that the acute angle $\\theta$ between two lines with slopes m1 and m2 is given by $$\\displaystyle \\tan\\theta = \\left| \\frac{m_{2} - m_{1}}{1 + m_{1}m_{2}} \\right|$$ Let $m_{1} = \\frac{1}{2}$ , $m_{2} = m$ and $\\theta = \\frac{\\pi}{4}$\nnow putting these values we get,\n$$\\displaystyle \\tan\\frac{\\pi}{4} =\\left| \\frac{m-\\frac{1}{2}}{1 + \\frac{1}{2}m }\\right|$$\n$1 = \\frac{m - \\frac{1}{2}}{a + \\frac{1}{2}m} $ or $\\frac{m - \\frac{1}{2}}{1 + \\frac{1}{2}m} = -1$\ntherefore $m = 3$ or $m=\\frac{-1}{3}$ . Hence the slope of the line is $3$ or $\\frac{-1}{3}$.",
     "Final_answer": "$m = 3$ or $m = \\frac{-1}{3}$",
     "chapter": "Straight Lines"
   },
@@ -1323,7 +1325,7 @@
     "Title": "Straight Lines",
     "Subtitle": "",
     "Example": "Line through the points (-2, 6) and (4, 8) is perpendicular to the line through the points (8, 12) and (x, 24). Find the value of x.",
-    "Solution": "Slope of the line through the points (- 2, 6) and (4, 8) is $$\\displaystyle m_{1} = \\frac{8-6}{4 - (-2)} = \\frac{2}{6} = \\frac{1}{3}$$Slope of the line through the points (8, 12) and (x, 24) is $$\\displaystyle m_{2} = \\frac{24-12}{x-8} =\\frac{12}{x-18}$$Since two lines are perpendicular, $m_{1}m_{2}= -1$, which gives $$\\frac{1}{8} \\times  \\frac{12}{x-8} = -1$$ or $x = 4$.",
+    "Solution": "Slope of the line through the points (- 2, 6) and (4, 8) is $$\\displaystyle m_{1} = \\frac{8-6}{4 - (-2)} = \\frac{2}{6} = \\frac{1}{3}$$ Slope of the line through the points (8, 12) and (x, 24) is $$\\displaystyle m_{2} = \\frac{24-12}{x-8} =\\frac{12}{x-18}$$ Since two lines are perpendicular, $m_{1}m_{2}= -1$, which gives $$\\frac{1}{8} \\times  \\frac{12}{x-8} = -1$$ or $x = 4$.",
     "Final_answer": "$x = 4$",
     "chapter": "Straight Lines"
   },
@@ -1736,9 +1738,10 @@
     "chapter": "Relations And Functions"
   },
   {
+    "id": "c11zhv6s",
     "Title": "Relations And Functions",
     "Subtitle": "",
-    "Example": "Show that $f: \\mathbf{N} \\rightarrow \\mathbf{N}$, given by\n$$\\displaystyle\nf(x)=\\begin{aligned}\n& x+1, \\text { if } x \\text { is odd }, \\\\\n& x-1, \\text { if } x \\text { is even }\n\\end{aligned}\n$$\nis both one-one and onto.",
+    "Example": "Show that $f: \\mathbf{N} \\rightarrow \\mathbf{N}$, given by\n$$\\displaystyle\nf(x)=\\begin{cases}\nx+1, & \\text { if } x \\text { is odd } \\\\\nx-1, & \\text { if } x \\text { is even }\n\\end{cases}\n$$\nis both one-one and onto.",
     "Solution": "Suppose $f\\left(x_{1}\\right)=f\\left(x_{2}\\right)$. Note that if $x_{1}$ is odd and $x_{2}$ is even, then we will have $x_{1}+1=x_{2}-1$, i.e., $x_{2}-x_{1}=2$ which is impossible. Similarly, the possibility of $x_{1}$ being even and $x_{2}$ being odd can also be ruled out, using the similar argument. Therefore, both $x_{1}$ and $x_{2}$ must be either odd or even. Suppose both $x_{1}$ and $x_{2}$ are odd. Then $\\displaystyle f\\left(x_{1}\\right)=f\\left(x_{2}\\right) \\Rightarrow x_{1}+1=x_{2}+1 \\Rightarrow x_{1}=x_{2}$. Similarly, if both $x_{1}$ and $x_{2}$ are even, then also $\\displaystyle f\\left(x_{1}\\right)=f\\left(x_{2}\\right) \\Rightarrow x_{1}-1=x_{2}-1 \\Rightarrow x_{1}=x_{2}$. Thus, $f$ is one-one. Also, any odd number $2 r+1$ in the co-domain $\\mathbf{N}$ is the image of $2 r+2$ in the domain $\\mathbf{N}$ and any even number $2 r$ in the co-domain $\\mathbf{N}$ is the image of $2 r-1$ in the domain $\\mathbf{N}$. Thus, $f$ is onto.",
     "Final_answer": "$f$ is onto.",
     "chapter": "Relations And Functions"
@@ -1907,7 +1910,7 @@
     "Title": "Continuity and Differentiability",
     "Subtitle": "",
     "Example": "Discuss the continuity of the function $f$ defined by $f(x)=\\frac{1}{x}, x\\neq 0$.",
-    "Solution": "Fix any non zero real number $c$, we have\n$$\\displaystyle\n\\lim _{x \\rightarrow c} f(x)=\\lim _{x \\rightarrow c} \\frac{1}{x}=\\frac{1}{c}\n$$\nAlso, since for $c\\neq 0, f(c)=\\frac{1}{c}$, we have $\\lim _{x \\rightarrow c} f(x)=f(c)$ and hence, $f$is continuous at every point in the domain of $f$. Thus $f$is a continuous function.",
+    "Solution": "Fix any non zero real number $c$, we have\n$$\\displaystyle\n\\lim _{x \\rightarrow c} f(x)=\\lim _{x \\rightarrow c} \\frac{1}{x}=\\frac{1}{c}\n$$\nAlso, since for $c\\neq 0, f(c)=\\frac{1}{c}$, we have $\\lim _{x \\rightarrow c} f(x)=f(c)$ and hence, $f$ is continuous at every point in the domain of $f$. Thus $f$ is a continuous function.",
     "Final_answer": "$f$ is continuous at every point of its domain, so $f$ is a continuous function.",
     "chapter": "Continuity and Differentiability"
   },
@@ -2635,7 +2638,7 @@
     "Title": "Probability",
     "Subtitle": "Conditional Probability",
     "Example": "A family has two children. What is the probability that both children are boys given that at least one of them is a boy?",
-    "Solution": "Let $b$ stand for boy and $g$ for girl. The sample space of the experiment is $S = \\\\{(b, b), (g, b), (b, g), (g, g)\\\\}$.\nLet $E$ and $F$ denote the following events:\n$E$: 'both children are boys'\n$F$: 'at least one of the children is a boy'\nThen, $E = \\\\{(b, b)\\\\}$ and $F = \\\\{(b, b), (g, b), (b, g)\\\\}$.\nNow, $E \\cap F = \\\\{(b, b)\\\\}$.\nThus, $P(F) = \\frac{3}{4}$ and $P(E \\cap F) = \\frac{1}{4}$.\nTherefore, $\\displaystyle P(E | F) = \\frac{P(E \\cap F)}{P(F)} = \\frac{\\frac{1}{4}}{\\frac{3}{4}} = \\frac{1}{3}$.",
+    "Solution": "Let $b$ stand for boy and $g$ for girl. The sample space of the experiment is $S = \\{(b, b), (g, b), (b, g), (g, g)\\}$.\nLet $E$ and $F$ denote the following events:\n$E$: 'both children are boys'\n$F$: 'at least one of the children is a boy'\nThen, $E = \\{(b, b)\\}$ and $F = \\{(b, b), (g, b), (b, g)\\}$.\nNow, $E \\cap F = \\{(b, b)\\}$.\nThus, $P(F) = \\frac{3}{4}$ and $P(E \\cap F) = \\frac{1}{4}$.\nTherefore, $\\displaystyle P(E | F) = \\frac{P(E \\cap F)}{P(F)} = \\frac{\\frac{1}{4}}{\\frac{3}{4}} = \\frac{1}{3}$.",
     "Final_answer": "The probability that both children are boys given that at least one of them is a boy is $\\frac{1}{3}$.",
     "chapter": "Probability"
   },
@@ -2659,7 +2662,7 @@
     "Title": "Probability",
     "Subtitle": "Conditional Probability",
     "Example": "A die is thrown three times. Events A and B are defined as below:\nA: 4 on the third throw\nB: 6 on the first and 5 on the second throw\nFind the probability of A given that B has already occurred.",
-    "Solution": "The sample space has 216 outcomes.\nNow,\nA: {(6, 5, 4)}\nB: {(6, 5, 1), (6, 5, 2), (6, 5, 3), (6, 5, 4), (6, 5, 5), (6, 5, 6)}\nA ∩ B: {(6, 5, 4)}\nNow,\n$P(B) = \\frac{6}{216}$ and $P(A \\cap  B) = \\frac{1}{216}$\nThen,\n$P(A | B) = \\frac{P(A \\cap  B)}{P(B)} = \\frac{\\frac{1}{216}}{\\frac{6}{216}} = \\frac{1}{6}$",
+    "Solution": "The sample space has 216 outcomes.\nNow,\n$A = \\{(1, 1, 4), (1, 2, 4), \\ldots, (6, 6, 4)\\}$, which has 36 outcomes,\n$B = \\{(6, 5, 1), (6, 5, 2), (6, 5, 3), (6, 5, 4), (6, 5, 5), (6, 5, 6)\\}$\n$A \\cap B = \\{(6, 5, 4)\\}$\nNow,\n$P(B) = \\frac{6}{216}$ and $P(A \\cap  B) = \\frac{1}{216}$\nThen,\n$P(A | B) = \\frac{P(A \\cap  B)}{P(B)} = \\frac{\\frac{1}{216}}{\\frac{6}{216}} = \\frac{1}{6}$",
     "Final_answer": "The conditional probability of event A, given that event B has already occurred, is $\\frac{1}{6}$.",
     "chapter": "Probability"
   },
@@ -2667,7 +2670,7 @@
     "Title": "Probability",
     "Subtitle": "Conditional Probability",
     "Example": "A die is thrown twice, and the sum of the numbers appearing is observed to be 6. What is the conditional probability that the number 4 has appeared at least once?",
-    "Solution": "Let E be the event that 'number 4 appears at least once' and F be the event that 'the sum of the numbers appearing is 6'.\nThen,\nE: {(4,1),(4,2),(4,3),(4,4),(4,5),(4,6),(1,4),(2,4),(3,4),(5,4),(6,4)}\nF: {(1,5),(2,4),(3,3),(4,2),(5,1)}\nWe have\n$P(E) = \\frac{11}{36}$ and $P(F) = \\frac{5}{36}$\nAlso,\nE ∩ F: {(2,4),(4,2)}\nTherefore,\n$P(E \\cap  F) = \\frac{2}{36}$\nHence, the required probability\n$P(E | F) = \\frac{P(E \\cap  F)}{P(F)} = \\frac{\\frac{2}{36}}{\\frac{5}{36}} = \\frac{2}{5}$",
+    "Solution": "Let $E$ be the event that 'number 4 appears at least once' and $F$ be the event that 'the sum of the numbers appearing is 6'.\nThen,\n$E = \\{(4,1), (4,2), (4,3), (4,4), (4,5), (4,6), (1,4), (2,4), (3,4), (5,4), (6,4)\\}$\n$F = \\{(1,5), (2,4), (3,3), (4,2), (5,1)\\}$\nWe have\n$P(E) = \\frac{11}{36}$ and $P(F) = \\frac{5}{36}$\nAlso,\n$E \\cap F = \\{(2,4), (4,2)\\}$\nTherefore,\n$P(E \\cap  F) = \\frac{2}{36}$\nHence, the required probability\n$P(E | F) = \\frac{P(E \\cap  F)}{P(F)} = \\frac{\\frac{2}{36}}{\\frac{5}{36}} = \\frac{2}{5}$",
     "Final_answer": "The conditional probability that the number 4 has appeared at least once, given that the sum of the numbers appearing is 6, is $\\frac{2}{5}$.",
     "chapter": "Probability"
   },
@@ -2675,7 +2678,7 @@
     "Title": "Probability",
     "Subtitle": "Conditional Probability",
     "Example": "Consider the experiment of tossing a coin. If the coin shows head, toss it again but if it shows tail, then throw a die. Find the conditional probability of the event that 'the die shows a number greater than 4' given that 'there is at least one tail'.",
-    "Solution": "The outcomes of the experiment can be represented in the following diagrammatic manner called the 'tree diagram'.\nThe sample space of the experiment may be described as shown in Fig 13.1.\nS: {(H, H), (H, T), (T, 1), (T, 2), (T, 3), (T, 4), (T, 5), (T, 6)}\nwhere (H, H) denotes that both the tosses result in a head and (T, i) denotes the first toss resulting in a tail and the number i appeared on the die for i = 1, 2, 3, 4, 5, 6. The probabilities assigned to the 8 elementary events are clear from Fig 13.2.\nLet F be the event that 'there is at least one tail' and E be the event 'the die shows a number greater than 4'. Then,\nF: {(H, T), (T, 1), (T, 2), (T, 3), (T, 4), (T, 5), (T, 6)}\nE: {(T, 5), (T, 6)}\nE ∩ F: {(T, 5), (T, 6)}\nNow,\n$P(F) = P(\\{(H, T)\\}) + P(\\{(T, 1)\\}) + P(\\{(T, 2)\\}) + P(\\{(T, 3)\\}) + P(\\{(T, 4)\\}) + P(\\{(T, 5)\\}) + P(\\{(T, 6)\\}) = \\frac{1}{4} + \\frac{1}{12} + \\frac{1}{12} + \\frac{1}{12} + \\frac{1}{12} + \\frac{1}{12} + \\frac{1}{12} = \\frac{3}{4}$\nand\n$P(E \\cap  F) = P(\\{(T, 5)\\}) + P(\\{(T, 6)\\}) = \\frac{1}{12} + \\frac{1}{12} = \\frac{1}{6}$\nHence, $P(E | F) = \\frac{P(E \\cap  F)}{P(F)} = \\frac{\\frac{1}{6}}{\\frac{3}{4}} = \\frac{2}{9}$",
+    "Solution": "The outcomes of the experiment can be represented in the following diagrammatic manner called the 'tree diagram'.\nThe sample space of the experiment may be described as shown in Fig 13.1.\n$S = \\{(H, H), (H, T), (T, 1), (T, 2), (T, 3), (T, 4), (T, 5), (T, 6)\\}$\nwhere $(H, H)$ denotes that both the tosses result in a head and $(T, i)$ denotes the first toss resulting in a tail and the number $i$ appeared on the die for $i = 1, 2, 3, 4, 5, 6$. The probabilities assigned to the 8 elementary events are clear from Fig 13.2.\nLet $F$ be the event that 'there is at least one tail' and $E$ be the event 'the die shows a number greater than 4'. Then,\n$F = \\{(H, T), (T, 1), (T, 2), (T, 3), (T, 4), (T, 5), (T, 6)\\}$\n$E = \\{(T, 5), (T, 6)\\}$\n$E \\cap F = \\{(T, 5), (T, 6)\\}$\nNow,\n$P(F) = P(\\{(H, T)\\}) + P(\\{(T, 1)\\}) + P(\\{(T, 2)\\}) + P(\\{(T, 3)\\}) + P(\\{(T, 4)\\}) + P(\\{(T, 5)\\}) + P(\\{(T, 6)\\}) = \\frac{1}{4} + \\frac{1}{12} + \\frac{1}{12} + \\frac{1}{12} + \\frac{1}{12} + \\frac{1}{12} + \\frac{1}{12} = \\frac{3}{4}$\nand\n$P(E \\cap  F) = P(\\{(T, 5)\\}) + P(\\{(T, 6)\\}) = \\frac{1}{12} + \\frac{1}{12} = \\frac{1}{6}$\nHence, $P(E | F) = \\frac{P(E \\cap  F)}{P(F)} = \\frac{\\frac{1}{6}}{\\frac{3}{4}} = \\frac{2}{9}$",
     "Final_answer": "The conditional probability of the event that 'the die shows a number greater than 4' given that 'there is at least one tail' is $\\frac{2}{9}$.",
     "chapter": "Probability"
   },
@@ -2691,7 +2694,7 @@
     "Title": "Probability",
     "Subtitle": "Independent Events",
     "Example": "A die is thrown. If E is the event 'the number appearing is a multiple of 3' and F be the event 'the number appearing is even,' then find whether E and F are independent?",
-    "Solution": "We know that the sample space is S = {1, 2, 3, 4, 5, 6}.\nNow,\nE = {3, 6}, F = {2, 4, 6}, and E ∩ F = {6}.\nThen,\n$P(E) = \\frac{2}{6} = \\frac{1}{3}$, $P(F) = \\frac{3}{6} = \\frac{1}{2}$, and $P(E \\cap  F) = \\frac{1}{6}$.\nClearly,\n$P(E \\cap  F) = P(E) \\times P(F)$.\nHence,\nE and F are independent events.",
+    "Solution": "We know that the sample space is $S = \\{1, 2, 3, 4, 5, 6\\}$.\nNow,\n$E = \\{3, 6\\}$, $F = \\{2, 4, 6\\}$ and $E \\cap F = \\{6\\}$.\nThen,\n$P(E) = \\frac{2}{6} = \\frac{1}{3}$, $P(F) = \\frac{3}{6} = \\frac{1}{2}$, and $P(E \\cap  F) = \\frac{1}{6}$.\nClearly,\n$P(E \\cap  F) = P(E) \\times P(F)$.\nHence,\n$E$ and $F$ are independent events.",
     "Final_answer": "E and F are independent events.",
     "chapter": "Probability"
   },
@@ -2707,7 +2710,7 @@
     "Title": "Probability",
     "Subtitle": "Independent and Dependent Events",
     "Example": "Three coins are tossed simultaneously. Consider the event E 'three heads or three tails', F 'at least two heads' and G 'at most two heads'. Of the pairs (E,F), (E,G) and (F,G), which are independent? which are dependent?",
-    "Solution": "The sample space of the experiment is given by\nS = {HHH, HHT, HTH, THH, HTT, THT, TTH, TTT}\nClearly,\nE = {HHH, TTT}, F = {HHH, HHT, HTH, THH}, and G = {HHT, HTH, THH, HTT, THT, TTH, TTT}\nAlso, E ∩ F = {HHH}, E ∩ G = {TTT}, F ∩ G = {HHT, HTH, THH}\nTherefore,\n$P(E) = \\frac{2}{8} = \\frac{1}{4}$, $P(F) = \\frac{4}{8} = \\frac{1}{2}$, $P(G) = \\frac{7}{8}$\nand\n$P(E \\cap  F) = \\frac{1}{8}$, $P(E \\cap  G) = \\frac{1}{8}$, $P(F \\cap  G) = \\frac{3}{8}$\nAlso,\n$P(E) \\times P(F) = \\frac{1}{4} \\times \\frac{1}{2} = \\frac{1}{8}$, $P(E) \\times P(G) = \\frac{1}{4} \\times \\frac{7}{8} = \\frac{7}{32}$,\nand\n$P(F) \\times P(G) = \\frac{1}{2} \\times \\frac{7}{8} = \\frac{7}{16}$\nThus,\n$P(E \\cap  F) = P(E) \\times P(F)$ and $P(E \\cap  G) \\neq  P(E) \\times P(G)$,\n$P(F \\cap  G) \\neq  P(F) \\times P(G)$\nHence, the events (E and F) are independent, and the events (E and G) and (F and G) are dependent.",
+    "Solution": "The sample space of the experiment is given by\n$S = \\{\\text{HHH}, \\text{HHT}, \\text{HTH}, \\text{THH}, \\text{HTT}, \\text{THT}, \\text{TTH}, \\text{TTT}\\}$\nClearly,\n$E = \\{\\text{HHH}, \\text{TTT}\\}$, $F = \\{\\text{HHH}, \\text{HHT}, \\text{HTH}, \\text{THH}\\}$ and $G = \\{\\text{HHT}, \\text{HTH}, \\text{THH}, \\text{HTT}, \\text{THT}, \\text{TTH}, \\text{TTT}\\}$\nAlso, $E \\cap F = \\{\\text{HHH}\\}$, $E \\cap G = \\{\\text{TTT}\\}$, $F \\cap G = \\{\\text{HHT}, \\text{HTH}, \\text{THH}\\}$\nTherefore,\n$P(E) = \\frac{2}{8} = \\frac{1}{4}$, $P(F) = \\frac{4}{8} = \\frac{1}{2}$, $P(G) = \\frac{7}{8}$\nand\n$P(E \\cap  F) = \\frac{1}{8}$, $P(E \\cap  G) = \\frac{1}{8}$, $P(F \\cap  G) = \\frac{3}{8}$\nAlso,\n$P(E) \\times P(F) = \\frac{1}{4} \\times \\frac{1}{2} = \\frac{1}{8}$, $P(E) \\times P(G) = \\frac{1}{4} \\times \\frac{7}{8} = \\frac{7}{32}$,\nand\n$P(F) \\times P(G) = \\frac{1}{2} \\times \\frac{7}{8} = \\frac{7}{16}$\nThus,\n$P(E \\cap  F) = P(E) \\times P(F)$ and $P(E \\cap  G) \\neq  P(E) \\times P(G)$,\n$P(F \\cap  G) \\neq  P(F) \\times P(G)$\nHence, the events (E and F) are independent, and the events (E and G) and (F and G) are dependent.",
     "Final_answer": "The pair of events (E and F) is independent, while the pairs (E and G) and (F and G) are dependent.",
     "chapter": "Probability"
   },
@@ -2715,7 +2718,7 @@
     "Title": "Probability",
     "Subtitle": "Independent Events",
     "Example": "Prove that if E and F are independent events, then so are the events E and F'.",
-    "Solution": "Since E and F are independent, we have\nP(E ∩ F) = P(E) * P(F)\nFrom the venn diagram in Fig 13.3, it is clear that E ∩ F and E ∩ F' are mutually exclusive events and also E = (E ∩ F) ∪ (E ∩ F').\nTherefore\nP(E) = P(E ∩ F) + P(E ∩ F')\nor\nP(E ∩ F') = P(E) - P(E ∩ F) = P(E) - P(E) * P(F) (by (1))\n= P(E) * (1 - P(F)) = P(E) * P(F')\nHence, E and F' are independent.\nNote: In a similar manner, it can be shown that if the events E and F are independent, then\n(a) E' and F are independent,\n(b) E' and F' are independent.",
+    "Solution": "Since $E$ and $F$ are independent, we have\n$$P(E \\cap F) = P(E) \\times P(F) \\qquad (1)$$\nFrom the Venn diagram in Fig 13.3, it is clear that $E \\cap F$ and $E \\cap F'$ are mutually exclusive events and also $E = (E \\cap F) \\cup (E \\cap F')$.\nTherefore\n$$P(E) = P(E \\cap F) + P(E \\cap F')$$\nor\n$$\\begin{aligned} P(E \\cap F') &= P(E) - P(E \\cap F) \\\\ &= P(E) - P(E) \\times P(F) \\quad \\text{(by (1))} \\\\ &= P(E)\\,(1 - P(F)) \\\\ &= P(E) \\times P(F') \\end{aligned}$$\nHence, $E$ and $F'$ are independent.\nNote: In a similar manner, it can be shown that if the events $E$ and $F$ are independent, then\n(a) $E'$ and $F$ are independent,\n(b) $E'$ and $F'$ are independent.",
     "Final_answer": "If E and F are independent events, then E and F' are also independent.",
     "chapter": "Probability"
   },
@@ -2899,7 +2902,7 @@
     "Title": "Differential Equations",
     "Subtitle": "",
     "Example": "Find the general solution of the differential equation $\\frac{d y}{d x}=\\frac{1+y^{2}}{1+x^{2}}$.",
-    "Solution": "Since $1+y^{2}\\neq 0$, therefore separating the variables, the given differential equation can be written as\n$$\\displaystyle \\frac{d y}{1+y^{2}}=\\frac{d x}{1+x^{2}}$$\nIntegrating both sides of equation (1), we get\n$$\\displaystyle \\int \\frac{d y}{1+y^{2}}=\\int \\frac{d x}{1+x^{2}}$$or\n$$\\tan ^{-1} y=\\tan ^{-1} x+{C}$$\nwhich is the general solution of equation (1).",
+    "Solution": "Since $1+y^{2}\\neq 0$, therefore separating the variables, the given differential equation can be written as\n$$\\displaystyle \\frac{d y}{1+y^{2}}=\\frac{d x}{1+x^{2}}$$\nIntegrating both sides of equation (1), we get\n$$\\displaystyle \\int \\frac{d y}{1+y^{2}}=\\int \\frac{d x}{1+x^{2}}$$ or\n$$\\tan ^{-1} y=\\tan ^{-1} x+{C}$$\nwhich is the general solution of equation (1).",
     "Final_answer": "The general solution of the differential equation $\\frac{d y}{d x}=\\frac{1+y^{2}}{1+x^{2}}$ is $\\tan ^{-1} y=\\tan ^{-1} x+{C}$.",
     "chapter": "Differential Equations"
   },
@@ -2915,7 +2918,7 @@
     "Title": "Differential Equations",
     "Subtitle": "",
     "Example": "Find the equation of the curve passing through the point $(1,1)$ whose differential equation is $x dy=(2 x^{2}+1) dx$ ($x\\neq 0$).",
-    "Solution": "The given differential equation can be expressed as\n$$\\displaystyle dy^{*}=\\left(\\frac{2 x^{2}+1}{x}\\right) dx^{*}$$or\n$$dy=\\left(2 x+\\frac{1}{x}\\right) dx$$Integrating both sides of equation (1), we get\n$$\\displaystyle \\int dy=\\int \\left(2 x+\\frac{1}{x}\\right) dx$$\nwhich simplifies to\n$$\\displaystyle y=x^{2}+\\log |x|+{C}$$",
+    "Solution": "The given differential equation can be expressed as\n$$\\displaystyle dy^{*}=\\left(\\frac{2 x^{2}+1}{x}\\right) dx^{*}$$ or\n$$dy=\\left(2 x+\\frac{1}{x}\\right) dx$$ Integrating both sides of equation (1), we get\n$$\\displaystyle \\int dy=\\int \\left(2 x+\\frac{1}{x}\\right) dx$$\nwhich simplifies to\n$$\\displaystyle y=x^{2}+\\log |x|+{C}$$",
     "Final_answer": "The equation of the curve passing through the point $(1,1)$ with the differential equation $x dy=(2 x^{2}+1) dx$ ($x\\neq 0$) is $y=x^{2}+\\log |x|+{C}$.",
     "chapter": "Differential Equations"
   },
@@ -2931,7 +2934,7 @@
     "Title": "Differential Equations",
     "Subtitle": "",
     "Example": "In a bank, the principal increases continuously at the rate of 5% per year. In how many years will Rs 1000 double itself?",
-    "Solution": "Let $P$ be the principal at any time $t$. According to the given problem, we have\n$$\\displaystyle \\frac{dP}{dt} = \\left(\\frac{5}{100}\\right)P = \\frac{P}{20}$$Separating the variables in equation (1), we get\n$$\\frac{dP}{P} = \\frac{dt}{20}$$Integrating both sides of equation (2), we get\n$$\\int \\frac{dP}{P} = \\int \\frac{dt}{20}$$which simplifies to\n$$\\ln|P| = \\frac{t}{20} + C_1$$where $C_1$ is the constant of integration.\nExponentiating both sides, we get\n$$\\displaystyle |P| = e^{\\frac{t}{20} + C_1} = e^{\\frac{t}{20}}e^{C_1}$$\nLet $e^{C_1} = C$, so we have\n$$\\displaystyle |P| = Ce^{\\frac{t}{20}}$$\nNow, since we're dealing with money, we consider the absolute value of $P$. Let's assume that the initial principal is $P_0$ when $t = 0$. So,\n$$\\displaystyle P_0 = Ce^{\\frac{0}{20}} = C$$\nTherefore, we have $|P| = P_0e^{\\frac{t}{20}}$.\nTo find when the principal doubles, we set $|P| = 2P_0$:\n$$\\displaystyle 2P_0 = P_0e^{\\frac{t}{20}}$$\nDividing both sides by $P_0$:\n$$\\displaystyle 2 = e^{\\frac{t}{20}}$$\nTaking the natural logarithm of both sides:\n$$\\displaystyle \\ln 2 = \\frac{t}{20}$$\nSolving for $t$:\n$$\\displaystyle t = 20\\ln 2$$",
+    "Solution": "Let $P$ be the principal at any time $t$. According to the given problem, we have\n$$\\displaystyle \\frac{dP}{dt} = \\left(\\frac{5}{100}\\right)P = \\frac{P}{20}$$ Separating the variables in equation (1), we get\n$$\\frac{dP}{P} = \\frac{dt}{20}$$ Integrating both sides of equation (2), we get\n$$\\int \\frac{dP}{P} = \\int \\frac{dt}{20}$$ which simplifies to\n$$\\ln|P| = \\frac{t}{20} + C_1$$ where $C_1$ is the constant of integration.\nExponentiating both sides, we get\n$$\\displaystyle |P| = e^{\\frac{t}{20} + C_1} = e^{\\frac{t}{20}}e^{C_1}$$\nLet $e^{C_1} = C$, so we have\n$$\\displaystyle |P| = Ce^{\\frac{t}{20}}$$\nNow, since we're dealing with money, we consider the absolute value of $P$. Let's assume that the initial principal is $P_0$ when $t = 0$. So,\n$$\\displaystyle P_0 = Ce^{\\frac{0}{20}} = C$$\nTherefore, we have $|P| = P_0e^{\\frac{t}{20}}$.\nTo find when the principal doubles, we set $|P| = 2P_0$:\n$$\\displaystyle 2P_0 = P_0e^{\\frac{t}{20}}$$\nDividing both sides by $P_0$:\n$$\\displaystyle 2 = e^{\\frac{t}{20}}$$\nTaking the natural logarithm of both sides:\n$$\\displaystyle \\ln 2 = \\frac{t}{20}$$\nSolving for $t$:\n$$\\displaystyle t = 20\\ln 2$$",
     "Final_answer": "In approximately 13.86 years, Rs 1000 will double itself when the principal increases continuously at the rate of 5% per year.",
     "chapter": "Differential Equations"
   },
@@ -2939,7 +2942,7 @@
     "Title": "Differential Equations",
     "Subtitle": "",
     "Example": "Show that the differential equation $(x-y) \\frac{dy}{dx}=x+2y$ is homogeneous and solve it.",
-    "Solution": "The given differential equation can be expressed as\n$$\\displaystyle \\frac{dy}{dx}=\\frac{x+2y}{x-y}$$\nLet\n$$\\displaystyle F(x, y)=\\frac{x+2y}{x-y}$$\nNow\n$$\\displaystyle F(\\lambda x, \\lambda y)=\\frac{\\lambda(x+2y)}{\\lambda(x-y)}=\\lambda^0 \\cdot F(x, y)$$Therefore, $F(x, y)$ is a homogenous function of degree zero. So, the given differential equation is a homogeneous differential equation.\nAlternatively,\n$$\\displaystyle \\frac{dy}{dx}=\\left(\\frac{1+\\frac{2y}{x}}{1-\\frac{y}{x}}\\right)=g\\left(\\frac{y}{x}\\right)$$\nR.H.S. of differential equation (2) is of the form $g\\left(\\frac{y}{x}\\right)$ and so it is a homogeneous function of degree zero. Therefore, equation (1) is a homogeneous differential equation. To solve it we make the substitution\n$$\\displaystyle y=vx$$\nDifferentiating equation (3) with respect to, $x$ we get\n$$\\displaystyle \\frac{dy}{dx}=v+x\\frac{dv}{dx}$$\nSubstituting the value of $y$ and $\\frac{dy}{dx}$ in equation (1) we get...",
+    "Solution": "The given differential equation can be expressed as\n$$\\displaystyle \\frac{dy}{dx}=\\frac{x+2y}{x-y}$$\nLet\n$$\\displaystyle F(x, y)=\\frac{x+2y}{x-y}$$\nNow\n$$\\displaystyle F(\\lambda x, \\lambda y)=\\frac{\\lambda(x+2y)}{\\lambda(x-y)}=\\lambda^0 \\cdot F(x, y)$$ Therefore, $F(x, y)$ is a homogenous function of degree zero. So, the given differential equation is a homogeneous differential equation.\nAlternatively,\n$$\\displaystyle \\frac{dy}{dx}=\\left(\\frac{1+\\frac{2y}{x}}{1-\\frac{y}{x}}\\right)=g\\left(\\frac{y}{x}\\right)$$\nR.H.S. of differential equation (2) is of the form $g\\left(\\frac{y}{x}\\right)$ and so it is a homogeneous function of degree zero. Therefore, equation (1) is a homogeneous differential equation. To solve it we make the substitution\n$$\\displaystyle y=vx$$\nDifferentiating equation (3) with respect to, $x$ we get\n$$\\displaystyle \\frac{dy}{dx}=v+x\\frac{dv}{dx}$$\nSubstituting the value of $y$ and $\\frac{dy}{dx}$ in equation (1) we get...",
     "Final_answer": "The general solution of the differential equation is\n$$\\displaystyle \\log \\left|\\left(x^2+xy+y^2\\right)\\right|=2\\sqrt{3}\\tan^{-1}\\left(\\frac{x+2y}{\\sqrt{3}x}\\right)+C$$",
     "chapter": "Differential Equations"
   },
@@ -2947,7 +2950,7 @@
     "Title": "Differential Equations",
     "Subtitle": "",
     "Example": "Show that the differential equation $\\displaystyle x\\cos\\left(\\frac{y}{x}\\right)\\frac{dy}{dx}=y\\cos\\left(\\frac{y}{x}\\right)+x$ is homogeneous and solve it.",
-    "Solution": "The given differential equation can be written as\n$$\\displaystyle \\frac{dy}{dx}=\\frac{y\\cos\\left(\\frac{y}{x}\\right)+x}{x\\cos\\left(\\frac{y}{x}\\right)}$$It is a differential equation of the form $\\frac{dy}{dx}=F(x, y)$.\nHere\n$$\\displaystyle F(x, y)=\\frac{y\\cos\\left(\\frac{y}{x}\\right)+x}{x\\cos\\left(\\frac{y}{x}\\right)}$$\nReplacing $x$ by $\\lambda x$ and $y$ by $\\lambda y$, we get...",
+    "Solution": "The given differential equation can be written as\n$$\\displaystyle \\frac{dy}{dx}=\\frac{y\\cos\\left(\\frac{y}{x}\\right)+x}{x\\cos\\left(\\frac{y}{x}\\right)}$$ It is a differential equation of the form $\\frac{dy}{dx}=F(x, y)$.\nHere\n$$\\displaystyle F(x, y)=\\frac{y\\cos\\left(\\frac{y}{x}\\right)+x}{x\\cos\\left(\\frac{y}{x}\\right)}$$\nReplacing $x$ by $\\lambda x$ and $y$ by $\\lambda y$, we get...",
     "Final_answer": "The general solution of the differential equation is\n$$\\displaystyle \\sin\\left(\\frac{y}{x}\\right)=\\log |C x|$$",
     "chapter": "Differential Equations"
   },
@@ -2955,7 +2958,7 @@
     "Title": "Differential Equations",
     "Subtitle": "",
     "Example": "Show that the differential equation $\\displaystyle 2ye^{\\frac{x}{y}}dx + (y - 2xe^{\\frac{x}{y}})dy = 0$ is homogeneous and find its particular solution, given that $x=0$ when $y=1$.",
-    "Solution": "The given differential equation can be written as\nLet\n$$\\displaystyle \\frac{dx}{dy} = \\frac{2xe^{\\frac{x}{y}} - y}{2ye^{\\frac{x}{y}}}$$Then\n$$\\displaystyle F(x, y) = \\frac{2xe^{\\frac{x}{y}} - y}{2ye^{\\frac{x}{y}}}$$\nReplacing $x$ by $\\lambda x$ and $y$ by $\\lambda y$, we get...",
+    "Solution": "The given differential equation can be written as\nLet\n$$\\displaystyle \\frac{dx}{dy} = \\frac{2xe^{\\frac{x}{y}} - y}{2ye^{\\frac{x}{y}}}$$ Then\n$$\\displaystyle F(x, y) = \\frac{2xe^{\\frac{x}{y}} - y}{2ye^{\\frac{x}{y}}}$$\nReplacing $x$ by $\\lambda x$ and $y$ by $\\lambda y$, we get...",
     "Final_answer": "The particular solution of the given differential equation is\n$$\\displaystyle 2e^{\\frac{x}{y}} + \\log |y| = 2$$",
     "chapter": "Differential Equations"
   },
@@ -2963,7 +2966,7 @@
     "Title": "Differential Equations",
     "Subtitle": "",
     "Example": "Show that the family of curves for which the slope of the tangent at any point $(x, y)$ on it is $\\frac{x^{2}+y^{2}}{2xy}$ is given by $x^{2}-y^{2}=c x$.",
-    "Solution": "We know that the slope of the tangent at any point on a curve is $\\frac{dy}{dx}$.\nTherefore,\n$$\\displaystyle \\frac{dy}{dx} = \\frac{x^{2}+y^{2}}{2xy}$$\nor\n$$\\displaystyle \\frac{dy}{dx} = \\frac{1+\\frac{y^{2}}{x^{2}}}{\\frac{2y}{x}}$$Clearly, (1) is a homogenous differential equation. To solve it we make substitution\n$$y=vx$$\nDifferentiating $y=vx$ with respect to $x$, we get...",
+    "Solution": "We know that the slope of the tangent at any point on a curve is $\\frac{dy}{dx}$.\nTherefore,\n$$\\displaystyle \\frac{dy}{dx} = \\frac{x^{2}+y^{2}}{2xy}$$\nor\n$$\\displaystyle \\frac{dy}{dx} = \\frac{1+\\frac{y^{2}}{x^{2}}}{\\frac{2y}{x}}$$ Clearly, (1) is a homogenous differential equation. To solve it we make substitution\n$$y=vx$$\nDifferentiating $y=vx$ with respect to $x$, we get...",
     "Final_answer": "The family of curves for which the slope of the tangent at any point $(x, y)$ on it is $\\frac{x^{2}+y^{2}}{2xy}$ is given by the equation\n$$\\displaystyle x^{2}-y^{2}=c x$$",
     "chapter": "Differential Equations"
   },
@@ -3116,7 +3119,7 @@
     "Subtitle": "",
     "Example": "Find angle ' $\\theta$ ' between the vectors $\\vec{a}=\\hat{i}+\\hat{j}-\\hat{k}$ and $\\vec{b}=\\hat{i}-\\hat{j}+\\hat{k}$.",
     "Solution": "The angle $\\theta$ between two vectors $\\vec{a}$ and $\\vec{b}$ is given by\n$$\\displaystyle\n\\cos \\theta=\\frac{\\vec{a} \\cdot \\vec{b}}{|\\vec{a}||\\vec{b}|}\n$$\nNow\n$$\\displaystyle\n\\vec{a} \\cdot \\vec{b}=(\\hat{i}+\\hat{j}-\\hat{k}) \\cdot(\\hat{i}-\\hat{j}+\\hat{k})=1-1-1=-1 .\n$$\nTherefore, we have\n$$\\displaystyle\n\\cos \\theta=\\frac{-1}{3}\n$$\nhence the required angle is\n$$\\displaystyle\n\\theta=\\cos ^{-1}\\left(-\\frac{1}{3}\\right)\n$$",
-    "Final_answer": "$Hence the required angle is\n$$\n\\theta=\\cos ^{-1}\\left(-\\frac{1}{3}\\right)$",
+    "Final_answer": "$\\theta = \\cos^{-1}\\left(-\\frac{1}{3}\\right)$",
     "chapter": "Vector Algebra"
   },
   {
@@ -3140,7 +3143,7 @@
     "Subtitle": "",
     "Example": "Find $|\\vec{a}-\\vec{b}|$, if two vectors $\\vec{a}$ and $\\vec{b}$ are such that $|\\vec{a}|=2,|\\vec{b}|=3$ and $\\vec{a} \\cdot \\vec{b}=4$.",
     "Solution": "We have\n$$\\displaystyle\n\\begin{aligned}\n|\\vec{a}-\\vec{b}|^{2} & =(\\vec{a}-\\vec{b}) \\cdot(\\vec{a}-\\vec{b}) \\\\\n& =\\vec{a} \\cdot \\vec{a}-\\vec{a} \\cdot \\vec{b}-\\vec{b} \\cdot \\vec{a}+\\vec{b} \\cdot \\vec{b}\n\\end{aligned}\n$$\nTherefore\n$$\\displaystyle\n\\begin{aligned}\n& =|\\vec{a}|^{2}-2(\\vec{a} \\cdot \\vec{b})+|\\vec{b}|^{2} \\\\\n& =(2)^{2}-2(4)+(3)^{2} \\\\\n|\\vec{a}-\\vec{b}| & =\\sqrt{5}\n\\end{aligned}\n$$",
-    "Final_answer": "$sqrt{5}$",
+    "Final_answer": "$\\sqrt{5}$",
     "chapter": "Vector Algebra"
   },
   {
@@ -3227,7 +3230,7 @@
     "Title": "Integrals",
     "Subtitle": "",
     "Example": "(ii) $\\int{3x^2 + 4x^3 \\;dx}$",
-    "Solution": "(ii) $\\int (3x^2 + 4x^3)dx$We look for a function whose derivative is $3x^2 + 4x^3$. Note that\n$\\frac{d}{dx}(x^3 + x^4) = 3x^2 + 4x^3$\nTherefore, an antiderivative of $3x^2 + 4x^3$ is $x^3 + x^4$.",
+    "Solution": "(ii) $\\int (3x^2 + 4x^3)dx$ We look for a function whose derivative is $3x^2 + 4x^3$. Note that\n$\\frac{d}{dx}(x^3 + x^4) = 3x^2 + 4x^3$\nTherefore, an antiderivative of $3x^2 + 4x^3$ is $x^3 + x^4$.",
     "Final_answer": "(ii) $\\int (3x^2 + 4x^3)dx = x^3 + x^4 + C$",
     "chapter": "Integrals"
   },
@@ -3235,7 +3238,7 @@
     "Title": "Integrals",
     "Subtitle": "",
     "Example": "(iii) $\\int{\\frac{1}{x} \\; dx}$",
-    "Solution": "(iii) $\\int \\frac{1}{x}dx$\nWe know that$\\frac{d}{dx}(\\log{|x|}) = \\frac{1}{x}, x \\neq 0$.\nTherefore, $\\int \\frac{1}{x}dx = \\log{|x|}$ is one of the antiderivatives of $\\frac{1}{x}$.",
+    "Solution": "(iii) $\\int \\frac{1}{x}dx$\nWe know that $\\frac{d}{dx}(\\log{|x|}) = \\frac{1}{x}, x \\neq 0$.\nTherefore, $\\int \\frac{1}{x}dx = \\log{|x|}$ is one of the antiderivatives of $\\frac{1}{x}$.",
     "Final_answer": "(iii) $\\int \\frac{1}{x}dx = \\log{|x|} + C$",
     "chapter": "Integrals"
   },
@@ -3252,7 +3255,7 @@
     "Subtitle": "",
     "Example": "(ii) $\\int{x^\\frac{2}{3} + 1 \\; dx}$",
     "Solution": "(ii) $\\int{x^\\frac{2}{3} + 1 \\; dx}$\n$=\\int{x^\\frac{2}{3} \\; dx} + \\int{1 \\; dx}$\n$=\\frac{x^\\frac{2}{3}+1}{\\frac{2}{3}+1} + x + C$\n$= \\frac{3}{5}x^{(5/3)} + x + C$",
-    "Final_answer": "(ii) ∫$\\displaystyle ((x^{2/3} + 1))dx = \\frac{3}{5}x^{(5/3)} + x + C$",
+    "Final_answer": "(ii) $\\displaystyle \\int \\left(x^{2/3} + 1\\right) dx = \\frac{3}{5}x^{5/3} + x + C$",
     "chapter": "Integrals"
   },
   {
@@ -3260,7 +3263,7 @@
     "Subtitle": "",
     "Example": "(iii) $\\int{x^\\frac{3}{2} + 2e^x - \\frac{1}{x} \\; dx}$",
     "Solution": "(iii) $\\int{x^\\frac{3}{2} + 2e^x - 1/x \\; dx}$\n $= \\int{x^\\frac{3}{2} \\;dx} + \\int{2e^x \\; dx} - \\int{\\frac{1}{x}\\;dx}$\n$\\;= \\frac{2}{5}x^\\frac{5}{2} + 2e^x - \\ln|x| + C$",
-    "Final_answer": "(iii) ∫$\\displaystyle ((x^{3/2} + 2e^x - 1/x))dx = \\frac{2}{5}x^{(5/2)} + 2e^x - \\ln|x| + C$",
+    "Final_answer": "(iii) $\\displaystyle \\int \\left(x^{3/2} + 2e^x - \\frac{1}{x}\\right) dx = \\frac{2}{5}x^{5/2} + 2e^x - \\ln|x| + C$",
     "chapter": "Integrals"
   },
   {
@@ -3268,7 +3271,7 @@
     "Subtitle": "",
     "Example": "(i) $\\int{\\sin^3(x)\\cos^2(x) \\;dx}$",
     "Solution": "(i) $\\int{\\sin^3(x)\\cos^2(x)\\;dx}$\n$= -\\frac{1}{3} \\cos^3 x + \\frac{1}{5} \\cos^5 x + C$",
-    "Final_answer": "(i) ∫$\\displaystyle \\sin^3 x * \\cos^2 x dx = -\\frac{1}{3} \\cos^3 x + \\frac{1}{5} \\cos^5 x + C$",
+    "Final_answer": "(i) $\\displaystyle \\int \\sin^3 x \\cos^2 x \\, dx = -\\frac{1}{3} \\cos^3 x + \\frac{1}{5} \\cos^5 x + C$",
     "chapter": "Integrals"
   },
   {
@@ -3284,7 +3287,7 @@
     "Subtitle": "",
     "Example": "(iii) $\\int{\\frac{1}{1 + \\tan x}\\; dx}$",
     "Solution": "(iii) $\\int{\\frac{1}{1 + \\tan x}\\;dx}$\n$= \\frac{x}{2} + \\frac{1}{2} \\ln |\\cos x + \\sin x| + C$\nwhere $C$ is a constant.",
-    "Final_answer": "(iii) ∫$\\displaystyle \\frac{1}{1 + \\tan x} dx = \\frac{x}{2} + \\frac{1}{2} \\ln |\\cos x + \\sin x| + C$, where $C$ is a constant.",
+    "Final_answer": "(iii) $\\displaystyle \\int \\frac{1}{1 + \\tan x} \\, dx = \\frac{x}{2} + \\frac{1}{2} \\ln |\\cos x + \\sin x| + C$, where $C$ is a constant.",
     "chapter": "Integrals"
   },
   {
@@ -3300,7 +3303,7 @@
     "Subtitle": "",
     "Example": "(i) $\\int{\\sin(mx)\\;dx}$",
     "Solution": "(i) $\\int{\\sin(mx)\\;dx}$\n$= \\frac{-1}{m}\\cos(mx) + C$",
-    "Final_answer": "(i) ∫$\\sin mx dx = (-1/m) \\cos(mx) + C$",
+    "Final_answer": "(i) $\\displaystyle \\int \\sin mx \\, dx = -\\frac{1}{m} \\cos mx + C$",
     "chapter": "Integrals"
   },
   {
@@ -3308,7 +3311,7 @@
     "Subtitle": "",
     "Example": "(ii) $\\int{2x \\cdot \\sin(x^2 + 1)\\;dx}$",
     "Solution": "(ii) $\\int{2x \\cdot \\sin(x^2 + 1)\\;dx}$\n$=-\\cos(x^2 + 1) + C$",
-    "Final_answer": "(ii) ∫$\\displaystyle 2x * \\sin(x^2 + 1) dx = -\\cos(x^2 + 1) + C$",
+    "Final_answer": "(ii) $\\displaystyle \\int 2x \\sin(x^2 + 1) \\, dx = -\\cos(x^2 + 1) + C$",
     "chapter": "Integrals"
   },
   {
@@ -3316,7 +3319,7 @@
     "Subtitle": "",
     "Example": "(iii) $\\int{\\frac{\\tan^4 \\sqrt{x} \\cdot \\sec^2 \\sqrt{x}}{\\sqrt{x}}\\;dx}$",
     "Solution": "(iii) $\\int{\\frac{\\tan^4 \\sqrt{x} \\cdot \\sec^2 \\sqrt{x}}{\\sqrt{x}}\\;dx}$\n$= \\frac{2}{5} \\tan^5 \\sqrt{x} + C$",
-    "Final_answer": "(iii) ∫$\\displaystyle \\frac{\\tan^4 \\sqrt{x} * \\sec^2 \\sqrt{x}}{\\sqrt{x}} dx = \\frac{2}{5} \\tan^5 \\sqrt{x} + C$",
+    "Final_answer": "(iii) $\\displaystyle \\int \\frac{\\tan^4 \\sqrt{x} \\, \\sec^2 \\sqrt{x}}{\\sqrt{x}} \\, dx = \\frac{2}{5} \\tan^5 \\sqrt{x} + C$",
     "chapter": "Integrals"
   },
   {
@@ -3324,7 +3327,7 @@
     "Subtitle": "",
     "Example": "(iv) $\\int{\\frac{\\sin(\\arctan(x))}{1 + x^2}\\;dx}$",
     "Solution": "(iv) $\\int{\\frac{\\sin(\\arctan(x))}{1 + x^2}\\;dx}$\n$= -\\cos(\\arctan(x)) + C$",
-    "Final_answer": "(iv) ∫$\\displaystyle \\frac{\\sin(\\arctan x)}{1 + x^2} dx = -\\cos(\\arctan x) + C$",
+    "Final_answer": "(iv) $\\displaystyle \\int \\frac{\\sin(\\arctan x)}{1 + x^2} \\, dx = -\\cos(\\arctan x) + C$",
     "chapter": "Integrals"
   },
   {
@@ -3363,7 +3366,7 @@
     "Title": "Integrals",
     "Subtitle": "",
     "Example": "$\\int \\frac{dx}{(x+1)(x+2)}$",
-    "Solution": "The integrand is a proper rational function. By partial fractions we write\n$\\frac{1}{(x+1)(x+2)} = \\frac{A}{x+1} + \\frac{B}{x+2}$\nwith constants $A,B$.\nFrom$1 = A(x+2)+B(x+1)$ we get $A=1,\\;B=-1$.\nHence$\\frac{1}{(x+1)(x+2)} = \\frac{1}{x+1}-\\frac{1}{x+2}$\nTherefore$\\int \\frac{dx}{(x+1)(x+2)}$\n$= \\ln|x+1|-\\ln|x+2|+C = \\ln\\left|\\frac{x+1}{x+2}\\right|+C$",
+    "Solution": "The integrand is a proper rational function. By partial fractions we write\n$\\frac{1}{(x+1)(x+2)} = \\frac{A}{x+1} + \\frac{B}{x+2}$\nwith constants $A,B$.\nFrom $1 = A(x+2)+B(x+1)$ we get $A=1,\\;B=-1$.\nHence $\\frac{1}{(x+1)(x+2)} = \\frac{1}{x+1}-\\frac{1}{x+2}$\nTherefore $\\int \\frac{dx}{(x+1)(x+2)}$\n$= \\ln|x+1|-\\ln|x+2|+C = \\ln\\left|\\frac{x+1}{x+2}\\right|+C$",
     "Final_answer": "$\\displaystyle \\int \\frac{dx}{(x+1)(x+2)} = \\ln\\left|\\frac{x+1}{x+2}\\right|+C$",
     "chapter": "Integrals"
   },
@@ -3371,7 +3374,7 @@
     "Title": "Integrals",
     "Subtitle": "",
     "Example": "$\\int{\\frac{x^{2}+1}{x^{2}-5x+6}\\,dx}$",
-    "Solution": "Because $\\dfrac{x^{2}+1}{x^{2}-5x+6}$ is improper, divide to get\n$\\frac{x^{2}+1}{x^{2}-5x+6}=1+\\frac{5x-5}{(x-2)(x-3)}$\nPut$\\frac{5x-5}{(x-2)(x-3)} = \\frac{A}{x-2}+\\frac{B}{x-3}$\nYou get$A=-5,\\;B=10$\nThus$\\frac{x^{2}+1}{x^{2}-5x+6}=1-\\frac{5}{x-2}+\\frac{10}{x-3}$\nHence$\\int \\frac{x^{2}+1}{x^{2}-5x+6}\\,dx$\n$= x-5\\ln|x-2|+10\\ln|x-3|+C$",
+    "Solution": "Because $\\dfrac{x^{2}+1}{x^{2}-5x+6}$ is improper, divide to get\n$\\frac{x^{2}+1}{x^{2}-5x+6}=1+\\frac{5x-5}{(x-2)(x-3)}$\nPut $\\frac{5x-5}{(x-2)(x-3)} = \\frac{A}{x-2}+\\frac{B}{x-3}$\nYou get $A=-5,\\;B=10$\nThus $\\frac{x^{2}+1}{x^{2}-5x+6}=1-\\frac{5}{x-2}+\\frac{10}{x-3}$\nHence $\\int \\frac{x^{2}+1}{x^{2}-5x+6}\\,dx$\n$= x-5\\ln|x-2|+10\\ln|x-3|+C$",
     "Final_answer": "$\\displaystyle \\int \\frac{x^{2}+1}{x^{2}-5x+6}\\,dx = x-5\\ln|x-2|+10\\ln|x-3|+C$",
     "chapter": "Integrals"
   },
@@ -3379,7 +3382,7 @@
     "Title": "Integrals",
     "Subtitle": "",
     "Example": "$\\int{\\frac{3x-2}{(x+1)^{2}(x+3)}\\,dx}$",
-    "Solution": "Decompose$\\frac{3x-2}{(x+1)^{2}(x+3)}=\\frac{A}{x+1}+\\frac{B}{(x+1)^{2}}+\\frac{C}{x+3}$\nwith $A=\\frac{11}{4},\\;B=-\\frac{5}{2},\\;C=-\\frac{11}{4}$\nHence$\\int \\frac{3x-2}{(x+1)^{2}(x+3)}\\,dx$\n$= \\frac{11}{4}\\ln|x+1| - \\frac{5}{x+1} - \\frac{11}{4}\\ln|x+3| + C$\n$\\;= \\frac{11}{4}\\ln\\left|\\frac{x+1}{x+3}\\right| + \\frac{5}{x+1} + C$",
+    "Solution": "Decompose $\\frac{3x-2}{(x+1)^{2}(x+3)}=\\frac{A}{x+1}+\\frac{B}{(x+1)^{2}}+\\frac{C}{x+3}$\nwith $A=\\frac{11}{4},\\;B=-\\frac{5}{2},\\;C=-\\frac{11}{4}$\nHence $\\int \\frac{3x-2}{(x+1)^{2}(x+3)}\\,dx$\n$= \\frac{11}{4}\\ln|x+1| - \\frac{5}{x+1} - \\frac{11}{4}\\ln|x+3| + C$\n$\\;= \\frac{11}{4}\\ln\\left|\\frac{x+1}{x+3}\\right| + \\frac{5}{x+1} + C$",
     "Final_answer": "$\\displaystyle \\int \\frac{3x-2}{(x+1)^{2}(x+3)}\\,dx = \\frac{11}{4}\\ln\\left|\\frac{x+1}{x+3}\\right|+\\frac{5}{x+1}+C$",
     "chapter": "Integrals"
   },
@@ -3387,7 +3390,7 @@
     "Title": "Integrals",
     "Subtitle": "",
     "Example": "$\\int{\\frac{x^{2}}{(x^{2}+1)(x^{2}+4)}\\,dx}$",
-    "Solution": "Put $y=x^{2}$, then$\\frac{x^{2}}{(x^{2}+1)(x^{2}+4)}=\\frac{y}{(y+1)(y+4)}=\\frac{A}{y+1}+\\frac{B}{y+4}$\nwith $A=-\\frac13,\\;B=\\frac43$\nThus$\\int \\frac{x^{2}}{(x^{2}+1)(x^{2}+4)}\\,dx$\n$=-\\frac13\\int \\frac{dx}{x^{2}+1}+\\frac43\\int \\frac{dx}{x^{2}+4}$\n$=-\\frac13\\tan^{-1}x+\\frac23\\tan^{-1}\\frac{x}{2}+C$",
+    "Solution": "Put $y=x^{2}$, then $\\frac{x^{2}}{(x^{2}+1)(x^{2}+4)}=\\frac{y}{(y+1)(y+4)}=\\frac{A}{y+1}+\\frac{B}{y+4}$\nwith $A=-\\frac13,\\;B=\\frac43$\nThus $\\int \\frac{x^{2}}{(x^{2}+1)(x^{2}+4)}\\,dx$\n$=-\\frac13\\int \\frac{dx}{x^{2}+1}+\\frac43\\int \\frac{dx}{x^{2}+4}$\n$=-\\frac13\\tan^{-1}x+\\frac23\\tan^{-1}\\frac{x}{2}+C$",
     "Final_answer": "$\\displaystyle \\int \\frac{x^{2}}{(x^{2}+1)(x^{2}+4)}\\,dx = -\\frac13\\tan^{-1}x+\\frac23\\tan^{-1}\\frac{x}{2}+C$",
     "chapter": "Integrals"
   },
@@ -3395,7 +3398,7 @@
     "Title": "Integrals",
     "Subtitle": "",
     "Example": "$\\int \\frac{(3\\sin\\phi-2)\\cos\\phi}{5-\\cos^{2}\\phi-4\\sin\\phi}\\,d\\phi$",
-    "Solution": "Put $y=\\sin\\phi$. Then\n$\\int \\frac{(3\\sin\\phi-2)\\cos\\phi}{5-\\cos^{2}\\phi-4\\sin\\phi}\\,d\\phi$\n$= \\int \\frac{3y-2}{(y-2)^{2}}\\,dy$\nWrite $\\frac{3y-2}{(y-2)^{2}} = \\frac{3}{y-2}+\\frac{4}{(y-2)^{2}}$\ngiving$3\\int \\frac{dy}{y-2}+4\\int \\frac{dy}{(y-2)^{2}}$\n$= 3\\ln|y-2|+\\frac{4}{2-y}+C$\nSince $y=\\sin\\phi$, this equals $3\\ln(2-\\sin\\phi)+\\frac{4}{2-\\sin\\phi}+C$",
+    "Solution": "Put $y=\\sin\\phi$. Then\n$\\int \\frac{(3\\sin\\phi-2)\\cos\\phi}{5-\\cos^{2}\\phi-4\\sin\\phi}\\,d\\phi$\n$= \\int \\frac{3y-2}{(y-2)^{2}}\\,dy$\nWrite $\\frac{3y-2}{(y-2)^{2}} = \\frac{3}{y-2}+\\frac{4}{(y-2)^{2}}$\ngiving $3\\int \\frac{dy}{y-2}+4\\int \\frac{dy}{(y-2)^{2}}$\n$= 3\\ln|y-2|+\\frac{4}{2-y}+C$\nSince $y=\\sin\\phi$, this equals $3\\ln(2-\\sin\\phi)+\\frac{4}{2-\\sin\\phi}+C$",
     "Final_answer": "$\\displaystyle \\int \\frac{(3\\sin\\phi-2)\\cos\\phi}{5-\\cos^{2}\\phi-4\\sin\\phi}\\,d\\phi = 3\\ln(2-\\sin\\phi)+\\frac{4}{2-\\sin\\phi}+C$",
     "chapter": "Integrals"
   },
@@ -3451,7 +3454,7 @@
     "Title": "Integrals",
     "Subtitle": "",
     "Example": "(i) $\\displaystyle \\int e^{x}\\left(\\tan^{-1}x+\\frac{1}{1+x^{2}}\\right)\\,dx$\n(ii) $\\displaystyle \\int \\frac{(x^{2}+1)e^{x}}{(x+1)^{2}}dx$",
-    "Solution": "(i) Since $f(x)=\\tan^{-1}x$ satisfies $f'(x)=\\frac{1}{1+x^{2}}$, the integrand is $e^{x}\\left(f+f'\\right)$\nSo$\\displaystyle \\int e^{x}\\left(\\tan^{-1}x+\\frac{1}{1+x^{2}}\\right)dx$\n$= e^{x}\\tan^{-1}x + C.$\n(ii) Writing\n$\\dfrac{x^{2}+1}{(x+1)^{2}} = \\dfrac{x-1}{x+1}+\\dfrac{2}{(x+1)^{2}}$\ngives $f(x)=\\dfrac{x-1}{x+1}$ with $f'=\\dfrac{2}{(x+1)^{2}}$\n$\\displaystyle \\therefore \\int \\frac{(x^{2}+1)e^{x}}{(x+1)^{2}}dx = \\frac{x-1}{x+1}e^{x}+C.$",
+    "Solution": "(i) Since $f(x)=\\tan^{-1}x$ satisfies $f'(x)=\\frac{1}{1+x^{2}}$, the integrand is $e^{x}\\left(f+f'\\right)$\nSo $\\displaystyle \\int e^{x}\\left(\\tan^{-1}x+\\frac{1}{1+x^{2}}\\right)dx$\n$= e^{x}\\tan^{-1}x + C.$\n(ii) Writing\n$\\dfrac{x^{2}+1}{(x+1)^{2}} = \\dfrac{x-1}{x+1}+\\dfrac{2}{(x+1)^{2}}$\ngives $f(x)=\\dfrac{x-1}{x+1}$ with $f'=\\dfrac{2}{(x+1)^{2}}$\n$\\displaystyle \\therefore \\int \\frac{(x^{2}+1)e^{x}}{(x+1)^{2}}dx = \\frac{x-1}{x+1}e^{x}+C.$",
     "Final_answer": "(i) $\\displaystyle \\int e^{x}\\left(\\tan^{-1}x+\\frac{1}{1+x^{2}}\\right)dx = e^{x}\\tan^{-1}x + C$\n(ii) $\\displaystyle \\int \\frac{(x^{2}+1)e^{x}}{(x+1)^{2}}dx = \\frac{x-1}{x+1}e^{x} + C$",
     "chapter": "Integrals"
   },
@@ -3467,7 +3470,7 @@
     "Title": "Integrals",
     "Subtitle": "",
     "Example": "(ii) $\\displaystyle \\int_{4}^{9} \\frac{\\sqrt{x}}{\\left(30-x^{3/2}\\right)^{2}}dx$",
-    "Solution": "Put $t=30-x^{3/2}$ so $dt=-\\frac{3}{2}\\sqrt{x}\\,dx$\nThen$\\int \\frac{\\sqrt{x}}{(30-x^{3/2})^{2}}dx = -\\frac{2}{3}\\int t^{-2}dt$\n$ = \\frac{2}{3t}+C$\nEvaluate from $x=4$ to $x=9$ to get $\\dfrac{19}{99}.$",
+    "Solution": "Put $t=30-x^{3/2}$ so $dt=-\\frac{3}{2}\\sqrt{x}\\,dx$\nThen $\\int \\frac{\\sqrt{x}}{(30-x^{3/2})^{2}}dx = -\\frac{2}{3}\\int t^{-2}dt$\n$ = \\frac{2}{3t}+C$\nEvaluate from $x=4$ to $x=9$ to get $\\dfrac{19}{99}.$",
     "Final_answer": "(ii) $\\displaystyle \\int_{4}^{9} \\frac{\\sqrt{x}}{\\left(30-x^{3/2}\\right)^{2}}dx = \\frac{19}{99}$",
     "chapter": "Integrals"
   },
@@ -3475,7 +3478,7 @@
     "Title": "Integrals",
     "Subtitle": "",
     "Example": "(iii) $\\displaystyle \\int_{1}^{2} \\frac{x}{(x+1)(x+2)}dx$",
-    "Solution": "Partial fractions give\n$\\dfrac{x}{(x+1)(x+2)}=-\\dfrac{1}{x+1}+\\dfrac{2}{x+2}$\nHence$\\int_{1}^{2}\\frac{x}{(x+1)(x+2)}dx$\n$= \\left[-\\ln|x+1|+2\\ln|x+2|\\right]_{1}^{2}$\n$\\;\\,=\\ln\\left(\\frac{32}{27}\\right)$",
+    "Solution": "Partial fractions give\n$\\dfrac{x}{(x+1)(x+2)}=-\\dfrac{1}{x+1}+\\dfrac{2}{x+2}$\nHence $\\int_{1}^{2}\\frac{x}{(x+1)(x+2)}dx$\n$= \\left[-\\ln|x+1|+2\\ln|x+2|\\right]_{1}^{2}$\n$\\;\\,=\\ln\\left(\\frac{32}{27}\\right)$",
     "Final_answer": "(iii) $\\displaystyle \\int_{1}^{2} \\frac{x}{(x+1)(x+2)}dx = \\ln\\left(\\frac{32}{27}\\right)$",
     "chapter": "Integrals"
   },
@@ -3523,7 +3526,7 @@
     "Title": "Integrals",
     "Subtitle": "",
     "Example": "Find $\\int \\cos 6x\\,\\sqrt{1+\\sin 6x}\\,dx$",
-    "Solution": "Set $t=1+\\sin6x\\;(dt=6\\cos6x\\,dx)$ to get$\\int \\cos6x\\,\\sqrt{1+\\sin6x}\\,dx$\n$= \\frac16\\int t^{1/2}dt = \\frac19t^{3/2}+C$\n$= \\frac19(1+\\sin6x)^{3/2}+C$",
+    "Solution": "Set $t=1+\\sin6x\\;(dt=6\\cos6x\\,dx)$ to get $\\int \\cos6x\\,\\sqrt{1+\\sin6x}\\,dx$\n$= \\frac16\\int t^{1/2}dt = \\frac19t^{3/2}+C$\n$= \\frac19(1+\\sin6x)^{3/2}+C$",
     "Final_answer": "$\\displaystyle \\int \\cos 6x\\,\\sqrt{1+\\sin 6x}\\,dx = \\frac19(1+\\sin 6x)^{3/2}+C$",
     "chapter": "Integrals"
   },
@@ -3531,7 +3534,7 @@
     "Title": "Integrals",
     "Subtitle": "",
     "Example": "Find $\\displaystyle \\int \\frac{(x^{4}-x)^{1/4}}{x^{5}}\\,dx$",
-    "Solution": "Put $t=1-x^{-3}$ so $dt=\\frac{3}{x^{4}}dx$\nThen$\\int \\frac{(x^{4}-x)^{1/4}}{x^{5}}dx = \\frac13\\int t^{1/4}dt$\n$\\;\\;= \\frac{4}{15}t^{5/4}+C$\n$ = \\frac{4}{15}\\left(1-\\frac{1}{x^{3}}\\right)^{5/4}+C$",
+    "Solution": "Put $t=1-x^{-3}$ so $dt=\\frac{3}{x^{4}}dx$\nThen $\\int \\frac{(x^{4}-x)^{1/4}}{x^{5}}dx = \\frac13\\int t^{1/4}dt$\n$\\;\\;= \\frac{4}{15}t^{5/4}+C$\n$ = \\frac{4}{15}\\left(1-\\frac{1}{x^{3}}\\right)^{5/4}+C$",
     "Final_answer": "$\\displaystyle \\int \\frac{(x^{4}-x)^{1/4}}{x^{5}}\\,dx = \\frac{4}{15}\\left(1-\\frac{1}{x^{3}}\\right)^{5/4}+C$",
     "chapter": "Integrals"
   },
@@ -3563,7 +3566,7 @@
     "Title": "Integrals",
     "Subtitle": "",
     "Example": "Find $\\displaystyle \\int \\frac{\\sin2x\\,\\cos2x}{\\sqrt{9-\\cos^{4}2x}}dx$",
-    "Solution": "Put $t=\\cos^{2}2x$\nThen $dt=-4\\sin2x\\cos2x\\,dx$\nand$\\int \\frac{\\sin2x\\,\\cos2x}{\\sqrt{9-\\cos^{4}2x}}dx = -\\frac14\\int \\frac{dt}{\\sqrt{9-t^{2}}}$\n$= -\\frac14\\sin^{-1}\\left(\\frac{t}{3}\\right)+C$\n$= -\\frac14\\sin^{-1}\\left(\\frac{\\cos^{2}2x}{3}\\right)+C$",
+    "Solution": "Put $t=\\cos^{2}2x$\nThen $dt=-4\\sin2x\\cos2x\\,dx$\nand $\\int \\frac{\\sin2x\\,\\cos2x}{\\sqrt{9-\\cos^{4}2x}}dx = -\\frac14\\int \\frac{dt}{\\sqrt{9-t^{2}}}$\n$= -\\frac14\\sin^{-1}\\left(\\frac{t}{3}\\right)+C$\n$= -\\frac14\\sin^{-1}\\left(\\frac{\\cos^{2}2x}{3}\\right)+C$",
     "Final_answer": "$\\displaystyle \\int \\frac{\\sin2x\\,\\cos2x}{\\sqrt{9-\\cos^{4}2x}}dx = -\\frac14\\sin^{-1}\\left(\\frac{\\cos^{2}2x}{3}\\right)+C$",
     "chapter": "Integrals"
   },

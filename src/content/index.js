@@ -1,23 +1,15 @@
 import cbseQuestions from '../mathTopics/CBSEMath12fc_fixed.json';
 import aaTopics from '../mathTopics/IBMathAATopicData.json';
 import aiTopics from '../mathTopics/IBMathAITopicData.json';
+import { hashText } from '../lib/hash';
 
 // Every bundled question in one shape:
 //   { id, courseKey, topicKey, number, label, prompt, answer, solution, calculator }
 // `calculator` is true/false for IB questions (Paper 2/Paper 1 style) and null for CBSE.
 
-// A short id derived from the question's text (32-bit FNV-1a in base 36), so saved
-// progress stays attached to the right question when questions are added or reordered.
-export function hashText(text) {
-  /* eslint-disable no-bitwise -- a hash is bit arithmetic */
-  let hash = 0x811c9dc5;
-  for (let index = 0; index < text.length; index += 1) {
-    hash ^= text.charCodeAt(index);
-    hash = Math.imul(hash, 0x01000193) >>> 0;
-  }
-  /* eslint-enable no-bitwise */
-  return hash.toString(36);
-}
+// Ids are hashes of the question's text, so saved progress stays attached to the right
+// question when questions are added or reordered.
+export { hashText };
 
 // NCERT order, so chapters appear the way they are taught. Probability, Relations and
 // Functions, and 3D Geometry have examples from both classes. Chapters missing from
@@ -58,9 +50,11 @@ const CBSE_CHAPTERS = [
 
 const questionsById = new Map();
 
-function addQuestion(question, idPrefix, idSource) {
+// A question's id comes from its text. A question whose wording has been corrected
+// keeps its old id, given in the data as `id`, so progress saved for it isn't lost.
+function addQuestion(question, idPrefix, idSource, savedId) {
   // Two identical questions in one course would share an id; number the repeats.
-  let id = `${idPrefix}${hashText(idSource)}`;
+  let id = savedId || `${idPrefix}${hashText(idSource)}`;
   for (let repeat = 2; questionsById.has(id); repeat += 1) {
     id = `${idPrefix}${hashText(idSource)}-${repeat}`;
   }
@@ -98,6 +92,7 @@ function buildIBCourse(key, idPrefix, topics, details) {
           },
           idPrefix,
           `${topic.topicNumber}\n${question.question}`,
+          question.id,
         ),
       ),
     })),
@@ -145,6 +140,7 @@ function buildCBSECourse() {
           },
           'c',
           `${key}\n${question.Example}`,
+          question.id,
         ),
       ),
     })),

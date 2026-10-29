@@ -22,8 +22,10 @@ src/
   navigation/                Root stack (switches on auth state) and the glass tab bar
   screens/                   Sign in/up, forgot password, profile form, home, course, topic, practice,
                              search, tutor, question tutor, profile
-  components/                Shared UI (glass, lists, buttons, rings, icons) and MathText
-                             (text with $...$ / $$...$$ formulas)
+  components/                Shared UI (glass, lists, buttons, rings, icons), MathText
+                             (text with $...$ / $$...$$ formulas) and MathView (one formula)
+  math/                      The maths engine (MathJax 4: TeX → drawing), its font files,
+                             and the prepared sizes of the bundled formulas
   study/                     Progress, spaced repetition, streaks and daily goal (saved to the account)
   theme.js                   Light and dark colours, text styles and corner radii
   services/                  Profile rows and the AI tutor client
@@ -32,7 +34,8 @@ src/
   mathTopics/                Question data (JSON)
 appwrite/functions/          Server code: ask-ai (OpenAI proxy) and delete-account
 web/reset-password/          Static page that completes password resets
-scripts/                     Content validation/repair, icon generation, profile migration
+scripts/                     Content validation/repair, maths preparation, icon generation,
+                             profile migration
 __tests__/                   Jest tests (auth flows, screens, functions, content)
 ```
 
@@ -148,7 +151,8 @@ Put the two function IDs in `.env`.
 | --- | --- |
 | `npm test` | Unit, screen-flow, function and content tests |
 | `npm run lint` | ESLint |
-| `npm run validate:content` | Checks every question has its fields and every formula parses |
+| `npm run validate:content` | Checks every question has its fields, every formula draws with the app's maths engine, and the prepared sizes are up to date |
+| `npm run prepare:math` | Saves the size of every bundled formula to `src/math/sizes.json` (run after editing questions) |
 | `node scripts/repair-cbse-data.mjs` | Re-applies the automatic CBSE data repairs (safe to re-run) |
 | `python3 scripts/generate-app-icons.py [art.png]` | Regenerates the app icons (needs Pillow) |
 | `node scripts/migrate-profile-permissions.mjs` | One-time profile permission migration (see above) |
@@ -158,7 +162,18 @@ Put the two function IDs in `.env`.
 - `src/mathTopics/CBSEMath12fc_fixed.json`: CBSE questions. Each entry has `Title` (chapter), `Subtitle` (concept, optional), `Example` (question), `Solution`, `Final_answer` (optional) and `chapter` (same as `Title`).
 - `src/mathTopics/IBMathAATopicData.json` and `IBMathAITopicData.json`: IB topics with `topicNumber`, `topic`, `level` and `questions` (`subtopic`, `question`, `answer`, `working`, `calculator: "yes" | "no"`).
 - Maths is written in LaTeX: `$...$` inline and `$$...$$` on its own line. Inside JSON every backslash must be doubled (`"\\frac{1}{2}"`); a single backslash silently turns `\frac` or `\neq` into control characters.
-- Run `npm run validate:content` after editing; it reports the exact question and formula that fails.
+- Put all maths inside `$...$`, including symbols such as ∫, √ or ∩, and words inside maths in `\text{...}` (`$P(\text{not an ace})$`). Leave a space between a formula and the words next to it.
+- A question's id (used for saved progress and bookmarks) is made from its text. When you correct the wording of a question that has been released, keep its old id by adding it to the question as `"id"`.
+- After editing, run `npm run prepare:math` and then `npm run validate:content`; the check reports the exact question and formula that fails.
+
+### How maths is drawn
+
+`src/math/engine.js` turns TeX into drawing instructions with [MathJax 4](https://www.mathjax.org/) (SVG output, New Computer Modern font), and `MathView` draws them with `react-native-svg`, so formulas look the same on every device and need no web view. The same engine runs in Node for `prepare:math` and `validate:content`, so what the check passes is what the app shows.
+
+- Inline formulas sit on the text baseline. One that doesn't fit at the end of a line moves to the next line whole; one wider than a line breaks between its parts (before `=` or `+`, after the commas of a list, never inside brackets), and one that can't break like that is set on lines of its own.
+- Display formulas a little too wide are drawn slightly smaller; wider ones are broken into lines, and anything that still doesn't fit (such as a large matrix) scrolls sideways.
+- Formulas follow the system text size. Each one is converted a moment after it first appears (a few milliseconds each, a few at a time) and kept for reuse; the bundled questions' sizes are known in advance, so the page doesn't jump while they are drawn.
+- The font's extra character files (arrows, script and double-struck letters, ...) are bundled; other scripts and monospace letters would fall back to plain text, which the content check reports.
 
 ## Releasing
 

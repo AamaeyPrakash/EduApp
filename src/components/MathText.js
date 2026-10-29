@@ -1,4 +1,4 @@
-import React, { Component, useMemo } from 'react';
+import React, { Component, useMemo, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { type, useTheme } from '../theme';
 import { parseMathContent } from '../lib/mathContent';
@@ -20,8 +20,8 @@ const spokenLine = tokens =>
     )
     .join('');
 
-// If anything goes wrong while drawing formulas, show the raw text instead of crashing
-// the whole screen.
+// If anything goes wrong while drawing formulas, show the plain text instead of
+// crashing the whole screen.
 class MathErrorBoundary extends Component {
   state = { failed: false };
 
@@ -40,7 +40,7 @@ class MathErrorBoundary extends Component {
   }
 }
 
-function Line({ tokens, textStyle, color }) {
+function Line({ tokens, textStyle, color, width }) {
   if (tokens.length === 0) {
     return <View style={styles.paragraphGap} />;
   }
@@ -60,26 +60,22 @@ function Line({ tokens, textStyle, color }) {
         next?.type === 'text'
           ? next.value.match(LEADING_PUNCTUATION)?.[0]
           : null;
-      const formula = (
+      carried = punctuation || '';
+      items.push(
         <MathView
           key={`math-${tokenIndex}`}
           math={token.value}
+          maxWidth={width}
           style={styles.inlineMath}
-        />
+          after={
+            punctuation ? (
+              <Text style={[styles.text, { color }, textStyle]}>
+                {punctuation}
+              </Text>
+            ) : null
+          }
+        />,
       );
-      if (punctuation) {
-        carried = punctuation;
-        items.push(
-          <View key={`math-${tokenIndex}`} style={styles.attached}>
-            {formula}
-            <Text style={[styles.text, { color }, textStyle]}>
-              {punctuation}
-            </Text>
-          </View>,
-        );
-      } else {
-        items.push(formula);
-      }
       return;
     }
     const text = token.value.slice(carried.length);
@@ -106,10 +102,12 @@ function Line({ tokens, textStyle, color }) {
   );
 }
 
-// Text with TeX formulas, e.g. "Solve $x^2 = 4$" or "$$\int_0^1 x\,dx$$".
+// Text with TeX formulas, e.g. "Solve $x^2 = 4$" or "$$\int_0^1 x\,dx$$". Formulas sit
+// on the text's baseline, and display formulas are broken into lines to fit the width.
 export default function MathText({ content, style, textStyle }) {
   const { colors } = useTheme();
   const blocks = useMemo(() => parseMathContent(content), [content]);
+  const [width, setWidth] = useState(undefined);
   return (
     <MathErrorBoundary
       fallback={
@@ -118,7 +116,10 @@ export default function MathText({ content, style, textStyle }) {
         </Text>
       }
     >
-      <View style={[styles.container, style]}>
+      <View
+        style={[styles.container, style]}
+        onLayout={event => setWidth(event.nativeEvent.layout.width)}
+      >
         {blocks.map((block, index) =>
           block.type === 'display' ? (
             <View
@@ -127,7 +128,7 @@ export default function MathText({ content, style, textStyle }) {
               accessible
               accessibilityLabel={texToSpeech(block.math)}
             >
-              <MathView math={block.math} display />
+              <MathView math={block.math} display maxWidth={width} />
             </View>
           ) : (
             <Line
@@ -135,6 +136,7 @@ export default function MathText({ content, style, textStyle }) {
               tokens={block.tokens}
               textStyle={textStyle}
               color={colors.label}
+              width={width}
             />
           ),
         )}
@@ -151,18 +153,14 @@ const styles = StyleSheet.create({
     ...type.body,
     lineHeight: 25,
   },
+  // Words and formulas line up on the text baseline.
   inlineRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    alignItems: 'center',
+    alignItems: 'baseline',
   },
   inlineMath: {
     marginHorizontal: 2,
-  },
-  attached: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    maxWidth: '100%',
   },
   displayRow: {
     width: '100%',
